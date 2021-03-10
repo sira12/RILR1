@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Afectacion;
+use App\Models\Documento;
+use App\Models\Barrio;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
@@ -19,7 +22,15 @@ class RegisteredUserController extends Controller
      */
     public function create()
     {
-        return view('auth.register');
+        $afectacion=Afectacion::all();
+        $tipo_documento=Documento::all();
+        
+
+        
+        return view('auth.reggister',[
+        'afectacion' => $afectacion,
+        'tipo_doc'=>$tipo_documento
+        ]);
     }
 
     /**
@@ -33,13 +44,13 @@ class RegisteredUserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
+            'usuario' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|confirmed|min:8',
         ]);
 
         Auth::login($user = User::create([
-            'name' => $request->name,
+            'usuario' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]));

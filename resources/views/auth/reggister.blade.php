@@ -23,11 +23,11 @@
     <!-- Sweet-Alert -->
     <link rel="stylesheet" href="{{ asset('assets/css/sweetalert.css')}}">
     <!-- animation CSS -->
-    <link href="{{ asset(assets/css/animate.css')}}" rel="stylesheet">
+    <link href="{{ asset('assets/css/animate.css')}}" rel="stylesheet">
     <!-- needed css -->
-    <link href="{{ asset(assets/css/style.css'')}}" rel="stylesheet">
+    <link href="{{ asset('assets/css/style.css')}}" rel="stylesheet">
     <!-- color CSS -->
-    <link href="{{ asset(assets/css/default.css')}}" id="theme" rel="stylesheet">
+    <link href="{{ asset('assets/css/default.css')}}" id="theme" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -186,7 +186,7 @@
                 <!-- ============================================================== -->
 
                 <form class="form form-material" method="post" action="#" name="saveinicio" id="saveinicio" enctype="multipart/form-data">
-
+                @csrf
                     <!-- Row -->
                     <div class="row">
                         <div class="col-lg-12">
@@ -230,7 +230,7 @@
                                                 <div class="form-group has-feedback">
                                                     <label class="control-label">Nombre de Barrio: <span style="cursor: pointer;" class="mdi mdi-alert-circle text-danger" data-container="body" title="Notificación: Ingrese Nombre de Barrio y seleccione en el Listado que se mostrará, en caso de no aparecer, escribala y el sistema se encargará de la asignación del mismo."></span><span class="symbol required"></span></label>
                                                     <input type="hidden" name="id_barrio" id="id_barrio" />
-                                                    <input type="text" class="form-control" name="search_barrio" id="search_barrio" placeholder="Ingrese Nombre de Barrio" autocomplete="off" required="" aria-required="true" />
+                                                    <input type="text" class="form-control" name="search_barrio" id="search_barrio" onchange="getBarrios(value)" placeholder="Ingrese Nombre de Barrio" autocomplete="off" required="" aria-required="true" />
                                                     <i class="fa fa-search form-control-feedback"></i>
                                                 </div>
                                             </div>
@@ -264,9 +264,12 @@
                                                 <div class="form-group has-feedback">
                                                     <label class="control-label">Relación con la Industria: <span class="symbol required"></span></label>
                                                     <i class="fa fa-bars form-control-feedback"></i>
-                                                    <select name="id_tipo_de_afectacion" id="id_tipo_de_afectacion" onChange="TipoAfectacion(this.form.id_tipo_de_afectacion.value);" class="form-control" required="" aria-required="true">
+                                                    <select name="id_tipo_de_afectacion" id="id_tipo_de_afectacion" <!--onChange="TipoAfectacion(this.form.id_tipo_de_afectacion.value);" class="form-control" required="" aria-required="true">
                                                         <option value=""> -- SELECCIONE -- </option>
-                                                        
+                                                        @foreach($afectacion as $afect)
+                                                        <option value="{{$afect->id_tipo_de_afectacion}}">{{$afect->tipo_de_afectacion}}</option>
+                                                        @endforeach
+
                                                     </select>
                                                 </div>
                                             </div>
@@ -277,7 +280,9 @@
                                                     <i class="fa fa-bars form-control-feedback"></i>
                                                     <select name="id_tipo_de_documento" id="id_tipo_de_documento" class="form-control" required="" aria-required="true">
                                                         <option value=""> -- SELECCIONE -- </option>
-                                                        
+                                                        @foreach($tipo_doc as $tipo)
+                                                        <option value="{{$tipo->id_tipo_de_documento}}">{{$tipo->tipo_de_documento}}</option>
+                                                        @endforeach
                                                     </select>
                                                 </div>
                                             </div>
@@ -410,49 +415,67 @@
     <!-- ============================================================== -->
     <!-- All Jquery -->
     <!-- ============================================================== -->
-    <script src="{{ asset(assets/script/jquery.min.js')}}"></script>
-    <script src="{{ asset(assets/js/popper.min.js')}}"></script>
-    <script src="assets/js/bootstrap.js"></script>
+    <script src="{{ asset('assets/script/jquery.min.js')}}"></script>
+    <script src="{{ asset('assets/js/popper.min.js')}}"></script>
+    <script src="{{ asset('assets/js/bootstrap.js')}}"></script>
     <!-- apps -->
-    <script src="{{ asset('assets/js/app.min.js"></script>
-    <script src="{{ asset('assets/js/app.init.horizontal-fullwidth.js"></script>
-    <script src="{{ asset('assets/js/app-style-switcher.js"></script>
-    <!-- slimscro{{ asset('llbar scrollbar JavaScript -->
-    <script src="{{ asset('assets/js/perfect-scrollbar.js"></script>
-    <script src="{{ asset('assets/js/sparkline.js"></script>
-    <!--Wave Effe{{ asset('cts -->
-    <script src="{{ asset('assets/js/waves.js"></script>
-    <!-- Sweet-Al{{ asset('ert -->
-    <script src="{{ asset('assets/js/sweetalert-dev.js"></script>
-    <!--Menu side{{ asset('bar -->
-    <script src="{{ asset('assets/js/sidebarmenu.js"></script>
-    <!--Custom Ja{{ asset('vaScript -->
-    <script src="{{ asset('assets/js/custom.js"></script>
+    <script src="{{ asset('assets/js/app.min.js')}}"></script>
+    <script src="{{ asset('assets/js/app.init.horizontal-fullwidth.js')}}"></script>
+    <script src="{{ asset('assets/js/app-style-switcher.js')}}"></script>
+    <!-- slimscrollbar scrollbar JavaScript -->
+    <script src="{{ asset('assets/js/perfect-scrollbar.js')}}"></script>
+    <script src="{{ asset('assets/js/sparkline.js')}}"></script>
+    <!--Wave Effects -->
+    <script src="{{ asset('assets/js/waves.js')}}"></script>
+    <!-- Sweet-Alert -->
+    <script src="{{ asset('assets/js/sweetalert-dev.js')}}"></script>
+    <!--Menu sidebar -->
+    <script src="{{ asset('assets/js/sidebarmenu.js')}}"></script>
+    <!--Custom JavaScript -->
+    <script src="{{ asset('assets/js/custom.js')}}"></script>
 
     <!-- Custom file upload -->
-    <script src="{{ asset('assets/plugins/fileupload/bootstrap-fileupload.min.js"></script>
+    <script src="{{ asset('assets/plugins/fileupload/bootstrap-fileupload.min.js')}}"></script>
 
     <!-- script jquery -->
-    <script type="text/javascript" src="assets/script/titulos.js"></script>
-    <script type="text/javascript" src="assets/js/inputmask.bundle.min.js"></script>
-    <script type="text/javascript" src="assets/script/mask.js"></script>
-    <script type="text/javascript" src="assets/script/password.js"></script>
-    <script type="text/javascript" src="assets/script/script2.js"></script>
-    <script type="text/javascript" src="assets/script/validation.min.js"></script>
-    <script type="text/javascript" src="assets/script/script.js"></script>
+    <script type="text/javascript" src="{{ asset('assets/script/titulos.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/inputmask.bundle.min.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('assets/script/mask.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('assets/script/password.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('assets/script/script2.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('assets/script/validation.min.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('assets/script/script.js')}}"></script>
     <!-- script jquery -->
 
     <!-- Calendario -->
-    <link rel="stylesheet" href="assets/calendario/jquery-ui.css" />
-    <script src="assets/calendario/jquery-ui.js"></script>
-    <script src="assets/script/jscalendario.js"></script>
-    <script src="assets/script/autocompleto.js"></script>
+    <link rel="stylesheet" href="{{ asset('assets/calendario/jquery-ui.css')}}" />
+    <script src="{{ asset('assets/calendario/jquery-ui.js')}}"></script>
+    <script src="{{ asset('assets/script/jscalendario.js')}}"></script>
+    <script src="{{ asset('assets/script/autocompleto.js')}}"></script>
     <!-- Calendario -->
 
     <!-- jQuery -->
-    <script src="assets/plugins/noty/packaged/jquery.noty.packaged.min.js"></script>
-    <script type="text/javascript" src="assets/plugins/timepicker/jquery-ui-timepicker-addon.js"></script>
+    <script src="{{ asset('assets/plugins/noty/packaged/jquery.noty.packaged.min.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('assets/plugins/timepicker/jquery-ui-timepicker-addon.js')}}"></script>
     <!-- jQuery -->
+
+
+    <script type="text/javascript">
+       function getBarrios(value){
+
+        $.ajax({
+                    url: "{{ url('/barrios') }}",
+                    type:'POST',
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        value
+                    },
+                    success: function(data) {
+                       response(data)
+                    }
+                });
+       }
+    </script>
 
 </body>
 

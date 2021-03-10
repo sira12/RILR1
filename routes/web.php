@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BarrioController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,4 +27,12 @@ require __DIR__.'/auth.php';
 Route::get('/', function () {
     return view('auth.loggin');
 });
+
+
+Route::get('/reggister', function () {
+    return view('auth.reggister');
+});
+
+
+Route::post('/barrios',[BarrioController::class,'getBarrios']);
 
