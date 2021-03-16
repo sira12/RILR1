@@ -22,4 +22,11 @@ class Barrio extends Model
      * @var string
      */
     protected $primaryKey = 'id_barrio';
+
+    /**
+     * Indicates if the model should be timestamped.
+     *
+     * @var bool
+     */
+    public $timestamps = false;
 }

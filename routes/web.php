@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BarrioController;
+use App\Http\Controllers\CalleController;
+use App\Http\Controllers\ProvinciaController;
+use App\Http\Controllers\LocalidadController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +36,10 @@ Route::get('/reggister', function () {
     return view('auth.reggister');
 });
 
+//########## Rutas Busquedas Autocomplete ################
 
 Route::post('/barrios',[BarrioController::class,'getBarrios']);
-
+Route::post('/calles',[CalleController::class,'getCalles']);
+Route::post('/provincias',[ProvinciaController::class,'getProvincias']);
+Route::post('/localidades',[LocalidadController::class,'getLocalidades']);
+//############ fin busquedas autocomplete ############

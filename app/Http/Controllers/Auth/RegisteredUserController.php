@@ -12,6 +12,8 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Controllers\BarrioController;
+use App\Http\Controllers\CalleController;
 
 class RegisteredUserController extends Controller
 {
@@ -25,11 +27,11 @@ class RegisteredUserController extends Controller
         $afectacion=Afectacion::all();
         $tipo_documento=Documento::all();
         
-
-        
         return view('auth.reggister',[
+
         'afectacion' => $afectacion,
         'tipo_doc'=>$tipo_documento
+        
         ]);
     }
 
@@ -43,15 +45,34 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'usuario' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|confirmed|min:8',
+        $validate= $request->validate([
+            'nombre' => 'required|min:5|max:30',
+            'cuit' => 'numeric|required|digits_between:11,11',
+            'razonsocial'=>'required|min:5|max:18',
+            'documento'=>'required|min:5|max:18'
         ]);
+                    
+        //si el barrio no fue encontrado, guardamos nuevo barrio
+        if($request->id_barrio == null){
+            $barrio = new BarrioController();
+            $barrio->Store($request);
+        }
+
+        //si la calle no fue encontrada, Guardar nueva calle
+        if($request->id_calle == null){
+            $calle = new CalleController();
+            $calle->Store($request);
+        }
+
+
+        echo "HOla"; 
+        die();
+
+        
 
         Auth::login($user = User::create([
-            'usuario' => $request->name,
-            'email' => $request->email,
+            'usuario' => $request->nombre,
+            'email' => $request->email_fiscal,
             'password' => Hash::make($request->password),
         ]));
 

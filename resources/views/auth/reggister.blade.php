@@ -152,7 +152,6 @@
         <!-- End Left Sidebar - style you can find in sidebar.scss  -->
         <!-- ============================================================== -->
 
-
         <!-- ============================================================== -->
         <!-- Page wrapper  -->
         <!-- ============================================================== -->
@@ -185,8 +184,8 @@
                 <!-- Start Page Content -->
                 <!-- ============================================================== -->
 
-                <form class="form form-material" method="post" action="#" name="saveinicio" id="saveinicio" enctype="multipart/form-data">
-                @csrf
+                <form class="form form-material" method="post" action="{{route('register')}}" name="saveinicio" id="saveinicio" enctype="multipart/form-data">
+                    @csrf
                     <!-- Row -->
                     <div class="row">
                         <div class="col-lg-12">
@@ -211,39 +210,41 @@
                                                 <div class="form-group has-feedback">
                                                     <label class="control-label">CUIT/CUIL: <span class="symbol required"></span></label>
                                                     <input type="hidden" name="proceso" id="proceso" value="save" />
-                                                    <input type="text" class="form-control" name="cuit" id="cuit" placeholder="Ingrese Nº de CUIT/CUIL" autocomplete="off" required="" aria-required="true" />
+                                                    <input type="text" class="form-control" class="@error('cuit') is-invalid @enderror" name="cuit" id="cuit" placeholder="Ingrese Nº de CUIT/CUIL" autocomplete="off" />
                                                     <i class="fa fa-bolt form-control-feedback"></i>
+
+
+                                                    @error('cuit')
+
+                                                    <div class="alert alert-danger alert-dismissable">
+                                                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                                        {{ $message }}
+                                                    </div>
+
+                                                    @enderror
                                                 </div>
+
                                             </div>
 
                                             <div class="col-md-6">
                                                 <div class="form-group has-feedback">
                                                     <label class="control-label">Nombre/Razón Social: <span class="symbol required"></span></label>
-                                                    <input type="text" class="form-control" name="razonsocial" id="razonsocial" placeholder="Ingrese Nombre/Razón Social" autocomplete="off" required="" aria-required="true" />
+                                                    <input type="text" class="form-control" class="@error('razonsocial') is-invalid @enderror" name="razonsocial" id="razonsocial" placeholder="Ingrese Nombre/Razón Social" autocomplete="off" required="" aria-required="true" />
                                                     <i class="fa fa-pencil form-control-feedback"></i>
+
+                                                    @error('razonsocial')
+
+                                                    <div class="alert alert-danger alert-dismissable">
+                                                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                                        {{ $message }}
+                                                    </div>
+
+                                                    @enderror
                                                 </div>
                                             </div>
                                         </div>
 
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group has-feedback">
-                                                    <label class="control-label">Nombre de Barrio: <span style="cursor: pointer;" class="mdi mdi-alert-circle text-danger" data-container="body" title="Notificación: Ingrese Nombre de Barrio y seleccione en el Listado que se mostrará, en caso de no aparecer, escribala y el sistema se encargará de la asignación del mismo."></span><span class="symbol required"></span></label>
-                                                    <input type="hidden" name="id_barrio" id="id_barrio" />
-                                                    <input type="text" class="form-control" name="search_barrio" id="search_barrio" onchange="getBarrios(value)" placeholder="Ingrese Nombre de Barrio" autocomplete="off" required="" aria-required="true" />
-                                                    <i class="fa fa-search form-control-feedback"></i>
-                                                </div>
-                                            </div>
 
-                                            <div class="col-md-6">
-                                                <div class="form-group has-feedback">
-                                                    <label class="control-label">Nombre de Calle: <span style="cursor: pointer;" class="mdi mdi-alert-circle text-danger" data-container="body" title="Notificación: Ingrese Nombre de Calle y seleccione en el Listado que se mostrará, en caso de no aparecer, escribala y el sistema se encargará de la asignación del mismo."></span><span class="symbol required"></span></label>
-                                                    <input type="hidden" name="id_calle" id="id_calle" />
-                                                    <input type="text" class="form-control" name="search_calle" id="search_calle" placeholder="Ingrese Nombre de Calle" autocomplete="off" required="" aria-required="true" />
-                                                    <i class="fa fa-search form-control-feedback"></i>
-                                                </div>
-                                            </div>
-                                        </div>
 
 
                                         <h3 class="card-subtitle m-0"><i class="fa fa-user"></i> Datos de Contacto</h3>
@@ -253,18 +254,109 @@
                                             <div class="col-md-12">
                                                 <div class="form-group has-feedback">
                                                     <label class="control-label">Apellido y Nombre: <span class="symbol required"></span></label>
-                                                    <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Ingrese Apellido y Nombre" autocomplete="off" required="" aria-required="true" />
+                                                    <input type="text" class="form-control" class="@error('nombre') is-invalid @enderror" name="nombre" id="nombre" placeholder="Ingrese Apellido y Nombre" autocomplete="off" required="" aria-required="true" />
                                                     <i class="fa fa-bolt form-control-feedback"></i>
+
+
+                                                    @error('nombre')
+
+                                                    <div class="alert alert-danger alert-dismissable">
+                                                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                                        {{ $message }}
+                                                    </div>
+
+                                                    @enderror
                                                 </div>
                                             </div>
                                         </div>
 
                                         <div class="row">
-                                            <div class="col-md-4">
+                                            <div class="col-md-3">
+                                                <div class="form-group has-feedback">
+                                                    <label class="control-label">Provincia <span style="cursor: pointer;" class="mdi mdi-alert-circle text-danger" data-container="body" title="asd"></span><span class="symbol required"></span></label>
+                                                    <input type="hidden" name="id_provincia" id="id_provincia" />
+                                                    <input type="text" class="form-control" name="search_provincia" id="search_provincia" placeholder="Ingrese Nombre de provincia" autocomplete="off" required="" aria-required="true" />
+                                                    <i class="fa fa-search form-control-feedback"></i>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-3">
+                                                <div class="form-group has-feedback">
+                                                    <label class="control-label">Localidad <span style="cursor: pointer;" class="mdi mdi-alert-circle text-danger" data-container="body"></span><span class="symbol required"></span></label>
+                                                    <input type="hidden" name="id_localidad" id="id_localidad" />
+                                                    <input type="text" class="form-control" name="search_localidad" id="search_localidad" disabled placeholder="Ingrese Nombre de localidad" autocomplete="off" required="" aria-required="true" />
+                                                    <i class="fa fa-search form-control-feedback"></i>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-3">
+                                                <div class="form-group has-feedback">
+                                                    <label class="control-label">Nombre de Barrio: <span style="cursor: pointer;" class="mdi mdi-alert-circle text-danger" data-container="body" title="Notificación: Ingrese Nombre de Barrio y seleccione en el Listado que se mostrará, en caso de no aparecer, escribala y el sistema se encargará de la asignación del mismo."></span><span class="symbol required"></span></label>
+                                                    <input type="hidden" name="id_barrio" id="id_barrio" />
+                                                    <input type="text" class="form-control" name="search_barrio" id="search_barrio" disabled placeholder="Ingrese Nombre de Barrio" autocomplete="off" required="" aria-required="true" />
+                                                    <i class="fa fa-search form-control-feedback"></i>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-3">
+                                                <div class="form-group has-feedback">
+                                                    <label class="control-label">Nombre de Calle: <span style="cursor: pointer;" class="mdi mdi-alert-circle text-danger" data-container="body" title="Notificación: Ingrese Nombre de Calle y seleccione en el Listado que se mostrará, en caso de no aparecer, escribala y el sistema se encargará de la asignación del mismo."></span><span class="symbol required"></span></label>
+                                                    <input type="hidden" name="id_calle" id="id_calle" />
+                                                    <input type="text" class="form-control" name="search_calle" id="search_calle" disabled placeholder="Ingrese Nombre de Calle" autocomplete="off" required="" aria-required="true" />
+                                                    <i class="fa fa-search form-control-feedback"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <div class="form-group has-feedback">
+                                                    <label class="control-label">N° Calle: <span style="cursor: pointer;" class="mdi mdi-alert-circle text-danger" data-container="body"></label>
+
+                                                    <input type="number" class="form-control" name="nro_calle" id="nro_calle" placeholder="Ingrese Numero de Calle" autocomplete="off" aria-required="true" />
+                                                    <i class="fa fa-pencil form-control-feedback"></i>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-3">
+                                                <div class="form-group has-feedback">
+                                                    <label class="control-label">N° Piso: <span style="cursor: pointer;" class="mdi mdi-alert-circle text-danger" data-container="body"></label>
+
+                                                    <input type="number" class="form-control" name="nro_piso" id="nro_piso" placeholder="Ingrese Numero de Piso" autocomplete="off" aria-required="true" />
+                                                    <i class="fa fa-pencil form-control-feedback"></i>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-3">
+                                                <div class="form-group has-feedback">
+                                                    <label class="control-label">N° de Departamento: <span style="cursor: pointer;" class="mdi mdi-alert-circle text-danger" data-container="body"></label>
+
+                                                    <input type="number" class="form-control" name="nro_departamento" id="nro_departamento" placeholder="Ingrese Numero de Departamento" autocomplete="off" aria-required="true" />
+                                                    <i class="fa fa-pencil form-control-feedback"></i>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-3">
+                                                <div class="form-group has-feedback">
+                                                    <label class="control-label">Referencia: <span style="cursor: pointer;" class="mdi mdi-alert-circle text-danger" data-container="body"></label>
+                                                    <input type="text" class="form-control" name="referencia" id="referencia" placeholder="Ingrese una referencia" autocomplete="off" aria-required="true" />
+                                                    <i class="fa fa-pencil form-control-feedback"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="row">
+                                            <div class="col-md-3">
                                                 <div class="form-group has-feedback">
                                                     <label class="control-label">Relación con la Industria: <span class="symbol required"></span></label>
                                                     <i class="fa fa-bars form-control-feedback"></i>
-                                                    <select name="id_tipo_de_afectacion" id="id_tipo_de_afectacion" <!--onChange="TipoAfectacion(this.form.id_tipo_de_afectacion.value);" class="form-control" required="" aria-required="true">
+                                                    <select name="id_tipo_de_afectacion" id="id_tipo_de_afectacion" class="form-control" required="" aria-required="true">
                                                         <option value=""> -- SELECCIONE -- </option>
                                                         @foreach($afectacion as $afect)
                                                         <option value="{{$afect->id_tipo_de_afectacion}}">{{$afect->tipo_de_afectacion}}</option>
@@ -274,7 +366,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-md-4">
+                                            <div class="col-md-3">
                                                 <div class="form-group has-feedback">
                                                     <label class="control-label">Tipo de Documento: <span class="symbol required"></span></label>
                                                     <i class="fa fa-bars form-control-feedback"></i>
@@ -287,11 +379,38 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-md-4">
+                                            <div class="col-md-3">
                                                 <div class="form-group has-feedback">
                                                     <label class="control-label">Nº de Documento: <span class="symbol required"></span></label>
-                                                    <input type="text" class="form-control" name="documento" id="documento" placeholder="Ingrese Nº Documento" autocomplete="off" required="" aria-required="true" />
+                                                    <input type="text" class="form-control" class="@error('documento') is-invalid @enderror" name="documento" id="documento" placeholder="Ingrese Nº Documento" autocomplete="off" required="" aria-required="true" />
                                                     <i class="fa fa-bolt form-control-feedback"></i>
+
+
+                                                    @error('documento')
+
+                                                    <div class="alert alert-danger alert-dismissable">
+                                                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                                        {{ $message }}
+                                                    </div>
+
+                                                    @enderror
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-3">
+                                                <div class="form-group has-feedback">
+                                                    <label class="control-label">Nº de Celular: <span class="symbol required"></span></label>
+                                                    <input type="text" class="form-control" class="@error('celular') is-invalid @enderror" name="celular" id="celular" placeholder="Ingrese Nº de Celular" autocomplete="off" required="" aria-required="true" />
+                                                    <i class="fa fa-phone form-control-feedback"></i>
+
+                                                    @error('celular')
+
+                                                    <div class="alert alert-danger alert-dismissable">
+                                                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                                        {{ $message }}
+                                                    </div>
+
+                                                    @enderror
                                                 </div>
                                             </div>
                                         </div>
@@ -300,18 +419,125 @@
                                             <div class="col-md-6">
                                                 <div class="form-group has-feedback">
                                                     <label class="control-label">Email Fiscal : <span style="cursor: pointer;" class="mdi mdi-alert-circle text-danger" data-container="body" title="Notificación: Se usará este medio para Remitir Comprobantes, notificaciones, etc"></span><span class="symbol required"></span></label>
-                                                    <input type="text" class="form-control" name="email_fiscal" id="email_fiscal" placeholder="Ingrese Correo Electrónico" autocomplete="off" required="" aria-required="true" />
+                                                    <input type="text" class="form-control" class="@error('email_fiscal') is-invalid @enderror" name="email_fiscal" id="email_fiscal" placeholder="Ingrese Correo Electrónico" autocomplete="off" required="" aria-required="true" />
                                                     <i class="fa fa-envelope-o form-control-feedback"></i>
+
+                                                    @error('email-fiscal')
+
+                                                    <div class="alert alert-danger alert-dismissable">
+                                                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                                        {{ $message }}
+                                                    </div>
+
+                                                    @enderror
+
                                                 </div>
                                             </div>
 
                                             <div class="col-md-6">
+                                            <div class="form-group has-feedback">
+                                                <label class="control-label">Personeria: <span class="symbol required"></span></label>
+                                                <i class="fa fa-bars form-control-feedback"></i>
+                                                <select name="tipo_personeria" id="tipo_personeria" class="form-control" required="" aria-required="true">
+                                                    <option value=""> -- SELECCIONE -- </option>
+                                                    
+                                                    <option value="1">Juridica</option>
+                                                    <option value="2">Fisica</option>
+                                                   
+                                                </select>
+                                            </div>
+                                        </div>
+
+
+                                        </div>
+
+                                        
+
+                                        <div class="row">
+                                            <div class="col-md-3">
                                                 <div class="form-group has-feedback">
-                                                    <label class="control-label">Nº de Celular: <span class="symbol required"></span></label>
-                                                    <input type="text" class="form-control" name="tel_celular" id="tel_celular" placeholder="Ingrese Nº de Celular" autocomplete="off" required="" aria-required="true" />
-                                                    <i class="fa fa-phone form-control-feedback"></i>
+                                                    <div class="fileinput fileinput-new" data-provides="fileinput">
+                                                        <div class="form-group has-feedback">
+                                                            <label class="control-label">DNI (frente): <span class="symbol required"></span></label>
+                                                            <div class="input-group">
+                                                                <div class="form-control" data-trigger="fileinput"><i class="fa fa-file-photo-o fileinput-exists"></i>
+                                                                    <span class="fileinput-filename"></span>
+                                                                </div>
+                                                                <span class="input-group-addon btn btn-success btn-file">
+                                                                    <span class="fileinput-new"><i class="fa fa-cloud-upload"></i> Selecciona Archivo</span>
+                                                                    <span class="fileinput-exists"><i class="fa fa-file-photo-o"></i> Cambiar</span>
+                                                                    <input type="file" class="btn btn-default" data-original-title="Subir Imagen" data-rel="tooltip" placeholder="Suba su Archivo" name="dniFrente" id="dniFrente" autocomplete="off" title="Buscar Archivo">
+                                                                </span>
+                                                                <a href="#" class="input-group-addon btn btn-dark fileinput-exists" data-dismiss="fileinput"><i class="fa fa-trash-o"></i> Quitar</a>
+                                                            </div><span class="card-subtitle text-muted">Para Subir el Archivo debe tener en cuenta:<br> * El Archivo a cargar debe ser extension.jpg,png,pdf<br> * No debe ser mayor de 5000 KB (5 MB)</span>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group has-feedback">
+                                                    <div class="fileinput fileinput-new" data-provides="fileinput">
+                                                        <div class="form-group has-feedback">
+                                                            <label class="control-label">DNI (dorso): <span class="symbol required"></span></label>
+                                                            <div class="input-group">
+                                                                <div class="form-control" data-trigger="fileinput"><i class="fa fa-file-photo-o fileinput-exists"></i>
+                                                                    <span class="fileinput-filename"></span>
+                                                                </div>
+                                                                <span class="input-group-addon btn btn-success btn-file">
+                                                                    <span class="fileinput-new"><i class="fa fa-cloud-upload"></i> Selecciona Archivo</span>
+                                                                    <span class="fileinput-exists"><i class="fa fa-file-photo-o"></i> Cambiar</span>
+                                                                    <input type="file" class="btn btn-default" data-original-title="Subir Imagen" data-rel="tooltip" placeholder="Suba su Archivo" name="dniDorso" id="dniDorso" autocomplete="off" title="Buscar Archivo">
+                                                                </span>
+                                                                <a href="#" class="input-group-addon btn btn-dark fileinput-exists" data-dismiss="fileinput"><i class="fa fa-trash-o"></i> Quitar</a>
+                                                            </div><span class="card-subtitle text-muted">Para Subir el Archivo debe tener en cuenta:<br> * El Archivo a cargar debe ser extension.jpg,png,pdf<br> * No debe ser mayor de 5000 KB (5 MB)</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-3">
+                                                <div class="form-group has-feedback">
+                                                    <div class="fileinput fileinput-new" data-provides="fileinput">
+                                                        <div class="form-group has-feedback">
+                                                            <label class="control-label">Inscripción en AFIP : <span class="symbol required"></span></label>
+                                                            <div class="input-group">
+                                                                <div class="form-control" data-trigger="fileinput"><i class="fa fa-file-photo-o fileinput-exists"></i>
+                                                                    <span class="fileinput-filename"></span>
+                                                                </div>
+                                                                <span class="input-group-addon btn btn-success btn-file">
+                                                                    <span class="fileinput-new"><i class="fa fa-cloud-upload"></i> Selecciona Archivo</span>
+                                                                    <span class="fileinput-exists"><i class="fa fa-file-photo-o"></i> Cambiar</span>
+                                                                    <input type="file" class="btn btn-default" data-original-title="Subir Imagen" data-rel="tooltip" placeholder="Suba su Archivo" name="afip" id="afip" autocomplete="off" title="Buscar Archivo">
+                                                                </span>
+                                                                <a href="#" class="input-group-addon btn btn-dark fileinput-exists" data-dismiss="fileinput"><i class="fa fa-trash-o"></i> Quitar</a>
+                                                            </div><span class="card-subtitle text-muted">Para Subir el Archivo debe tener en cuenta:<br> * El Archivo a cargar debe ser extension.jpg,png,pdf<br> * No debe ser mayor de 5000 KB (5 MB)</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-3">
+                                                <div class="form-group has-feedback">
+                                                    <div class="fileinput fileinput-new" data-provides="fileinput">
+                                                        <div class="form-group has-feedback" id="vinculacion_empresa" style="visibility:hidden">
+                                                            <label class="control-label">Constancia de Vinculación con La Empresa: <span class="symbol required"></span></label>
+                                                            <div class="input-group">
+                                                                <div class="form-control" data-trigger="fileinput"><i class="fa fa-file-photo-o fileinput-exists"></i>
+                                                                    <span class="fileinput-filename"></span>
+                                                                </div>
+                                                                <span class="input-group-addon btn btn-success btn-file">
+                                                                    <span class="fileinput-new"><i class="fa fa-cloud-upload"></i> Selecciona Archivo</span>
+                                                                    <span class="fileinput-exists"><i class="fa fa-file-photo-o"></i> Cambiar</span>
+                                                                    <input type="file" class="btn btn-default" data-original-title="Subir Imagen" data-rel="tooltip" placeholder="Suba su Archivo" name="vinculacion" id="vinculacion" autocomplete="off" title="Buscar Archivo">
+                                                                </span>
+                                                                <a href="#" class="input-group-addon btn btn-dark fileinput-exists" data-dismiss="fileinput"><i class="fa fa-trash-o"></i> Quitar</a>
+                                                            </div><span class="card-subtitle text-muted">Para Subir el Archivo debe tener en cuenta:<br> * El Archivo a cargar debe ser extension.jpg,png,pdf<br> * No debe ser mayor de 5000 KB (5 MB)</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            
                                         </div>
 
                                         <div id="documento_apoderado"></div>
@@ -331,9 +557,19 @@
                                                 <div class="form-group has-feedback">
                                                     <div class="campo">
                                                         <label class="control-label">Ingrese Contraseña: <a class="symbol required"></a></label>
-                                                        <input class="form-control" type="password" placeholder="Ingrese Contraseña" name="password" id="password" autocomplete="off" required="" aria-required="true"><span>Mostrar</span>
+                                                        <input class="form-control" class="@error('password') is-invalid @enderror" type="password" placeholder="Ingrese Contraseña" name="password" id="password" autocomplete="off" required="" aria-required="true"><span>Mostrar</span>
                                                     </div>
                                                     <i class="fa fa-key form-control-feedback"></i>
+
+                                                    @error('password')
+
+                                                    <div class="alert alert-danger alert-dismissable">
+                                                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                                        {{ $message }}
+                                                    </div>
+
+                                                    @enderror
+
                                                 </div>
                                             </div>
 
@@ -341,13 +577,22 @@
                                                 <div class="form-group has-feedback">
                                                     <div class="campo2">
                                                         <label class="control-label">Repita Contraseña: <a class="symbol required"></a></label>
-                                                        <input type="password" class="form-control" name="password2" id="password2" placeholder="Repita Contraseña" autocomplete="off" required="" aria-required="true" /><span>Mostrar</span>
+                                                        <input type="password" class="form-control" name="password_confirmation" class="@error('password_confirmation') is-invalid @enderror" id="password_confirmation" placeholder="Repita Contraseña" autocomplete="off" required="" aria-required="true" /><span>Mostrar</span>
                                                     </div>
                                                     <i class="fa fa-key form-control-feedback"></i>
+
+                                                    @error('password_confirmation')
+
+                                                    <div class="alert alert-danger alert-dismissable">
+                                                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                                        {{ $message }}
+                                                    </div>
+
+                                                    @enderror
                                                 </div>
                                             </div>
                                         </div>
-
+                                        <!--se comenta la captcha por ahora
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group has-feedback">
@@ -357,7 +602,7 @@
                                             </div>
                                         </div>
                                         <h4 class="text-blue">Ingrese el texto de la imagen (respetando mayúsculas y minúsculas)</h4>
-
+-->
                                         <div class="alert alert-success text-justify" role="alert">
                                             <h5><span class='fa fa-warning'></span> El Registro ingresado sera validado por nuestros Operadores dentro de las 48 hr de ingresado. Dicha resolución será comunicada al email consignado para continuar con la carga de datos.
                                             </h5>
@@ -365,7 +610,7 @@
 
 
                                         <div class="text-right">
-                                            <button type="submit" name="btn-submit" id="btn-submit" class="btn btn-danger"><span class="fa fa-save"></span> Crear Cuenta</button>
+                                            <button type="submit" name="btn-submit" id="btn-submit" class="btn btn-danger" disabled><span class="fa fa-save"></span> Crear Cuenta</button>
                                             <button class="btn btn-dark" type="reset"><span class="fa fa-trash-o"></span> Limpiar</button>
                                         </div>
 
@@ -442,9 +687,9 @@
     <script type="text/javascript" src="{{ asset('assets/js/inputmask.bundle.min.js')}}"></script>
     <script type="text/javascript" src="{{ asset('assets/script/mask.js')}}"></script>
     <script type="text/javascript" src="{{ asset('assets/script/password.js')}}"></script>
-    <script type="text/javascript" src="{{ asset('assets/script/script2.js')}}"></script>
+    <!-- <script type="text/javascript" src="{{ asset('assets/script/script2.js')}}"></script>-->
     <script type="text/javascript" src="{{ asset('assets/script/validation.min.js')}}"></script>
-    <script type="text/javascript" src="{{ asset('assets/script/script.js')}}"></script>
+    <!-- <script type="text/javascript" src="{{ asset('assets/script/script.js')}}"></script>-->
     <!-- script jquery -->
 
     <!-- Calendario -->
@@ -460,21 +705,266 @@
     <!-- jQuery -->
 
 
-    <script type="text/javascript">
-       function getBarrios(value){
 
-        $.ajax({
-                    url: "{{ url('/barrios') }}",
-                    type:'POST',
-                    data: {
-                        "_token": "{{ csrf_token() }}",
-                        value
-                    },
-                    success: function(data) {
-                       response(data)
-                    }
-                });
-       }
+
+
+
+    <script type="text/javascript">
+        var id_provincia
+        //var id_localidad
+        var id_localidad;
+
+        $(document).ready(function() {
+            $("#tipo_personeria").change(function() {
+
+                if($("#tipo_personeria").val()==1){
+
+                    document.getElementById("vinculacion_empresa").style.visibility = "visible";
+                }else{
+                    document.getElementById("vinculacion_empresa").style.visibility = "hidden";
+                }
+                  
+            })
+            
+        });
+
+
+        $(document).ready(function() {
+            $("#search_provincia").change(function() {
+
+                if ($("#search_provincia").val().length < 1) {
+                    //limpiar id provincia, id localidad, barrio, calle
+                    console.log("asdasd");
+                    $('#id_provincia').val("")
+                    $('#id_localidad').val("")
+                    $('#id_barrio').val("")
+                    $('#id_calle').val("")
+
+
+                    $('#search_localidad').val("");
+                    $('#search_barrio').val("");
+                    $('#search_calle').val("");
+
+
+                    //deshabilitar campo calle y barrio
+                    $("#search_barrio").prop("disabled", true);
+                    $("#search_localidad").prop("disabled", true);
+                    $("#search_calle").prop("disabled", true);
+                    id_provincia = 0;
+                    id_localidad = 0;
+
+                } else {
+                    //$("#search_barrio").prop("disabled", false);
+                    $("#search_localidad").prop("disabled", false);
+
+                }
+
+            })
+
+
+
+            $("#search_localidad").change(function() {
+
+                if ($("#search_localidad").val().length < 1) {
+                    //limpiar id localidad, barrio, calle
+                    console.log("asdasd");
+
+                    $('#id_localidad').val("")
+                    $('#id_barrio').val("")
+                    $('#id_calle').val("")
+
+
+                    $('#search_localidad').val("");
+                    $('#search_barrio').val("");
+                    $('#search_calle').val("");
+
+
+                    //deshabilitar campo calle y barrio
+                    $("#search_barrio").prop("disabled", true);
+                    $("#search_calle").prop("disabled", true);
+
+                } else {
+                    //$("#search_barrio").prop("disabled", false);
+                    $("#search_barrio").prop("disabled", false);
+                }
+
+
+            })
+
+
+
+            $("#search_barrio").change(function() {
+
+                if ($("#search_barrio").val().length < 1) {
+                    //limpiar id localidad, barrio, calle
+                    console.log("asdasd");
+
+
+                    $('#id_barrio').val("")
+                    $('#id_calle').val("")
+
+                    $('#search_barrio').val("");
+                    $('#search_calle').val("");
+
+
+                    //deshabilitar campo calle
+                    $("#search_calle").prop("disabled", true);
+
+                } else {
+                    //$("#search_barrio").prop("disabled", false);
+                    $("#search_calle").prop("disabled", false);
+                }
+
+
+            })
+
+
+            $("#search_calle").change(function() {
+
+                if ($("#search_calle").val().length < 1) {
+                    //limpiar id localidad, barrio, calle
+                    console.log("asdasd");
+
+
+
+                    $('#id_calle').val("")
+
+
+                    $('#search_calle').val("");
+                    $("#btn-submit").prop("disabled", true);
+
+                } else {
+                    //$("#search_barrio").prop("disabled", false);
+                    $("#search_calle").prop("disabled", false);
+                    $("#btn-submit").prop("disabled", false);
+                }
+
+
+            })
+        });
+
+
+
+        $(document).ready(function() {
+
+            $("#search_provincia").autocomplete({
+                source: function(request, response) {
+                    // Fetch data
+                    $.ajax({
+                        url: "{{url('/provincias')}}",
+                        type: 'post',
+                        dataType: "json",
+                        data: {
+                            _token: "{{ csrf_token() }}",
+                            search: request.term
+                        },
+                        success: function(data) {
+                            response(data);
+                        }
+                    });
+                },
+                select: function(event, ui) {
+                    // Set selection
+                    $('#search_provincia').val(ui.item.label); // display the selected text
+                    $('#id_provincia').val(ui.item.value); // save selected id to input
+                    id_provincia = ui.item.value
+
+                    console.log(ui.item.value)
+                    return false;
+                }
+            });
+        });
+
+        $(document).ready(function() {
+
+            $("#search_localidad").autocomplete({
+                source: function(request, response) {
+                    // Fetch data
+                    $.ajax({
+                        url: "{{url('/localidades')}}",
+                        type: 'post',
+                        dataType: "json",
+                        data: {
+                            _token: "{{ csrf_token() }}",
+                            search: request.term,
+                            id_prov: id_provincia
+                        },
+                        success: function(data) {
+                            response(data);
+                        }
+                    });
+                },
+                select: function(event, ui) {
+                    // Set selection
+                    $('#search_localidad').val(ui.item.label); // display the selected text
+                    $('#id_localidad').val(ui.item.value); // save selected id to input
+                    id_localidad = ui.item.value
+                    return false;
+                }
+            });
+        });
+
+
+
+
+
+
+        $(document).ready(function() {
+
+            $("#search_barrio").autocomplete({
+                source: function(request, response) {
+                    // Fetch data
+                    $.ajax({
+                        url: "{{url('/barrios')}}",
+                        type: 'post',
+                        dataType: "json",
+                        data: {
+                            _token: "{{ csrf_token() }}",
+                            search: request.term,
+                            id_loc: id_localidad
+                        },
+                        success: function(data) {
+                            response(data);
+                        }
+                    });
+                },
+                select: function(event, ui) {
+                    // Set selection
+                    $('#search_barrio').val(ui.item.label); // display the selected text
+                    $('#id_barrio').val(ui.item.value); // save selected id to input
+                    return false;
+                }
+            });
+        });
+
+
+
+        $(document).ready(function() {
+            $("#search_calle").autocomplete({
+                source: function(request, response) {
+                    // Fetch data
+                    $.ajax({
+                        url: "{{url('/calles')}}",
+                        type: 'post',
+                        dataType: "json",
+                        data: {
+                            _token: "{{ csrf_token() }}",
+                            search: request.term,
+                            id_loc: id_localidad
+                        },
+                        success: function(data) {
+                            response(data);
+                        }
+                    });
+                },
+                select: function(event, ui) {
+                    // Set selection
+                    $('#search_calle').val(ui.item.label); // display the selected text
+                    $('#id_calle').val(ui.item.value); // save selected id to input
+                    return false;
+                }
+            });
+        });
     </script>
 
 </body>

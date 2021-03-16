@@ -34,8 +34,16 @@ class BarrioController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //
+    {   
+
+        $barrio=new Barrio();
+
+        $nombre=strtoupper($request->search_barrio);
+
+        $barrio->barrio=$nombre;
+        $barrio->activo="P";
+        $barrio->id_localidad=$request->id_localidad;
+        $barrio->save(); 
     }
 
     /**
@@ -46,12 +54,28 @@ class BarrioController extends Controller
      */
     public function getBarrios(Request $request)
     {
-       
+      
         
-        $barrios=Barrio::where("barrio", "LIKE", "%{$request->get('value')}%")->get();
+        if($request->search == ''){
+            $barrios=Barrio::orderby('barrio','asc')->select('id_barrio','barrio')->limit(5)->get();
+
+        }else{
+            $barrios=Barrio::where("barrio", "LIKE", "%{$request->search}%")
+            ->where('activo','S')
+            ->where('id_localidad',$request->id_loc)
+            ->get();
+        }
+        
 
         //return view('NOMBRE_VISTA')->with('buscar', $noticias);
-        return $barrios; 
+
+        $response = array();
+        foreach($barrios as $barrio){
+           $response[] = array("value"=>$barrio->id_barrio,"label"=>trim($barrio->barrio));
+        }
+  
+        return response()->json($response);
+       
     }
 
     /**

@@ -139,7 +139,7 @@ $(function() {
       }  
   });
 });
-
+/*
 $(function() {
     $("#search_barrio").autocomplete({
     source: "class/busqueda_autocompleto.php?Busqueda_Barrio=si",
@@ -158,7 +158,7 @@ $(function() {
       $('#id_calle').val(ui.item.id_calle);
       }  
   });
-});
+});*/
 /*#################### DATOS DE REGISTRO INICIAL ####################*/
 
 
