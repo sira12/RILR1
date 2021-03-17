@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\BarrioController;
 use App\Http\Controllers\CalleController;
+use App\Http\Controllers\PersonaController;
+use App\Http\Controllers\ContribuyenteController;
 
 class RegisteredUserController extends Controller
 {
@@ -45,31 +47,51 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request)
     {
-        $validate= $request->validate([
-            'nombre' => 'required|min:5|max:30',
-            'cuit' => 'numeric|required|digits_between:11,11',
-            'razonsocial'=>'required|min:5|max:18',
-            'documento'=>'required|min:5|max:18'
-        ]);
+            
+        //validar cada campo 
+            $validate= $request->validate([
+                'nombre' => 'required|min:5|max:30',
+                'cuit' => 'numeric|required|digits_between:11,11',
+                'razonsocial'=>'required|min:5|max:18',
+                'documento'=>'required|min:5|max:18'
+            ]);
                     
         //si el barrio no fue encontrado, guardamos nuevo barrio
-        if($request->id_barrio == null){
-            $barrio = new BarrioController();
-            $barrio->Store($request);
-        }
+            if($request->id_barrio == null){
+                $barrio = new BarrioController();
+                $barrio->Store($request);
+            }
 
         //si la calle no fue encontrada, Guardar nueva calle
-        if($request->id_calle == null){
-            $calle = new CalleController();
-            $calle->Store($request);
-        }
+            if($request->id_calle == null){
+                $calle = new CalleController();
+                $calle->Store($request);
+            }
+
+        //persona
+
+            $persona = new PersonaController();
+            //le paso los datos a guardar, y obtengo el id del registro que se acaba de cargar 
+            $id_persona=$persona->Store($request);
+
+        
+       
+        //contribuyente
+
+            $contribuyente = new ContribuyenteController();
+            //le paso los datos a guardar, y obtengo el id del registro que se acaba de cargar 
+            $id_contribuyente=$contribuyente->Store($request);
+
+
+        //rel persona contribuyente
+        
 
 
         echo "HOla"; 
         die();
 
         
-
+        //registro usuario
         Auth::login($user = User::create([
             'usuario' => $request->nombre,
             'email' => $request->email_fiscal,
