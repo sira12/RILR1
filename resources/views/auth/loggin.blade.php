@@ -93,26 +93,6 @@
                       </div>
                     </div>
 
-                    <div class="row">
-                      <div class="col-md-12">
-                        <div class="form-group has-feedback">
-                          <label class="control-label">Eres Contribuyente ?: <span class="symbol required"></span></label>
-                          <br><div class="form-check form-check-inline">
-                                <div class="custom-control custom-radio">
-                                <input type="radio" class="custom-control-input" id="0" name="tipo" value="<?php echo encrypt("1"); ?>">
-                                <label class="custom-control-label" for="0">Si</label>
-                                </div>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <div class="custom-control custom-radio">
-                                <input type="radio" class="custom-control-input" id="1" name="tipo" value="<?php echo encrypt("2"); ?>">
-                                <label class="custom-control-label" for="1">No</label>
-                                </div>
-                            </div>
-                        </div>
-                      </div>
-                    </div>
-
                     <div class="form-group">
                       <div class="col-md-12">
                         <a href="javascript:void(0)" id="to-recover" class="text-dark pull-right"><i class="fa fa-lock"></i> Olvidaste tu Contraseña?</a>          

@@ -206,7 +206,7 @@
                                         <hr>
 
                                         <div class="row">
-                                            <div class="col-md-6">
+                                            <div class="col-md-4">
                                                 <div class="form-group has-feedback">
                                                     <label class="control-label">CUIT/CUIL: <span class="symbol required"></span></label>
                                                     <input type="hidden" name="proceso" id="proceso" value="save" />
@@ -226,7 +226,7 @@
 
                                             </div>
 
-                                            <div class="col-md-6">
+                                            <div class="col-md-4">
                                                 <div class="form-group has-feedback">
                                                     <label class="control-label">Nombre/Razón Social: <span class="symbol required"></span></label>
                                                     <input type="text" class="form-control" class="@error('razonsocial') is-invalid @enderror" name="razonsocial" id="razonsocial" placeholder="Ingrese Nombre/Razón Social" autocomplete="off" required="" aria-required="true" />
@@ -240,6 +240,20 @@
                                                     </div>
 
                                                     @enderror
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-4">
+                                                <div class="form-group has-feedback">
+                                                    <label class="control-label">Personeria: <span class="symbol required"></span></label>
+                                                    <i class="fa fa-bars form-control-feedback"></i>
+                                                    <select name="tipo_personeria" id="tipo_personeria" class="form-control" required="" aria-required="true">
+                                                        <option value=""> -- SELECCIONE -- </option>
+                                                        @foreach($personaJuridica as $persona)
+                                                        
+                                                        <option value="{{$persona->id_persona_juridica}}">{{$persona->persona_juridica}}</option>
+                                                        @endforeach
+                                                    </select>
                                                 </div>
                                             </div>
                                         </div>
@@ -434,24 +448,12 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-md-6">
-                                            <div class="form-group has-feedback">
-                                                <label class="control-label">Personeria: <span class="symbol required"></span></label>
-                                                <i class="fa fa-bars form-control-feedback"></i>
-                                                <select name="tipo_personeria" id="tipo_personeria" class="form-control" required="" aria-required="true">
-                                                    <option value=""> -- SELECCIONE -- </option>
-                                                    
-                                                    <option value="1">Juridica</option>
-                                                    <option value="2">Fisica</option>
-                                                   
-                                                </select>
-                                            </div>
-                                        </div>
+                                            
 
 
                                         </div>
 
-                                        
+
 
                                         <div class="row">
                                             <div class="col-md-3">
@@ -537,7 +539,7 @@
                                                 </div>
                                             </div>
 
-                                            
+
                                         </div>
 
                                         <div id="documento_apoderado"></div>
@@ -717,15 +719,15 @@
         $(document).ready(function() {
             $("#tipo_personeria").change(function() {
 
-                if($("#tipo_personeria").val()==1){
+                if ($("#tipo_personeria").val() == 1) {
 
                     document.getElementById("vinculacion_empresa").style.visibility = "visible";
-                }else{
+                } else {
                     document.getElementById("vinculacion_empresa").style.visibility = "hidden";
                 }
-                  
+
             })
-            
+
         });
 
 

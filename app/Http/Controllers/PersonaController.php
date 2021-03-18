@@ -50,8 +50,52 @@ class PersonaController extends Controller
         $persona->depto=$request->nro_departamento; 
         $persona->referencias_domicilio=$request->referencia; 
         $persona->tel_celular=$request->celular; 
-        $persona->email=$request->email_fiscal; 
         $persona->fecha_de_actualizacion=Carbon::now(); 
+
+
+
+        $dni1 = $request->file('dniFrente');
+        $dni2 = $request->file('dniDorso');
+        $nombre_dni1 = strtolower($dni1->getClientOriginalName());
+        $nombre_dni2 = strtolower($dni2->getClientOriginalName());
+
+        //compruebo mimes
+        $findme0   = '.jpg';
+        $findme   = '.png';
+        $findme2 = '.pdf';
+
+        $pos0 = strpos($nombre_dni1, $findme0);
+        $pos1 = strpos($nombre_dni1, $findme);
+        $pos2 = strpos($nombre_dni1, $findme2);
+
+        $pos3 = strpos($nombre_dni2, $findme0);
+        $pos4 = strpos($nombre_dni2, $findme);
+        $pos5 = strpos($nombre_dni2, $findme2);
+
+        $fecha = \Carbon\Carbon::now()->format('d-m-Y');
+
+        //guardar imagen
+            //detectar mime, para mandar a un disco u otro
+            if (($pos1 !== false || $pos0 !== false) && ($pos3 !== false || $pos4 !== false)) {
+                //es una imagen,guardo en disco para imagenes
+
+                $path1 = $dni1->storeAs("/images/dni",($request->documento . "_"."frente"."_" . $fecha . '.' . $dni1->extension()));
+                
+                $path2 = $dni2->storeAs("/images/dni",($request->documento . "_"."dorso"."_" . $fecha . '.' . $dni2->extension()));
+
+                $persona->frente_dni = $path1;
+                $persona->dorso_dni = $path2;
+
+            } else if ($pos5 !== false && $pos2 !== false) {
+                
+                //guardo en disco para pdfs
+                $path1 = $dni1->storeAs("/documents/dni",($request->documento . "_"."frente"."_" . $fecha . '.' . $dni1->extension()));
+                
+                $path2 = $dni2->storeAs("/documents/dni",($request->documento . "_"."dorso"."_" . $fecha . '.' . $dni2->extension()));
+
+                $persona->frente_dni = $path1;
+                $persona->dorso_dni = $path2;
+            }
 
         $persona->save();
         //id del registro que se acaba de cargar 
