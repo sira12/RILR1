@@ -30,7 +30,7 @@ class RegisteredUserController extends Controller
     {
 
         $personaJuridica=PersonaJuridica::all();
-        $afectacion=Afectacion::all();
+        $afectacion=Afectacion::where('activo',"S")->get();
         $tipo_documento=Documento::all();
         
         return view('auth.reggister',[
@@ -90,7 +90,7 @@ class RegisteredUserController extends Controller
 
         //rel persona contribuyente
 
-        if($request->tipo_personeria == 1){
+        if($request->tipo_personeria == 2){
 
 
         $vinculacion = $request->file('vinculacion');
@@ -120,7 +120,7 @@ class RegisteredUserController extends Controller
             }
 
         }else{
-            $path1=NULL;
+            $path1=NULL; //se le pasa nulo, ya que no solicita el doc vinculante
         }
 
         $fecha=\Carbon\Carbon::now();

@@ -522,7 +522,7 @@
                                                 <div class="form-group has-feedback">
                                                     <div class="fileinput fileinput-new" data-provides="fileinput">
                                                         <div class="form-group has-feedback" id="vinculacion_empresa" style="visibility:hidden">
-                                                            <label class="control-label">Constancia de Vinculación con La Empresa: <span class="symbol required"></span></label>
+                                                            <label class="control-label">Contrato Social o Etatuto: <span class="symbol required"></span></label>
                                                             <div class="input-group">
                                                                 <div class="form-control" data-trigger="fileinput"><i class="fa fa-file-photo-o fileinput-exists"></i>
                                                                     <span class="fileinput-filename"></span>
@@ -719,7 +719,7 @@
         $(document).ready(function() {
             $("#tipo_personeria").change(function() {
 
-                if ($("#tipo_personeria").val() == 1) {
+                if ($("#tipo_personeria").val() == 2) {
 
                     document.getElementById("vinculacion_empresa").style.visibility = "visible";
                 } else {
