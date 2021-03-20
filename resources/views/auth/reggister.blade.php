@@ -542,7 +542,30 @@
 
                                         </div>
 
-                                        <div id="documento_apoderado"></div>
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <div class="form-group has-feedback">
+                                                    <div class="fileinput fileinput-new"  data-provides="fileinput">
+                                                        <div class="form-group has-feedback"  id="apoderado_empresa" style="visibility:hidden">
+                                                            <label class="control-label">Constancia Apoderado <span class="symbol required"></span></label>
+                                                            <div class="input-group">
+                                                                <div class="form-control" data-trigger="fileinput"><i class="fa fa-file-photo-o fileinput-exists"></i>
+                                                                    <span class="fileinput-filename"></span>
+                                                                </div>
+                                                                <span class="input-group-addon btn btn-success btn-file">
+                                                                    <span class="fileinput-new"><i class="fa fa-cloud-upload"></i> Selecciona Archivo</span>
+                                                                    <span class="fileinput-exists"><i class="fa fa-file-photo-o"></i> Cambiar</span>
+                                                                    <input type="file" class="btn btn-default" data-original-title="Subir Imagen" data-rel="tooltip" placeholder="Suba su Archivo" name="apoderado" id="apoderado" autocomplete="off" title="Buscar Archivo">
+                                                                </span>
+                                                                <a href="#" class="input-group-addon btn btn-dark fileinput-exists" data-dismiss="fileinput"><i class="fa fa-trash-o"></i> Quitar</a>
+                                                            </div><span class="card-subtitle text-muted">Para Subir el Archivo debe tener en cuenta:<br> * El Archivo a cargar debe ser extension.jpg,png,pdf<br> * No debe ser mayor de 5000 KB (5 MB)</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        
 
                                         <h3 class="card-subtitle"><i class="fa fa-envelope-square"></i> Datos de la Cuenta</h3>
                                         <hr>
@@ -724,6 +747,20 @@
                     document.getElementById("vinculacion_empresa").style.visibility = "visible";
                 } else {
                     document.getElementById("vinculacion_empresa").style.visibility = "hidden";
+                }
+
+            })
+
+        });
+
+        $(document).ready(function() {
+            $("#id_tipo_de_afectacion").change(function() {
+
+                if ($("#id_tipo_de_afectacion").val() == 5) {
+
+                    document.getElementById("apoderado_empresa").style.visibility = "visible";
+                } else {
+                    document.getElementById("apoderado_empresa").style.visibility = "hidden";
                 }
 
             })
