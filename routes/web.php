@@ -43,3 +43,8 @@ Route::post('/calles',[CalleController::class,'getCalles']);
 Route::post('/provincias',[ProvinciaController::class,'getProvincias']);
 Route::post('/localidades',[LocalidadController::class,'getLocalidades']);
 //############ fin busquedas autocomplete ############
+
+
+Route::get('/prueba', function () {
+    return view('Actividades.actividades');
+});
