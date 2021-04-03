@@ -5,6 +5,7 @@ use App\Http\Controllers\BarrioController;
 use App\Http\Controllers\CalleController;
 use App\Http\Controllers\ProvinciaController;
 use App\Http\Controllers\LocalidadController;
+use App\Http\Controllers\ProcedimientosController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,6 +46,8 @@ Route::post('/localidades',[LocalidadController::class,'getLocalidades']);
 //############ fin busquedas autocomplete ############
 
 
-Route::get('/prueba', function () {
-    return view('Actividades.actividades');
-});
+Route::get('/panel', function () {
+    return view('index');
+})->middleware(['auth'])->name('panel');
+
+Route::get('/procedimientos',[ProcedimientosController::class,'index'] )->middleware(['auth'])->name('procedimientos');

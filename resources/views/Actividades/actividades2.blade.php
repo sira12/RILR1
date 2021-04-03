@@ -1,4 +1,215 @@
+<?php
+require_once("class/class.php");
+if (isset($_SESSION['acceso'])) {
+    if ($_SESSION['acceso'] == "administrador" || $_SESSION["acceso"]=="operador" || $_SESSION["acceso"]=="secretaria" || $_SESSION["acceso"]=="contribuyente") {
 
+$tra = new Login();
+$ses = $tra->ExpiraSession();
+
+$pa = new Login();
+$pa = $pa->SelecPaisesPorId();
+$codpa = ($pa == '' ? "" : $pa[0]['id_pais']);
+$nompa = ($pa == '' ? "" : $pa[0]['npais']);
+
+$pro = new Login();
+$pro = $pro->SelecProvinciasPorId();
+$codpro = ($pro == '' ? "" : $pro[0]['id_provincia']);
+$nompro = ($pro == '' ? "" : $pro[0]['nprovincia']);
+
+$c = new Login();
+$c = $c->VerificaContribuyente();
+
+if(isset($_POST["proceso"]) and $_POST["proceso"]=="savegeneral")
+{
+$reg = $tra->RegistrarDatosGenerales();
+exit;
+}
+elseif(isset($_POST["proceso"]) and $_POST["proceso"]=="updategeneral")
+{
+$reg = $tra->ActualizarDatosGenerales();
+exit;
+}
+elseif(isset($_POST["proceso"]) and $_POST["proceso"]=="saveactividades")
+{
+$reg = $tra->RegistrarActividad();
+exit;
+}
+elseif(isset($_POST["proceso"]) and $_POST["proceso"]=="updateactividades")
+{
+$reg = $tra->ActualizarActividad();
+exit;
+}
+elseif(isset($_POST["proceso"]) and $_POST["proceso"]=="saveproducto")
+{
+$reg = $tra->RegistrarProducto();
+exit;
+}
+elseif(isset($_POST["proceso"]) and $_POST["proceso"]=="updateproducto")
+{
+$reg = $tra->ActualizarProducto();
+exit;
+} 
+elseif(isset($_POST["proceso"]) and $_POST["proceso"]=="savemateria")
+{
+$reg = $tra->RegistrarMateriaPrima();
+exit;
+}
+elseif(isset($_POST["proceso"]) and $_POST["proceso"]=="updatemateria")
+{
+$reg = $tra->ActualizarMateriaPrima();
+exit;
+}   
+elseif(isset($_POST["proceso"]) and $_POST["proceso"]=="saveinsumo")
+{
+$reg = $tra->RegistrarInsumo();
+exit;
+}
+elseif(isset($_POST["proceso"]) and $_POST["proceso"]=="updateinsumo")
+{
+$reg = $tra->ActualizarInsumo();
+exit;
+}   
+elseif(isset($_POST["proceso"]) and $_POST["proceso"]=="saveserviciobasico")
+{
+$reg = $tra->RegistrarServicioBasico();
+exit;
+}
+elseif(isset($_POST["proceso"]) and $_POST["proceso"]=="updateserviciobasico")
+{
+$reg = $tra->ActualizarServicioBasico();
+exit;
+}      
+elseif(isset($_POST["proceso"]) and $_POST["proceso"]=="savecombustible")
+{
+$reg = $tra->RegistrarCombustible();
+exit;
+}
+elseif(isset($_POST["proceso"]) and $_POST["proceso"]=="updatecombustible")
+{
+$reg = $tra->ActualizarCombustible();
+exit;
+}      
+elseif(isset($_POST["proceso"]) and $_POST["proceso"]=="saveotros")
+{
+$reg = $tra->RegistrarOtrosServicios();
+exit;
+}
+elseif(isset($_POST["proceso"]) and $_POST["proceso"]=="updateotros")
+{
+$reg = $tra->ActualizarOtrosServicios();
+exit;
+}     
+elseif(isset($_POST["proceso"]) and $_POST["proceso"]=="savedevengados")
+{
+$reg = $tra->RegistrarEgresosDevengados();
+exit;
+}
+elseif(isset($_POST["proceso"]) and $_POST["proceso"]=="updatedevengados")
+{
+$reg = $tra->ActualizarEgresosDevengados();
+exit;
+}      
+elseif(isset($_POST["proceso"]) and $_POST["proceso"]=="savesituacion")
+{
+$reg = $tra->RegistrarSituacionPlanta();
+exit;
+}
+elseif(isset($_POST["proceso"]) and $_POST["proceso"]=="updatesituacion")
+{
+$reg = $tra->ActualizarSituacionPlanta();
+exit;
+}        
+elseif(isset($_POST["proceso"]) and $_POST["proceso"]=="savemotivo")
+{
+$reg = $tra->RegistrarMotivoOciosidad();
+exit;
+}
+elseif(isset($_POST["proceso"]) and $_POST["proceso"]=="updatemotivo")
+{
+$reg = $tra->ActualizarMotivoOciosidad();
+exit;
+}         
+elseif(isset($_POST["proceso"]) and $_POST["proceso"]=="savepersonal")
+{
+$reg = $tra->RegistrarPersonalOcupado();
+exit;
+}
+elseif(isset($_POST["proceso"]) and $_POST["proceso"]=="updatepersonal")
+{
+$reg = $tra->ActualizarPersonalOcupado();
+exit;
+}         
+elseif(isset($_POST["proceso"]) and $_POST["proceso"]=="saveventas")
+{
+$reg = $tra->RegistrarVentas();
+exit;
+}
+elseif(isset($_POST["proceso"]) and $_POST["proceso"]=="updateventas")
+{
+$reg = $tra->ActualizarVentas();
+exit;
+}            
+elseif(isset($_POST["proceso"]) and $_POST["proceso"]=="savefacturacion")
+{
+$reg = $tra->RegistrarFacturacion();
+exit;
+}
+elseif(isset($_POST["proceso"]) and $_POST["proceso"]=="updatefacturacion")
+{
+$reg = $tra->ActualizarFacturacion();
+exit;
+}            
+elseif(isset($_POST["proceso"]) and $_POST["proceso"]=="saveefluente")
+{
+$reg = $tra->RegistrarEfluente();
+exit;
+}
+elseif(isset($_POST["proceso"]) and $_POST["proceso"]=="updateefluente")
+{
+$reg = $tra->ActualizarEfluente();
+exit;
+}             
+elseif(isset($_POST["proceso"]) and $_POST["proceso"]=="savecertificado")
+{
+$reg = $tra->RegistrarCertificado();
+exit;
+}
+elseif(isset($_POST["proceso"]) and $_POST["proceso"]=="updatecertificado")
+{
+$reg = $tra->ActualizarCertificado();
+exit;
+}             
+elseif(isset($_POST["proceso"]) and $_POST["proceso"]=="savesistema")
+{
+$reg = $tra->RegistrarSistema();
+exit;
+}
+elseif(isset($_POST["proceso"]) and $_POST["proceso"]=="updatesistema")
+{
+$reg = $tra->ActualizarSistema();
+exit;
+}            
+elseif(isset($_POST["proceso"]) and $_POST["proceso"]=="savepromocion")
+{
+$reg = $tra->RegistrarPromociones();
+exit;
+}
+elseif(isset($_POST["proceso"]) and $_POST["proceso"]=="updatepromocion")
+{
+$reg = $tra->ActualizarPromociones();
+exit;
+}             
+elseif(isset($_POST["proceso"]) and $_POST["proceso"]=="saveeconomia")
+{
+$reg = $tra->RegistrarEconomia();
+exit;
+}
+elseif(isset($_POST["proceso"]) and $_POST["proceso"]=="updateeconomia")
+{
+$reg = $tra->ActualizarEconomia();
+exit;
+}     
+?>
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
 <head>
@@ -11,25 +222,25 @@
     <meta name="description" content="">
     <meta name="author" content="Ing. Ruben Chirinos">
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="{{asset('assets/images/favicon.png')}}">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon.png">
     <title></title>
 
     <!-- Menu CSS -->
-    <link href="{{asset('assets/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css')}}" rel="stylesheet">
+    <link href="assets/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css" rel="stylesheet">
     <!-- toast CSS -->
-    <link href="{{asset('assets/plugins/bower_components/toast-master/css/jquery.toast.css')}}" rel="stylesheet">
+    <link href="assets/plugins/bower_components/toast-master/css/jquery.toast.css" rel="stylesheet">
     <!-- Datatables CSS -->
-    <link href="{{asset('assets/plugins/datatables/dataTables.bootstrap4.css')}}" rel="stylesheet">
+    <link href="assets/plugins/datatables/dataTables.bootstrap4.css" rel="stylesheet">
     <!-- Sweet-Alert -->
-    <link rel="stylesheet" href="{{asset('assets/css/sweetalert.css')}}">
+    <link rel="stylesheet" href="assets/css/sweetalert.css">
     <!-- animation CSS -->
-    <link href="{{asset('assets/css/animate.css')}}" rel="stylesheet">
+    <link href="assets/css/animate.css" rel="stylesheet">
     <!-- needed css -->
-    <link href="{{asset('assets/css/style.css')}}" rel="stylesheet">
+    <link href="assets/css/style.css" rel="stylesheet">
     <!-- color CSS -->
-    <link href="{{asset('assets/css/default.css')}}" id="theme" rel="stylesheet">
+    <link href="assets/css/default.css" id="theme" rel="stylesheet">
     <!--Bootstrap Horizontal CSS -->
-    <link href="{{asset('assets/css/bootstrap-horizon.css')}}" rel="stylesheet">
+    <link href="assets/css/bootstrap-horizon.css" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -210,7 +421,7 @@
             <div class="modal-content">
                 <div class="modal-header bg-dark">
                     <h4 class="modal-title text-white" id="myModalLabel"><i class="fa fa-align-justify"></i> Productos Asociados a la Actividad</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><img src="{{asset('assets/images/close.png')}}"/></button>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><img src="assets/images/close.png"/></button>
                 </div>
             
         <form class="form form-material" name="saveasignacionproducto" id="saveasignacionproducto" action="#">
@@ -232,7 +443,7 @@
                 <div class="col-md-12">
                     <label class="control-label">Denominación Genérica del producto[sin marca]: <span style="cursor: pointer;" class="mdi mdi-alert-circle text-danger" data-container="body" title="Notificación: Ingrese Nombre de Producto y seleccione en el Listado que se mostrará, en caso de no aparecer, escribala y el sistema se encargará de la asignación del mismo."></span><span class="symbol required"></span></label>
                     <div class="form-group has-feedback">
-                        <input type="hidden" name="seccionactividad" id="seccionactividad" value="">
+                        <input type="hidden" name="seccionactividad" id="seccionactividad" value="<?php echo encrypt('2'); ?>">
                         <input type="hidden" name="proceso" id="asignaproducto" value="saveproducto"/>
                         <input type="hidden" name="id_rel_actividad_productos" id="id_rel_actividad_productos">
                         <input type="hidden" name="anio_producto" id="anio_producto">
@@ -252,9 +463,15 @@
                         <i class="fa fa-bars form-control-feedback"></i>
                         <select class="form-control" id="medida_producto" name="medida_producto" required="" aria-required="true">
                         <option value=""> -- SELECCIONE -- </option>
-                        
-                        
-                        <option value=""></option>
+                        <?php
+                        $unidad = new Login();
+                        $unidad = $unidad->ListarUnidadesMedida();
+                        if($unidad==""){ 
+                            echo "";
+                        } else {
+                        for($i=0;$i<sizeof($unidad);$i++){ ?>
+                        <option value="<?php echo $unidad[$i]['id_unidad_de_medida'] ?>"><?php echo $unidad[$i]['descripcion'] ?></option>
+                        <?php } } ?>
                         </select> 
                     </div>
                 </div>
@@ -354,7 +571,7 @@
         <div class="modal-content">
             <div class="modal-header bg-dark">
                 <h4 class="modal-title text-white" id="myModalLabel"><i class="fa fa-tasks"></i> Materia Prima Asociados al Producto</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><img src="{{asset('assets/images/close.png')}}"/></button>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><img src="assets/images/close.png"/></button>
             </div>
             
         <form class="form form-material" name="saveasignacionmateria" id="saveasignacionmateria" action="#">
@@ -385,7 +602,7 @@
                 <div class="col-md-12">
                     <label class="control-label">Materia Prima Utilizada: <span style="cursor: pointer;" class="mdi mdi-alert-circle text-danger" data-container="body" title="Notificación: Ingrese Nombre de Materia Prima y seleccione en el Listado que se mostrará, en caso de no aparecer, escribala y el sistema se encargará de la asignación del mismo."></span><span class="symbol required"></span></label>
                     <div class="form-group has-feedback">
-                        <input type="hidden" name="seccionactividad" id="seccionactividad" value="">
+                        <input type="hidden" name="seccionactividad" id="seccionactividad" value="<?php echo encrypt('2'); ?>">
                         <input type="hidden" name="proceso" id="asignamateria" value="savemateria"/>
                         <input type="hidden" name="id_rel_actividad_productos" id="id_asignacion_materia">
                         <input type="hidden" name="id_rel_actividad_productos_materia_prima" id="id_rel_actividad_productos_materia_prima">
@@ -405,8 +622,15 @@
                         <i class="fa fa-bars form-control-feedback"></i>
                         <select class="form-control" id="medida_materia" name="medida_materia" required="" aria-required="true">
                         <option value=""> -- SELECCIONE -- </option>
-                        
-                        <option value=""></option>
+                        <?php
+                        $unidad = new Login();
+                        $unidad = $unidad->ListarUnidadesMedida();
+                        if($unidad==""){ 
+                            echo "";
+                        } else {
+                        for($i=0;$i<sizeof($unidad);$i++){ ?>
+                        <option value="<?php echo $unidad[$i]['id_unidad_de_medida'] ?>"><?php echo $unidad[$i]['descripcion'] ?></option>
+                        <?php } } ?>
                         </select> 
                     </div>
                 </div>
@@ -471,8 +695,15 @@
                         <i class="fa fa-bars form-control-feedback"></i>
                         <select class="form-control" id="motivo_importacion_materia" name="motivo_importacion_materia" onchange="MotivoImportacionMateria();" required="" aria-required="true">
                         <option value=""> -- SELECCIONE -- </option>
-                        
-                                <option value=""></option>
+                        <?php
+                        $motivo = new Login();
+                        $motivo = $motivo->ListarMotivosImportacion();
+                        if($motivo==""){ 
+                            echo "";
+                        } else {
+                            for($i=0;$i<sizeof($motivo);$i++){ ?>
+                                <option value="<?php echo $motivo[$i]['id_motivo_importacion'] ?>"><?php echo $motivo[$i]['descripcion'] ?></option>
+                            <?php } } ?>
                         </select> 
                     </div>
                 </div>                      
@@ -563,7 +794,7 @@
         <div class="modal-content">
             <div class="modal-header bg-dark">
                 <h4 class="modal-title text-white" id="myModalLabel"><i class="fa fa-tasks"></i> Insumo Asociado a la Industria</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><img src="{{asset('assets/images/close.png')}}"/></button>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><img src="assets/images/close.png"/></button>
             </div>
             
         <form class="form form-material" name="saveasignacioninsumo" id="saveasignacioninsumo" action="#">
@@ -605,8 +836,15 @@
                         <i class="fa fa-bars form-control-feedback"></i>
                         <select class="form-control" id="medida_insumo" name="medida_insumo" required="" aria-required="true">
                         <option value=""> -- SELECCIONE -- </option>
-                        
-                        <option value="">
+                        <?php
+                        $unidad = new Login();
+                        $unidad = $unidad->ListarUnidadesMedida();
+                        if($unidad==""){ 
+                            echo "";
+                        } else {
+                        for($i=0;$i<sizeof($unidad);$i++){ ?>
+                        <option value="<?php echo $unidad[$i]['id_unidad_de_medida'] ?>"><?php echo $unidad[$i]['descripcion'] ?></option>
+                        <?php } } ?>
                         </select> 
                     </div>
                 </div>
@@ -671,8 +909,15 @@
                         <i class="fa fa-bars form-control-feedback"></i>
                         <select class="form-control" id="motivo_importacion_insumo" name="motivo_importacion_insumo" onchange="MotivoImportacionInsumo();" required="" aria-required="true">
                         <option value=""> -- SELECCIONE -- </option>
-                        
-                                <option value=""></option>
+                        <?php
+                        $motivo = new Login();
+                        $motivo = $motivo->ListarMotivosImportacion();
+                        if($motivo==""){ 
+                            echo "";
+                        } else {
+                            for($i=0;$i<sizeof($motivo);$i++){ ?>
+                                <option value="<?php echo $motivo[$i]['id_motivo_importacion'] ?>"><?php echo $motivo[$i]['descripcion'] ?></option>
+                            <?php } } ?>
                         </select> 
                     </div>
                 </div>                      
@@ -760,7 +1005,7 @@
         <div class="modal-content">
             <div class="modal-header bg-dark">
                 <h4 class="modal-title text-white" id="myModalLabel"><i class="fa fa-tasks"></i> Servicios Básicos Asociado a la Industria</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><img src="{{asset('assets/images/close.png')}}"/></button>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><img src="assets/images/close.png"/></button>
             </div>
             
         <form class="form form-material" name="saveserviciobasico" id="saveserviciobasico" action="#">
@@ -770,7 +1015,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group has-feedback">
-                    <input type="hidden" name="seccionserviciobasico" id="seccionserviciobasico" value="">
+                    <input type="hidden" name="seccionserviciobasico" id="seccionserviciobasico" value="<?php echo encrypt('3'); ?>">
                     <input type="hidden" name="proceso" id="serviciobasico" value="saveserviciobasico"/>
                     <input type="hidden" name="industria_servicio_basico" id="industria_servicio_basico">
                     <input type="hidden" name="anio_basico" id="anio_basico">
@@ -791,15 +1036,23 @@
                     </tr>
                     </thead>
                     <tbody>
-           
+            <?php 
+            $basico = new Login();
+            $basico = $basico->ListarServiciosBasicos();
+            if($basico==""){
+                echo "";    
+            } else {
+            $a=1;
+            for($i=0;$i<sizeof($basico);$i++){ 
+            ?>
                     <tr role="row" class="odd">
-                    <td><input type="hidden" name="id_servicio_basico[]" id="id_servicio_basico" value="" /><label>echo $basico[$i]['descripcion']; ?></label></td>
+                    <td><input type="hidden" name="id_servicio_basico[]" id="id_servicio_basico" value="<?php echo $basico[$i]['id_servicio']; ?>" /><label><?php echo $basico[$i]['descripcion']; ?></label></td>
 
                     <td class="text-center"><input type="te" class="form-control" name="cantidad_basica[]" id="cantidad_basica" value="1" placeholder="Ingrese Total Consumo Anual" autocomplete="off" style="width:100%;height:40px;background:#f0f9fc;border-radius:5px 5px 5px 5px;" disabled="disabled"></td>
 
                     <td class="text-center"><input type="text" class="form-control" name="costo_basico[]" id="costo_basico" placeholder="Ingrese Importe Total Anual" autocomplete="off" onKeyPress="EvaluateText('%f', this);" onBlur="this.value = Number_Format(this.value, '2', ',', '.')" style="width:100%;height:40px;background:#f0f9fc;border-radius:5px 5px 5px 5px;"></td>
                     </tr>
-            
+            <?php } } ?>
                     </tbody>
                 </table>
             </div>
@@ -830,7 +1083,7 @@
         <div class="modal-content">
             <div class="modal-header bg-dark">
                 <h4 class="modal-title text-white" id="myModalLabel"><i class="fa fa-tasks"></i> Actualizar Servicios Básicos Asociado a la Industria</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><img src="{{asset('assets/images/close.png')}}"/></button>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><img src="assets/images/close.png"/></button>
             </div>
             
         <form class="form form-material" name="updateserviciobasico" id="updateserviciobasico" action="#">
@@ -840,7 +1093,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group has-feedback">
-                    <input type="hidden" name="seccionserviciobasicoupdate" id="seccionserviciobasicoupdate" value="">
+                    <input type="hidden" name="seccionserviciobasicoupdate" id="seccionserviciobasicoupdate" value="<?php echo encrypt('3'); ?>">
                     <input type="hidden" name="proceso" id="serviciobasicoupdate" value="updateserviciobasico"/>
                     <input type="hidden" name="id_rel_industria_servicios_basicos" id="id_rel_industria_servicios_basicos">
                     <input type="hidden" name="industria_servicio_basico_update" id="industria_servicio_basico_update">
@@ -909,7 +1162,7 @@
         <div class="modal-content">
             <div class="modal-header bg-dark">
                 <h4 class="modal-title text-white" id="myModalLabel"><i class="fa fa-tasks"></i> Combustible Asociado a la Industria</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><img src="{{asset('assets/images/close.png')}}"/></button>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><img src="assets/images/close.png"/></button>
             </div>
             
         <form class="form form-material" name="savecombustible" id="savecombustible" action="#">
@@ -932,16 +1185,22 @@
                     <div class="form-group has-feedback">
                         <label class="control-label">Seleccione Combustible: <span class="symbol required"></span></label>
                         <i class="fa fa-bars form-control-feedback"></i>
-                        <input type="hidden" name="seccioncombustible" id="seccioncombustible" value="">
+                        <input type="hidden" name="seccioncombustible" id="seccioncombustible" value="<?php echo encrypt('3'); ?>">
                         <input type="hidden" name="proceso" id="combustibles" value="savecombustible"/>
                         <input type="hidden" name="id_rel_industria_combustible" id="id_rel_industria_combustible">
                         <input type="hidden" name="industria_combustible" id="industria_combustible">
                         <input type="hidden" name="anio_combustible" id="anio_combustible">
                         <select class="form-control" id="id_servicio_combustible" name="id_servicio_combustible"  required="" aria-required="true">
                         <option value=""> -- SELECCIONE -- </option>
-                        
-                                <option value=""></option>
-                            
+                        <?php
+                        $combustible = new Login();
+                        $combustible = $combustible->ListarCombustibles();
+                        if($combustible==""){ 
+                            echo "";
+                        } else {
+                            for($i=0;$i<sizeof($combustible);$i++){ ?>
+                                <option value="<?php echo $combustible[$i]['id_servicio'] ?>"><?php echo $combustible[$i]['descripcion'] ?></option>
+                            <?php } } ?>
                         </select> 
                     </div>
                 </div>   
@@ -952,9 +1211,15 @@
                         <i class="fa fa-bars form-control-feedback"></i>
                         <select class="form-control" id="medida_combustible" name="medida_combustible" required="" aria-required="true">
                         <option value=""> -- SELECCIONE -- </option>
-                        
-                        <option value=""><</option>
-                        
+                        <?php
+                        $unidad = new Login();
+                        $unidad = $unidad->ListarUnidadesMedida();
+                        if($unidad==""){ 
+                            echo "";
+                        } else {
+                        for($i=0;$i<sizeof($unidad);$i++){ ?>
+                        <option value="<?php echo $unidad[$i]['id_unidad_de_medida'] ?>"><?php echo $unidad[$i]['descripcion'] ?></option>
+                        <?php } } ?>
                         </select> 
                     </div>
                 </div>
@@ -1026,9 +1291,15 @@
                         <i class="fa fa-bars form-control-feedback"></i>
                         <select class="form-control" id="motivo_importacion_combustible" name="motivo_importacion_combustible" onchange="MotivoImportacionCombustible();" required="" aria-required="true">
                         <option value=""> -- SELECCIONE -- </option>
-                        
-                                <option value=""></option>
-                            
+                        <?php
+                        $motivo = new Login();
+                        $motivo = $motivo->ListarMotivosImportacion();
+                        if($motivo==""){ 
+                            echo "";
+                        } else {
+                            for($i=0;$i<sizeof($motivo);$i++){ ?>
+                                <option value="<?php echo $motivo[$i]['id_motivo_importacion'] ?>"><?php echo $motivo[$i]['descripcion'] ?></option>
+                            <?php } } ?>
                         </select> 
                     </div>
                 </div>                      
@@ -1094,7 +1365,7 @@
         <div class="modal-content">
             <div class="modal-header bg-dark">
                 <h4 class="modal-title text-white" id="myModalLabel"><i class="fa fa-tasks"></i> Otros Servicios Asociado a la Industria</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><img src="{{asset('assets/images/close.png')}}"/></button>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><img src="assets/images/close.png"/></button>
             </div>
             
         <form class="form form-material" name="saveotros" id="saveotros" action="#">
@@ -1116,7 +1387,7 @@
                 <div class="col-md-12">
                     <label class="control-label">Servicio Utilizado: <span style="cursor: pointer;" class="mdi mdi-alert-circle text-danger" data-container="body" title="Notificación: Ingrese Nombre de Servicio y seleccione en el Listado que se mostrará, en caso de no aparecer, escribala y el sistema se encargará de la asignación del mismo."></span><span class="symbol required"></span></label>
                     <div class="form-group has-feedback">
-                        <input type="hidden" name="seccionotros" id="seccionotros" value="">
+                        <input type="hidden" name="seccionotros" id="seccionotros" value="<?php echo encrypt('3'); ?>">
                         <input type="hidden" name="proceso" id="otros" value="saveotros"/>
                         <input type="hidden" name="id_rel_industria_otros" id="id_rel_industria_otros">
                         <input type="hidden" name="industria_otros" id="industria_otros">
@@ -1136,9 +1407,15 @@
                         <i class="fa fa-bars form-control-feedback"></i>
                         <select class="form-control" id="frecuencia_otros" name="frecuencia_otros" required="" aria-required="true">
                         <option value=""> -- SELECCIONE -- </option>
-                        
-                        <option value=""></option>
-                        
+                        <?php
+                        $frecuencia = new Login();
+                        $frecuencia = $frecuencia->ListarFrecuenciasContratacion();
+                        if($frecuencia==""){ 
+                            echo "";
+                        } else {
+                        for($i=0;$i<sizeof($frecuencia);$i++){ ?>
+                        <option value="<?php echo $frecuencia[$i]['id_frecuencia_de_contratacion'] ?>"><?php echo $frecuencia[$i]['frecuencia_de_contratacion'] ?></option>
+                        <?php } } ?>
                         </select> 
                     </div>
                 </div>
@@ -1167,8 +1444,8 @@
                 <div class="col-md-6">
                     <div class="form-group has-feedback">
                         <label class="control-label">Nombre de Pais: <span style="cursor: pointer;" class="mdi mdi-alert-circle text-danger" data-container="body" title="Notificación: Ingrese Nombre de Pais y seleccione en el Listado que se mostrará, en caso de no aparecer, escribala y el sistema se encargará de la asignación del mismo."></span><span class="symbol required"></span></label>
-                        <input type="hidden" name="id_pais4" id="id_pais4" value=""/>
-                        <input type="text" class="form-control" name="search_pais4" id="search_pais4" placeholder="Ingrese Nombre de Pais" autocomplete="off" value="" required="" aria-required="true"/>  
+                        <input type="hidden" name="id_pais4" id="id_pais4" value="<?php echo $codpa; ?>"/>
+                        <input type="text" class="form-control" name="search_pais4" id="search_pais4" placeholder="Ingrese Nombre de Pais" autocomplete="off" value="<?php echo $nompa; ?>" required="" aria-required="true"/>  
                         <i class="fa fa-search form-control-feedback"></i> 
                     </div>
                 </div>  
@@ -1176,8 +1453,8 @@
                 <div class="col-md-6">
                     <div class="form-group has-feedback">
                         <label class="control-label">Nombre de Provincia: <span style="cursor: pointer;" class="mdi mdi-alert-circle text-danger" data-container="body" title="Notificación: Ingrese Nombre de Provincia y seleccione en el Listado que se mostrará, en caso de no aparecer, escribala y el sistema se encargará de la asignación del mismo."></span><span class="symbol required"></span></label>
-                        <input type="hidden" name="id_provincia4" id="id_provincia4" value=""/>
-                        <input type="text" class="form-control" name="search_provincia4" id="search_provincia4" placeholder="Ingrese Nombre de Provincia" autocomplete="off" value="" required="" aria-required="true"/>  
+                        <input type="hidden" name="id_provincia4" id="id_provincia4" value="<?php echo $codpro; ?>"/>
+                        <input type="text" class="form-control" name="search_provincia4" id="search_provincia4" placeholder="Ingrese Nombre de Provincia" autocomplete="off" value="<?php echo $nompro; ?>" required="" aria-required="true"/>  
                         <i class="fa fa-search form-control-feedback"></i> 
                     </div>
                 </div>
@@ -1199,9 +1476,15 @@
                         <i class="fa fa-bars form-control-feedback"></i>
                         <select class="form-control" id="motivo_importacion_otros" name="motivo_importacion_otros" onchange="MotivoImportacionOtros();" required="" aria-required="true">
                         <option value=""> -- SELECCIONE -- </option>
-                        
-                                <option value=""></option>
-                            
+                        <?php
+                        $motivo = new Login();
+                        $motivo = $motivo->ListarMotivosImportacion();
+                        if($motivo==""){ 
+                            echo "";
+                        } else {
+                            for($i=0;$i<sizeof($motivo);$i++){ ?>
+                                <option value="<?php echo $motivo[$i]['id_motivo_importacion'] ?>"><?php echo $motivo[$i]['descripcion'] ?></option>
+                            <?php } } ?>
                         </select> 
                     </div>
                 </div>                      
@@ -1269,7 +1552,7 @@
         <div class="modal-content">
             <div class="modal-header bg-dark">
                 <h4 class="modal-title text-white" id="myModalLabel"><i class="fa fa-tasks"></i> Gastos Generados Asociado a la Industria</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><img src="{{asset('assets/images/close.png')}}"/></button>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><img src="assets/images/close.png"/></button>
             </div>
             
         <form class="form form-material" name="savedevengados" id="savedevengados" action="#">
@@ -1300,15 +1583,23 @@
                             </tr>
                             </thead>
                             <tbody>
-            
+                    <?php 
+                    $devengado = new Login();
+                    $devengado = $devengado->ListarEgresosDevengados();
+                    if($devengado==""){
+                        echo "";    
+                    } else {
+                    $a=1;
+                    for($i=0;$i<sizeof($devengado);$i++){ 
+                    ?>
                             <tr role="row" class="odd">
-                            <td><input type="hidden" name="id_servicio_devengado[]" id="id_servicio_devengado" value="" /><label></label></td>
+                            <td><input type="hidden" name="id_servicio_devengado[]" id="id_servicio_devengado" value="<?php echo $devengado[$i]['id_servicio']; ?>" /><label><?php echo $devengado[$i]['descripcion']; ?></label></td>
 
                             <td class="text-center"><input type="text" class="form-control" name="cantidad_devengado[]" id="cantidad_devengado" value="1" placeholder="Ingrese Total Consumo Anual" autocomplete="off" style="width:100%;height:40px;background:#f0f9fc;border-radius:5px 5px 5px 5px;" disabled="disabled"></td>
 
                             <td class="text-center"><input type="text" class="form-control" name="costo_devengado[]" id="costo_devengado" placeholder="Ingrese Importe Total Anual" autocomplete="off" onKeyPress="EvaluateText('%f', this);" onBlur="this.value = Number_Format(this.value, '2', ',', '.')" style="width:100%;height:40px;background:#f0f9fc;border-radius:5px 5px 5px 5px;"></td>
                             </tr>
-                    
+                    <?php } } ?>
                             </tbody>
                         </table>
                     </div>
@@ -1339,7 +1630,7 @@
         <div class="modal-content">
             <div class="modal-header bg-dark">
                 <h4 class="modal-title text-white" id="myModalLabel"><i class="fa fa-tasks"></i> Actualizar Gasto Generado Asociado a la Industria</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><img src="{{asset('assets/images/close.png')}}"/></button>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><img src="assets/images/close.png"/></button>
             </div>
             
         <form class="form form-material" name="updatedevengados" id="updatedevengados" action="#">
@@ -1349,7 +1640,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group has-feedback">
-                    <input type="hidden" name="secciondevengadosupdate" id="secciondevengadosupdate" value="">
+                    <input type="hidden" name="secciondevengadosupdate" id="secciondevengadosupdate" value="<?php echo encrypt('3'); ?>">
                     <input type="hidden" name="proceso" id="devengadosupdate" value="updatedevengados"/>
                     <input type="hidden" name="id_rel_industria_devengados_update" id="id_rel_industria_devengados_update">
                     <input type="hidden" name="industria_devengados_update" id="industria_devengados_update">
@@ -1421,7 +1712,7 @@
             <div class="modal-content">
                 <div class="modal-header bg-dark">
                     <h4 class="modal-title text-white" id="myModalLabel"><i class="fa fa-align-justify"></i> Detalle de Situación de Planta</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><img src="{{asset('assets/images/close.png')}}"/></button>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><img src="assets/images/close.png"/></button>
                 </div>
                 <div class="modal-body">
 
@@ -1442,7 +1733,7 @@
         <div class="modal-content">
             <div class="modal-header bg-dark">
                 <h4 class="modal-title text-white" id="myModalLabel"><i class="fa fa-tasks"></i> Situación de Planta</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><img src="{{asset('assets/images/close.png')}}"/></button>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><img src="assets/images/close.png"/></button>
             </div>
             
         <form class="form form-material" name="savesituacion" id="savesituacion" action="#">
@@ -1464,7 +1755,7 @@
             <div class="col-md-6">
                 <label class="control-label">Porcentaje de Producción según Capacidad Instalada: <span class="symbol required"></span></label>
                 <div class="form-group has-feedback">
-                    <input type="hidden" name="seccionsituacion" id="seccionsituacion" value="">
+                    <input type="hidden" name="seccionsituacion" id="seccionsituacion" value="<?php echo encrypt('4'); ?>">
                     <input type="hidden" name="proceso" id="situacion" value="savesituacion"/>
                     <input type="hidden" name="id_situacion_de_planta" id="id_situacion_de_planta">
                     <input type="hidden" name="industria_situacion" id="industria_situacion">
@@ -1608,7 +1899,7 @@
             <div class="modal-content">
                 <div class="modal-header bg-dark">
                     <h4 class="modal-title text-white" id="myModalLabel"><i class="fa fa-align-justify"></i> Detalle de Motivo Ociosidad</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><img src="{{asset('assets/images/close.png')}}"/></button>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><img src="assets/images/close.png"/></button>
                 </div>
                 <div class="modal-body">
 
@@ -1629,7 +1920,7 @@
         <div class="modal-content">
             <div class="modal-header bg-dark">
                 <h4 class="modal-title text-white" id="myModalLabel"><i class="fa fa-tasks"></i> Ociosidad Capacidad Productiva</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><img src="{{asset('assets/images/close.png')}}"/></button>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><img src="assets/images/close.png"/></button>
             </div>
             
         <form class="form form-material" name="savemotivoasignado" id="savemotivoasignado" action="#">
@@ -1701,7 +1992,7 @@
             <div class="modal-content">
                 <div class="modal-header bg-dark">
                     <h4 class="modal-title text-white" id="myModalLabel"><i class="fa fa-align-justify"></i> Detalle de Personal Ocupado</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><img src="{{asset('assets/images/close.png')}}"/></button>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><img src="assets/images/close.png"/></button>
                 </div>
                 <div class="modal-body">
 
@@ -1722,7 +2013,7 @@
         <div class="modal-content">
             <div class="modal-header bg-dark">
                 <h4 class="modal-title text-white" id="myModalLabel"><i class="fa fa-tasks"></i> Personal Ocupado Asociado a la Industria</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><img src="{{asset('assets/images/close.png')}}"/></button>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><img src="assets/images/close.png"/></button>
             </div>
             
         <form class="form form-material" name="savepersonal" id="savepersonal" action="#">
@@ -1749,9 +2040,15 @@
                         <input type="hidden" name="anio_personal" id="anio_personal">
                         <select class="form-control" id="rol_trabajador" name="rol_trabajador" required="" aria-required="true">
                         <option value=""> -- SELECCIONE -- </option>
-                        
-                        <option value=""></option>
-                        
+                        <?php
+                        $rol = new Login();
+                        $rol = $rol->ListarRolTrabajador();
+                        if($rol==""){ 
+                            echo "";
+                        } else {
+                        for($i=0;$i<sizeof($rol);$i++){ ?>
+                        <option value="<?php echo $rol[$i]['id_roles_trabajador'] ?>"><span class="fa fa-bars"></span> <?php echo $rol[$i]['descripcion'] ?></option>
+                        <?php } } ?>
                         </select> 
                     </div>
                 </div>
@@ -1767,16 +2064,23 @@
                 </tr>
             </thead>
             <tbody>
-              
-                
+              <?php 
+              $condicion = new Login();
+              $condicion = $condicion->ListarCondicionesLaborales();
+              if($condicion==""){
+                echo "";    
+            } else {
+              $a=1;
+              for($i=0;$i<sizeof($condicion);$i++){ 
+                  ?>
                   <tr role="row" class="odd">
-                    <td><input type="hidden" name="id_condicion_laboral[]" id="id_condicion_laboral" value="" /></label></td>
+                    <td><input type="hidden" name="id_condicion_laboral[]" id="id_condicion_laboral" value="<?php echo $condicion[$i]['id_condicion_laboral']; ?>" /><label><?php echo $condicion[$i]['decripcion']; ?></label></td>
 
                     <td class="text-center"><input type="number" class="form-control" name="masculino[]" id="masculino" placeholder="Ingrese Cantidad Masculino" autocomplete="off" style="width:100%;height:40px;background:#f0f9fc;border-radius:5px 5px 5px 5px;"></td>
 
                     <td class="text-center"><input type="number" class="form-control" name="femenino[]" id="femenino" placeholder="Ingrese Cantidad Femenino" autocomplete="off" style="width:100%;height:40px;background:#f0f9fc;border-radius:5px 5px 5px 5px;"></td>
                 </tr>
-               
+                 <?php } } ?>
                 </tbody>
                 </table>
             </div>
@@ -1807,7 +2111,7 @@
         <div class="modal-content">
             <div class="modal-header bg-dark">
                 <h4 class="modal-title text-white" id="myModalLabel"><i class="fa fa-tasks"></i> Actualizar Personal Ocupado Asociado a la Industria</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><img src="{{asset('assets/images/close.png')}}"/></button>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><img src="assets/images/close.png"/></button>
             </div>
             
         <form class="form form-material" name="updatepersonal" id="updatepersonal" action="#">
@@ -1817,7 +2121,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group has-feedback">
-                    <input type="hidden" name="seccionpersonalupdate" id="seccionpersonalupdate" value="">
+                    <input type="hidden" name="seccionpersonalupdate" id="seccionpersonalupdate" value="<?php echo encrypt('4'); ?>">
                     <input type="hidden" name="proceso" id="personalupdate" value="updatepersonal"/>
                     <input type="hidden" name="industria_personal_update" id="industria_personal_update">
                     <input type="hidden" name="anio_personal_update" id="anio_personal_update">
@@ -1877,7 +2181,7 @@
             <div class="modal-content">
                 <div class="modal-header bg-dark">
                     <h4 class="modal-title text-white" id="myModalLabel"><i class="fa fa-align-justify"></i> Detalle de Ventas</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><img src="{{asset('assets/images/close.png')}}"/></button>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><img src="assets/images/close.png"/></button>
                 </div>
                 <div class="modal-body">
 
@@ -1898,7 +2202,7 @@
         <div class="modal-content">
             <div class="modal-header bg-dark">
                 <h4 class="modal-title text-white" id="myModalLabel"><i class="fa fa-tasks"></i> Ventas Asociada a la Industria</h4>
-                <button type="button" onclick="LimpiarRadio();" class="close" data-dismiss="modal" aria-hidden="true"><img src="{{asset('assets/images/close.png')}}"/></button>
+                <button type="button" onclick="LimpiarRadio();" class="close" data-dismiss="modal" aria-hidden="true"><img src="assets/images/close.png"/></button>
             </div>
             
         <form class="form form-material" name="saveventa" id="saveventa" action="#">
@@ -1909,7 +2213,7 @@
                 <div class="col-md-12">
                     <div class="form-group has-feedback">
                     <label class="control-label">Descripción de Industria: <span class="symbol required"></span></label>
-                        <input type="hidden" name="seccionventa" id="seccionventa" value="">
+                        <input type="hidden" name="seccionventa" id="seccionventa" value="<?php echo encrypt('5'); ?>">
                         <input type="hidden" name="proceso" id="ventas" value="saveventas"/>
                         <input type="hidden" name="industria_venta" id="industria_venta">
                         <input type="hidden" name="anio_venta" id="anio_venta">
@@ -1932,24 +2236,33 @@
                 </tr>
             </thead>
             <tbody>
-              
+              <?php 
+              $clasificacion = new Login();
+              $clasificacion = $clasificacion->ListarClasificacionVentas();
+              if($clasificacion==""){
+                echo "";    
+            } else {
+              $a=0;
+              for($i=0;$i<sizeof($clasificacion);$i++){
+              $b = $a++; 
+            ?>
             <tr role="row" class="odd">
-                <td><input type="hidden" name="id_clasificacion_ventas[]" id="id_clasificacion_ventas" value="" /><label></label></td>
+                <td><input type="hidden" name="id_clasificacion_ventas[]" id="id_clasificacion_ventas" value="<?php echo $clasificacion[$i]['id_clasificacion_ventas']; ?>" /><label><?php echo $clasificacion[$i]['clasificacion_ventas']; ?></label></td>
 
-                <td class="text-center"><div class="custom-control custom-radio custom-control-inline"><input type="radio" name="checkbox[]" id="no_aplica_" value="NO" class="custom-control-input"><label class="custom-control-label" for="no_aplica_" onClick="Limpiar();"></label></div></td>
+                <td class="text-center"><div class="custom-control custom-radio custom-control-inline"><input type="radio" name="checkbox[<?php echo $b; ?>]" id="no_aplica_<?php echo $clasificacion[$i]['id_clasificacion_ventas']; ?>" value="NO" class="custom-control-input"><label class="custom-control-label" for="no_aplica_<?php echo $clasificacion[$i]['id_clasificacion_ventas']; ?>" onClick="Limpiar(<?php echo $clasificacion[$i]['id_clasificacion_ventas']; ?>);"></label></div></td>
 
-                <td class="text-center"><div class="custom-control custom-radio custom-control-inline"><input type="radio" name="checkbox[]" id="provincia_" value="PROVINCIA" class="custom-control-input"><label class="custom-control-label" for="provincia_" onClick="Limpiar();"></label></div></td>
+                <td class="text-center"><div class="custom-control custom-radio custom-control-inline"><input type="radio" name="checkbox[<?php echo $b; ?>]" id="provincia_<?php echo $clasificacion[$i]['id_clasificacion_ventas']; ?>" value="PROVINCIA" class="custom-control-input"><label class="custom-control-label" for="provincia_<?php echo $clasificacion[$i]['id_clasificacion_ventas']; ?>" onClick="Limpiar(<?php echo $clasificacion[$i]['id_clasificacion_ventas']; ?>);"></label></div></td>
 
-                <td class="text-center"><div class="custom-control custom-radio custom-control-inline"><input type="radio" name="checkbox[]" id="otra_provincia_" value="OTRA PROVINCIA" class="custom-control-input"><label class="custom-control-label" for="otra_provincia_" onClick="AsignaContadorProvincia();" data-href="#" data-toggle="modal" data-target="#myModalProvincias" data-backdrop="static" data-keyboard="false"></label></div></td>
+                <td class="text-center"><div class="custom-control custom-radio custom-control-inline"><input type="radio" name="checkbox[<?php echo $b; ?>]" id="otra_provincia_<?php echo $clasificacion[$i]['id_clasificacion_ventas']; ?>" value="OTRA PROVINCIA" class="custom-control-input"><label class="custom-control-label" for="otra_provincia_<?php echo $clasificacion[$i]['id_clasificacion_ventas']; ?>" onClick="AsignaContadorProvincia(<?php echo $clasificacion[$i]['id_clasificacion_ventas']; ?>,<?php echo $b; ?>);" data-href="#" data-toggle="modal" data-target="#myModalProvincias" data-backdrop="static" data-keyboard="false"></label></div></td>
 
-                <td><div id="provincia2_" class="provincias text-info"></div></td>
+                <td><div id="provincia2_<?php echo $clasificacion[$i]['id_clasificacion_ventas']; ?>" class="provincias text-info"></div></td>
 
-                <td class="text-center"><div class="custom-control custom-radio custom-control-inline"><input type="radio" name="checkbox[]" id="otro_pais_" value="OTRO PAIS" class="custom-control-input"><label class="custom-control-label" for="otro_pais_" onClick="AsignaContadorPais();" data-href="#" data-toggle="modal" data-target="#myModalPaises" data-backdrop="static" data-keyboard="false"></label></div></td>
+                <td class="text-center"><div class="custom-control custom-radio custom-control-inline"><input type="radio" name="checkbox[<?php echo $b; ?>]" id="otro_pais_<?php echo $clasificacion[$i]['id_clasificacion_ventas']; ?>" value="OTRO PAIS" class="custom-control-input"><label class="custom-control-label" for="otro_pais_<?php echo $clasificacion[$i]['id_clasificacion_ventas']; ?>" onClick="AsignaContadorPais(<?php echo $clasificacion[$i]['id_clasificacion_ventas']; ?>,<?php echo $b; ?>);" data-href="#" data-toggle="modal" data-target="#myModalPaises" data-backdrop="static" data-keyboard="false"></label></div></td>
 
-                <td><div id="pais2_" class="paises text-info"></div></td>
+                <td><div id="pais2_<?php echo $clasificacion[$i]['id_clasificacion_ventas']; ?>" class="paises text-info"></div></td>
 
                 </tr>
-                
+                 <?php } } ?>
                 </tbody>
                 </table>
             </div>
@@ -1977,7 +2290,7 @@
         <div class="modal-content">
             <div class="modal-header bg-dark">
                 <h4 class="modal-title text-white" id="myModalLabel"><i class="fa fa-tasks"></i> Actualizar Ventas Asociada a la Industria</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><img src="{{asset('assets/images/close.png')}}"/></button>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><img src="assets/images/close.png"/></button>
             </div>
             
         <form class="form form-material" name="updateventa" id="updateventa" action="#">
@@ -1987,7 +2300,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group has-feedback">
-                    <input type="hidden" name="seccionventaupdate" id="seccionventaupdate" value="">
+                    <input type="hidden" name="seccionventaupdate" id="seccionventaupdate" value="<?php echo encrypt('5'); ?>">
                     <input type="hidden" name="proceso" id="ventaupdate" value="updateventas"/>
                     <input type="hidden" name="id_destino_ventas" id="id_destino_ventas">
                     <input type="hidden" name="industria_venta_update" id="industria_venta_update">
@@ -2032,7 +2345,7 @@
         <div class="modal-content">
             <div class="modal-header bg-dark">
                 <h4 class="modal-title text-white" id="myModalLabel"><i class="fa fa-align-justify"></i> Listado de Provincias</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><img src="{{asset('assets/images/close.png')}}"/></button>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><img src="assets/images/close.png"/></button>
             </div>
             <div class="modal-body">
 
@@ -2046,22 +2359,39 @@
                                                  </thead>
                                                  <tbody class="BusquedaRapida">
 
+<?php 
+$new = new Login();
+$provincia = $new->ListarProvincias();
+
+if($provincia==""){
+    
+    echo "<div class='alert alert-danger'>";
+    echo "<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>";
+    echo "<center><span class='fa fa-info-circle'></span> NO SE ENCONTRARON PROVINCIAS ACTUALMENTE </center>";
+    echo "</div>";    
+
+} else {
+ 
+$a=1;
+for($i=0;$i<sizeof($provincia);$i++){
+$b = $a++;  
+?>
                                                <tr role="row" class="odd">
                                                <td><div class="custom-control custom-radio">
 <input type="hidden" name="contador" id="contador">
 <input type="hidden" name="num" id="num">
-<input type="radio" class="custom-control-input" name="check[]" id="check_<" value=">">
-                            <label class="custom-control-label text-success" for="check_>"></label>
+<input type="radio" class="custom-control-input" name="check[]" id="check_<?php echo $b; ?>" value="<?php echo $provincia[$i]["id_provincia"] ?>">
+                            <label class="custom-control-label text-success" for="check_<?php echo $b; ?>"></label>
                                     </div></td>
-                                               <td></td>
+                                               <td><?php echo $provincia[$i]['nprovincia']; ?></td>
                                                </tr>
-                                                
+                                                <?php } } ?>
                                             </tbody>
                                      </table></div></div> 
 
             </div>
             <div class="modal-footer">
-                <button type="button" onClick="AgregarProvincia(document.getElementById('check_').value,document.getElementById('contador').value,document.getElementById('num').value)" class="btn btn-danger" data-dismiss="modal"><span class="fa fa-check"></span> Seleccionar</button>
+                <button type="button" onClick="AgregarProvincia(document.getElementById('check_<?php echo $b; ?>').value,document.getElementById('contador').value,document.getElementById('num').value)" class="btn btn-danger" data-dismiss="modal"><span class="fa fa-check"></span> Seleccionar</button>
                 <button type="button" class="btn btn-dark" data-dismiss="modal"><span class="fa fa-times-circle"></span> Cerrar</button>
             </div>
         </div>
@@ -2075,7 +2405,7 @@
         <div class="modal-content">
             <div class="modal-header bg-dark">
                 <h4 class="modal-title text-white" id="myModalLabel"><i class="fa fa-align-justify"></i> Listado de Paises</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><img src="{{asset('assets/images/close.png')}}"/></button>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><img src="assets/images/close.png"/></button>
             </div>
             <div class="modal-body">
 
@@ -2089,23 +2419,39 @@
                                                  </thead>
                                                  <tbody class="BusquedaRapida">
 
+<?php 
+$new = new Login();
+$pais = $new->ListarPaises();
 
+if($pais==""){
+    
+    echo "<div class='alert alert-danger'>";
+    echo "<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>";
+    echo "<center><span class='fa fa-info-circle'></span> NO SE ENCONTRARON PAISES ACTUALMENTE </center>";
+    echo "</div>";    
+
+} else {
+ 
+$a=1;
+for($i=0;$i<sizeof($pais);$i++){ 
+$b = $a++; 
+?>
                                                <tr role="row" class="odd">
                                                <td><div class="custom-control custom-radio">
 <input type="hidden" name="contador2" id="contador2">
 <input type="hidden" name="num2" id="num2">
-<input type="radio" class="custom-control-input" name="check2[]" id="check2_" value="">
-                            <label class="custom-control-label text-success" for="check2_"></label>
+<input type="radio" class="custom-control-input" name="check2[]" id="check2_<?php echo $b; ?>" value="<?php echo $pais[$i]["id_pais"] ?>">
+                            <label class="custom-control-label text-success" for="check2_<?php echo $b; ?>"></label>
                                     </div></td>
-                                               <td></td>
+                                               <td><?php echo $pais[$i]['npais']; ?></td>
                                                </tr>
-                                                
+                                                <?php } } ?>
                                             </tbody>
                                      </table></div></div> 
 
             </div>
             <div class="modal-footer">
-                <button type="button" onClick="AgregarPais(document.getElementById('check2_').value,document.getElementById('contador2').value,document.getElementById('num2').value)" class="btn btn-danger" data-dismiss="modal"><span class="fa fa-check"></span> Seleccionar</button>
+                <button type="button" onClick="AgregarPais(document.getElementById('check2_<?php echo $b; ?>').value,document.getElementById('contador2').value,document.getElementById('num2').value)" class="btn btn-danger" data-dismiss="modal"><span class="fa fa-check"></span> Seleccionar</button>
                 <button type="button" onClick="LimpiarCheckbox();" class="btn btn-dark" data-dismiss="modal"><span class="fa fa-times-circle"></span> Cerrar</button>
             </div>
         </div>
@@ -2120,7 +2466,7 @@
         <div class="modal-content">
             <div class="modal-header bg-dark">
                 <h4 class="modal-title text-white" id="myModalLabel"><i class="fa fa-align-justify"></i> Listado de Provincias</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><img src="{{asset('assets/images/close.png')}}"/></button>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><img src="assets/images/close.png"/></button>
             </div>
             <div class="modal-body">
 
@@ -2136,15 +2482,31 @@
                                                  </thead>
                                                  <tbody class="BusquedaRapida">
 
+<?php 
+$new = new Login();
+$provincia = $new->ListarProvincias();
 
+if($provincia==""){
+    
+    echo "<div class='alert alert-danger'>";
+    echo "<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>";
+    echo "<center><span class='fa fa-info-circle'></span> NO SE ENCONTRARON PROVINCIAS ACTUALMENTE </center>";
+    echo "</div>";    
+
+} else {
+ 
+$a=1;
+for($i=0;$i<sizeof($provincia);$i++){
+$b = $a++;  
+?>
                                                <tr role="row" class="odd">
                                                <td><div class="custom-control custom-radio">
-<input type="radio" class="custom-control-input" name="check3[]" id="check3_" value="">
-                            <label class="custom-control-label text-success" for="check3_"></label>
+<input type="radio" class="custom-control-input" name="check3[]" id="check3_<?php echo $b; ?>" value="<?php echo $provincia[$i]["id_provincia"] ?>">
+                            <label class="custom-control-label text-success" for="check3_<?php echo $b; ?>"></label>
                                     </div></td>
-                                               <td></td>
+                                               <td><?php echo $provincia[$i]['nprovincia']; ?></td>
                                                </tr>
-                                               
+                                                <?php } } ?>
                                             </tbody>
                                      </table></div></div>
             </form>
@@ -2164,7 +2526,7 @@
         <div class="modal-content">
             <div class="modal-header bg-dark">
                 <h4 class="modal-title text-white" id="myModalLabel"><i class="fa fa-align-justify"></i> Listado de Paises</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><img src="{{asset('assets/images/close.png')}}"/></button>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><img src="assets/images/close.png"/></button>
             </div>
             <div class="modal-body">
 
@@ -2180,15 +2542,31 @@
                                                  </thead>
                                                  <tbody class="BusquedaRapida">
 
+<?php 
+$new = new Login();
+$pais = $new->ListarPaises();
 
+if($pais==""){
+    
+    echo "<div class='alert alert-danger'>";
+    echo "<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>";
+    echo "<center><span class='fa fa-info-circle'></span> NO SE ENCONTRARON PAISES ACTUALMENTE </center>";
+    echo "</div>";    
+
+} else {
+ 
+$a=1;
+for($i=0;$i<sizeof($pais);$i++){ 
+$b = $a++; 
+?>
                                                <tr role="row" class="odd">
                                                <td><div class="custom-control custom-radio">
-<input type="radio" class="custom-control-input" name="check4[]" id="check4_" value="">
-                            <label class="custom-control-label text-success" for="check4_"></label>
+<input type="radio" class="custom-control-input" name="check4[]" id="check4_<?php echo $b; ?>" value="<?php echo $pais[$i]["id_pais"] ?>">
+                            <label class="custom-control-label text-success" for="check4_<?php echo $b; ?>"></label>
                                     </div></td>
-                                               <td></td>
+                                               <td><?php echo $pais[$i]['npais']; ?></td>
                                                </tr>
-                                               
+                                                <?php } } ?>
                                             </tbody>
                                      </table></div></div>
             </form> 
@@ -2221,7 +2599,7 @@
             <div class="modal-content">
                 <div class="modal-header bg-dark">
                     <h4 class="modal-title text-white" id="myModalLabel"><i class="fa fa-align-justify"></i> Detalle de Facturación</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><img src="{{asset('assets/images/close.png')}}"/></button>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><img src="assets/images/close.png"/></button>
                 </div>
                 <div class="modal-body">
 
@@ -2242,7 +2620,7 @@
         <div class="modal-content">
             <div class="modal-header bg-dark">
                 <h4 class="modal-title text-white" id="myModalLabel"><i class="fa fa-tasks"></i> Facturación Asociada a la Industria</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><img src="{{asset('assets/images/close.png')}}"/></button>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><img src="assets/images/close.png"/></button>
             </div>
             
         <form class="form form-material" name="savefacturacion" id="savefacturacion" action="#">
@@ -2255,7 +2633,7 @@
             <div class="col-md-12">
                 <div class="form-group has-feedback">
                 <label class="control-label">Descripción de Industria: <span class="symbol required"></span></label>
-                <input type="hidden" name="seccionfacturacion" id="seccionfacturacion" value="">
+                <input type="hidden" name="seccionfacturacion" id="seccionfacturacion" value="<?php echo encrypt('5'); ?>">
                 <input type="hidden" name="proceso" id="facturacion" value="savefacturacion"/>
                 <input type="hidden" name="id_facturacion" id="id_facturacion">
                 <input type="hidden" name="industria_facturacion" id="industria_facturacion">
@@ -2352,7 +2730,7 @@
             <div class="modal-content">
                 <div class="modal-header bg-dark">
                     <h4 class="modal-title text-white" id="myModalLabel"><i class="fa fa-align-justify"></i> Detalle de Efluente</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><img src="{{asset('assets/images/close.png')}}"/></button>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><img src="assets/images/close.png"/></button>
                 </div>
                 <div class="modal-body">
 
@@ -2373,7 +2751,7 @@
         <div class="modal-content">
             <div class="modal-header bg-dark">
                 <h4 class="modal-title text-white" id="myModalLabel"><i class="fa fa-tasks"></i> Efluentes Asociado a la Industria</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><img src="{{asset('assets/images/close.png')}}"/></button>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><img src="assets/images/close.png"/></button>
             </div>
             
         <form class="form form-material" name="saveefluente" id="saveefluente" action="#">
@@ -2466,7 +2844,7 @@
             <div class="modal-content">
                 <div class="modal-header bg-dark">
                     <h4 class="modal-title text-white" id="myModalLabel"><i class="fa fa-align-justify"></i> Detalle de Certificado</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><img src="{{asset('assets/images/close.png')}}"/></button>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><img src="assets/images/close.png"/></button>
                 </div>
                 <div class="modal-body">
 
@@ -2487,7 +2865,7 @@
         <div class="modal-content">
             <div class="modal-header bg-dark">
                 <h4 class="modal-title text-white" id="myModalLabel"><i class="fa fa-tasks"></i> Certificados Asociado a la Industria</h4>
-                <button type="button" onclick="LimpiarRadio();" class="close" data-dismiss="modal" aria-hidden="true"><img src="{{asset('assets/images/close.png')}}"/></button>
+                <button type="button" onclick="LimpiarRadio();" class="close" data-dismiss="modal" aria-hidden="true"><img src="assets/images/close.png"/></button>
             </div>
             
         <form class="form form-material" name="savecertificado" id="savecertificado" action="#">
@@ -2520,30 +2898,39 @@
                 </tr>
             </thead>
             <tbody>
-             
+              <?php 
+              $certificado = new Login();
+              $certificado = $certificado->ListarCertificados();
+              if($certificado==""){
+                echo "";    
+            } else {
+              $a=0;
+              for($i=0;$i<sizeof($certificado);$i++){ 
+              $b = $a++; 
+                  ?>
                   <tr role="row" class="odd">
-                    <td><input type="hidden" name="id_certificado[]" id="id_certificado" value="" /><label></label></td>
+                    <td><input type="hidden" name="id_certificado[]" id="id_certificado" value="<?php echo $certificado[$i]['id_certificado']; ?>" /><label><?php echo $certificado[$i]['certificado']; ?></label></td>
 
                     <td class="text-center"><div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" name="checkbox[]" id="name1_" value="NO POSEE" class="custom-control-input" onClick="ProcesarCertificado('NO POSEE',);">
-                    <label class="custom-control-label" for="name1_"></label>
+                    <input type="radio" name="checkbox[<?php echo $b; ?>]" id="name1_<?php echo $certificado[$i]['id_certificado']; ?>" value="NO POSEE" class="custom-control-input" onClick="ProcesarCertificado('NO POSEE',<?php echo $certificado[$i]['id_certificado']; ?>);">
+                    <label class="custom-control-label" for="name1_<?php echo $certificado[$i]['id_certificado']; ?>"></label>
                     </div></td>
 
                     <td class="text-center"><div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" name="checkbox[]" id="name2_" value="EN TRAMITE" class="custom-control-input" onClick="ProcesarCertificado('EN TRAMITE',);">
-                    <label class="custom-control-label" for="name2_"></label>
+                    <input type="radio" name="checkbox[<?php echo $b; ?>]" id="name2_<?php echo $certificado[$i]['id_certificado']; ?>" value="EN TRAMITE" class="custom-control-input" onClick="ProcesarCertificado('EN TRAMITE',<?php echo $certificado[$i]['id_certificado']; ?>);">
+                    <label class="custom-control-label" for="name2_<?php echo $certificado[$i]['id_certificado']; ?>"></label>
                     </div></td>
 
                     <td class="text-center"><div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" name="checkbox[]" id="name3_" value="POSEE" class="custom-control-input" onClick="ProcesarCertificado('POSEE',);">
-                    <label class="custom-control-label" for="name3_"></label>
+                    <input type="radio" name="checkbox[<?php echo $b; ?>]" id="name3_<?php echo $certificado[$i]['id_certificado']; ?>" value="POSEE" class="custom-control-input" onClick="ProcesarCertificado('POSEE',<?php echo $certificado[$i]['id_certificado']; ?>);">
+                    <label class="custom-control-label" for="name3_<?php echo $certificado[$i]['id_certificado']; ?>"></label>
                     </div></td>
 
-                    <td class="text-center"><input type="text" class="form-control certificado" name="inicio_certificado[]" id="inicio_certificado_" placeholder="Ingrese Fecha Inicial" autocomplete="off" style="width:100%;height:40px;background:#f0f9fc;border-radius:5px 5px 5px 5px;" onClick="Calendario();" disabled="" title="Ingrese Fecha Inicial" required="" aria-required="true"></td>
+                    <td class="text-center"><input type="text" class="form-control certificado" name="inicio_certificado[<?php echo $b; ?>]" id="inicio_certificado_<?php echo $certificado[$i]['id_certificado']; ?>" placeholder="Ingrese Fecha Inicial" autocomplete="off" style="width:100%;height:40px;background:#f0f9fc;border-radius:5px 5px 5px 5px;" onClick="Calendario(<?php echo $certificado[$i]['id_certificado']; ?>);" disabled="" title="Ingrese Fecha Inicial" required="" aria-required="true"></td>
 
-                    <td class="text-center"><input type="text" class="form-control certificado" name="fin_certificado[]" id="fin_certificado_" placeholder="Ingrese Fecha Final" autocomplete="off" style="width:100%;height:40px;background:#f0f9fc;border-radius:5px 5px 5px 5px;" onClick="Calendario();" disabled="" title="Ingrese Fecha Final" required="" aria-required="true"></td>
+                    <td class="text-center"><input type="text" class="form-control certificado" name="fin_certificado[<?php echo $b; ?>]" id="fin_certificado_<?php echo $certificado[$i]['id_certificado']; ?>" placeholder="Ingrese Fecha Final" autocomplete="off" style="width:100%;height:40px;background:#f0f9fc;border-radius:5px 5px 5px 5px;" onClick="Calendario(<?php echo $certificado[$i]['id_certificado']; ?>);" disabled="" title="Ingrese Fecha Final" required="" aria-required="true"></td>
                 </tr>
-                 
+                 <?php } } ?>
                 </tbody>
                 </table>
             </div>
@@ -2572,7 +2959,7 @@
         <div class="modal-content">
             <div class="modal-header bg-dark">
                 <h4 class="modal-title text-white" id="myModalLabel"><i class="fa fa-tasks"></i> Actualizar Certificado Asociado a la Industria</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><img src="{{asset('assets/images/close.png')}}"/></button>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><img src="assets/images/close.png"/></button>
             </div>
             
         <form class="form form-material" name="updatecertificado" id="updatecertificado" action="#">
@@ -2582,7 +2969,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group has-feedback">
-                    <input type="hidden" name="seccioncertificadoupdate" id="seccioncertificadoupdate" value="">
+                    <input type="hidden" name="seccioncertificadoupdate" id="seccioncertificadoupdate" value="<?php echo encrypt('6'); ?>">
                     <input type="hidden" name="proceso" id="certificadoupdate" value="updatecertificado"/>
                     <input type="hidden" name="id_rel_industria_certificado" id="id_rel_industria_certificado">
                     <input type="hidden" name="industria_certificado_update" id="industria_certificado_update">
@@ -2681,7 +3068,7 @@
         <div class="modal-content">
             <div class="modal-header bg-dark">
                 <h4 class="modal-title text-white" id="myModalLabel"><i class="fa fa-align-justify"></i> Detalle de Sistema de Calidad</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><img src="{{asset('assets/images/close.png')}}"/></button>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><img src="assets/images/close.png"/></button>
             </div>
             <div class="modal-body">
 
@@ -2702,7 +3089,7 @@
         <div class="modal-content">
             <div class="modal-header bg-dark">
                 <h4 class="modal-title text-white" id="myModalLabel"><i class="fa fa-tasks"></i> Sistema de Calidad Asociado a la Industria</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><img src="{{asset('assets/images/close.png')}}"/></button>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><img src="assets/images/close.png"/></button>
             </div>
             
         <form class="form form-material" name="savesistema" id="savesistema" action="#">
@@ -2714,7 +3101,7 @@
                 <div class="form-group has-feedback">
                 <label class="control-label">Descripción de Industria: <span class="symbol required"></span></label>
                 <br /><abbr title="Descripción de Industria"><label id="nombre_de_fantasia"></label></abbr>
-                    <input type="hidden" name="seccionsistema" id="seccionsistema" value="">
+                    <input type="hidden" name="seccionsistema" id="seccionsistema" value="<?php echo encrypt('7'); ?>">
                     <input type="hidden" name="proceso" id="sistema" value="savesistema"/>
                     <input type="hidden" name="industria_sistema" id="industria_sistema">
                     <input type="hidden" name="anio_sistema" id="anio_sistema">
@@ -2735,30 +3122,39 @@
                 </tr>
             </thead>
             <tbody>
-              
+              <?php 
+              $sistema = new Login();
+              $sistema = $sistema->ListarSistemasActivas();
+              if($sistema==""){
+                echo "";    
+            } else {
+              $a=0;
+              for($i=0;$i<sizeof($sistema);$i++){ 
+              $b = $a++; 
+                  ?>
                   <tr role="row" class="odd">
-                    <td><input type="hidden" name="id_sistema_de_calidad[]" id="id_sistema_de_calidad" value="" /><label></label></td>
+                    <td><input type="hidden" name="id_sistema_de_calidad[]" id="id_sistema_de_calidad" value="<?php echo $sistema[$i]['id_sistema_de_calidad']; ?>" /><label><?php echo $sistema[$i]['descripcion']; ?></label></td>
 
                     <td class="text-center"><div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" name="checkbox[]" id="name4_" value="NO POSEE" class="custom-control-input" onClick="ProcesarSistema('NO POSEE',);" checked="checked">
-                    <label class="custom-control-label" for="name4_"></label>
+                    <input type="radio" name="checkbox[<?php echo $b; ?>]" id="name4_<?php echo $sistema[$i]['id_sistema_de_calidad']; ?>" value="NO POSEE" class="custom-control-input" onClick="ProcesarSistema('NO POSEE',<?php echo $sistema[$i]['id_sistema_de_calidad']; ?>);" checked="checked">
+                    <label class="custom-control-label" for="name4_<?php echo $sistema[$i]['id_sistema_de_calidad']; ?>"></label>
                     </div></td>
 
                     <td class="text-center"><div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" name="checkbox[]" id="name5_" value="EN TRAMITE" class="custom-control-input" onClick="ProcesarSistema('EN TRAMITE',);">
-                    <label class="custom-control-label" for="name5_"></label>
+                    <input type="radio" name="checkbox[<?php echo $b; ?>]" id="name5_<?php echo $sistema[$i]['id_sistema_de_calidad']; ?>" value="EN TRAMITE" class="custom-control-input" onClick="ProcesarSistema('EN TRAMITE',<?php echo $sistema[$i]['id_sistema_de_calidad']; ?>);">
+                    <label class="custom-control-label" for="name5_<?php echo $sistema[$i]['id_sistema_de_calidad']; ?>"></label>
                     </div></td>
 
                     <td class="text-center"><div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" name="checkbox[]" id="name6_" value="POSEE" class="custom-control-input" onClick="ProcesarSistema('POSEE',);">
-                    <label class="custom-control-label" for="name6_"></label>
+                    <input type="radio" name="checkbox[<?php echo $b; ?>]" id="name6_<?php echo $sistema[$i]['id_sistema_de_calidad']; ?>" value="POSEE" class="custom-control-input" onClick="ProcesarSistema('POSEE',<?php echo $sistema[$i]['id_sistema_de_calidad']; ?>);">
+                    <label class="custom-control-label" for="name6_<?php echo $sistema[$i]['id_sistema_de_calidad']; ?>"></label>
                     </div></td>
 
-                    <td class="text-center"><input type="text" class="form-control calidad" name="inicio_sistema[]" id="inicio_sistema_" placeholder="Ingrese Fecha Inicial" autocomplete="off" style="width:100%;height:40px;background:#f0f9fc;border-radius:5px 5px 5px 5px;" disabled="" title="Ingrese Fecha Inicial" required="" aria-required="true"></td>
+                    <td class="text-center"><input type="text" class="form-control calidad" name="inicio_sistema[<?php echo $b; ?>]" id="inicio_sistema_<?php echo $sistema[$i]['id_sistema_de_calidad']; ?>" placeholder="Ingrese Fecha Inicial" autocomplete="off" style="width:100%;height:40px;background:#f0f9fc;border-radius:5px 5px 5px 5px;" disabled="" title="Ingrese Fecha Inicial" required="" aria-required="true"></td>
 
-                    <td class="text-center"><input type="text" class="form-control calidad" name="fin_sistema[]" id="fin_sistema_" placeholder="Ingrese Fecha Final" autocomplete="off" style="width:100%;height:40px;background:#f0f9fc;border-radius:5px 5px 5px 5px;" disabled="" title="Ingrese Fecha Final" required="" aria-required="true"></td>
+                    <td class="text-center"><input type="text" class="form-control calidad" name="fin_sistema[<?php echo $b; ?>]" id="fin_sistema_<?php echo $sistema[$i]['id_sistema_de_calidad']; ?>" placeholder="Ingrese Fecha Final" autocomplete="off" style="width:100%;height:40px;background:#f0f9fc;border-radius:5px 5px 5px 5px;" disabled="" title="Ingrese Fecha Final" required="" aria-required="true"></td>
                 </tr>
-                
+                 <?php } } ?>
                 </tbody>
                 </table>
             </div></div>
@@ -2787,7 +3183,7 @@
         <div class="modal-content">
             <div class="modal-header bg-dark">
                 <h4 class="modal-title text-white" id="myModalLabel"><i class="fa fa-tasks"></i> Actualizar Sistema Asociado a la Industria</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><img src="{asset('assets/images/close.png')}}"/></button>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><img src="assets/images/close.png"/></button>
             </div>
             
         <form class="form form-material" name="updatesistema" id="updatesistema" action="#">
@@ -2797,7 +3193,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="form-group has-feedback">
-                <input type="hidden" name="seccionsistemaupdate" id="seccionsistemaupdate" value="">
+                <input type="hidden" name="seccionsistemaupdate" id="seccionsistemaupdate" value="<?php echo encrypt('7'); ?>">
                 <input type="hidden" name="proceso" id="sistemaupdate" value="updatesistema"/>
                 <input type="hidden" name="id_rel_industria_sistema" id="id_rel_industria_sistema">
                 <input type="hidden" name="industria_sistema_update" id="industria_sistema_update">
@@ -2895,7 +3291,7 @@
             <div class="modal-content">
                 <div class="modal-header bg-dark">
                     <h4 class="modal-title text-white" id="myModalLabel"><i class="fa fa-align-justify"></i> Detalle de Promoción</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><img src="{{asset('assets/images/close.png')}}"/></button>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><img src="assets/images/close.png"/></button>
                 </div>
                 <div class="modal-body">
 
@@ -2916,7 +3312,7 @@
         <div class="modal-content">
             <div class="modal-header bg-dark">
                 <h4 class="modal-title text-white" id="myModalLabel"><i class="fa fa-tasks"></i> Promociones Industriales Asociado a la Industria</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><img src="{{asset('assets/images/close.png')}}"/></button>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><img src="assets/images/close.png"/></button>
             </div>
             
         <form class="form form-material" name="savepromocion" id="savepromocion" action="#">
@@ -2928,7 +3324,7 @@
                 <div class="form-group has-feedback">
                 <label class="control-label">Descripción de Industria: <span class="symbol required"></span></label>
                 <br /><abbr title="Descripción de Industria"><label id="nombre_de_fantasia"></label></abbr>
-                    <input type="hidden" name="seccionpromocion" id="seccionpromocion" value="">
+                    <input type="hidden" name="seccionpromocion" id="seccionpromocion" value="<?php echo encrypt('7'); ?>">
                     <input type="hidden" name="proceso" id="promocion" value="savepromocion"/>
                     <input type="hidden" name="industria_promocion" id="industria_promocion">
                     <input type="hidden" name="anio_promocion" id="anio_promocion">
@@ -2949,30 +3345,39 @@
             </tr>
         </thead>
         <tbody>
-         
+          <?php 
+          $promocion = new Login();
+          $promocion = $promocion->ListarPromocionesActivas();
+          if($promocion==""){
+            echo "";    
+        } else {
+          $a=0;
+          for($i=0;$i<sizeof($promocion);$i++){ 
+          $b = $a++; 
+              ?>
               <tr role="row" class="odd">
-                <td><input type="hidden" name="id_promocion_industrial[]" id="id_promocion_industrial" value="" /><label></label></td>
+                <td><input type="hidden" name="id_promocion_industrial[]" id="id_promocion_industrial" value="<?php echo $promocion[$i]['id_promocion_industrial']; ?>" /><label><?php echo $promocion[$i]['descripcion']; ?></label></td>
 
                 <td class="text-center"><div class="custom-control custom-radio custom-control-inline">
-                <input type="radio" name="checkbox[]" id="name7_" value="NO POSEE" class="custom-control-input">
-                <label class="custom-control-label" for="name7_" onClick="ProcesarPromocion('NO POSEE',);"></label>
+                <input type="radio" name="checkbox[<?php echo $b; ?>]" id="name7_<?php echo $promocion[$i]['id_promocion_industrial']; ?>" value="NO POSEE" class="custom-control-input">
+                <label class="custom-control-label" for="name7_<?php echo $promocion[$i]['id_promocion_industrial']; ?>" onClick="ProcesarPromocion('NO POSEE',<?php echo $promocion[$i]['id_promocion_industrial']; ?>);"></label>
                 </div></td>
 
                 <td class="text-center"><div class="custom-control custom-radio custom-control-inline">
-                <input type="radio" name="checkbox[]" id="name8_" value="EN TRAMITE" class="custom-control-input" onClick="ProcesarPromocion('EN TRAMITE',);">
-                <label class="custom-control-label" for="name8_"></label>
+                <input type="radio" name="checkbox[<?php echo $b; ?>]" id="name8_<?php echo $promocion[$i]['id_promocion_industrial']; ?>" value="EN TRAMITE" class="custom-control-input" onClick="ProcesarPromocion('EN TRAMITE',<?php echo $promocion[$i]['id_promocion_industrial']; ?>);">
+                <label class="custom-control-label" for="name8_<?php echo $promocion[$i]['id_promocion_industrial']; ?>"></label>
                 </div></td>
 
                 <td class="text-center"><div class="custom-control custom-radio custom-control-inline">
-                <input type="radio" name="checkbox[]" id="name9_" value="POSEE" class="custom-control-input" onClick="ProcesarPromocion('POSEE',);">
-                <label class="custom-control-label" for="name9_"></label>
+                <input type="radio" name="checkbox[<?php echo $b; ?>]" id="name9_<?php echo $promocion[$i]['id_promocion_industrial']; ?>" value="POSEE" class="custom-control-input" onClick="ProcesarPromocion('POSEE',<?php echo $promocion[$i]['id_promocion_industrial']; ?>);">
+                <label class="custom-control-label" for="name9_<?php echo $promocion[$i]['id_promocion_industrial']; ?>"></label>
                 </div></td>
 
-                <td class="text-center"><input type="text" class="form-control calendario" name="inicio_promocion[]" id="inicio_promocion_" placeholder="Ingrese Fecha Inicial" autocomplete="off" style="width:100%;height:40px;background:#f0f9fc;border-radius:5px 5px 5px 5px;" disabled="" title="Ingrese Fecha Inicial" required="" aria-required="true"></td>
+                <td class="text-center"><input type="text" class="form-control calendario" name="inicio_promocion[<?php echo $b; ?>]" id="inicio_promocion_<?php echo $promocion[$i]['id_promocion_industrial']; ?>" placeholder="Ingrese Fecha Inicial" autocomplete="off" style="width:100%;height:40px;background:#f0f9fc;border-radius:5px 5px 5px 5px;" disabled="" title="Ingrese Fecha Inicial" required="" aria-required="true"></td>
 
-                <td class="text-center"><input type="text" class="form-control calendario" name="fin_promocion[]" id="fin_promocion_" placeholder="Ingrese Fecha Final" autocomplete="off" style="width:100%;height:40px;background:#f0f9fc;border-radius:5px 5px 5px 5px;" disabled="" title="Ingrese Fecha Final" required="" aria-required="true"></td>
+                <td class="text-center"><input type="text" class="form-control calendario" name="fin_promocion[<?php echo $b; ?>]" id="fin_promocion_<?php echo $promocion[$i]['id_promocion_industrial']; ?>" placeholder="Ingrese Fecha Final" autocomplete="off" style="width:100%;height:40px;background:#f0f9fc;border-radius:5px 5px 5px 5px;" disabled="" title="Ingrese Fecha Final" required="" aria-required="true"></td>
             </tr>
-            
+             <?php } } ?>
             </tbody>
             </table>
         </div>
@@ -3011,7 +3416,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="form-group has-feedback">
-                <input type="hidden" name="seccionpromocionupdate" id="seccionpromocionupdate" value="">
+                <input type="hidden" name="seccionpromocionupdate" id="seccionpromocionupdate" value="<?php echo encrypt('7'); ?>">
                 <input type="hidden" name="proceso" id="promocionupdate" value="updatepromocion"/>
                 <input type="hidden" name="id_rel_industria_promocion_industrial" id="id_rel_industria_promocion_industrial">
                 <input type="hidden" name="industria_promocion_update" id="industria_promocion_update">
@@ -3108,7 +3513,7 @@
             <div class="modal-content">
                 <div class="modal-header bg-dark">
                     <h4 class="modal-title text-white" id="myModalLabel"><i class="fa fa-align-justify"></i> Detalle de Economia del Conocimiento</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><img src="{{asset('assets/images/close.png')}}"/></button>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><img src="assets/images/close.png"/></button>
                 </div>
                 <div class="modal-body">
 
@@ -3129,7 +3534,7 @@
         <div class="modal-content">
             <div class="modal-header bg-dark">
                 <h4 class="modal-title text-white" id="myModalLabel"><i class="fa fa-tasks"></i> Economia del Conocimiento Asociado a la Industria</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><img src="{{asset('assets/images/close.png')}}"/></button>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><img src="assets/images/close.png"/></button>
             </div>
             
         <form class="form form-material" name="saveeconomia" id="saveeconomia" action="#">
@@ -3190,7 +3595,7 @@
 
 
         <!-- INICIO DE MENU -->
-        
+        <?php include('menu.php'); ?>
         <!-- FIN DE MENU -->
    
 
@@ -3244,18 +3649,20 @@
 
     <div id="secciones" class="mt-3"><!-- Div secciones -->
 
-    
+    <?php if (isset($_GET['in']) && isset($_GET['co'])) {
+      
+    $reg = $tra->SeccionGeneralPorId(); ?>
 
     <div class="row-horizon">
-     <span class="categories selectedGat" id="seccion#1" onclick="CargaFormulario('','');"><i class="fa fa-tasks"></i> Datos Generales</span>
-     <span class="categories" id="seccion#2" onclick="CargaFormulario('','');"><i class="fa fa-tasks"></i> Actividad</span>
-     <span class="categories" id="seccion#3" onclick="CargaFormulario('','');"><i class="fa fa-tasks"></i> Insumos y Servicios</span>
-     <span class="categories" id="seccion#4" onclick="CargaFormulario('','');"><i class="fa fa-tasks"></i> Situación de la Planta</span>
-     <span class="categories" id="seccion#5" onclick="CargaFormulario('','');"><i class="fa fa-tasks"></i> Ventas y Facturación</span>
-     <span class="categories" id="seccion#6" onclick="CargaFormulario('','');"><i class="fa fa-tasks"></i> Prevención y Control Ambiental</span>
-     <span class="categories" id="seccion#7" onclick="CargaFormulario('','');"><i class="fa fa-tasks"></i> Sistemas de Calidad</span>
-     <span class="categories" id="seccion#8" onclick="CargaFormulario('','');"><i class="fa fa-tasks"></i> Economía del Conocimiento</span>
-     <span class="categories" id="seccion#9" onclick="CargaFormulario('','');"><i class="fa fa-tasks"></i> Revisión y Confirmación DDJJ</span>
+     <span class="categories selectedGat" id="seccion#1" onclick="CargaFormulario('<?php echo encrypt('1'); ?>','<?php echo encrypt($reg[0]["id_industria"]); ?>');"><i class="fa fa-tasks"></i> Datos Generales</span>
+     <span class="categories" id="seccion#2" onclick="CargaFormulario('<?php echo encrypt('2'); ?>','<?php echo encrypt($reg[0]["id_industria"]); ?>');"><i class="fa fa-tasks"></i> Actividad</span>
+     <span class="categories" id="seccion#3" onclick="CargaFormulario('<?php echo encrypt('3'); ?>','<?php echo encrypt($reg[0]["id_industria"]); ?>');"><i class="fa fa-tasks"></i> Insumos y Servicios</span>
+     <span class="categories" id="seccion#4" onclick="CargaFormulario('<?php echo encrypt('4'); ?>','<?php echo encrypt($reg[0]["id_industria"]); ?>');"><i class="fa fa-tasks"></i> Situación de la Planta</span>
+     <span class="categories" id="seccion#5" onclick="CargaFormulario('<?php echo encrypt('5'); ?>','<?php echo encrypt($reg[0]["id_industria"]); ?>');"><i class="fa fa-tasks"></i> Ventas y Facturación</span>
+     <span class="categories" id="seccion#6" onclick="CargaFormulario('<?php echo encrypt('6'); ?>','<?php echo encrypt($reg[0]["id_industria"]); ?>');"><i class="fa fa-tasks"></i> Prevención y Control Ambiental</span>
+     <span class="categories" id="seccion#7" onclick="CargaFormulario('<?php echo encrypt('7'); ?>','<?php echo encrypt($reg[0]["id_industria"]); ?>');"><i class="fa fa-tasks"></i> Sistemas de Calidad</span>
+     <span class="categories" id="seccion#8" onclick="CargaFormulario('<?php echo encrypt('8'); ?>','<?php echo encrypt($reg[0]["id_industria"]); ?>');"><i class="fa fa-tasks"></i> Economía del Conocimiento</span>
+     <span class="categories" id="seccion#9" onclick="CargaFormulario('<?php echo encrypt('9'); ?>','<?php echo encrypt($reg[0]["id_industria"]); ?>');"><i class="fa fa-tasks"></i> Revisión y Confirmación DDJJ</span>
     </div>
 
     <hr>
@@ -3263,15 +3670,15 @@
     <?php } else { ?>
 
     <div class="row-horizon">
-     <span class="categories selectedGat" id="seccion#1" onclick="CargaFormulario('','');"><i class="fa fa-tasks"></i> Datos Generales</span>
-     <span class="categories" id="seccion#2" onclick="CargaFormulario('','');"><i class="fa fa-tasks"></i> Actividad</span>
-     <span class="categories" id="seccion#3" onclick="CargaFormulario('','');"><i class="fa fa-tasks"></i> Insumos y Servicios</span>
-     <span class="categories" id="seccion#4" onclick="CargaFormulario('','');"><i class="fa fa-tasks"></i> Situación de la Planta</span>
-     <span class="categories" id="seccion#5" onclick="CargaFormulario('','');"><i class="fa fa-tasks"></i> Ventas y Facturación</span>
-     <span class="categories" id="seccion#6" onclick="CargaFormulario('','');"><i class="fa fa-tasks"></i> Prevención y Control Ambiental</span>
-     <span class="categories" id="seccion#7" onclick="CargaFormulario('','');"><i class="fa fa-tasks"></i> Sistemas de Calidad</span>
-     <span class="categories" id="seccion#8" onclick="CargaFormulario('','');"><i class="fa fa-tasks"></i> Economía del Conocimiento</span>
-     <span class="categories" id="seccion#9" onclick="CargaFormulario('','');"><i class="fa fa-tasks"></i> Revisión y Confirmación DDJJ</span>
+     <span class="categories selectedGat" id="seccion#1" onclick="CargaFormulario('<?php echo encrypt('1'); ?>','<?php echo encrypt($reg[0]["id_industria"]); ?>');"><i class="fa fa-tasks"></i> Datos Generales</span>
+     <span class="categories" id="seccion#2" onclick="CargaFormulario('<?php echo encrypt('2'); ?>','<?php echo encrypt($reg[0]["id_industria"]); ?>');"><i class="fa fa-tasks"></i> Actividad</span>
+     <span class="categories" id="seccion#3" onclick="CargaFormulario('<?php echo encrypt('3'); ?>','<?php echo encrypt($reg[0]["id_industria"]); ?>');"><i class="fa fa-tasks"></i> Insumos y Servicios</span>
+     <span class="categories" id="seccion#4" onclick="CargaFormulario('<?php echo encrypt('4'); ?>','<?php echo encrypt($reg[0]["id_industria"]); ?>');"><i class="fa fa-tasks"></i> Situación de la Planta</span>
+     <span class="categories" id="seccion#5" onclick="CargaFormulario('<?php echo encrypt('5'); ?>','<?php echo encrypt($reg[0]["id_industria"]); ?>');"><i class="fa fa-tasks"></i> Ventas y Facturación</span>
+     <span class="categories" id="seccion#6" onclick="CargaFormulario('<?php echo encrypt('6'); ?>','<?php echo encrypt($reg[0]["id_industria"]); ?>');"><i class="fa fa-tasks"></i> Prevención y Control Ambiental</span>
+     <span class="categories" id="seccion#7" onclick="CargaFormulario('<?php echo encrypt('7'); ?>','<?php echo encrypt($reg[0]["id_industria"]); ?>');"><i class="fa fa-tasks"></i> Sistemas de Calidad</span>
+     <span class="categories" id="seccion#8" onclick="CargaFormulario('<?php echo encrypt('8'); ?>','<?php echo encrypt($reg[0]["id_industria"]); ?>');"><i class="fa fa-tasks"></i> Economía del Conocimiento</span>
+     <span class="categories" id="seccion#9" onclick="CargaFormulario('<?php echo encrypt('9'); ?>','<?php echo encrypt($reg[0]["id_industria"]); ?>');"><i class="fa fa-tasks"></i> Revisión y Confirmación DDJJ</span>
     </div>
 
     <hr>
@@ -3290,9 +3697,15 @@
                     <i class="fa fa-bars form-control-feedback"></i>
                     <select class="form-control" id="id_periodo_fiscal" name="id_periodo_fiscal" disabled="" required="" aria-required="true">
                     <option value=""> -- SELECCIONE -- </option>
-                    
-                    <option value=""></option>
-                   
+                    <?php
+                    $pfiscal = new Login();
+                    $pfiscal = $pfiscal->ListarPeriodosFiscales();
+                    if($pfiscal==""){ 
+                        echo "";
+                    } else {
+                    for($i=0;$i<sizeof($pfiscal);$i++){ ?>
+                    <option value="<?php echo $pfiscal[$i]['id_periodo_fiscal']; ?>"<?php if (!(strcmp(date("Y"), $pfiscal[$i]['anio']))) {echo "selected=\"selected\"";} ?>><?php echo $pfiscal[$i]['anio'] ?></option>
+                    <?php } } ?>
                     </select>  
                 </div>
             </div>
@@ -3304,13 +3717,13 @@
             <div class="col-md-12">
                 <div class="form-group has-feedback">
                     <label class="control-label">Nombre o Razón Social de la Empresa: <span class="symbol required"></span></label>
-                    <input type="hidden" name="secciongeneral" id="secciongeneral" value="">
-                    <input type="hidden" name="proceso" id="proceso"  value="updategeneral"  value="savegeneral" />
-                    <input type="hidden" name="id_contribuyente" id="id_contribuyente"  value=""  value="" >
-                    <input type="hidden" name="id_persona" id="id_persona"  value=""  value="" >
-                    <input type="hidden" name="id_industria" id="id_industria"  value=""  value="0" >
-                    <input type="hidden" name="id_periodo_de_actividad_de_contribuyente" id="id_periodo_de_actividad_de_contribuyente"  value="" >
-                    <br><abbr title="Nombre Razón Social de Empresa"></abbr>
+                    <input type="hidden" name="secciongeneral" id="secciongeneral" value="<?php echo encrypt('1'); ?>">
+                    <input type="hidden" name="proceso" id="proceso" <?php if (isset($reg[0]['id_contribuyente'])) { ?> value="updategeneral" <?php } else { ?> value="savegeneral" <?php } ?>/>
+                    <input type="hidden" name="id_contribuyente" id="id_contribuyente" <?php if (isset($reg[0]['id_contribuyente'])) { ?> value="<?php echo $reg[0]['id_contribuyente']; ?>" <?php } else { ?> value="<?php echo $_SESSION['id_contribuyente']; ?>" <?php } ?>>
+                    <input type="hidden" name="id_persona" id="id_persona" <?php if (isset($reg[0]['id_persona'])) { ?> value="<?php echo $reg[0]['id_persona']; ?>" <?php } else { ?> value="<?php echo $_SESSION['id_persona']; ?>" <?php } ?>>
+                    <input type="hidden" name="id_industria" id="id_industria" <?php if (isset($reg[0]['id_industria'])) { ?> value="<?php echo $reg[0]['id_industria']; ?>" <?php } else { ?> value="0" <?php } ?>>
+                    <input type="hidden" name="id_periodo_de_actividad_de_contribuyente" id="id_periodo_de_actividad_de_contribuyente" <?php if (isset($reg[0]['id_periodo_de_actividad_de_contribuyente'])) { ?> value="<?php echo $reg[0]['id_periodo_de_actividad_de_contribuyente']; ?>" <?php } ?>>
+                    <br><abbr title="Nombre Razón Social de Empresa"><?php echo $_SESSION['razonsocial']; ?></abbr>
                 </div>
             </div>
         </div>
@@ -3319,14 +3732,14 @@
             <div class="col-md-3">
                 <div class="form-group has-feedback">
                     <label class="control-label">Nº de Cuit: <span class="symbol required"></span></label>
-                    <br><abbr title="Nº de CUIT/CUIL"></abbr> 
+                    <br><abbr title="Nº de CUIT/CUIL"><?php echo $_SESSION['cuit']; ?></abbr> 
                 </div>
             </div>
 
             <div class="col-md-3">
                 <div class="form-group has-feedback">
                     <label class="control-label">Fecha Inicio Actividad Contribuyente: <span class="symbol required"></span></label>
-                    <input type="text" class="form-control actividades" name="fecha_actividad_contribuyente" id="fecha_actividad_contribuyente" placeholder="Ingrese Fecha Inicio Actividad de Contribuyente" autocomplete="off"  value=""  required="" aria-required="true"/>  
+                    <input type="text" class="form-control actividades" name="fecha_actividad_contribuyente" id="fecha_actividad_contribuyente" placeholder="Ingrese Fecha Inicio Actividad de Contribuyente" autocomplete="off" <?php if (isset($reg[0]['fecha_inicio_de_actividades'])) { ?> value="<?php echo date("d-m-Y",strtotime($reg[0]['fecha_inicio_de_actividades'])); ?>" <?php } ?> required="" aria-required="true"/>  
                     <i class="fa fa-calendar form-control-feedback"></i>
                 </div>
             </div>
@@ -3335,22 +3748,40 @@
                 <div class="form-group has-feedback">
                     <label class="control-label">Régimen de Ingresos Brutos: <span class="symbol required"></span></label>
                     <i class="fa fa-bars form-control-feedback"></i>
-                
+                    <?php if (isset($reg[0]['regimen_ib'])) { ?>
                     <select class="form-control" id="id_regimen_ib" name="id_regimen_ib" required="" aria-required="true">
                     <option value=""> -- SELECCIONE -- </option>
-                    
+                    <?php
+                    $regimen = new Login();
+                    $regimen = $regimen->ListarRegimenIngresosBrutos();
+                    if($regimen==""){ 
+                        echo "";
+                    } else {
+                    for($i=0;$i<sizeof($regimen);$i++){ ?>
+                    <option value="<?php echo $regimen[$i]['id_regimen_ib'] ?>"<?php if (!(strcmp($reg[0]['regimen_ib'], htmlentities($regimen[$i]['id_regimen_ib'])))) { echo "selected=\"selected\""; } ?>><?php echo $regimen[$i]['regimen_ib'] ?></option>
+                    <?php } } ?>
                     </select> 
-                    
+                    <?php } else { ?>
                     <select class="form-control" id="id_regimen_ib" name="id_regimen_ib" required="" aria-required="true">
                     <option value=""> -- SELECCIONE -- </option>
-                    
+                    <?php
+                    $regimen = new Login();
+                    $regimen = $regimen->ListarRegimenIngresosBrutos();
+                    if($regimen==""){ 
+                        echo "";
+                    } else {
+                    for($i=0;$i<sizeof($regimen);$i++){ ?>
+                    <option value="<?php echo $regimen[$i]['id_regimen_ib'] ?>"><?php echo $regimen[$i]['regimen_ib'] ?></option>
+                    <?php } } ?>
+                    </select> 
+                    <?php } ?>
                 </div>
             </div>
 
             <div class="col-md-3">
                 <div class="form-group has-feedback">
                     <label class="control-label">Nº de Ingresos Brutos: <span class="symbol required"></span></label>
-                    <input type="text" class="form-control" name="numero_de_ib" id="numero_de_ib" placeholder="Ingrese Nº de Ingresos Brutos" autocomplete="off"  value=""  required="" aria-required="true"/>  
+                    <input type="text" class="form-control" name="numero_de_ib" id="numero_de_ib" placeholder="Ingrese Nº de Ingresos Brutos" autocomplete="off" <?php if (isset($reg[0]['numero_de_ib'])) { ?> value="<?php echo $reg[0]['numero_de_ib']; ?>" <?php } ?> required="" aria-required="true"/>  
                     <i class="fa fa-pencil form-control-feedback"></i>
                 </div>
             </div>
@@ -3362,21 +3793,33 @@
                 <div class="form-group has-feedback">
                     <label class="control-label">Condición Frente al Iva: <span class="symbol required"></span></label>
                     <i class="fa fa-bars form-control-feedback"></i>
-                   
+                    <?php if (isset($reg[0]['condicion_iva'])) { ?>
                     <select class="form-control" id="id_condicion_iva" name="id_condicion_iva" required="" aria-required="true">
                     <option value=""> -- SELECCIONE -- </option>
-                   
-                    <option value=""></option>
-                   
+                    <?php
+                    $civa = new Login();
+                    $civa = $civa->ListarCondicionesIva();
+                    if($civa==""){ 
+                        echo "";
+                    } else {
+                    for($i=0;$i<sizeof($civa);$i++){ ?>
+                    <option value="<?php echo $civa[$i]['id_condicion_iva'] ?>"<?php if (!(strcmp($reg[0]['condicion_iva'], htmlentities($civa[$i]['id_condicion_iva'])))) { echo "selected=\"selected\""; } ?>><?php echo $civa[$i]['condicion_iva'] ?></option>
+                    <?php } } ?>
                     </select> 
-                   
+                    <?php } else { ?>
                     <select class="form-control" id="id_condicion_iva" name="id_condicion_iva" required="" aria-required="true">
                     <option value=""> -- SELECCIONE -- </option>
-                    
-                    <option value=""></option>
-                   
+                    <?php
+                    $civa = new Login();
+                    $civa = $civa->ListarCondicionesIva();
+                    if($civa==""){ 
+                        echo "";
+                    } else {
+                    for($i=0;$i<sizeof($civa);$i++){ ?>
+                    <option value="<?php echo $civa[$i]['id_condicion_iva'] ?>"><?php echo $civa[$i]['condicion_iva'] ?></option>
+                    <?php } } ?>
                     </select> 
-                   
+                    <?php } ?> 
                 </div>
             </div>
 
@@ -3384,21 +3827,33 @@
                 <div class="form-group has-feedback">
                     <label class="control-label">Naturaleza Juridica: <span class="symbol required"></span></label>
                     <i class="fa fa-bars form-control-feedback"></i>
-                    
+                    <?php if (isset($reg[0]['naturaleza_juridica'])) { ?>
                     <select class="form-control" id="id_naturaleza_juridica" name="id_naturaleza_juridica" required="" aria-required="true">
                     <option value=""> -- SELECCIONE -- </option>
-                    
-                    <option value=""><</option>
-                    
+                    <?php
+                    $najuridica = new Login();
+                    $najuridica = $najuridica->ListarNaturalezaJuridica();
+                    if($najuridica==""){ 
+                        echo "";
+                    } else {
+                    for($i=0;$i<sizeof($najuridica);$i++){ ?>
+                    <option value="<?php echo $najuridica[$i]['id_naturaleza_juridica'] ?>"<?php if (!(strcmp($reg[0]['naturaleza_juridica'], htmlentities($najuridica[$i]['id_naturaleza_juridica'])))) { echo "selected=\"selected\""; } ?>><?php echo $najuridica[$i]['naturaleza_juridica'] ?></option>
+                    <?php } } ?>
                     </select> 
-                  
+                    <?php } else { ?>
                     <select class="form-control" id="id_naturaleza_juridica" name="id_naturaleza_juridica" required="" aria-required="true">
                     <option value=""> -- SELECCIONE -- </option>
-                   
-                    <option value=""><</option>
-                   
+                    <?php
+                    $najuridica = new Login();
+                    $najuridica = $najuridica->ListarNaturalezaJuridica();
+                    if($najuridica==""){ 
+                        echo "";
+                    } else {
+                    for($i=0;$i<sizeof($najuridica);$i++){ ?>
+                    <option value="<?php echo $najuridica[$i]['id_naturaleza_juridica'] ?>"><?php echo $najuridica[$i]['naturaleza_juridica'] ?></option>
+                    <?php } } ?>
                     </select> 
-                    
+                    <?php } ?> 
                 </div>
             </div>
         </div>
@@ -3407,7 +3862,7 @@
             <div class="col-md-12">
                 <div class="form-group has-feedback">
                     <label class="control-label">Nombre de Establecimiento Industrial <span class="text-blue">(Nombre de Fantasia)</span>: <span class="symbol required"></span></label>
-                    <input type="text" class="form-control" name="nombre_de_fantasia" id="nombre_de_fantasia" placeholder="Ingrese Nombre de Establecimiento Industrial" autocomplete="off" value=""  required="" aria-required="true"/>  
+                    <input type="text" class="form-control" name="nombre_de_fantasia" id="nombre_de_fantasia" placeholder="Ingrese Nombre de Establecimiento Industrial" autocomplete="off" <?php if (isset($reg[0]['nombre_de_fantasia'])) { ?> value="<?php echo $reg[0]['nombre_de_fantasia']; ?>" <?php } ?> required="" aria-required="true"/>  
                     <i class="fa fa-pencil form-control-feedback"></i> 
                 </div>
             </div>
@@ -3417,7 +3872,7 @@
             <div class="col-md-6">
                 <div class="form-group has-feedback">
                     <label class="control-label">Fecha de Inicio Actividad en Establecimiento: <span class="symbol required"></span></label>
-                    <input type="text" class="form-control actividades" name="fecha_actividad_industria" id="fecha_actividad_industria" placeholder="Ingrese Fecha Inicio Actividad de Industria" autocomplete="off" value=""required="" aria-required="true"/>  
+                    <input type="text" class="form-control actividades" name="fecha_actividad_industria" id="fecha_actividad_industria" placeholder="Ingrese Fecha Inicio Actividad de Industria" autocomplete="off" <?php if (isset($reg[0]['fecha_inicio'])) { ?> value="<?php echo date("d-m-Y",strtotime($reg[0]['fecha_inicio'])); ?>" <?php } ?> required="" aria-required="true"/>  
                     <i class="fa fa-calendar form-control-feedback"></i>
                 </div>
             </div>
@@ -3426,19 +3881,19 @@
                 <div class="form-group has-feedback">
                     <label class="control-label">Es Casa Central: <span class="symbol required"></span></label>
                     <i class="fa fa-bars form-control-feedback"></i>
-                        
+                        <?php if (isset($reg[0]['es_casa_central'])) { ?>
                         <select name="es_casa_central" id="es_casa_central" class="form-control" required="" aria-required="true">
                         <option value=""> -- SELECCIONE -- </option>
-<option value="SI">SI</option>
-<option value="NO">NO</option>
+<option value="SI"<?php if (!(strcmp('SI', $reg[0]['es_casa_central']))) {echo "selected=\"selected\"";} ?>>SI</option>
+<option value="NO"<?php if (!(strcmp('NO', $reg[0]['es_casa_central']))) {echo "selected=\"selected\"";} ?>>NO</option>
                         </select>
-                        
+                        <?php } else { ?>
                     <select class="form-control" id="es_casa_central" name="es_casa_central" required="" aria-required="true">
                     <option value=""> -- SELECCIONE -- </option>
                     <option value="SI">SI</option>
                     <option value="NO">NO</option>
                     </select>
-                    
+                    <?php } ?>
                 </div>
             </div>
         </div>
@@ -3447,7 +3902,7 @@
             <div class="col-md-6">
                 <div class="form-group has-feedback">
                     <label class="control-label">Nº de Teléfono Fijo: <span class="symbol required"></span></label>
-                    <input type="text" class="form-control" name="tel_fijo" id="tel_fijo" placeholder="Ingrese Nº de Teléfono Fijo"  value=""  autocomplete="off" required="" aria-required="true"/> 
+                    <input type="text" class="form-control" name="tel_fijo" id="tel_fijo" placeholder="Ingrese Nº de Teléfono Fijo" <?php if (isset($reg[0]['tel_fijo'])) { ?> value="<?php echo $reg[0]['tel_fijo']; ?>" <?php } ?> autocomplete="off" required="" aria-required="true"/> 
                     <i class="fa fa-phone form-control-feedback"></i> 
                 </div>
             </div>
@@ -3455,7 +3910,7 @@
             <div class="col-md-6">
                 <div class="form-group has-feedback">
                     <label class="control-label">Nº de Celular de Contacto de la Empresa: <span class="symbol required"></span></label>
-                    <input type="text" class="form-control" name="tel_celular" id="tel_celular" placeholder="Ingrese Nº de Celular" autocomplete="off"  value=""  required="" aria-required="true"/>  
+                    <input type="text" class="form-control" name="tel_celular" id="tel_celular" placeholder="Ingrese Nº de Celular" autocomplete="off" <?php if (isset($reg[0]['tel_celular'])) { ?> value="<?php echo $reg[0]['tel_celular']; ?>" <?php } ?> required="" aria-required="true"/>  
                     <i class="fa fa-mobile form-control-feedback"></i> 
                 </div>
             </div>
@@ -3465,7 +3920,7 @@
             <div class="col-md-6">
                 <div class="form-group has-feedback">
                     <label class="control-label">Código Postal: <span class="symbol required"></span></label>
-                    <input type="text" class="form-control" name="cod_postal" id="cod_postal" placeholder="Ingrese Código Postal" autocomplete="off"  value=""  required="" aria-required="true"/> 
+                    <input type="text" class="form-control" name="cod_postal" id="cod_postal" placeholder="Ingrese Código Postal" autocomplete="off" <?php if (isset($reg[0]['cod_postal'])) { ?> value="<?php echo $reg[0]['cod_postal']; ?>" <?php } ?> required="" aria-required="true"/> 
                     <i class="fa fa-pencil form-control-feedback"></i> 
                 </div>
             </div>
@@ -3473,7 +3928,7 @@
             <div class="col-md-6">
                 <div class="form-group has-feedback">
                     <label class="control-label">Correo Electrónico para el Seguimiento del Trámite: <span class="symbol required"></span></label>
-                    <input type="text" class="form-control" name="email_fiscal" id="email_fiscal" placeholder="Ingrese Correo Electrónico para Trámite" autocomplete="off" value=""  value="" required="" aria-required="true"/> 
+                    <input type="text" class="form-control" name="email_fiscal" id="email_fiscal" placeholder="Ingrese Correo Electrónico para Trámite" autocomplete="off" <?php if (isset($reg[0]['email_fiscal'])) { ?> value="<?php echo $reg[0]['email_fiscal']; ?>" <?php } else { ?> value="<?php echo $_SESSION["email"]; ?>" <?php } ?> required="" aria-required="true"/> 
                     <i class="fa fa-envelope-o form-control-feedback"></i> 
                 </div>
             </div>
@@ -3484,29 +3939,41 @@
                 <div class="form-group has-feedback">
                     <label class="control-label">Zona de Planta: <span class="symbol required"></span></label>
                     <i class="fa fa-bars form-control-feedback"></i>
-                  
+                    <?php if (isset($reg[0]['zona'])) { ?>
                     <select class="form-control" id="zona" name="zona" required="" aria-required="true">
                     <option value=""> -- SELECCIONE -- </option>
-                    
-                    <option value=""></option>
-                    
+                    <?php
+                    $cardinal = new Login();
+                    $cardinal = $cardinal->ListarPuntosCardinales();
+                    if($cardinal==""){ 
+                        echo "";
+                    } else {
+                    for($i=0;$i<sizeof($cardinal);$i++){ ?>
+                    <option value="<?php echo $cardinal[$i]['id_punto_cardinal'] ?>"<?php if (!(strcmp($reg[0]['zona'], htmlentities($cardinal[$i]['id_punto_cardinal'])))) { echo "selected=\"selected\""; } ?>><?php echo $cardinal[$i]['descripcion'] ?></option>
+                    <?php } } ?>
                     </select> 
-                    
+                    <?php } else { ?>
                     <select class="form-control" id="zona" name="zona" required="" aria-required="true">
                     <option value=""> -- SELECCIONE -- </option>
-                    
-                    <option value=""></option>
-                   
+                    <?php
+                    $cardinal = new Login();
+                    $cardinal = $cardinal->ListarPuntosCardinales();
+                    if($cardinal==""){ 
+                        echo "";
+                    } else {
+                    for($i=0;$i<sizeof($cardinal);$i++){ ?>
+                    <option value="<?php echo $cardinal[$i]['id_punto_cardinal'] ?>"><?php echo $cardinal[$i]['descripcion'] ?></option>
+                    <?php } } ?>
                     </select> 
-                   
+                    <?php } ?>
                 </div>
             </div>
 
             <div class="col-md-3">
                 <div class="form-group has-feedback">
                     <label class="control-label">Localidad de Planta: <span style="cursor: pointer;" class="mdi mdi-alert-circle text-danger" data-container="body" title="Notificación: Ingrese Nombre de Localidad y seleccione en el Listado que se mostrará, en caso de no aparecer, escribala y el sistema se encargará de la asignación del mismo."></span><span class="symbol required"></span></label>
-                    <input type="hidden" name="localidad" id="localidad"  value="" />
-                    <input type="text" class="form-control" name="search_localidad" id="search_localidad" placeholder="Ingrese Nombre de Localidad" autocomplete="off"  value=""  required="" aria-required="true"/>  
+                    <input type="hidden" name="localidad" id="localidad" <?php if (isset($reg[0]['localidad'])) { ?> value="<?php echo $reg[0]['localidad']; ?>" <?php } ?>/>
+                    <input type="text" class="form-control" name="search_localidad" id="search_localidad" placeholder="Ingrese Nombre de Localidad" autocomplete="off" <?php if (isset($reg[0]['localidad'])) { ?> value="<?php echo $reg[0]['nlocalidad']; ?>" <?php } ?> required="" aria-required="true"/>  
                     <i class="fa fa-search form-control-feedback"></i> 
                 </div>
             </div>
@@ -3514,8 +3981,8 @@
             <div class="col-md-3">
                 <div class="form-group has-feedback">
                     <label class="control-label">Barrio de Planta: <span style="cursor: pointer;" class="mdi mdi-alert-circle text-danger" data-container="body" title="Notificación: Ingrese Nombre de Barrio y seleccione en el Listado que se mostrará, en caso de no aparecer, escribala y el sistema se encargará de la asignación del mismo."></span><span class="symbol required"></span></label>
-                    <input type="hidden" name="barrio" id="barrio"  value=""  />
-                    <input type="text" class="form-control" name="search_barrio" id="search_barrio" placeholder="Ingrese Nombre de Barrio" autocomplete="off"  value=""  required="" aria-required="true"/>  
+                    <input type="hidden" name="barrio" id="barrio" <?php if (isset($reg[0]['barrio'])) { ?> value="<?php echo $reg[0]['barrio']; ?>" <?php } ?> />
+                    <input type="text" class="form-control" name="search_barrio" id="search_barrio" placeholder="Ingrese Nombre de Barrio" autocomplete="off" <?php if (isset($reg[0]['barrio'])) { ?> value="<?php echo $reg[0]['nbarrio']; ?>" <?php } ?> required="" aria-required="true"/>  
                     <i class="fa fa-search form-control-feedback"></i> 
                 </div>
             </div>
@@ -3523,8 +3990,8 @@
             <div class="col-md-3">
                 <div class="form-group has-feedback">
                     <label class="control-label">Calle de Planta: <span style="cursor: pointer;" class="mdi mdi-alert-circle text-danger" data-container="body" title="Notificación: Ingrese Nombre de Calle y seleccione en el Listado que se mostrará, en caso de no aparecer, escribala y el sistema se encargará de la asignación del mismo."></span><span class="symbol required"></span></label>
-                    <input type="hidden" name="calle" id="calle"  value=""  />
-                    <input type="text" class="form-control" name="search_calle" id="search_calle" placeholder="Ingrese Nombre de Calle" autocomplete="off" value=""  required="" aria-required="true"/>  
+                    <input type="hidden" name="calle" id="calle" <?php if (isset($reg[0]['calle'])) { ?> value="<?php echo $reg[0]['calle']; ?>" <?php } ?> />
+                    <input type="text" class="form-control" name="search_calle" id="search_calle" placeholder="Ingrese Nombre de Calle" autocomplete="off" <?php if (isset($reg[0]['calle'])) { ?> value="<?php echo $reg[0]['ncalle']; ?>" <?php } ?> required="" aria-required="true"/>  
                     <i class="fa fa-search form-control-feedback"></i> 
                 </div>
             </div>
@@ -3535,29 +4002,41 @@
                 <div class="form-group has-feedback">
                     <label class="control-label">Zona Administrativa: <span class="symbol required"></span></label>
                     <i class="fa fa-bars form-control-feedback"></i>
-                    
+                    <?php if (isset($reg[0]['zona_administracion'])) { ?>
                     <select class="form-control" id="zona_administracion" name="zona_administracion" required="" aria-required="true">
                     <option value=""> -- SELECCIONE -- </option>
-                    
-                    <option value=""></option>
-                    
+                    <?php
+                    $cardinal = new Login();
+                    $cardinal = $cardinal->ListarPuntosCardinales();
+                    if($cardinal==""){ 
+                        echo "";
+                    } else {
+                    for($i=0;$i<sizeof($cardinal);$i++){ ?>
+                    <option value="<?php echo $cardinal[$i]['id_punto_cardinal'] ?>"<?php if (!(strcmp($reg[0]['zona_administracion'], htmlentities($cardinal[$i]['id_punto_cardinal'])))) { echo "selected=\"selected\""; } ?>><?php echo $cardinal[$i]['descripcion'] ?></option>
+                    <?php } } ?>
                     </select> 
-                   
+                    <?php } else { ?>
                     <select class="form-control" id="zona_administracion" name="zona_administracion" required="" aria-required="true">
                     <option value=""> -- SELECCIONE -- </option>
-                    
-                    <option value=""></option>
-                    
+                    <?php
+                    $cardinal = new Login();
+                    $cardinal = $cardinal->ListarPuntosCardinales();
+                    if($cardinal==""){ 
+                        echo "";
+                    } else {
+                    for($i=0;$i<sizeof($cardinal);$i++){ ?>
+                    <option value="<?php echo $cardinal[$i]['id_punto_cardinal'] ?>"><?php echo $cardinal[$i]['descripcion'] ?></option>
+                    <?php } } ?>
                     </select> 
-                    
+                    <?php } ?>
                 </div>
             </div>
 
             <div class="col-md-3">
                 <div class="form-group has-feedback">
                     <label class="control-label">Localidad Administrativa: <span style="cursor: pointer;" class="mdi mdi-alert-circle text-danger" data-container="body" title="Notificación: Ingrese Nombre de Localidad y seleccione en el Listado que se mostrará, en caso de no aparecer, escribala y el sistema se encargará de la asignación del mismo."></span><span class="symbol required"></span></label>
-                    <input type="hidden" name="localidad_administracion" id="localidad_administracion" value=""  />
-                    <input type="text" class="form-control" name="search_localidad2" id="search_localidad2" placeholder="Ingrese Nombre de Localidad" autocomplete="off" value=""   required="" aria-required="true"/>  
+                    <input type="hidden" name="localidad_administracion" id="localidad_administracion" <?php if (isset($reg[0]['localidad_administracion'])) { ?> value="<?php echo $reg[0]['localidad_administracion']; ?>" <?php } ?> />
+                    <input type="text" class="form-control" name="search_localidad2" id="search_localidad2" placeholder="Ingrese Nombre de Localidad" autocomplete="off" <?php if (isset($reg[0]['localidad_administracion'])) { ?> value="<?php echo $reg[0]['nlocalidad2']; ?>" <?php } ?>  required="" aria-required="true"/>  
                     <i class="fa fa-search form-control-feedback"></i> 
                 </div>
             </div>
@@ -3565,8 +4044,8 @@
             <div class="col-md-3">
                 <div class="form-group has-feedback">
                     <label class="control-label">Barrio Administrativa: <span style="cursor: pointer;" class="mdi mdi-alert-circle text-danger" data-container="body" title="Notificación: Ingrese Nombre de Barrio y seleccione en el Listado que se mostrará, en caso de no aparecer, escribala y el sistema se encargará de la asignación del mismo."></span><span class="symbol required"></span></label>
-                    <input type="hidden" name="barrio_administracion" id="barrio_administracion"  value=""  />
-                    <input type="text" class="form-control" name="search_barrio2" id="search_barrio2" placeholder="Ingrese Nombre de Barrio" autocomplete="off"  value=""  required="" aria-required="true"/>  
+                    <input type="hidden" name="barrio_administracion" id="barrio_administracion" <?php if (isset($reg[0]['barrio_administracion'])) { ?> value="<?php echo $reg[0]['barrio_administracion']; ?>" <?php } ?> />
+                    <input type="text" class="form-control" name="search_barrio2" id="search_barrio2" placeholder="Ingrese Nombre de Barrio" autocomplete="off" <?php if (isset($reg[0]['barrio_administracion'])) { ?> value="<?php echo $reg[0]['nbarrio2']; ?>" <?php } ?> required="" aria-required="true"/>  
                     <i class="fa fa-search form-control-feedback"></i> 
                 </div>
             </div>
@@ -3574,8 +4053,8 @@
             <div class="col-md-3">
                 <div class="form-group has-feedback">
                     <label class="control-label">Calle Administrativa: <span style="cursor: pointer;" class="mdi mdi-alert-circle text-danger" data-container="body" title="Notificación: Ingrese Nombre de Calle y seleccione en el Listado que se mostrará, en caso de no aparecer, escribala y el sistema se encargará de la asignación del mismo."></span><span class="symbol required"></span></label>
-                    <input type="hidden" name="calle_administracion" id="calle_administracion"  value=""  />
-                    <input type="text" class="form-control" name="search_calle2" id="search_calle2" placeholder="Ingrese Nombre de Calle" autocomplete="off"  value=""  required="" aria-required="true"/>  
+                    <input type="hidden" name="calle_administracion" id="calle_administracion" <?php if (isset($reg[0]['calle_administracion'])) { ?> value="<?php echo $reg[0]['calle_administracion']; ?>" <?php } ?> />
+                    <input type="text" class="form-control" name="search_calle2" id="search_calle2" placeholder="Ingrese Nombre de Calle" autocomplete="off" <?php if (isset($reg[0]['calle_administracion'])) { ?> value="<?php echo $reg[0]['ncalle2']; ?>" <?php } ?> required="" aria-required="true"/>  
                     <i class="fa fa-search form-control-feedback"></i> 
                 </div>
             </div>
@@ -3585,7 +4064,7 @@
             <div class="col-md-6">
                 <div class="form-group has-feedback">
                     <label class="control-label">Nº de Teléfono Fijo: <span class="symbol required"></span></label>
-                    <input type="text" class="form-control" name="tel_fijo_administracion" id="tel_fijo_administracion" placeholder="Ingrese Nº de Teléfono Fijo"  value=""  autocomplete="off" required="" aria-required="true"/> 
+                    <input type="text" class="form-control" name="tel_fijo_administracion" id="tel_fijo_administracion" placeholder="Ingrese Nº de Teléfono Fijo" <?php if (isset($reg[0]['tel_fijo_administracion'])) { ?> value="<?php echo $reg[0]['tel_fijo_administracion']; ?>" <?php } ?> autocomplete="off" required="" aria-required="true"/> 
                     <i class="fa fa-phone form-control-feedback"></i> 
                 </div>
             </div>
@@ -3593,7 +4072,7 @@
             <div class="col-md-6">
                 <div class="form-group has-feedback">
                     <label class="control-label">Nº de Celular de Contacto en Administración: <span class="symbol required"></span></label>
-                    <input type="text" class="form-control" name="tel_celular_administracion" id="tel_celular_administracion" placeholder="Ingrese Nº de Celular" autocomplete="off"  value=""  required="" aria-required="true"/>  
+                    <input type="text" class="form-control" name="tel_celular_administracion" id="tel_celular_administracion" placeholder="Ingrese Nº de Celular" autocomplete="off" <?php if (isset($reg[0]['tel_celular_administracion'])) { ?> value="<?php echo $reg[0]['tel_celular_administracion']; ?>" <?php } ?> required="" aria-required="true"/>  
                     <i class="fa fa-mobile form-control-feedback"></i> 
                 </div>
             </div>
@@ -3603,7 +4082,7 @@
             <div class="col-md-5">
                 <div class="form-group has-feedback">
                     <label class="control-label">Latitud de Ubicación: <span class="symbol required"></span></label>
-                    <input type="text" class="form-control" name="latitud" id="latitud" placeholder="Ingrese Latitud de Ubicación" autocomplete="off"  value=""  required="" aria-required="true"/>  
+                    <input type="text" class="form-control" name="latitud" id="latitud" placeholder="Ingrese Latitud de Ubicación" autocomplete="off" <?php if (isset($reg[0]['latitud'])) { ?> value="<?php echo $reg[0]['latitud']; ?>" <?php } ?> required="" aria-required="true"/>  
                     <i class="fa fa-map-marker form-control-feedback"></i>
                 </div>
             </div>
@@ -3611,7 +4090,7 @@
             <div class="col-md-5">
                 <div class="form-group has-feedback">
                     <label class="control-label">Longitud de Ubicación: <span class="symbol required"></span></label>
-                    <input type="text" class="form-control" name="longitud" id="longitud" placeholder="Ingrese Longitud de Ubicación" autocomplete="off"  value=""  required="" aria-required="true"/>  
+                    <input type="text" class="form-control" name="longitud" id="longitud" placeholder="Ingrese Longitud de Ubicación" autocomplete="off" <?php if (isset($reg[0]['longitud'])) { ?> value="<?php echo $reg[0]['longitud']; ?>" <?php } ?> required="" aria-required="true"/>  
                     <i class="fa fa-map-marker form-control-feedback"></i>
                 </div>
             </div>
@@ -3628,7 +4107,7 @@
             <div class="col-md-12">
                 <div class="form-group has-feedback">
                     <label class="control-label">Pagina Web (Ej: http://dominio.com): <span class="symbol required"></span></label>
-                    <input type="url" class="form-control" name="pagina_web" id="pagina_web" placeholder="Ingrese Url de Pagina Web" autocomplete="off"  value=""  required="" aria-required="true"/> 
+                    <input type="url" class="form-control" name="pagina_web" id="pagina_web" placeholder="Ingrese Url de Pagina Web" autocomplete="off" <?php if (isset($reg[0]['pagina_web'])) { ?> value="<?php echo $reg[0]['pagina_web']; ?>" <?php } ?> required="" aria-required="true"/> 
                     <i class="fa fa-globe form-control-feedback"></i> 
                 </div>
             </div>
@@ -3639,7 +4118,7 @@
             <div class="col-md-12">
                 <div class="form-group has-feedback">
                     <label class="control-label">Correo Electrónico de la Empresa: <span class="symbol required"></span></label>
-                    <input type="text" class="form-control" name="email" id="email" placeholder="Ingrese Correo Electrónico de Empresa" autocomplete="off"  value=""  required="" aria-required="true"/> 
+                    <input type="text" class="form-control" name="email" id="email" placeholder="Ingrese Correo Electrónico de Empresa" autocomplete="off" <?php if (isset($reg[0]['email'])) { ?> value="<?php echo $reg[0]['email']; ?>" <?php } ?> required="" aria-required="true"/> 
                     <i class="fa fa-envelope-o form-control-feedback"></i> 
                 </div>
             </div>
@@ -3701,48 +4180,48 @@
     <!-- ============================================================== -->
     <!-- All Jquery -->
     <!-- ============================================================== -->
-    <script src="{{asset('assets/script/jquery.min.js')}}"></script> 
-    <script src="{{asset(´assets/js/bootstrap.js')}}"></script>
+    <script src="assets/script/jquery.min.js"></script> 
+    <script src="assets/js/bootstrap.js"></script>
     <!-- apps -->
-    <script src="{{asset('assets/js/app.min.js')}}"></script>
-    <script src="{{asset('assets/js/app.init.horizontal-fullwidth.js')}}"></script>
-    <script src="{{asset('assets/js/app-style-switcher.js')}}"></script>
+    <script src="assets/js/app.min.js"></script>
+    <script src="assets/js/app.init.horizontal-fullwidth.js"></script>
+    <script src="assets/js/app-style-switcher.js"></script>
     <!-- slimscrollbar scrollbar JavaScript -->
-    <script src="{{asset('assets/js/perfect-scrollbar.js')}}"></script>
-    <script src="{{asset('assets/js/sparkline.js')}}"></script>
+    <script src="assets/js/perfect-scrollbar.js"></script>
+    <script src="assets/js/sparkline.js"></script>
     <!--Wave Effects -->
-    <script src="{{asset('assets/js/waves.js')}}"></script>
+    <script src="assets/js/waves.js"></script>
     <!-- Sweet-Alert -->
-    <script src="{{asset('assets/js/sweetalert-dev.js')}}"></script>
+    <script src="assets/js/sweetalert-dev.js"></script>
     <!--Menu sidebar -->
-    <script src="{{asset('assets/js/sidebarmenu.js')}}"></script>
+    <script src="assets/js/sidebarmenu.js"></script>
     <!--Custom JavaScript -->
-    <script src="{{asset('assets/js/custom.js')}}"></script>
+    <script src="assets/js/custom.js"></script>
 
    <!-- Custom file upload -->
-    <script src="{{asset('assets/plugins/fileupload/bootstrap-fileupload.min.js')}}"></script>
+    <script src="assets/plugins/fileupload/bootstrap-fileupload.min.js"></script>
 
 
     <!-- script jquery -->
-    <script type="text/javascript" src="{{asset('assets/script/titulos.js')}}"></script>
-    <script type="text/javascript" src="{{asset('assets/js/inputmask.bundle.min.js')}}"></script>
-    <script type="text/javascript" src="{{asset('assets/script/mask.js')}}"></script>
-    <script type="text/javascript" src="{{asset('assets/script/menu.js')}}"></script>
-    <script type="text/javascript" src="{{asset('assets/script/script2.js')}}"></script>
-    <script type="text/javascript" src="{{asset('assets/script/ajax.js')}}"></script>
-    <script type="text/javascript" src="{{asset('assets/script/validation.min.js')}}"></script>
-    <script type="text/javascript" src="{{asset('assets/script/script.js')}}"></script>
+    <script type="text/javascript" src="assets/script/titulos.js"></script>
+    <script type="text/javascript" src="assets/js/inputmask.bundle.min.js"></script>
+    <script type="text/javascript" src="assets/script/mask.js"></script>
+    <script type="text/javascript" src="assets/script/menu.js"></script>
+    <script type="text/javascript" src="assets/script/script2.js"></script>
+    <script type="text/javascript" src="assets/script/ajax.js"></script>
+    <script type="text/javascript" src="assets/script/validation.min.js"></script>
+    <script type="text/javascript" src="assets/script/script.js"></script>
     <!-- script jquery -->
 
     <!-- Calendario -->
-    <link rel="stylesheet" href="{{asset('assets/calendario/jquery-ui.css')}}" />
-    <script src="{{asset('assets/calendario/jquery-ui.js')}}"></script>
-    <script src="{{asset('assets/script/jscalendario.js')}}"></script>
-    <script src="{{asset('assets/script/autocompleto.js')}}"></script>
+    <link rel="stylesheet" href="assets/calendario/jquery-ui.css" />
+    <script src="assets/calendario/jquery-ui.js"></script>
+    <script src="assets/script/jscalendario.js"></script>
+    <script src="assets/script/autocompleto.js"></script>
     <!-- Calendario -->
 
     <!-- jQuery -->
-    <script src="{{asset('assets/plugins/noty/packaged/jquery.noty.packaged.min.js')}}"></script>
+    <script src="assets/plugins/noty/packaged/jquery.noty.packaged.min.js"></script>
     <!-- jQuery -->
 
     <script type="text/javascript">
@@ -3759,13 +4238,3 @@
 </body>
 </html>
 
- 
-        <script type='text/javascript' language='javascript'>
-        alert('NO TIENES PERMISO PARA ACCEDER A ESTA PAGINA.\nCONSULTA CON EL ADMINISTRADOR PARA QUE TE DE ACCESO')  
-        document.location.href='panel'   
-        </script> 
-
-        <script type='text/javascript' language='javascript'>
-        alert('NO TIENES PERMISO PARA ACCEDER AL SISTEMA.\nDEBERA DE INICIAR SESION')  
-        document.location.href='logout'  
-        </script> 

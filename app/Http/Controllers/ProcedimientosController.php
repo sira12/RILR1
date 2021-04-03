@@ -3,18 +3,41 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Calle;
+use App\Models\RegimenIB;
+use App\Models\CondicionIva;
+use App\Models\NaturalezaJuridica;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
+use mysql_xdevapi\Table;
 
-class CalleController extends Controller
+class ProcedimientosController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function index()
     {
-        //
+        $regimen=RegimenIB::where('activo',"S")->get();
+        $iva=CondicionIva::where('activo',"S")->get();
+        $naturaleza_juridica=NaturalezaJuridica::where('activo',"S")->get();
+
+        $per_fiscal=DB::table('periodo_fiscal')->where('anio',Carbon::now()->format('Y'))->first();
+
+        $user=auth()->user();
+        $rel=DB::table('rel_persona_contribuyente')->where('id_rel_persona_contribuyente',$user->id_rel_persona_contribuyente)->select('id_contribuyente')->first();
+        $cuit=DB::table('contribuyente')->where('id_contribuyente',$rel->id_contribuyente)->select('cuit')->first();
+
+
+
+        return view('Actividades.procedimientos',[
+            'cuit'=>$cuit,
+            'per_fiscal'=>$per_fiscal,
+            'regimen'=> $regimen,
+            'condicion_iva'=> $iva,
+            'naturaleza_juridica'=> $naturaleza_juridica,
+            ]);
     }
 
     /**
@@ -35,44 +58,7 @@ class CalleController extends Controller
      */
     public function store(Request $request)
     {
-        $calle=new Calle();
-
-        $nombre=strtoupper($request->search_calle);
-
-        $calle->calle=$nombre;
-        $calle->activo="P";
-        $calle->id_localidad=$request->id_localidad;
-        $calle->save();
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function getCalles(Request $request)
-    {
-        if($request->search == ''){
-            $calles=Calle::orderby('calle','asc')->select('id_calle','calle')->limit(5)->get();
-
-        }else{
-
-            $calles=Calle::where("calle", "LIKE", "%{$request->search}%")
-            ->where('activo','S')
-            ->where("id_localidad",$request->id_loc)
-            ->get();
-        }
-
-
-        //return view('NOMBRE_VISTA')->with('buscar', $noticias);
-
-        $response = array();
-        foreach($calles as $calle){
-           $response[] = array("value"=>$calle->id_calle,"label"=>trim($calle->calle));
-        }
-
-        return response()->json($response);
+        //
     }
 
     /**
