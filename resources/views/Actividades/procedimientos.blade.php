@@ -231,7 +231,7 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group has-feedback">
-                                                <label class="control-label">Nº de Teléfono Fijo: <span class="symbol required"></span></label>
+                                                <label class="control-label">Nº de Teléfono Fijo:</label>
                                                 <input type="text" class="form-control" name="tel_fijo" id="tel_fijo" placeholder="Ingrese Nº de Teléfono Fijo" value="" autocomplete="off" required="" aria-required="true" />
                                                 <i class="fa fa-phone form-control-feedback"></i>
                                             </div>
@@ -287,7 +287,7 @@
                                             <div class="form-group has-feedback">
                                                 <label class="control-label">Localidad de Planta: <span style="cursor: pointer;" class="mdi mdi-alert-circle text-danger" data-container="body" title="Notificación: Ingrese Nombre de Localidad y seleccione en el Listado que se mostrará, en caso de no aparecer, escribala y el sistema se encargará de la asignación del mismo."></span><span class="symbol required"></span></label>
                                                 <input type="hidden" name="id_localidad" id="id_localidad" value="" />
-                                                <input type="text" class="form-control" name="buscar_localidad" id="buscar_localidad" placeholder="Ingrese Nombre de Localidad"  value="" required=""  />
+                                                <input type="text" class="form-control" name="buscar_localidad" id="buscar_localidad" placeholder="Ingrese Nombre de Localidad"  value="" required=""  aria-required="true"  />
                                                 <i class="fa fa-search form-control-feedback"></i>
                                             </div>
                                         </div>
@@ -333,8 +333,8 @@
                                         <div class="col-md-3">
                                             <div class="form-group has-feedback">
                                                 <label class="control-label">Localidad Administrativa: <span style="cursor: pointer;" class="mdi mdi-alert-circle text-danger" data-container="body" title="Notificación: Ingrese Nombre de Localidad y seleccione en el Listado que se mostrará, en caso de no aparecer, escribala y el sistema se encargará de la asignación del mismo."></span><span class="symbol required"></span></label>
-                                                <input type="hidden" name="localidad_administracion" id="localidad_administracion" value="" />
-                                                <input type="text" class="form-control" name="search_localidad2" id="search_localidad2" placeholder="Ingrese Nombre de Localidad" autocomplete="off" value="" required="" aria-required="true" />
+                                                <input type="hidden" name="id_localidad_administracion" id="id_localidad_administracion" value="" />
+                                                <input type="text" class="form-control" name="buscar_localidad2" id="buscar_localidad2" placeholder="Ingrese Nombre de Localidad" autocomplete="off" value="" required="" aria-required="true" />
                                                 <i class="fa fa-search form-control-feedback"></i>
                                             </div>
                                         </div>
@@ -342,8 +342,8 @@
                                         <div class="col-md-3">
                                             <div class="form-group has-feedback">
                                                 <label class="control-label">Barrio Administrativa: <span style="cursor: pointer;" class="mdi mdi-alert-circle text-danger" data-container="body" title="Notificación: Ingrese Nombre de Barrio y seleccione en el Listado que se mostrará, en caso de no aparecer, escribala y el sistema se encargará de la asignación del mismo."></span><span class="symbol required"></span></label>
-                                                <input type="hidden" name="barrio_administracion" id="barrio_administracion" value="" />
-                                                <input type="text" class="form-control" name="search_barrio2" id="search_barrio2" placeholder="Ingrese Nombre de Barrio" autocomplete="off" value="" required="" aria-required="true" />
+                                                <input type="hidden" name="id_barrio_administracion" id="id_barrio_administracion" value="" />
+                                                <input type="text" class="form-control" disabled name="buscar_barrio2" id="buscar_barrio2" placeholder="Ingrese Nombre de Barrio" autocomplete="off" value="" required="" aria-required="true" />
                                                 <i class="fa fa-search form-control-feedback"></i>
                                             </div>
                                         </div>
@@ -351,8 +351,8 @@
                                         <div class="col-md-3">
                                             <div class="form-group has-feedback">
                                                 <label class="control-label">Calle Administrativa: <span style="cursor: pointer;" class="mdi mdi-alert-circle text-danger" data-container="body" title="Notificación: Ingrese Nombre de Calle y seleccione en el Listado que se mostrará, en caso de no aparecer, escribala y el sistema se encargará de la asignación del mismo."></span><span class="symbol required"></span></label>
-                                                <input type="hidden" name="calle_administracion" id="calle_administracion" value="" />
-                                                <input type="text" class="form-control" name="search_calle2" id="search_calle2" placeholder="Ingrese Nombre de Calle" autocomplete="off" value="" required="" aria-required="true" />
+                                                <input type="hidden" name="id_calle_administracion" id="id_calle_administracion" value="" />
+                                                <input type="text" class="form-control" disabled name="buscar_calle2" id="buscar_calle2" placeholder="Ingrese Nombre de Calle" autocomplete="off" value="" required="" aria-required="true" />
                                                 <i class="fa fa-search form-control-feedback"></i>
                                             </div>
                                         </div>

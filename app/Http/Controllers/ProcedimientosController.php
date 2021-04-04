@@ -56,6 +56,20 @@ class ProcedimientosController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    public function storeGenerales(Request $request)
+    {
+            $params = array();
+            parse_str($request->data, $params);
+            dd( $params);
+            die();
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function store(Request $request)
     {
         //

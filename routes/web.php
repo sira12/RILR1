@@ -51,3 +51,6 @@ Route::get('/panel', function () {
 })->middleware(['auth'])->name('panel');
 
 Route::get('/procedimientos',[ProcedimientosController::class,'index'] )->middleware(['auth'])->name('procedimientos');
+
+//guardar datosgenerales
+Route::post('/saveGenerales',[ProcedimientosController::class,'storeGenerales']);

@@ -2300,7 +2300,7 @@ $('document').ready(function () {
 	});
 
 	/* validation */
-	$("#savegeneral").validate({
+	$('#savegeneral').validate({
 		rules:
 		{
 			id_periodo_fiscal: { required: true, },
@@ -2319,19 +2319,19 @@ $('document').ready(function () {
 			email_fiscal: { required: true, email: true },
 
 			zona_planta: { required: true, },
-			search_localidad_planta: { required: true, },
-			search_barrio_planta: { required: true, },
-			search_calle_planta: { required: true, },
+			buscar_localidad: { required: true, },
+			buscar_barrio: { required: true, },
+			buscar_calle: { required: true, },
 			numero_planta: { required: true, },
 			piso_planta: { required: false, },
 			depto_planta: { required: false, },
 			ref_domicilio_planta: { required: false, },
 
 			zona_administracion: { required: true, },
-			search_provincia_administracion: { required: true, },
-			search_localidad_administracion: { required: true, },
-			search_barrio_administracion: { required: true, },
-			search_calle_administracion: { required: true, },
+			buscar_provincia_administracion: { required: true, },
+			buscar_localidad2: { required: true, },
+			buscar_barrio2: { required: true, },
+			buscar_calle2: { required: true, },
 			numero_administracion: { required: true, },
 			piso_administracion: { required: false, },
 			depto_administracion: { required: false, },
@@ -2363,19 +2363,19 @@ $('document').ready(function () {
 			email_fiscal: { required: "Ingrese Email Fiscal", email: "Ingrese un Email V&aacute;lido" },
 
 			zona: { required: "Seleccione Zona de Planta" },
-			search_localidad_planta: { required: "Ingrese Nombre de Localidad de Planta" },
-			search_barrio_planta: { required: "Ingrese Nombre de Barrio de Planta" },
-			search_calle_planta: { required: "Ingrese Nombre de Calle de Planta" },
+			buscar_localidad: { required: "Ingrese Nombre de Localidad de Planta" },
+			buscar_barrio: { required: "Ingrese Nombre de Barrio de Planta" },
+			buscar_calle: { required: "Ingrese Nombre de Calle de Planta" },
 			numero_planta: { required: "Ingrese Numero" },
 			piso_planta: { required: "Ingrese N&deg; de Piso" },
 			depto_planta: { required: "Ingrese N&deg; de Departamento" },
 			ref_domicilio_planta: { required: "Ingrese referencias Domicilio" },
 
 			zona_administracion: { required: "Seleccione Zona Administrativa" },
-			search_provincia_administracion: { required: "Ingrese Nombre de Provincia Administrativa" },
-			search_localidad_administracion: { required: "Ingrese Nombre de Localidad Administrativa" },
-			search_barrio_administracion: { required: "Ingrese Nombre de Barrio Administrativa" },
-			search_calle_administracion: { required: "Ingrese Nombre de Calle Administrativa" },
+			buscar_provincia_administracion: { required: "Ingrese Nombre de Provincia Administrativa" },
+			buscar_localidad2: { required: "Ingrese Nombre de Localidad Administrativa" },
+			buscar_barrio2: { required: "Ingrese Nombre de Barrio Administrativa" },
+			buscar_calle2: { required: "Ingrese Nombre de Calle Administrativa" },
 			numero_administracion: { required: "Ingrese Numero" },
 			piso_administracion: { required: "Ingrese N&deg; de Piso" },
 			depto_administracion: { required: "Ingrese N&deg; de Departamento" },
@@ -2390,16 +2390,19 @@ $('document').ready(function () {
 			email: { required: "Ingrese Email de Empresa", email: "Ingrese un Email V&aacute;lido" },
 		},
 		submitHandler: function (form) {
-
+		    console.log(form)
 			var data = $("#savegeneral").serialize();
 			var seccion = $("input#secciongeneral").val();
 			var industria = $("input#id_industria").val();
 
 			$.ajax({
 				type: 'POST',
-				url: 'procedimientos.php',
+				url: '/saveGenerales',
 				async: false,
-				data: data,
+				data: {
+                    _token: $('meta[name="csrf-token"]').attr('content'),
+                    data: data,
+                },
 				beforeSend: function () {
 					$("#save").fadeOut();
 					$("#btn-submit").html('<i class="fa fa-refresh"></i> Verificando...');
