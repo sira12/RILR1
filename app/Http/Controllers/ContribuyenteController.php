@@ -42,13 +42,7 @@ class ContribuyenteController extends Controller
 
         $contribuyente->cuit = intval($request->cuit);
         $contribuyente->razon_social = $request->razonsocial;
-        $contribuyente->id_localidad = $request->id_localidad;
-        $contribuyente->id_barrio = $request->id_barrio;
-        $contribuyente->id_calle = $request->id_calle;
-        $contribuyente->numero = $request->nro_calle;
-        $contribuyente->piso = $request->nro_piso;
-        $contribuyente->depto = $request->nro_departamento;
-        $contribuyente->referencias_domicilio = $request->referencia;
+
         $contribuyente->email_fiscal = $request->email_fiscal;
         $contribuyente->fecha_de_actualizacion = Carbon::now();
         $contribuyente->activo = "P";
@@ -78,14 +72,14 @@ class ContribuyenteController extends Controller
                 $contribuyente->constancia_afip = $path;
 
             } else if ($pos2 !== false) {
-                
+
                 //guardo en disco para pdfs
                 $path = $afip->storeAs("/documents/contribuyentes",($request->cuit . "_" . $fecha . '.' . $afip->extension()));
 
                 $contribuyente->constancia_afip = $path;
             }
         $contribuyente->save();
-        //id del registro que se acaba de cargar 
+        //id del registro que se acaba de cargar
         $id = $contribuyente->id_contribuyente;
 
         return $id;
@@ -123,6 +117,42 @@ class ContribuyenteController extends Controller
     public function update(Request $request, $id)
     {
         //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function updateContribuyente(Request $request)
+    {
+        $params = array();
+        parse_str($request->data, $params);
+
+
+
+        $fecha=Carbon::createFromFormat('d-m-Y', $params['fecha_actividad_contribuyente'])->toDateTimeString();
+
+
+        $contribuyente=Contribuyente::find($params['id_contribuyente']);
+
+        $contribuyente->id_localidad=intval($params['id_localidad_administracion']);
+        $contribuyente->id_barrio=intval($params['id_barrio_administracion']);
+        $contribuyente->id_calle=intval($params['id_calle_administracion']);
+        $contribuyente->numero=$params['nro_calle_legal'];
+        $contribuyente->piso=$params['nro_piso_legal'];
+        $contribuyente->depto=$params['nro_departamento_legal'];
+        $contribuyente->referencias_domicilio=$params['referencia_legal'];
+        $contribuyente->id_regimen_ib=intval($params['id_regimen_ib']);
+        $contribuyente->numero_de_ib=$params['numero_de_ib'];
+        $contribuyente->id_condicion_iva=intval($params['id_condicion_iva']);
+        $contribuyente->id_naturaleza_juridica=intval($params['id_naturaleza_juridica']);
+        $contribuyente->fecha_inicio_de_actividades=$fecha;
+        $contribuyente->cod_postal=$params['cod_postal'];
+        $contribuyente->id_punto_cardinal=intval($params['zona_administracion']);
+
+        $contribuyente->save();
     }
 
     /**

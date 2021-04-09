@@ -102,18 +102,19 @@
                                         </thead>
                                         <tbody class="BusquedaRapida">
 
-
+                                       @foreach($industrias as $clave => $industria)
                                             <tr role="row" class="odd">
+                                                <td>{{$clave +1}}</td>
                                                 <td></td>
-                                                <td></td>
-                                                <td></td>
+                                                <td>{{$industria->nombre_de_fantasia}}</td>
                                                 <td>
                                                     <span style="cursor: pointer;" title="Ver Trámite" onClick="#"><i class="mdi mdi-eye font-24 text-danger"></i></span>
 
-                                                    <span style="cursor: pointer;" title="Continuar Trámite" onClick="UpdateTramite('')"><i class="mdi mdi-file-multiple font-24 text-danger"></i></span>
+                                                    <span style="cursor: pointer;" title="Continuar Trámite" onClick="UpdateTramite('<?php echo $industria->id_industria ?>')"><i class="mdi mdi-file-multiple font-24 text-danger"></i></span>
 
                                                 </td>
                                             </tr>
+                                       @endforeach
 
                                         </tbody>
                                     </table>
@@ -155,5 +156,5 @@
         <!-- ============================================================== -->
 
     </div>
-    
+
     @endsection

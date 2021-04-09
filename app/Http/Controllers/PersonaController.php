@@ -35,22 +35,23 @@ class PersonaController extends Controller
      */
     public function store(Request $request)
     {
-        
+
 
         $persona= new Persona();
 
         $persona->documento=$request->documento;
         $persona->id_tipo_de_documento=$request->id_tipo_de_documento;
-        $persona->nombre=$request->nombre; 
-        $persona->id_localidad=$request->id_localidad; 
-        $persona->id_barrio=$request->id_barrio; 
-        $persona->id_calle=$request->id_calle; 
-        $persona->numero=$request->nro_calle; 
-        $persona->piso=$request->nro_piso; 
-        $persona->depto=$request->nro_departamento; 
-        $persona->referencias_domicilio=$request->referencia; 
-        $persona->tel_celular=$request->celular; 
-        $persona->fecha_de_actualizacion=Carbon::now(); 
+        $persona->nombre=$request->nombre;
+        $persona->id_localidad=$request->id_localidad;
+        $persona->id_barrio=$request->id_barrio;
+        $persona->id_calle=$request->id_calle;
+        $persona->numero=$request->nro_calle;
+        $persona->piso=$request->nro_piso;
+        $persona->depto=$request->nro_departamento;
+        $persona->referencias_domicilio=$request->referencia;
+        $persona->tel_celular=$request->celular;
+        $persona->fecha_de_actualizacion=Carbon::now();
+
 
 
 
@@ -80,17 +81,17 @@ class PersonaController extends Controller
                 //es una imagen,guardo en disco para imagenes
 
                 $path1 = $dni1->storeAs("/images/dni",($request->documento . "_"."frente"."_" . $fecha . '.' . $dni1->extension()));
-                
+
                 $path2 = $dni2->storeAs("/images/dni",($request->documento . "_"."dorso"."_" . $fecha . '.' . $dni2->extension()));
 
                 $persona->frente_dni = $path1;
                 $persona->dorso_dni = $path2;
 
             } else if ($pos5 !== false && $pos2 !== false) {
-                
+
                 //guardo en disco para pdfs
                 $path1 = $dni1->storeAs("/documents/dni",($request->documento . "_"."frente"."_" . $fecha . '.' . $dni1->extension()));
-                
+
                 $path2 = $dni2->storeAs("/documents/dni",($request->documento . "_"."dorso"."_" . $fecha . '.' . $dni2->extension()));
 
                 $persona->frente_dni = $path1;
@@ -98,12 +99,12 @@ class PersonaController extends Controller
             }
 
         $persona->save();
-        //id del registro que se acaba de cargar 
+        //id del registro que se acaba de cargar
         $id=$persona->id_persona;
-         
-        return $id; 
-        
-        
+
+        return $id;
+
+
     }
 
     /**

@@ -6,7 +6,7 @@ use App\Http\Controllers\CalleController;
 use App\Http\Controllers\ProvinciaController;
 use App\Http\Controllers\LocalidadController;
 use App\Http\Controllers\ProcedimientosController;
-
+use App\Http\Controllers\IndexController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -46,11 +46,11 @@ Route::post('/localidades',[LocalidadController::class,'getLocalidades']);
 //############ fin busquedas autocomplete ############
 
 
-Route::get('/panel', function () {
-    return view('index');
-})->middleware(['auth'])->name('panel');
+Route::get('/panel', [IndexController::Class,'index'])->middleware(['auth'])->name('panel');
 
 Route::get('/procedimientos',[ProcedimientosController::class,'index'] )->middleware(['auth'])->name('procedimientos');
 
 //guardar datosgenerales
 Route::post('/saveGenerales',[ProcedimientosController::class,'storeGenerales']);
+Route::get('/edit/tramite/{id}',[ProcedimientosController::class,'edit']);
+Route::post('/updateGenerales',[ProcedimientosController::class,'updateGeneral']);

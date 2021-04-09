@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PeriodoActividadContribuyente;
 use Illuminate\Http\Request;
-use App\Models\Localidad;
-
-class LocalidadController extends Controller
+use Carbon\Carbon;
+class PeriodoActividadContribuyenteController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -30,51 +30,31 @@ class LocalidadController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        //
-    }
+         $params = array();
+         parse_str($request->data, $params);
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
+         $fecha=Carbon::createFromFormat('d-m-Y', $params['fecha_actividad_contribuyente'])->toDateTimeString();
 
-    public function getLocalidades(Request $request)
-    {
+         $periodo= new PeriodoActividadContribuyente();
 
+         $periodo->id_contribuyente=intval($params['id_contribuyente']);
+         $periodo->fecha_inicio=$fecha;
+         $periodo->id_regimen_ib=intval($params['id_regimen_ib']);
+         $periodo->numero_de_ib=$params['numero_de_ib'];
+         $periodo->fecha_de_actualizacion=Carbon::now();
 
-            if ($request->search == '') {
-                $localidades = Localidad::orderby('barrio', 'asc')->select('id_localidad', 'localidad')->limit(5)->get();
-
-            } else {
-                $localidades = localidad::where("localidad", "LIKE", "%{$request->search}%")
-                    ->where('activo', 'S')
-                    ->where('id_provincia', $request->id_prov)
-                    ->get();
-            }
-
-
-
-
-        $response = array();
-        foreach ($localidades as $localidad) {
-            $response[] = array("value" => $localidad->id_localidad, "label" => trim($localidad->localidad));
-        }
-
-
-        return response()->json($response);
+         $periodo->save();
     }
 
     /**
      * Display the specified resource.
      *
-     * @param int $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -85,7 +65,7 @@ class LocalidadController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param int $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -96,8 +76,8 @@ class LocalidadController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param int $id
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -108,7 +88,7 @@ class LocalidadController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param int $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

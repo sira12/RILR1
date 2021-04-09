@@ -2477,6 +2477,194 @@ $('document').ready(function () {
 });
 /* FUNCION JQUERY PARA VALIDAR REGISTRO DE DATOS GENERALES */
 
+/* FUNCION JQUERY PARA VALIDAR update DE DATOS GENERALES */
+$('document').ready(function () {
+	jQuery.validator.addMethod("lettersonly", function (value, element) {
+		return this.optional(element) || /^[a-zA-ZñÑáéíóúÁÉÍÓÚ,. ]+$/i.test(value);
+	});
+
+	/* validation */
+	$('#updategeneral').validate({
+		rules:
+		{
+			id_periodo_fiscal: { required: true, },
+			razon_social: { required: true, lettersonly: false },
+			fecha_actividad_contribuyente: { required: true, },
+			id_regimen_ib: { required: true, },
+			numero_de_ib: { required: false, },
+			id_condicion_iva: { required: true, },
+			id_naturaleza_juridica: { required: true, },
+			nombre_de_fantasia: { required: true, lettersonly: false },
+			fecha_actividad_industria: { required: true, },
+			es_casa_central: { required: true, },
+			tel_fijo: { required: false, },
+			tel_celular: { required: true, },
+			cod_postal: { required: true, },
+			email_fiscal: { required: true, email: true },
+
+			zona_planta: { required: true, },
+			buscar_localidad: { required: true, },
+			buscar_barrio: { required: true, },
+			buscar_calle: { required: true, },
+			numero_planta: { required: true, },
+			piso_planta: { required: false, },
+			depto_planta: { required: false, },
+			ref_domicilio_planta: { required: false, },
+
+			zona_administracion: { required: true, },
+			buscar_provincia_administracion: { required: true, },
+			buscar_localidad2: { required: true, },
+			buscar_barrio2: { required: true, },
+			buscar_calle2: { required: true, },
+			numero_administracion: { required: true, },
+			piso_administracion: { required: false, },
+			depto_administracion: { required: false, },
+			ref_domicilio_administracion: { required: false, },
+
+			tel_fijo_administracion: { required: false, },
+			tel_celular_administracion: { required: false, },
+			direccion_gps: { required: true, },
+			latitud: { required: true, },
+			longitud: { required: true, },
+			pagina_web: { required: false, url: true },
+			email: { required: false, email: true },
+		},
+		messages:
+		{
+			id_periodo_fiscal: { required: "Seleccione Periodo Fiscal" },
+			razon_social: { required: "Ingrese Nombre o Razon Social de la Empresa", lettersonly: "Ingrese solo letras para Nombres" },
+			fecha_actividad_contribuyente: { required: "Ingrese Fecha de Inicio Actividad de Contribuyente" },
+			id_regimen_ib: { required: "Seleccione Régimen de Ingresos Brutos" },
+			numero_de_ib: { required: "Ingrese Nº de Ingresos Brutos" },
+			id_condicion_iva: { required: "Seleccione Condición de Iva" },
+			id_naturaleza_juridica: { required: "Seleccione Naturaleza Juridica" },
+			nombre_de_fantasia: { required: "Ingrese Nombre de Establecimiento", lettersonly: "Ingrese solo letras para Nombres" },
+			fecha_actividad_industria: { required: "Ingrese Fecha de Inicio Actividad de Industria" },
+			es_casa_central: { required: "Seleccione si Es Casa Central", },
+			tel_fijo: { required: "Ingrese Nº de Teléfono Fijo" },
+			tel_celular: { required: "Ingrese Nº de Celular de Contacto de Empresa" },
+			cod_postal: { required: "Ingrese Codigo Postal" },
+			email_fiscal: { required: "Ingrese Email Fiscal", email: "Ingrese un Email V&aacute;lido" },
+
+			zona: { required: "Seleccione Zona de Planta" },
+			buscar_localidad: { required: "Ingrese Nombre de Localidad de Planta" },
+			buscar_barrio: { required: "Ingrese Nombre de Barrio de Planta" },
+			buscar_calle: { required: "Ingrese Nombre de Calle de Planta" },
+			numero_planta: { required: "Ingrese Numero" },
+			piso_planta: { required: "Ingrese N&deg; de Piso" },
+			depto_planta: { required: "Ingrese N&deg; de Departamento" },
+			ref_domicilio_planta: { required: "Ingrese referencias Domicilio" },
+
+			zona_administracion: { required: "Seleccione Zona Administrativa" },
+			buscar_provincia_administracion: { required: "Ingrese Nombre de Provincia Administrativa" },
+			buscar_localidad2: { required: "Ingrese Nombre de Localidad Administrativa" },
+			buscar_barrio2: { required: "Ingrese Nombre de Barrio Administrativa" },
+			buscar_calle2: { required: "Ingrese Nombre de Calle Administrativa" },
+			numero_administracion: { required: "Ingrese Numero" },
+			piso_administracion: { required: "Ingrese N&deg; de Piso" },
+			depto_administracion: { required: "Ingrese N&deg; de Departamento" },
+			ref_domicilio_administracion: { required: "Ingrese referencias Domicilio" },
+
+			tel_fijo_administracion: { required: "Ingrese Nº de Teléfono Fijo" },
+			tel_celular_administracion: { required: "Ingrese Nº de Celular de Contacto en Administración" },
+			direccion_gps: { required: "Ingrese Dirección GPS" },
+			latitud: { required: "Ingrese Coordenadas de Latitud" },
+			longitud: { required: "Ingrese Coordenadas de Longitud" },
+			pagina_web: { required: "Ingrese Url de Pagina", url: "Ingrese un Dirección de Url V&aacute;lida" },
+			email: { required: "Ingrese Email de Empresa", email: "Ingrese un Email V&aacute;lido" },
+		},
+		submitHandler: function (form) {
+		    console.log(form)
+			var data = $("#updategeneral").serialize();
+			var seccion = $("input#secciongeneral").val();
+			var industria = $("#industria_id").val();
+
+			console.log(industria)
+
+			$.ajax({
+				type: 'POST',
+				url: '/updateGenerales',
+				async: false,
+				data: {
+                    _token: $('meta[name="csrf-token"]').attr('content'),
+                    data: data,
+                    id:industria
+                },
+				beforeSend: function () {
+					$("#save").fadeOut();
+					$("#btn-submit-edit").html('<i class="fa fa-refresh"></i> Verificando...');
+				},
+				success: function (data) {
+				    console.log(data);
+					if (data === 1) {
+
+						$("#save").fadeIn(1000, function () {
+
+							var n = noty({
+								text: "<span class='fa fa-warning'></span> POR FAVOR DEBE DE COMPLETAR LOS CAMPOS REQUERIDOS, VERIFIQUE NUEVAMENTE POR FAVOR...!",
+								theme: 'defaultTheme',
+								layout: 'center',
+								type: 'warning',
+								timeout: 5000,
+							});
+							$("#btn-submit").html('<span class="fa fa-save"></span> Continuar');
+
+						});
+					}
+					else if (data == 2) {
+
+						$("#save").fadeIn(1000, function () {
+
+							var n = noty({
+								text: "<span class='fa fa-warning'></span> DEBE DE INGRESAR UN EMAIL DIFERENTE AL INGRESADO EN EL FORMULARIO DE REGISTRO INICIAL, VERIFIQUE NUEVAMENTE POR FAVOR ...!",
+								theme: 'defaultTheme',
+								layout: 'center',
+								type: 'warning',
+								timeout: 5000,
+							});
+							$("#btn-submit").html('<span class="fa fa-save"></span> Continuar');
+
+						});
+					}
+					else if (data == 3) {
+
+						$("#save").fadeIn(1000, function () {
+
+							var n = noty({
+								text: "<span class='fa fa-warning'></span> ESTE NOMBRE DE ESTABLECIMIENTO YA SE ENCUENTRA REGISTRADO, VERIFIQUE NUEVAMENTE POR FAVOR ...!",
+								theme: 'defaultTheme',
+								layout: 'center',
+								type: 'warning',
+								timeout: 5000,
+							});
+							$("#btn-submit").html('<span class="fa fa-save"></span> Continuar');
+
+						});
+					}
+					else {
+
+						$("#save").fadeIn(1000, function () {
+
+							var n = noty({
+								text: '<center> ' + data + ' </center>',
+								theme: 'defaultTheme',
+								layout: 'center',
+								type: 'information',
+								timeout: 5000,
+							});
+							$('#secciones').load("formularios.php?BuscaFormularioProcedimiento=si&seccion=" + seccion + "&in=" + industria);
+							$("#btn-submit").html('<span class="fa fa-save"></span> Continuar');
+						});
+					}
+				}
+			});
+			return false;
+		}
+		/* form submit */
+	});
+});
+/* FUNCION JQUERY PARA VALIDAR REGISTRO DE DATOS GENERALES */
+
 
 
 
