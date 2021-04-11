@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Industria;
 use App\Models\PeriodoActividadIndustria;
+use App\Models\Persona;
 use Illuminate\Http\Request;
 use App\Models\RegimenIB;
 use App\Models\CondicionIva;
@@ -85,8 +86,13 @@ class ProcedimientosController extends Controller
         $per_act_indu = new PeriodoActividadIndustriaController();
         $id_periodo_indu = $per_act_indu->store($request, $id_industria);
 
+        //actualizar datos persona
 
-        die();
+        //$persona = new PersonaController();
+       // $id_persona = $persona->updatePersona($request);
+
+
+       die();
 
 
     }

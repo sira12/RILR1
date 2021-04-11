@@ -115,7 +115,6 @@ $(document).ready(function () {
     });
 
 
-
     $("#buscar_provincia").change(function () {
 
         if ($("#buscar_provincia").val().length < 1) {
@@ -430,32 +429,28 @@ $(document).ready(function () {
     })
 
 
-
-
 });
-
 
 
 //moostrar forms
 
-$(document).ready(function(){
+$(document).ready(function () {
     $('#secciones section').hide();
-    //$('#secciones section:first').show();
 
-     $('.row-horizon span').click(function(){
 
-         console.log("hola")
+    $('#secciones section:first').show();
+
+    $('.row-horizon span').click(function () {
+
         $('#secciones section').hide();
-
-         let active=$(this).attr('href');
+        $('.row-horizon span').removeClass('selectedGat')
+        $(this).addClass('selectedGat');
+        let active = $(this).attr('href');
         $(active).show()
-
 
         return false;
 
-
-
-     })
+    })
 
 });
 

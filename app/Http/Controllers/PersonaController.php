@@ -142,6 +142,36 @@ class PersonaController extends Controller
     }
 
     /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function updatePersona(Request $request)
+    {
+
+        $params = array();
+        parse_str($request->data, $params);
+
+
+        $persona=Persona::find($params['id_persona']);
+
+        $persona->id_localidad=intval($params['id_localidad_administracion']);
+        $contribuyente->id_barrio=intval($params['id_barrio_administracion']);
+        $contribuyente->id_calle=intval($params['id_calle_administracion']);
+        $contribuyente->numero=$params['nro_calle_legal'];
+        $contribuyente->piso=$params['nro_piso_legal'];
+        $contribuyente->depto=$params['nro_departamento_legal'];
+        $contribuyente->referencias_domicilio=$params['referencia_legal'];
+
+
+        dd($params);
+        die();
+
+
+    }
+
+    /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id

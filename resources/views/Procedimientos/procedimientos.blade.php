@@ -60,7 +60,7 @@
                                 <div class="row-horizon">
                                         <span class="categories selectedGat"
                                               href="#datosGenerales"><i class="fa fa-tasks"></i> Datos Generales</span>
-                                    <span class="categories selectedGat" href="#act"><i
+                                    <span class="categories" href="#act"><i
                                             class="fa fa-tasks"></i> Actividad</span>
                                     <span class="categories" id="seccion#3"><i
                                             class="fa fa-tasks"></i> Insumos y Servicios</span>
