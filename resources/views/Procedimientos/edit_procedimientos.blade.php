@@ -152,7 +152,7 @@
                                                            name="fecha_actividad_contribuyente"
                                                            id="fecha_actividad_contribuyente"
                                                            placeholder="Ingrese Fecha Inicio Actividad de Contribuyente"
-                                                           autocomplete="off" value="{{$mi_industria[0]->fecha_inicio_de_actividades}}" required=""
+                                                           autocomplete="off" value="{{\Carbon\Carbon::parse($mi_industria[0]->fecha_inicio_de_actividades)->format('d-m-y')}}" required=""
                                                            aria-required="true"/>
                                                     <i class="fa fa-calendar form-control-feedback"></i>
                                                 </div>
@@ -259,7 +259,7 @@
                                                            name="fecha_actividad_industria"
                                                            id="fecha_actividad_industria"
                                                            placeholder="Ingrese Fecha Inicio Actividad de Industria"
-                                                           autocomplete="off" value="{{$mi_industria[0]->fecha_inicio}}" required=""
+                                                           autocomplete="off" value="{{\Carbon\Carbon::parse($mi_industria[0]->fecha_inicio)->format('d-m-y')}}" required=""
                                                            aria-required="true"/>
                                                     <i class="fa fa-calendar form-control-feedback"></i>
                                                 </div>

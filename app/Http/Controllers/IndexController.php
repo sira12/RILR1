@@ -38,8 +38,8 @@ class IndexController extends Controller
             ->get();*/
 
         return view('index',[
-            'industrias'=>$industrias
-
+            'industrias'=>$industrias,
+            'id_contribuyente'=>$contribuyente->id_contribuyente
         ]);
     }
 

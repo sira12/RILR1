@@ -64,10 +64,13 @@ class ProcedimientosController extends Controller
      * Store a newly created resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function storeGenerales(Request $request)
     {
+        $params = array();
+        parse_str($request->data, $params);
+
         //update Contribuyente
         $contribuyente = new ContribuyenteController();
         $contribuyente->updateContribuyente($request);
@@ -92,7 +95,7 @@ class ProcedimientosController extends Controller
        // $id_persona = $persona->updatePersona($request);
 
 
-       die();
+       return response()->json(['success'=>1]);
 
 
     }
@@ -243,10 +246,42 @@ class ProcedimientosController extends Controller
      */
     public function updateGeneral(Request $request)
     {
-        $data = 1;
-        return $data;
-        dd($request);
+
+        $params = array();
+        parse_str($request->data, $params);
+
+
+
+        //update Contribuyente
+        $contribuyente = new ContribuyenteController();
+        $contribuyente->updateContribuyente($request);
+
+        //cargar periodo
+        $per_act_con = new PeriodoActividadContribuyenteController();
+        $id_periodo_save = $per_act_con->updatePeriodo($request);
+
         die();
+
+
+
+        //cargar industria
+        $industria = new IndustriaController();
+        $id_industria = $industria->store($request);
+
+
+        //cargar periodo industria
+
+        $per_act_indu = new PeriodoActividadIndustriaController();
+        $id_periodo_indu = $per_act_indu->store($request, $id_industria);
+
+        //actualizar datos persona
+
+        //$persona = new PersonaController();
+       // $id_persona = $persona->updatePersona($request);
+
+
+       return response()->json(['success'=>1]);
+
     }
 
     /**

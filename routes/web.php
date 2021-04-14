@@ -7,6 +7,7 @@ use App\Http\Controllers\ProvinciaController;
 use App\Http\Controllers\LocalidadController;
 use App\Http\Controllers\ProcedimientosController;
 use App\Http\Controllers\IndexController;
+use App\Http\Controllers\ContribuyenteController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -54,3 +55,7 @@ Route::get('/procedimientos',[ProcedimientosController::class,'index'] )->middle
 Route::post('/saveGenerales',[ProcedimientosController::class,'storeGenerales']);
 Route::get('/edit/tramite/{id}',[ProcedimientosController::class,'edit']);
 Route::post('/updateGenerales',[ProcedimientosController::class,'updateGeneral']);
+
+
+//datos generales Contribuyente
+Route::get('/datos/{id}',[ContribuyenteController::class,'edit'] )->middleware(['auth'])->name('datosGenerales');

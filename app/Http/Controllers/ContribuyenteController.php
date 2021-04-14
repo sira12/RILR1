@@ -5,6 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Contribuyente;
 use Carbon\Carbon;
+use App\Models\RegimenIB;
+use App\Models\CondicionIva;
+use App\Models\NaturalezaJuridica;
+use App\Models\PuntoCardinal;
+use Illuminate\Support\Facades\DB;
 
 class ContribuyenteController extends Controller
 {
@@ -100,11 +105,42 @@ class ContribuyenteController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function edit($id)
     {
-        //
+
+        $regimen = RegimenIB::where('activo', "S")->get();
+        $iva = CondicionIva::where('activo', "S")->get();
+        $naturaleza_juridica = NaturalezaJuridica::where('activo', "S")->get();
+
+        $per_fiscal = DB::table('periodo_fiscal')->where('anio', Carbon::now()->format('Y'))->first();
+
+        $user = auth()->user();
+        $rel = DB::table('rel_persona_contribuyente')->where('id_rel_persona_contribuyente', $user->id_rel_persona_contribuyente)->select('id_contribuyente', 'id_persona')->first();
+        $contribuyente = DB::table('contribuyente')->where('id_contribuyente', $rel->id_contribuyente)
+            ->join('regimen_ib','contribuyente.id_regimen_ib','=','regimen_ib.id_regimen_ib')
+            ->join('condicion_iva','contribuyente.id_condicion_iva','=','condicion_iva.id_condicion_iva')
+            ->join('naturaleza_juridica','contribuyente.id_naturaleza_juridica','=','naturaleza_juridica.id_naturaleza_juridica')
+
+            ->join('condicion_iva','contribuyente.id_condicion_iva','=','condicion_iva.id_condicion_iva')
+
+            ->select('cuit')->first();
+
+
+        $zona = PuntoCardinal::all();
+
+
+
+
+       return view('Contribuyente.edit',[
+           'id_contribuyente'=>$id,
+           'regimen' => $regimen,
+           'condicion_iva' => $iva,
+           'naturaleza_juridica' => $naturaleza_juridica,
+           'zona' => $zona,
+           'cuit' => $cuit,
+       ]);
     }
 
     /**
@@ -129,7 +165,6 @@ class ContribuyenteController extends Controller
     {
         $params = array();
         parse_str($request->data, $params);
-
 
 
         $fecha=Carbon::createFromFormat('d-m-Y', $params['fecha_actividad_contribuyente'])->toDateTimeString();

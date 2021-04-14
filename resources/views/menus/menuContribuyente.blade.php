@@ -10,7 +10,8 @@
 
                 <li class="nav-small-cap"><i class="mdi mdi-dots-horizontal"></i> <span class="hide-menu">MENU</span></li>
 
-                <li class="sidebar-item waves-effect"><a href="panel" class="sidebar-link"><i class="mdi mdi-home"></i><span class="hide-menu"> Inicio</span></a></li>
+                <li class="sidebar-item waves-effect"><a href="{{route('panel')}}" class="sidebar-link"><i class="mdi mdi-home"></i><span class="hide-menu"> Inicio</span></a></li>
+                <li class="sidebar-item waves-effect"><a href="{{route('datosGenerales',$id_contribuyente)}}" class="sidebar-link"><i class="mdi mdi-account"></i><span class="hide-menu"> Datos Generales</span></a></li>
 
                 <li class="sidebar-item waves-effect"><a href="#" class="sidebar-link"><i class="mdi mdi-comment-multiple-outline"></i><span class="hide-menu"> Consultas</span></a></li>
 
@@ -31,7 +32,7 @@
                             </i><span class="hide-menu"> Cerrar Sesión</span>
                         </a>
 
-                       
+
                     </form>
 
                 </li>

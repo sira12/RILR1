@@ -86,6 +86,32 @@ class PeriodoActividadContribuyenteController extends Controller
     }
 
     /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function updatePeriodo(Request $request)
+    {
+        $params = array();
+         parse_str($request->data, $params);
+
+         dd($params);
+
+         $fecha=Carbon::createFromFormat('d-m-Y', $params['fecha_actividad_contribuyente'])->toDateTimeString();
+
+         $periodo= PeriodoActividadContribuyente::where('id_contribuyente',$params['id_contribuyente'])->find();
+
+         $periodo->id_contribuyente=intval($params['id_contribuyente']);
+         $periodo->fecha_inicio=$fecha;
+         $periodo->id_regimen_ib=intval($params['id_regimen_ib']);
+         $periodo->numero_de_ib=$params['numero_de_ib'];
+         $periodo->fecha_de_actualizacion=Carbon::now();
+
+         $periodo->save();
+    }
+
+    /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id

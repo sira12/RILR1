@@ -153,8 +153,10 @@ class PersonaController extends Controller
         $params = array();
         parse_str($request->data, $params);
 
+        dd($params);
+        die();
 
-        $persona=Persona::find($params['id_persona']);
+        /*$persona=Persona::find($params['id_persona']);
 
         $persona->id_localidad=intval($params['id_localidad_administracion']);
         $contribuyente->id_barrio=intval($params['id_barrio_administracion']);
@@ -163,10 +165,7 @@ class PersonaController extends Controller
         $contribuyente->piso=$params['nro_piso_legal'];
         $contribuyente->depto=$params['nro_departamento_legal'];
         $contribuyente->referencias_domicilio=$params['referencia_legal'];
-
-
-        dd($params);
-        die();
+*/
 
 
     }

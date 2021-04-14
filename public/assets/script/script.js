@@ -2408,9 +2408,13 @@ $('document').ready(function () {
 					$("#btn-submit").html('<i class="fa fa-refresh"></i> Verificando...');
 				},
 				success: function (data) {
-					if (data == 1) {
 
-						$("#save").fadeIn(1000, function () {
+
+
+				    console.log(data.success);
+					if (data.success == 1) {
+
+                        $("#save").fadeIn(1000, function () {
 
 							var n = noty({
 								text: "<span class='fa fa-warning'></span> POR FAVOR DEBE DE COMPLETAR LOS CAMPOS REQUERIDOS, VERIFIQUE NUEVAMENTE POR FAVOR...!",

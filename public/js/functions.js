@@ -145,7 +145,7 @@ $(document).ready(function () {
 
         if ($("#buscar_localidad").val().length < 1) {
             //limpiar id localidad, barrio, calle
-            console.log("asdasd");
+
 
             $('#id_localidad').val("")
             $('#id_barrio').val("")
@@ -199,7 +199,7 @@ $(document).ready(function () {
 
         if ($("#search_calle").val().length < 1) {
             //limpiar id localidad, barrio, calle
-            console.log("asdasd");
+
 
 
             $('#id_calle').val("")
@@ -356,7 +356,7 @@ $(document).ready(function () {
 
         if ($("#buscar_localidad2").val().length < 1) {
             //limpiar id localidad, barrio, calle
-            console.log("asdasd");
+
 
             $('#id_localidad_administracion').val("")
             $('#id_barrio_administracion').val("")
@@ -410,7 +410,7 @@ $(document).ready(function () {
 
         if ($("#buscar_calle2").val().length < 1) {
             //limpiar id localidad, barrio, calle
-            console.log("asdasd");
+
 
 
             $('#id_calle_administracion').val("")
