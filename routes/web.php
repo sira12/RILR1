@@ -59,3 +59,4 @@ Route::post('/updateGenerales',[ProcedimientosController::class,'updateGeneral']
 
 //datos generales Contribuyente
 Route::get('/datos/{id}',[ContribuyenteController::class,'edit'] )->middleware(['auth'])->name('datosGenerales');
+Route::post('/updateContribuyente',[ContribuyenteController::class,'updateContribuyente'])->middleware(['auth']);

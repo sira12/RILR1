@@ -71,7 +71,8 @@
                                                     <div class="form-group has-feedback">
                                                         <label class="control-label">Nº de Cuit: <span
                                                                 class="symbol required"></span></label>
-                                                        <br><abbr title="Nº de CUIT/CUIL"></abbr>{{$cuit->cuit}}
+                                                        <br><abbr
+                                                            title="Nº de CUIT/CUIL"></abbr>{{$contribuyente->cuit}}
                                                     </div>
                                                 </div>
 
@@ -84,7 +85,13 @@
                                                                name="fecha_actividad_contribuyente"
                                                                id="fecha_actividad_contribuyente"
                                                                placeholder="Ingrese Fecha Inicio Actividad de Contribuyente"
-                                                               autocomplete="off" value="" required=""
+                                                               autocomplete="off"
+                                                               @if($contribuyente->fecha_inicio_de_actividades)
+                                                                value="{{\Carbon\Carbon::parse($contribuyente->fecha_inicio_de_actividades)->format('d-m-Y')}}"
+                                                               @else
+                                                                value=""
+                                                               @endif
+                                                               required=""
                                                                aria-required="true"/>
                                                         <i class="fa fa-calendar form-control-feedback"></i>
                                                     </div>
@@ -99,14 +106,14 @@
                                                         <select class="form-control" id="id_regimen_ib"
                                                                 name="id_regimen_ib"
                                                                 required="" aria-required="true">
-                                                            <option value=""> -- SELECCIONE --</option>
 
 
-                                                                @foreach($regimen as $reg)
-                                                                    <option
-                                                                        value="{{$reg->id_regimen_ib}}">{{$reg->regimen_ib}}</option>
-                                                                @endforeach
-
+                                                            <option
+                                                                value="{{$contribuyente->id_regimen_ib}}">{{$contribuyente->regimen}}</option>
+                                                            @foreach($regimen as $reg)
+                                                                <option
+                                                                    value="{{$reg->id_regimen_ib}}">{{$reg->regimen_ib}}</option>
+                                                            @endforeach
 
 
                                                         </select>
@@ -122,7 +129,8 @@
                                                         <input type="text" class="form-control" name="numero_de_ib"
                                                                id="numero_de_ib"
                                                                placeholder="Ingrese Nº de Ingresos Brutos"
-                                                               autocomplete="off" value="" required=""
+                                                               autocomplete="off"
+                                                               value="{{$contribuyente->numero_de_ib}}" required=""
                                                                aria-required="true"/>
                                                         <i class="fa fa-pencil form-control-feedback"></i>
                                                     </div>
@@ -140,13 +148,14 @@
                                                         <select class="form-control" id="id_condicion_iva"
                                                                 name="id_condicion_iva" required=""
                                                                 aria-required="true">
-                                                            <option value=""> -- SELECCIONE --</option>
+                                                            <option
+                                                                value="{{$contribuyente->id_condicion_iva}}">{{$contribuyente->condicion}}</option>
 
-                                                                   @foreach($condicion_iva as $iva)
-                                                                    <option
-                                                                        value="{{$iva->id_condicion_iva}}">{{$iva->condicion_iva}}</option>
-                                                                @endforeach
-   p
+                                                            @foreach($condicion_iva as $iva)
+                                                                <option
+                                                                    value="{{$iva->id_condicion_iva}}">{{$iva->condicion_iva}}</option>
+                                                            @endforeach
+                                                            p
                                                         </select>
 
 
@@ -162,12 +171,13 @@
                                                         <select class="form-control" id="id_naturaleza_juridica"
                                                                 name="id_naturaleza_juridica" required=""
                                                                 aria-required="true">
-                                                            <option value=""> -- SELECCIONE --</option>
+                                                            <option
+                                                                value="{{$contribuyente->id_naturaleza_juridica}}">{{$contribuyente->naturaleza}}</option>
 
-                                                                   @foreach($naturaleza_juridica as $naturaleza)
-                                                                        <option
-                                                                            value="{{$naturaleza->id_naturaleza_juridica}}">{{$naturaleza->naturaleza_juridica}} </option>
-                                                                    @endforeach
+                                                            @foreach($naturaleza_juridica as $naturaleza)
+                                                                <option
+                                                                    value="{{$naturaleza->id_naturaleza_juridica}}">{{$naturaleza->naturaleza_juridica}} </option>
+                                                            @endforeach
 
                                                         </select>
 
@@ -188,13 +198,14 @@
                                                         <select class="form-control" id="zona_administracion"
                                                                 name="zona_administracion" required=""
                                                                 aria-required="true">
-                                                            <option value=""> -- SELECCIONE --</option>
+                                                            <option
+                                                                value="{{$contribuyente->id_punto_cardinal}}"> {{$contribuyente->punto_cardinal}}</option>
 
-                                                                @foreach($zona as $z)
-                                                                    <option value="{{$z->id_punto_cardinal}}">
-                                                                        {{$z->punto_cardinal}}
-                                                                    </option>
-                                                                @endforeach
+                                                            @foreach($zona as $z)
+                                                                <option value="{{$z->id_punto_cardinal}}">
+                                                                    {{$z->punto_cardinal}}
+                                                                </option>
+                                                            @endforeach
 
                                                         </select>
 
@@ -209,10 +220,12 @@
                                                         <label class="control-label">Provincia Legal:<span
                                                                 class="symbol required"></span></label>
                                                         <input type="hidden" name="id_provincia_legal"
-                                                               id="id_provincia_legal" value=""/>
+                                                               id="id_provincia_legal"
+                                                               value="{{$contribuyente->id_prov}}"/>
                                                         <input type="text" class="form-control"
                                                                name="buscar_provincia_legal" id="buscar_provincia_legal"
-                                                               placeholder="Ingrese Nombre de Provincia" value=""
+                                                               placeholder="Ingrese Nombre de Provincia"
+                                                               value="{{$contribuyente->provincia}}"
                                                                required="" aria-required="true"/>
                                                         <i class="fa fa-search form-control-feedback"></i>
                                                     </div>
@@ -228,12 +241,14 @@
                                                                 title="Notificación: Ingrese Nombre de Localidad y seleccione en el Listado que se mostrará, en caso de no aparecer, escribala y el sistema se encargará de la asignación del mismo."></span><span
                                                                 class="symbol required"></span></label>
                                                         <input type="hidden" name="id_localidad_administracion"
-                                                               id="id_localidad_administracion" value=""/>
+                                                               id="id_localidad_administracion"
+                                                               value="{{$contribuyente->id_localidad}}"/>
                                                         <input type="text" class="form-control" disabled
                                                                name="buscar_localidad2" id="buscar_localidad2"
                                                                placeholder="Ingrese Nombre de Localidad"
                                                                autocomplete="off"
-                                                               value="" required="" aria-required="true"/>
+                                                               value="{{$contribuyente->loc}}" required=""
+                                                               aria-required="true"/>
                                                         <i class="fa fa-search form-control-feedback"></i>
                                                     </div>
                                                 </div>
@@ -247,11 +262,13 @@
                                                                 title="Notificación: Ingrese Nombre de Barrio y seleccione en el Listado que se mostrará, en caso de no aparecer, escribala y el sistema se encargará de la asignación del mismo."></span><span
                                                                 class="symbol required"></span></label>
                                                         <input type="hidden" name="id_barrio_administracion"
-                                                               id="id_barrio_administracion" value=""/>
+                                                               id="id_barrio_administracion"
+                                                               value="{{$contribuyente->id_barrio}}"/>
                                                         <input type="text" class="form-control" disabled
                                                                name="buscar_barrio2" id="buscar_barrio2"
                                                                placeholder="Ingrese Nombre de Barrio" autocomplete="off"
-                                                               value="" required="" aria-required="true"/>
+                                                               value="{{$contribuyente->barrio}}" required=""
+                                                               aria-required="true"/>
                                                         <i class="fa fa-search form-control-feedback"></i>
                                                     </div>
                                                 </div>
@@ -265,11 +282,13 @@
                                                                 title="Notificación: Ingrese Nombre de Calle y seleccione en el Listado que se mostrará, en caso de no aparecer, escribala y el sistema se encargará de la asignación del mismo."></span><span
                                                                 class="symbol required"></span></label>
                                                         <input type="hidden" name="id_calle_administracion"
-                                                               id="id_calle_administracion" value=""/>
+                                                               id="id_calle_administracion"
+                                                               value="{{$contribuyente->id_calle}}"/>
                                                         <input type="text" class="form-control" disabled
                                                                name="buscar_calle2" id="buscar_calle2"
                                                                placeholder="Ingrese Nombre de Calle" autocomplete="off"
-                                                               value="" required="" aria-required="true"/>
+                                                               value="{{$contribuyente->calle}}" required=""
+                                                               aria-required="true"/>
                                                         <i class="fa fa-search form-control-feedback"></i>
                                                     </div>
                                                 </div>
@@ -284,6 +303,7 @@
 
                                                         <input type="number" class="form-control" name="nro_calle_legal"
                                                                id="nro_calle_legal"
+                                                               value="{{$contribuyente->numero}}"
                                                                placeholder="Ingrese Numero de Calle"
                                                                autocomplete="off" aria-required="true"/>
                                                         <i class="fa fa-pencil form-control-feedback"></i>
@@ -299,7 +319,8 @@
 
                                                         <input type="number" class="form-control" name="nro_piso_legal"
                                                                id="nro_piso_legal" placeholder="Ingrese Numero de Piso"
-                                                               autocomplete="off" aria-required="true"/>
+                                                               autocomplete="off" aria-required="true"
+                                                               value="{{$contribuyente->piso}}"/>
                                                         <i class="fa fa-pencil form-control-feedback"></i>
                                                     </div>
                                                 </div>
@@ -314,7 +335,9 @@
                                                         <input type="number" class="form-control"
                                                                name="nro_departamento_legal" id="nro_departamento_legal"
                                                                placeholder="Ingrese Numero de Departamento"
-                                                               autocomplete="off" aria-required="true"/>
+                                                               autocomplete="off" aria-required="true"
+                                                               value="{{$contribuyente->depto}}"
+                                                        />
                                                         <i class="fa fa-pencil form-control-feedback"></i>
                                                     </div>
                                                 </div>
@@ -328,12 +351,15 @@
                                                         <input type="text" class="form-control" name="referencia_legal"
                                                                id="referencia_legal"
                                                                placeholder="Ingrese una referencia"
-                                                               autocomplete="off" aria-required="true"/>
+                                                               autocomplete="off" aria-required="true"
+                                                               value="{{$contribuyente->referencias_domicilio}}"
+                                                        />
                                                         <i class="fa fa-pencil form-control-feedback"></i>
                                                     </div>
                                                 </div>
                                             </div>
 
+                                            <!--
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group has-feedback">
@@ -352,16 +378,18 @@
                                                     <div class="form-group has-feedback">
                                                         <label class="control-label">Nº de Celular de Contacto en
                                                             Administración: <span
-                                                                class="symbol required"></span></label>
+                                                                    class="symbol required"></span></label>
                                                         <input type="text" class="form-control"
                                                                name="tel_celular_administracion"
                                                                id="tel_celular_administracion"
                                                                placeholder="Ingrese Nº de Celular" autocomplete="off"
-                                                               value="" required="" aria-required="true"/>
+                                                               value="" required=""
+                                                               aria-required="true"/>
                                                         <i class="fa fa-mobile form-control-feedback"></i>
                                                     </div>
                                                 </div>
                                             </div>
+                                            -->
 
 
                                             <div class="text-right">

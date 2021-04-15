@@ -18,7 +18,14 @@ class IndexController extends Controller
         $user=auth()->user();
 
         $contribuyente=DB::table('rel_persona_contribuyente')->where('id_rel_persona_contribuyente',$user->id_rel_persona_contribuyente)->first();
-        $industrias=Industria::where('industria.id_contribuyente','=',$contribuyente->id_contribuyente)->get();
+        $industrias=DB::table('industria')
+            ->leftjoin('rel_industria_actividad','industria.id_industria','=','rel_industria_actividad.id_industria')
+            ->select(
+                'industria.*',
+                        'rel_industria_actividad.id_rel_industria_actividad'
+            )
+            ->where('industria.id_contribuyente','=',$contribuyente->id_contribuyente)
+            ->get();
 
        /* $mi_industrias=DB::table('industria')
             ->join('contribuyente','industria.id_contribuyente','=','contribuyente.id_contribuyente')

@@ -95,7 +95,7 @@
                                         <thead>
                                             <tr role="row">
                                                 <th>N°</th>
-                                                <th>Tipo</th>
+                                                <th>Estado del tramite</th>
                                                 <th>Establecimiento</th>
                                                 <th>Acciones</th>
                                             </tr>
@@ -105,7 +105,23 @@
                                        @foreach($industrias as $clave => $industria)
                                             <tr role="row" class="odd">
                                                 <td>{{$clave +1}}</td>
-                                                <td></td>
+                                                <td>
+
+                                                    @if(!$industria->id_rel_industria_actividad)
+
+                                                        <span class="badge badge-pill badge-warning"> <b>Tramite en proceso</b></span>
+                                                        @php
+                                                        $proceso=true;
+                                                        @endphp
+                                                    @else
+
+                                                        <span class="badge badge-pill badge-success">Tramite finalizado</span>
+                                                        @php
+                                                            $proceso=false;
+                                                        @endphp
+                                                    @endif
+
+                                                </td>
                                                 <td>{{$industria->nombre_de_fantasia}}</td>
                                                 <td>
                                                     <span style="cursor: pointer;" title="Ver Trámite" onClick="#"><i class="mdi mdi-eye font-24 text-danger"></i></span>
@@ -122,11 +138,11 @@
                             </div>
 
                             <div class="text-left">
-
+                                @if($proceso == false)
                                 <a href="{{route('procedimientos')}}"><button type="button" class="btn btn-dark"><span class="fa fa-plus-circle"></span> Registrar Nuevo Establecimiento Industrial</button></a>
-
+                                @else
                                 <button type="button" onclick="AlertaTramite('');" class="btn btn-dark"><span class="fa fa-plus-circle"></span> Registrar Nuevo Establecimiento Industrial</button></a>
-
+                                @endif
                             </div>
 
                         </div>

@@ -1,5 +1,9 @@
 /*$(function () {
    $('input').filter('.expira').datepicker({*/
+$( document ).ready(function() {
+
+
+
 $('body').on('focus',".expira", function(){
    $(this).datepicker({
      closeText: 'Cerrar',
@@ -353,6 +357,7 @@ $("#fecha_actividad_industria").datepicker({
      changeMonth: true,
      changeYear: true,
      yearSuffix: '',
+    minDate: $("#fecha_actividad_contribuyente").val(),
      onClose: function (selectedDate) {
       $("#fecha_actividad_contribuyente").datepicker("option", "maxDate", selectedDate);
     }
@@ -376,4 +381,6 @@ $('body').on('focus',"#hora_desde", function(){
 
 $('body').on('focus',"#hora_hasta", function(){
   $(this).timepicker({showMeridian: false});
+});
+
 });

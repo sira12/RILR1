@@ -34,14 +34,14 @@ class ProcedimientosController extends Controller
 
         $user = auth()->user();
         $rel = DB::table('rel_persona_contribuyente')->where('id_rel_persona_contribuyente', $user->id_rel_persona_contribuyente)->select('id_contribuyente', 'id_persona')->first();
-        $cuit = DB::table('contribuyente')->where('id_contribuyente', $rel->id_contribuyente)->select('cuit')->first();
+        $contribuyente = DB::table('contribuyente')->where('id_contribuyente', $rel->id_contribuyente)->first();
         $zona = PuntoCardinal::all();
 
 
         return view('Procedimientos.procedimientos', [
             'id_persona' => $rel->id_persona,
             'id_contribuyente' => $rel->id_contribuyente,
-            'cuit' => $cuit,
+            'contribuyente' => $contribuyente,
             'per_fiscal' => $per_fiscal,
             'regimen' => $regimen,
             'condicion_iva' => $iva,
@@ -71,13 +71,6 @@ class ProcedimientosController extends Controller
         $params = array();
         parse_str($request->data, $params);
 
-        //update Contribuyente
-        $contribuyente = new ContribuyenteController();
-        $contribuyente->updateContribuyente($request);
-
-        //cargar periodo
-        $per_act_con = new PeriodoActividadContribuyenteController();
-        $id_periodo_save = $per_act_con->store($request);
 
         //cargar industria
         $industria = new IndustriaController();
@@ -88,12 +81,6 @@ class ProcedimientosController extends Controller
 
         $per_act_indu = new PeriodoActividadIndustriaController();
         $id_periodo_indu = $per_act_indu->store($request, $id_industria);
-
-        //actualizar datos persona
-
-        //$persona = new PersonaController();
-       // $id_persona = $persona->updatePersona($request);
-
 
        return response()->json(['success'=>1]);
 
@@ -242,7 +229,7 @@ class ProcedimientosController extends Controller
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @return int
+     * @return \Illuminate\Http\JsonResponse
      */
     public function updateGeneral(Request $request)
     {
@@ -251,34 +238,15 @@ class ProcedimientosController extends Controller
         parse_str($request->data, $params);
 
 
-
-        //update Contribuyente
-        $contribuyente = new ContribuyenteController();
-        $contribuyente->updateContribuyente($request);
-
-        //cargar periodo
-        $per_act_con = new PeriodoActividadContribuyenteController();
-        $id_periodo_save = $per_act_con->updatePeriodo($request);
-
-        die();
-
-
-
         //cargar industria
         $industria = new IndustriaController();
-        $id_industria = $industria->store($request);
+        $industria->update($request, intVal($params['id_industria']));
 
 
         //cargar periodo industria
 
         $per_act_indu = new PeriodoActividadIndustriaController();
-        $id_periodo_indu = $per_act_indu->store($request, $id_industria);
-
-        //actualizar datos persona
-
-        //$persona = new PersonaController();
-       // $id_persona = $persona->updatePersona($request);
-
+        $per_act_indu->update($request, intVal($params['id_industria']));
 
        return response()->json(['success'=>1]);
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\PeriodoActividadIndustria;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 
@@ -80,7 +81,17 @@ class PeriodoActividadIndustriaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $params = array();
+        parse_str($request->data, $params);
+
+        $periodo_industria=PeriodoActividadIndustria::where('id_industria',$id)->first();
+
+        $fecha=Carbon::createFromFormat('d-m-Y', $params['fecha_actividad_industria'])->toDateTimeString();
+
+        $periodo_industria->id_industria=$id;
+        $periodo_industria->fecha_de_inicio=$fecha;
+
+        $periodo_industria->save();
     }
 
     /**

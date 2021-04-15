@@ -117,9 +117,7 @@
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="form-group has-feedback">
-                                                        <label class="control-label">Nombre o Razón Social de la
-                                                            Empresa:
-                                                            <span class="symbol required"></span></label>
+
                                                         <input type="hidden" name="secciongeneral" id="secciongeneral"
                                                                value="">
                                                         <input type="hidden" name="proceso" id="proceso"
@@ -135,17 +133,38 @@
                                                         <input type="hidden"
                                                                name="id_periodo_de_actividad_de_contribuyente"
                                                                id="id_periodo_de_actividad_de_contribuyente" value="">
-                                                        <br><abbr title="Nombre Razón Social de Empresa"></abbr>
+                                                        <abbr title="Nombre Razón Social de Empresa"></abbr>
                                                     </div>
                                                 </div>
                                             </div>
 
-                                            <div class="row">
+                                            <div class="col-md-3">
+                                                <div class="form-group has-feedback">
+
+                                                    <input type="text" class="form-control actividades"
+                                                           name="fecha_actividad_contribuyente"
+                                                           id="fecha_actividad_contribuyente"
+                                                           placeholder="Ingrese Fecha Inicio Actividad de Contribuyente"
+                                                           autocomplete="off"
+
+                                                           @if($contribuyente->fecha_inicio_de_actividades)
+                                                            value="{{\Carbon\Carbon::parse($contribuyente->fecha_inicio_de_actividades)->format('d-m-Y')}}"
+                                                           @else
+                                                            value=""
+                                                           @endif
+                                                           aria-required="true"
+
+                                                    hidden/>
+
+                                                </div>
+                                            </div>
+
+                                            <!--<div class="row">
                                                 <div class="col-md-3">
                                                     <div class="form-group has-feedback">
                                                         <label class="control-label">Nº de Cuit: <span
                                                                 class="symbol required"></span></label>
-                                                        <br><abbr title="Nº de CUIT/CUIL"></abbr>{{$cuit->cuit}}
+                                                        <br><abbr title="Nº de CUIT/CUIL"></abbr>
                                                     </div>
                                                 </div>
 
@@ -197,10 +216,10 @@
                                                         <i class="fa fa-pencil form-control-feedback"></i>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div>-->
 
 
-                                            <div class="row">
+                                         <!--<div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group has-feedback">
                                                         <label class="control-label">Condición Frente al Iva: <span
@@ -241,7 +260,7 @@
 
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div>-->
 
                                             <div class="row">
                                                 <div class="col-md-12">
@@ -359,8 +378,10 @@
                                                         <input type="text" class="form-control" name="email_fiscal"
                                                                id="email_fiscal"
                                                                placeholder="Ingrese Correo Electrónico para Trámite"
-                                                               autocomplete="off" value="" value="" required=""
-                                                               aria-required="true"/>
+                                                               autocomplete="off" value="{{$contribuyente->email_fiscal}}" value="" required=""
+                                                               aria-required="true"
+                                                                disabled
+                                                        />
                                                         <i class="fa fa-envelope-o form-control-feedback"></i>
                                                     </div>
                                                 </div>
@@ -520,7 +541,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="row">
+                                            <!--<div class="row">
                                                 <div class="col-md-12">
                                                     <div class="form-group has-feedback">
                                                         <label class="control-label">Zona legal: <span
@@ -541,9 +562,9 @@
 
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div>-->
 
-                                            <div class="row">
+                                            <!--<div class="row">
 
                                                 <div class="col-md-3">
                                                     <div class="form-group has-feedback">
@@ -614,8 +635,8 @@
                                                         <i class="fa fa-search form-control-feedback"></i>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="row">
+                                            </div>-->
+                                            <!--<div class="row">
                                                 <div class="col-md-3">
                                                     <div class="form-group has-feedback">
                                                         <label class="control-label">N° Calle: <span
@@ -673,9 +694,9 @@
                                                         <i class="fa fa-pencil form-control-feedback"></i>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div>-->
 
-                                            <div class="row">
+                                            <!--<div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group has-feedback">
                                                         <label class="control-label">Nº de Teléfono Fijo: <span
@@ -702,7 +723,7 @@
                                                         <i class="fa fa-mobile form-control-feedback"></i>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div>-->
 
                                             <div class="row">
                                                 <div class="col-md-5">

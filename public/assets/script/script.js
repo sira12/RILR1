@@ -2290,10 +2290,140 @@ $('document').ready(function () {
 
 
 
+/* FUNCION JQUERY PARA VALIDAR REGISTRO DE DATOS GENERALES contribuyente*/
+$('document').ready(function () {
+    jQuery.validator.addMethod("lettersonly", function (value, element) {
+        return this.optional(element) || /^[a-zA-ZñÑáéíóúÁÉÍÓÚ,. ]+$/i.test(value);
+    });
+
+    /* validation */
+    $('#saveContribuyente').validate({
+        rules:
+            {
+
+                //razon_social: { required: true, lettersonly: false },
+                fecha_actividad_contribuyente: { required: true, },
+                id_regimen_ib: { required: true, },
+                numero_de_ib: { required: false, },
+                id_condicion_iva: { required: true, },
+                id_naturaleza_juridica: { required: true, },
+                //email_fiscal: { required: true, email: true },
 
 
+                zona_administracion: { required: true, },
+                buscar_provincia_administracion: { required: true, },
+                buscar_localidad2: { required: true, },
+                buscar_barrio2: { required: true, },
+                buscar_calle2: { required: true, },
+                numero_administracion: { required: true, },
+                piso_administracion: { required: false, },
+                depto_administracion: { required: false, },
+                ref_domicilio_administracion: { required: false, },
 
-/* FUNCION JQUERY PARA VALIDAR REGISTRO DE DATOS GENERALES */
+                //tel_fijo_administracion: { required: false, },
+                //tel_celular_administracion: { required: false, },
+            },
+        messages:
+            {
+
+                //razon_social: { required: "Ingrese Nombre o Razon Social de la Empresa", lettersonly: "Ingrese solo letras para Nombres" },
+                fecha_actividad_contribuyente: { required: "Ingrese Fecha de Inicio Actividad de Contribuyente" },
+                id_regimen_ib: { required: "Seleccione Régimen de Ingresos Brutos" },
+                numero_de_ib: { required: "Ingrese Nº de Ingresos Brutos" },
+                id_condicion_iva: { required: "Seleccione Condición de Iva" },
+                id_naturaleza_juridica: { required: "Seleccione Naturaleza Juridica" },
+
+                //email_fiscal: { required: "Ingrese Email Fiscal", email: "Ingrese un Email V&aacute;lido" },
+
+
+                zona_administracion: { required: "Seleccione Zona Administrativa" },
+                buscar_provincia_administracion: { required: "Ingrese Nombre de Provincia Administrativa" },
+                buscar_localidad2: { required: "Ingrese Nombre de Localidad Administrativa" },
+                buscar_barrio2: { required: "Ingrese Nombre de Barrio Administrativa" },
+                buscar_calle2: { required: "Ingrese Nombre de Calle Administrativa" },
+                numero_administracion: { required: "Ingrese Numero" },
+                piso_administracion: { required: "Ingrese N&deg; de Piso" },
+                depto_administracion: { required: "Ingrese N&deg; de Departamento" },
+                ref_domicilio_administracion: { required: "Ingrese referencias Domicilio" },
+
+            },
+        submitHandler: function (form) {
+            console.log(form)
+            var data = $("#saveContribuyente").serialize();
+            var seccion = $("input#secciongeneral").val();
+            var industria = $("input#id_industria").val();
+
+            $.ajax({
+                type: 'POST',
+                url: '/updateContribuyente',
+                async: false,
+                data: {
+                    _token: $('meta[name="csrf-token"]').attr('content'),
+                    data: data,
+                },
+                beforeSend: function () {
+                    $("#save").fadeOut();
+                    $("#btn-submit").html('<i class="fa fa-refresh"></i> Verificando...');
+                },
+                success: function (data) {
+
+                    console.log(data.success);
+                    if (data.success == 1) {
+
+                        $("#save").fadeIn(1000, function () {
+
+                            var n = noty({
+                                text: "<span class='fa fa-warning'></span> POR FAVOR DEBE DE COMPLETAR LOS CAMPOS REQUERIDOS, VERIFIQUE NUEVAMENTE POR FAVOR...!",
+                                theme: 'defaultTheme',
+                                layout: 'center',
+                                type: 'warning',
+                                timeout: 5000,
+                            });
+                            $("#btn-submit").html('<span class="fa fa-save"></span> Continuar');
+
+                        });
+                    }
+                    else if (data == 2) {
+
+                        $("#save").fadeIn(1000, function () {
+
+                            var n = noty({
+                                text: "<span class='fa fa-warning'></span> DEBE DE INGRESAR UN EMAIL DIFERENTE AL INGRESADO EN EL FORMULARIO DE REGISTRO INICIAL, VERIFIQUE NUEVAMENTE POR FAVOR ...!",
+                                theme: 'defaultTheme',
+                                layout: 'center',
+                                type: 'warning',
+                                timeout: 5000,
+                            });
+                            $("#btn-submit").html('<span class="fa fa-save"></span> Continuar');
+
+                        });
+                    }
+                    else {
+
+                        $("#save").fadeIn(1000, function () {
+
+                            var n = noty({
+                                text: '<center> ' + 'Guardado Exitosamente!' + ' </center>',
+                                theme: 'defaultTheme',
+                                layout: 'center',
+                                type: 'information',
+                                timeout: 5000,
+                            });
+                            //$('#secciones').load("formularios.php?BuscaFormularioProcedimiento=si&seccion=" + seccion + "&in=" + industria);
+                            $("#btn-submit").html('<span class="fa fa-save"></span> Guardar datos');
+                        });
+                    }
+                }
+            });
+            return false;
+        }
+        /* form submit */
+    });
+});
+/* FUNCION JQUERY PARA VALIDAR REGISTRO DE DATOS GENERALES contribuyente */
+
+
+/* FUNCION JQUERY PARA VALIDAR REGISTRO DE DATOS GENERALES industriales*/
 $('document').ready(function () {
 	jQuery.validator.addMethod("lettersonly", function (value, element) {
 		return this.optional(element) || /^[a-zA-ZñÑáéíóúÁÉÍÓÚ,. ]+$/i.test(value);
@@ -2479,9 +2609,9 @@ $('document').ready(function () {
 		/* form submit */
 	});
 });
-/* FUNCION JQUERY PARA VALIDAR REGISTRO DE DATOS GENERALES */
+/* FUNCION JQUERY PARA VALIDAR REGISTRO DE DATOS GENERALES industriales */
 
-/* FUNCION JQUERY PARA VALIDAR update DE DATOS GENERALES */
+/* FUNCION JQUERY PARA VALIDAR update DE DATOS GENERALES industriales */
 $('document').ready(function () {
 	jQuery.validator.addMethod("lettersonly", function (value, element) {
 		return this.optional(element) || /^[a-zA-ZñÑáéíóúÁÉÍÓÚ,. ]+$/i.test(value);
