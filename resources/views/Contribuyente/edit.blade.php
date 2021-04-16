@@ -67,7 +67,7 @@
                                             </div>
 
                                             <div class="row">
-                                                <div class="col-md-3">
+                                                <div class="col-md-4">
                                                     <div class="form-group has-feedback">
                                                         <label class="control-label">Nº de Cuit: <span
                                                                 class="symbol required"></span></label>
@@ -76,28 +76,21 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="col-md-3">
+                                                <div class="col-md-4">
                                                     <div class="form-group has-feedback">
-                                                        <label class="control-label">Fecha Inicio Actividad
-                                                            Contribuyente:
-                                                            <span class="symbol required"></span></label>
-                                                        <input type="text" class="form-control actividades"
-                                                               name="fecha_actividad_contribuyente"
-                                                               id="fecha_actividad_contribuyente"
-                                                               placeholder="Ingrese Fecha Inicio Actividad de Contribuyente"
+                                                        <label class="control-label">Razon Social<span
+                                                                class="symbol required"></span></label>
+                                                        <input type="text" class="form-control" name="razon_social"
+                                                               id="razon_social"
+                                                               placeholder="Ingrese Nº de Ingresos Brutos"
                                                                autocomplete="off"
-                                                               @if($contribuyente->fecha_inicio_de_actividades)
-                                                                value="{{\Carbon\Carbon::parse($contribuyente->fecha_inicio_de_actividades)->format('d-m-Y')}}"
-                                                               @else
-                                                                value=""
-                                                               @endif
-                                                               required=""
+                                                               value="" required=""
                                                                aria-required="true"/>
-                                                        <i class="fa fa-calendar form-control-feedback"></i>
+                                                        <i class="fa fa-pencil form-control-feedback"></i>
                                                     </div>
                                                 </div>
 
-                                                <div class="col-md-3">
+                                                 <div class="col-md-4">
                                                     <div class="form-group has-feedback">
                                                         <label class="control-label">Régimen de Ingresos Brutos: <span
                                                                 class="symbol required"></span></label>
@@ -122,7 +115,57 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="col-md-3">
+
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="form-group has-feedback">
+                                                        <label class="control-label">Fecha Inicio Actividad
+                                                            Contribuyente:
+                                                            <span class="symbol required"></span></label>
+                                                        <input type="text" class="form-control actividades"
+                                                               name="fecha_actividad_contribuyente"
+                                                               id="fecha_actividad_contribuyente"
+                                                               placeholder="Ingrese Fecha Inicio Actividad de Contribuyente"
+                                                               autocomplete="off"
+                                                               @if($contribuyente->fecha_inicio_de_actividades)
+                                                                value="{{\Carbon\Carbon::parse($contribuyente->fecha_inicio_de_actividades)->format('d-m-Y')}}"
+                                                               @else
+                                                                value=""
+                                                               @endif
+                                                               required=""
+                                                               aria-required="true"/>
+                                                        <i class="fa fa-calendar form-control-feedback"></i>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-4">
+                                                    <div class="form-group has-feedback">
+                                                        <label class="control-label">Régimen de Ingresos Brutos: <span
+                                                                class="symbol required"></span></label>
+                                                        <i class="fa fa-bars form-control-feedback"></i>
+
+                                                        <select class="form-control" id="id_regimen_ib"
+                                                                name="id_regimen_ib"
+                                                                required="" aria-required="true">
+
+
+                                                            <option
+                                                                value="{{$contribuyente->id_regimen_ib}}">{{$contribuyente->regimen}}</option>
+                                                            @foreach($regimen as $reg)
+                                                                <option
+                                                                    value="{{$reg->id_regimen_ib}}">{{$reg->regimen_ib}}</option>
+                                                            @endforeach
+
+
+                                                        </select>
+
+
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-4">
                                                     <div class="form-group has-feedback">
                                                         <label class="control-label">Nº de Ingresos Brutos: <span
                                                                 class="symbol required"></span></label>
@@ -136,8 +179,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-
-
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group has-feedback">
