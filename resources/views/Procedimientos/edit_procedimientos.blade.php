@@ -64,7 +64,7 @@
 
                                     <div class="row-horizon">
                                         <span class="categories selectedGat" id="seccion#1"
-                                              onclick="CargaFormulario('','');"><i class="fa fa-tasks"></i> Datos Generales</span>
+                                              onclick="CargaFormulario('','');"><i class="fa fa-tasks"></i> Datos industriales</span>
                                         <span class="categories" id="seccion#2" onclick="CargaFormulario('','');"><i
                                                 class="fa fa-tasks"></i> Actividad</span>
                                         <span class="categories" id="seccion#3" onclick="CargaFormulario('','');"><i

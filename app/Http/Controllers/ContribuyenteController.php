@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PersonaJuridica;
 use Illuminate\Http\Request;
 use App\Models\Contribuyente;
 use Carbon\Carbon;
@@ -114,6 +115,7 @@ class ContribuyenteController extends Controller
         $regimen = RegimenIB::where('activo', "S")->get();
         $iva = CondicionIva::where('activo', "S")->get();
         $naturaleza_juridica = NaturalezaJuridica::where('activo', "S")->get();
+        $persona_juridica=PersonaJuridica::where('activo',"S")->get();
 
         $per_fiscal = DB::table('periodo_fiscal')->where('anio', Carbon::now()->format('Y'))->first();
 
@@ -129,6 +131,8 @@ class ContribuyenteController extends Controller
             ->join('barrio','contribuyente.id_barrio','=','barrio.id_barrio')
             ->join('calle','contribuyente.id_calle','=','calle.id_calle')
             ->join('punto_cardinal','contribuyente.id_punto_cardinal','=','punto_cardinal.id_punto_cardinal')
+            ->join('persona_juridica','contribuyente.id_persona_juridica','=','persona_juridica.id_persona_juridica')
+
             ->select(
                 'contribuyente.*',
                 'regimen_ib.regimen_ib as regimen',
@@ -139,7 +143,8 @@ class ContribuyenteController extends Controller
                 'provincia.provincia',
                 'barrio.barrio as barrio',
                 'calle.calle',
-                'punto_cardinal.punto_cardinal'
+                'punto_cardinal.punto_cardinal',
+                'persona_juridica.persona_juridica'
                  )
             ->where('id_contribuyente', $rel->id_contribuyente)
             ->first();
@@ -154,7 +159,8 @@ class ContribuyenteController extends Controller
            'condicion_iva' => $iva,
            'naturaleza_juridica' => $naturaleza_juridica,
            'zona' => $zona,
-           'contribuyente'=>$contribuyente
+           'contribuyente'=>$contribuyente,
+           'persona_juridica'=>$persona_juridica
        ]);
     }
 
@@ -181,10 +187,16 @@ class ContribuyenteController extends Controller
         $params = array();
         parse_str($request->data, $params);
 
+        dd($request->data);
+        die();
+
         $fecha=Carbon::createFromFormat('d-m-Y', $params['fecha_actividad_contribuyente'])->toDateTimeString();
 
         $contribuyente=Contribuyente::find($params['id_contribuyente']);
 
+        $contribuyente->razon_social=$params['razon_social'];
+        $contribuyente->id_persona_juridica=$params['persona_juridica'];
+        $contribuyente->email_fiscal=$params['email_fiscal'];
         $contribuyente->id_localidad=intval($params['id_localidad_administracion']);
         $contribuyente->id_barrio=intval($params['id_barrio_administracion']);
         $contribuyente->id_calle=intval($params['id_calle_administracion']);
@@ -197,22 +209,24 @@ class ContribuyenteController extends Controller
         $contribuyente->id_condicion_iva=intval($params['id_condicion_iva']);
         $contribuyente->id_naturaleza_juridica=intval($params['id_naturaleza_juridica']);
         $contribuyente->fecha_inicio_de_actividades=$fecha;
-        //$contribuyente->cod_postal=$params['cod_postal'];
+        $contribuyente->cod_postal=$params['cod_postal'];
         $contribuyente->id_punto_cardinal=intval($params['zona_administracion']);
 
 
+
+        ## periodo
+            $periodo=PeriodoActividadContribuyente::where('id_contribuyente',$params['id_contribuyente'])->first();
+            $per_act_con = new PeriodoActividadContribuyenteController();
+
+            if(!$periodo){
+                //cargar periodo
+                $per_act_con->store($request);
+            }else{
+                //actualizar periodo
+                $per_act_con->update($request,$periodo['id_periodo_de_actividad_de_contribuyente']);
+            }
+        ####
         $contribuyente->save();
-
-        $periodo=PeriodoActividadContribuyente::where('id_contribuyente',$params['id_contribuyente'])->first();
-        $per_act_con = new PeriodoActividadContribuyenteController();
-
-        if(!$periodo){
-            //cargar periodo
-            $per_act_con->store($request);
-        }else{
-            //actualizar periodo
-            $per_act_con->update($request,$periodo['id_periodo_de_actividad_de_contribuyente']);
-        }
 
     }
 

@@ -88,7 +88,7 @@
                                         <form class="form-material" method="post" action="#" name="savegeneral"
                                               id="savegeneral" enctype="multipart/form-data">
                                             @csrf
-                                            <h3 class="card-subtitle mt-3"> Datos Generales</h3>
+                                            <h3 class="card-subtitle mt-3"> Datos Generales </h3>
 
                                             <div class="row">
                                                 <div class="col-md-12">

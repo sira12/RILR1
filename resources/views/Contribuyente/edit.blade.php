@@ -42,7 +42,7 @@
                                     <!-- Div secciones -->
                                     <hr>
                                     <section id="datosContribuyente">
-                                        <form class="form-material" method="post" action="#" name="saveContribuyente"
+                                        <form class="form-material"  name="saveContribuyente"
                                               id="saveContribuyente" enctype="multipart/form-data">
                                             @csrf
 
@@ -82,30 +82,30 @@
                                                                 class="symbol required"></span></label>
                                                         <input type="text" class="form-control" name="razon_social"
                                                                id="razon_social"
-                                                               placeholder="Ingrese Nº de Ingresos Brutos"
+                                                               placeholder="Ingrese Razon Social"
                                                                autocomplete="off"
-                                                               value="" required=""
+                                                               value="{{$contribuyente->razon_social}}" required=""
                                                                aria-required="true"/>
                                                         <i class="fa fa-pencil form-control-feedback"></i>
                                                     </div>
                                                 </div>
 
-                                                 <div class="col-md-4">
+                                                <div class="col-md-4">
                                                     <div class="form-group has-feedback">
-                                                        <label class="control-label">Régimen de Ingresos Brutos: <span
+                                                        <label class="control-label">Personeria: <span
                                                                 class="symbol required"></span></label>
                                                         <i class="fa fa-bars form-control-feedback"></i>
 
-                                                        <select class="form-control" id="id_regimen_ib"
-                                                                name="id_regimen_ib"
+                                                        <select class="form-control" id="persona_juridica"
+                                                                name="persona_juridica"
                                                                 required="" aria-required="true">
 
 
                                                             <option
-                                                                value="{{$contribuyente->id_regimen_ib}}">{{$contribuyente->regimen}}</option>
-                                                            @foreach($regimen as $reg)
+                                                                value="{{$contribuyente->id_persona_juridica}}">{{$contribuyente->persona_juridica}}</option>
+                                                            @foreach($persona_juridica as $per)
                                                                 <option
-                                                                    value="{{$reg->id_regimen_ib}}">{{$reg->regimen_ib}}</option>
+                                                                    value="{{$per->id_persona_juridica}}">{{$per->persona_juridica}}</option>
                                                             @endforeach
 
 
@@ -130,9 +130,9 @@
                                                                placeholder="Ingrese Fecha Inicio Actividad de Contribuyente"
                                                                autocomplete="off"
                                                                @if($contribuyente->fecha_inicio_de_actividades)
-                                                                value="{{\Carbon\Carbon::parse($contribuyente->fecha_inicio_de_actividades)->format('d-m-Y')}}"
+                                                               value="{{\Carbon\Carbon::parse($contribuyente->fecha_inicio_de_actividades)->format('d-m-Y')}}"
                                                                @else
-                                                                value=""
+                                                               value=""
                                                                @endif
                                                                required=""
                                                                aria-required="true"/>
@@ -180,7 +180,7 @@
                                                 </div>
                                             </div>
                                             <div class="row">
-                                                <div class="col-md-6">
+                                                <div class="col-md-4">
                                                     <div class="form-group has-feedback">
                                                         <label class="control-label">Condición Frente al Iva: <span
                                                                 class="symbol required"></span></label>
@@ -203,7 +203,7 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="col-md-6">
+                                                <div class="col-md-4">
                                                     <div class="form-group has-feedback">
                                                         <label class="control-label">Naturaleza Juridica: <span
                                                                 class="symbol required"></span></label>
@@ -221,15 +221,33 @@
                                                             @endforeach
 
                                                         </select>
-
-
                                                     </div>
                                                 </div>
+
+                                                <div class="col-md-4">
+                                                <div class="form-group has-feedback">
+                                                    <label class="control-label">Email Fiscal : <span style="cursor: pointer;" class="mdi mdi-alert-circle text-danger" data-container="body" title="Notificación: Se usará este medio para Remitir Comprobantes, notificaciones, etc"></span><span class="symbol required"></span></label>
+                                                    <input type="text"  value="{{$contribuyente->email_fiscal}}" class="form-control"  name="email_fiscal" id="email_fiscal" placeholder="Ingrese Correo Electrónico" autocomplete="off" required="" aria-required="true" />
+                                                    <i class="fa fa-envelope-o form-control-feedback"></i>
+                                                </div>
+                                            </div>
                                             </div>
 
 
                                             <div class="row">
-                                                <div class="col-md-12">
+                                                <div class="col-md-6">
+                                                    <div class="form-group has-feedback">
+                                                        <label class="control-label">Código Postal: <span
+                                                                class="symbol required"></span></label>
+                                                        <input type="text" class="form-control" name="cod_postal"
+                                                               id="cod_postal" placeholder="Ingrese Código Postal"
+                                                               autocomplete="off" value="{{$contribuyente->cod_postal}}"
+                                                               required=""
+                                                               aria-required="true"/>
+                                                        <i class="fa fa-pencil form-control-feedback"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
                                                     <div class="form-group has-feedback">
                                                         <label class="control-label">Zona legal: <span
                                                                 class="symbol required"></span></label>
@@ -431,6 +449,67 @@
                                                 </div>
                                             </div>
                                             -->
+
+
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="form-group has-feedback">
+                                                        @if($contribuyente->constancia_afip)
+
+                                                            <span style="color: orange; font-size:12px"><b>Tienes un documento ya registrado</b></span>
+                                                            <span class="input-group-addon btn btn-primary btn-file">
+                                                                    <a class="venobox"
+                                                                       href="{{asset("storage/".$contribuyente->constancia_afip)}}"><span
+                                                                            style="color:white; margin-left: 2px;"><i
+                                                                                class="fa fa-eye"></i>Ver</span>
+                                                                    </a>
+                                                            </span>
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="form-group has-feedback">
+                                                        <div class="fileinput fileinput-new" data-provides="fileinput">
+                                                            <div class="form-group has-feedback">
+                                                                <label class="control-label">Inscripción en AFIP : <span
+                                                                        class="symbol required"></span></label>
+                                                                <div class="input-group">
+                                                                    <div class="form-control" data-trigger="fileinput">
+                                                                        <i class="fa fa-file-photo-o fileinput-exists"></i>
+                                                                        <span class="fileinput-filename"></span>
+                                                                    </div>
+                                                                    <span
+                                                                        class="input-group-addon btn btn-success btn-file">
+                                                                    <span class="fileinput-new"><i
+                                                                            class="fa fa-cloud-upload"></i> Cambiar archivo</span>
+                                                                    <span class="fileinput-exists"><i
+                                                                            class="fa fa-file-photo-o"></i> Cambiar</span>
+                                                                    <input type="file" class="btn btn-default"
+                                                                           data-original-title="Subir Imagen"
+                                                                           data-rel="tooltip"
+                                                                           placeholder="Suba su Archivo" name="afip"
+                                                                           id="afip" autocomplete="off"
+                                                                           title="Buscar Archivo">
+                                                                </span>
+                                                                    <br>
+
+                                                                    <a href="#"
+                                                                       class="input-group-addon btn btn-dark fileinput-exists"
+                                                                       data-dismiss="fileinput"><i
+                                                                            class="fa fa-trash-o"></i> Quitar</a>
+
+                                                                </div>
+                                                                <span class="card-subtitle text-muted">Para Subir el Archivo debe tener en cuenta:<br> * El Archivo a cargar debe ser extension.jpg,png,pdf<br> * No debe ser mayor de 5000 KB (5 MB)</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
 
 
                                             <div class="text-right">

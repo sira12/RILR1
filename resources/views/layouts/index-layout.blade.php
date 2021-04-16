@@ -33,6 +33,9 @@
     <script src="{{ asset('assets/script/jquery.min.js')}}"></script>
     <script src="{{ asset('assets/js/bootstrap.js')}}"></script>
     <script src="{{ asset('js/functions.js')}}"></script>
+
+    <link rel="stylesheet" href="{{asset('assets/venobox/venobox/venobox.min.css')}}" />
+<script src="{{asset('assets/venobox/venobox/venobox.min.js')}}"></script>
 </head>
 
 <body onLoad="muestraReloj()" class="fix-header">
@@ -101,6 +104,8 @@
     <script src="{{ asset('assets/script/autocompleto.js')}}"></script>
 
     <!-- Calendario -->
+
+
 
 
 </body>

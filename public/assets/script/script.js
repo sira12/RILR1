@@ -2349,24 +2349,31 @@ $('document').ready(function () {
             },
         submitHandler: function (form) {
             console.log(form)
-            var data = $("#saveContribuyente").serialize();
-            var seccion = $("input#secciongeneral").val();
-            var industria = $("input#id_industria").val();
+            //var data = $("#saveContribuyente").serialize();
+            //var seccion = $("input#secciongeneral").val();
+            //var industria = $("input#id_industria").val();
+
+            console.log("asdasd",data)
+            var formu = document.forms.namedItem("saveContribuyente");
+			var formData = new FormData(formu);
+			formData.append('_token', $('meta[name="csrf-token"]').attr('content'));
+
+			console.log(formData);
+			alert("asd")
 
             $.ajax({
                 type: 'POST',
                 url: '/updateContribuyente',
                 async: false,
-                data: {
-                    _token: $('meta[name="csrf-token"]').attr('content'),
-                    data: data,
-                },
+                data: formData,
+
+
                 beforeSend: function () {
                     $("#save").fadeOut();
                     $("#btn-submit").html('<i class="fa fa-refresh"></i> Verificando...');
                 },
                 success: function (data) {
-
+                    alert("hola")
                     console.log(data.success);
                     if (data.success == 1) {
 

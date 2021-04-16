@@ -27,22 +27,6 @@ class IndexController extends Controller
             ->where('industria.id_contribuyente','=',$contribuyente->id_contribuyente)
             ->get();
 
-       /* $mi_industrias=DB::table('industria')
-            ->join('contribuyente','industria.id_contribuyente','=','contribuyente.id_contribuyente')
-            ->join('punto_cardinal','industria.id_punto_cardinal','=','punto_cardinal.id_punto_cardinal')
-            ->join('localidad','industria.id_localidad','=','localidad.id_localidad')
-            ->join('barrio','industria.id_barrio','=','barrio.id_barrio')
-
-            ->join('calle','industria.id_calle','=','calle.id_calle')
-            ->select(
-                'industria.*',
-                'contribuyente.*',
-                'punto_cardinal.*',
-                'localidad.id_localidad as loc',
-                'barrio.id_barrio as barrio'
-            )
-            ->where('industria.id_contribuyente',$contribuyente->id_contribuyente)
-            ->get();*/
 
         return view('index',[
             'industrias'=>$industrias,
