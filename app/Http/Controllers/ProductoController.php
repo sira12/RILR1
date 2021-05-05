@@ -1,10 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Provincia;
-use Illuminate\Http\Request;
 
-class ProvinciaController extends Controller
+use Illuminate\Http\Request;
+use App\Models\Producto;
+
+class ProductoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -36,37 +37,23 @@ class ProvinciaController extends Controller
     {
         //
     }
-     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
 
-    public function getProvincias(Request $request)
-    {
-        if($request->search == ''){
-            $provincias=Provincia::orderby('barrio','asc')->select('id_provincia','provincia')->limit(5)->get();
+
+    public function busqueda_producto(Request $request){
+
+         if($request->search == ''){
+            $productos=Producto::orderby('producto','asc')->select('id_producto','producto')->limit(5)->get();
 
         }else{
-
-            if($request->id_pais){
-                 $provincias=Provincia::where("provincia", "LIKE", "%{$request->search}%")
-                     ->where('id_pais',intval($request->id_pais))
-                     ->where('activo','S')
-                ->get();
-            }else{
-                $provincias=Provincia::where("provincia", "LIKE", "%{$request->search}%")
-                ->where('activo','S')
-                ->get();
-            }
-
+            $productos=Producto::where("producto", "LIKE", "%{$request->search}%")
+            ->where('activo','S')
+            ->get();
         }
 
 
         $response = array();
-        foreach($provincias as $provincia){
-           $response[] = array("value"=>$provincia->id_provincia,"label"=>trim($provincia->provincia));
+        foreach($productos as $producto){
+           $response[] = array("value"=>$producto->id_producto,"label"=>trim($producto->producto));
         }
 
         return response()->json($response);

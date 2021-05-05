@@ -1,10 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Provincia;
-use Illuminate\Http\Request;
 
-class ProvinciaController extends Controller
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
+class PaisController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -36,37 +37,22 @@ class ProvinciaController extends Controller
     {
         //
     }
-     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
 
-    public function getProvincias(Request $request)
-    {
+    public function getpais(Request $request){
+
         if($request->search == ''){
-            $provincias=Provincia::orderby('barrio','asc')->select('id_provincia','provincia')->limit(5)->get();
+            $paises=DB::table('pais')->select('id_pais','pais')->limit(5)->get();
 
         }else{
-
-            if($request->id_pais){
-                 $provincias=Provincia::where("provincia", "LIKE", "%{$request->search}%")
-                     ->where('id_pais',intval($request->id_pais))
-                     ->where('activo','S')
-                ->get();
-            }else{
-                $provincias=Provincia::where("provincia", "LIKE", "%{$request->search}%")
-                ->where('activo','S')
-                ->get();
-            }
-
+            $paises=DB::table('pais')->where("pais", "LIKE", "%{$request->search}%")
+            ->where('activo','S')
+            ->get();
         }
 
 
         $response = array();
-        foreach($provincias as $provincia){
-           $response[] = array("value"=>$provincia->id_provincia,"label"=>trim($provincia->provincia));
+        foreach($paises as $pais){
+           $response[] = array("value"=>$pais->id_pais,"label"=>trim($pais->pais));
         }
 
         return response()->json($response);

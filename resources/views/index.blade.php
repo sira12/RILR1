@@ -101,12 +101,14 @@
                                             </tr>
                                         </thead>
                                         <tbody class="BusquedaRapida">
-
+                                        @php
+                                                        $proceso=false;
+                                                        @endphp
                                        @foreach($industrias as $clave => $industria)
                                             <tr role="row" class="odd">
                                                 <td>{{$clave +1}}</td>
                                                 <td>
-
+                                                        
                                                     @if(!$industria->id_rel_industria_actividad)
 
                                                         <span class="badge badge-pill badge-warning"> <b>Tramite en proceso</b></span>

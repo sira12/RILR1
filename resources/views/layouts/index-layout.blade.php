@@ -101,12 +101,13 @@
      <link rel="stylesheet" href="{{ asset('assets/calendario/jquery-ui.css')}}" />
     <script src="{{ asset('assets/calendario/jquery-ui.js')}}"></script>
     <script src="{{ asset('assets/script/jscalendario.js')}}"></script>
-    <script src="{{ asset('assets/script/autocompleto.js')}}"></script>
+    
 
     <!-- Calendario -->
 
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
 
-
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
 
 </body>
 

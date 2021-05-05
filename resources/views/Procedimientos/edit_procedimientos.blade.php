@@ -57,36 +57,34 @@
 
                             <div class="form-body">
                                 <!--form body-->
+                                <div class="row-horizon">
+                                        <span class="categories selectedGat"
+                                              href="#datosGenerales"><i class="fa fa-tasks"></i> Datos Generales</span>
+                                    <span class="categories" href="#act"><i
+                                            class="fa fa-tasks"></i> Actividad</span>
+                                    <span class="categories" id="seccion#3"><i
+                                            class="fa fa-tasks"></i> Insumos y Servicios</span>
+                                    <span class="categories" id="seccion#4" onclick="CargaFormulario('','');"><i
+                                            class="fa fa-tasks"></i> Situación de la Planta</span>
+                                    <span class="categories" id="seccion#5" onclick="CargaFormulario('','');"><i
+                                            class="fa fa-tasks"></i> Ventas y Facturación</span>
+                                    <span class="categories" id="seccion#6" onclick="CargaFormulario('','');"><i
+                                            class="fa fa-tasks"></i> Prevención y Control Ambiental</span>
+                                    <span class="categories" id="seccion#7" onclick="CargaFormulario('','');"><i
+                                            class="fa fa-tasks"></i> Sistemas de Calidad</span>
+                                    <span class="categories" id="seccion#8" onclick="CargaFormulario('','');"><i
+                                            class="fa fa-tasks"></i> Economía del Conocimiento</span>
+                                    <span class="categories" id="seccion#9" onclick="CargaFormulario('','');"><i
+                                            class="fa fa-tasks"></i> Revisión y Confirmación DDJJ</span>
+                                </div>
 
                                 <div id="secciones" class="mt-3">
                                     <!-- Div secciones -->
 
-
-                                    <div class="row-horizon">
-                                        <span class="categories selectedGat" id="seccion#1"
-                                              onclick="CargaFormulario('','');"><i class="fa fa-tasks"></i> Datos industriales</span>
-                                        <span class="categories" id="seccion#2" onclick="CargaFormulario('','');"><i
-                                                class="fa fa-tasks"></i> Actividad</span>
-                                        <span class="categories" id="seccion#3" onclick="CargaFormulario('','');"><i
-                                                class="fa fa-tasks"></i> Insumos y Servicios</span>
-                                        <span class="categories" id="seccion#4" onclick="CargaFormulario('','');"><i
-                                                class="fa fa-tasks"></i> Situación de la Planta</span>
-                                        <span class="categories" id="seccion#5" onclick="CargaFormulario('','');"><i
-                                                class="fa fa-tasks"></i> Ventas y Facturación</span>
-                                        <span class="categories" id="seccion#6" onclick="CargaFormulario('','');"><i
-                                                class="fa fa-tasks"></i> Prevención y Control Ambiental</span>
-                                        <span class="categories" id="seccion#7" onclick="CargaFormulario('','');"><i
-                                                class="fa fa-tasks"></i> Sistemas de Calidad</span>
-                                        <span class="categories" id="seccion#8" onclick="CargaFormulario('','');"><i
-                                                class="fa fa-tasks"></i> Economía del Conocimiento</span>
-                                        <span class="categories" id="seccion#9" onclick="CargaFormulario('','');"><i
-                                                class="fa fa-tasks"></i> Revisión y Confirmación DDJJ</span>
-                                    </div>
-
                                     <hr>
 
-
-                                    <form class="form-material" method="post" action="#" name="updategeneral"
+                                    <section id="datosGenerales">
+                                        <form class="form-material" method="post" action="#" name="updategeneral"
                                           id="updategeneral" enctype="multipart/form-data">
                                         @csrf
                                         <h3 class="card-subtitle mt-3"> Datos Generales</h3>
@@ -759,6 +757,92 @@
                                         </div>
 
                                     </form>
+                                    </section>
+
+                                    <section id="act">
+
+                                        <h3 class="card-subtitle mt-3"> Actividad</h3>
+
+
+                                        <div class="text-right">
+                                            <button type="button" class="btn btn-info" data-placement="left"
+                                                    title="Agregar Nueva Actividad" data-original-title="" data-href="#"
+                                                    data-toggle="modal" data-target="#MyModalActividad"
+                                                    data-backdrop="static" data-keyboard="false"
+                                                    >
+                                                <i class="fa fa-plus-square"></i> Agregar Nueva Actividad
+                                            </button>
+                                        </div>
+
+
+                                        <div class="row mt-3">
+
+                                            <div class="table-responsive">
+                                                <table id="default_order" class="table table-deredbor border display">
+
+                                                    <thead>
+                                                    <tr bgcolor="#808080" class="text-white" role="row">
+                                                        <th>Fecha Inicio</th>
+                                                        <th>Carácter</th>
+                                                        <th>Actividad (Debe de coincidir con la actividad declarada en
+                                                            AFIP y DGIP)
+                                                        </th>
+                                                        <th width="12%">Acciones</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody class="BusquedaRapida">
+
+
+                                                    <tr role="row" class="odd">
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td>
+                                                            <span style="cursor: pointer;" data-placement="left"
+                                                                  title="Ver Actividad" data-original-title=""
+                                                                  data-href="#" data-toggle="modal"
+                                                                  data-target="#MyModalDetalleActividad"
+                                                                  data-backdrop="static" data-keyboard="false"
+                                                                  onClick=""><i
+                                                                    class="mdi mdi-eye font-22 text-danger"></i></span>
+
+                                                            <span style="cursor: pointer;" data-placement="left"
+                                                                  title="Asignar o Editar Producto Cargado"
+                                                                  data-original-title="" data-href="#"
+                                                                  data-toggle="modal"
+                                                                  data-target="#MyModalAsignaProducto"
+                                                                  onClick=""><i
+                                                                    class="mdi mdi-plus-outline font-22 text-danger"></i></span>
+
+                                                            <span style="cursor: pointer;" data-placement="left"
+                                                                  title="Actualizar Actividad" data-original-title=""
+                                                                  data-href="#" data-toggle="modal"
+                                                                  data-target="#MyModalActividad" data-backdrop="static"
+                                                                  data-keyboard="false"
+                                                                  ><i
+                                                                    class="mdi mdi-table-edit font-22 text-danger"></i></span>
+
+                                                            <span style="cursor: pointer;" title="Eliminar Actividad"
+                                                                  ><i
+                                                                    class="mdi mdi-delete font-22 text-danger"></i></span>
+                                                        </td>
+                                                    </tr>
+
+                                                    </tbody>
+                                                </table>
+                                                <span class="card-subtitle">Nota:
+                        <i class="mdi mdi-eye text-danger font-16"></i>(Ver Actividad) - <i
+                                                        class="mdi mdi-plus-outline text-danger font-16"></i>(Asignar Producto) - <i
+                                                        class="mdi mdi-table-edit text-danger font-16"></i>(Editar Actividad) - <i
+                                                        class="mdi mdi-delete text-danger font-16"></i>(Eliminar Actividad)
+                    </span>
+                                            </div>
+
+                                        </div>
+                                    </section>
+
+
+
 
                                 </div><!-- Div secciones -->
 

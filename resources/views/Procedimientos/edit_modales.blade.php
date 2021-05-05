@@ -4,15 +4,11 @@
                 <div class="modal-content">
                     <div class="modal-header bg-dark">
                         <h4 class="modal-title text-white" id="myModalLabel"><i class="fa fa-align-justify"></i> Detalle de Actividad</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><img src="{{asset('assets/images/close.png')}}" /></button>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><img src="assets/images/close.png" /></button>
                     </div>
                     <div class="modal-body">
 
-                        <div id="muestradetalleactividadmodal">
-
-                            
-                        
-                        </div>
+                        <div id="muestradetalleactividadmodal"></div>
 
                     </div>
                     <div class="modal-footer">
@@ -55,7 +51,11 @@
                                         <input type="hidden" name="seccionactividad" id="seccionactividad" value="">
                                         <input type="hidden" name="proceso" id="actividad" value="saveactividades" />
                                         <input type="hidden" name="id_rel_industria_actividad" id="id_rel_industria_actividad">
-                                        <input type="hidden" name="id_industria_modal" id="id_industria_modal" value="11"
+                                        <input type="hidden" name="id_industria" id="id_industria"
+
+                                               @if(isset($mi_industria[0]))
+                                                value="{{$mi_industria[0]->id_industria}}"
+                                                @endif
 
                                         >
                                         <input type="hidden" name="id_actividad" id="id_actividad" />
@@ -121,8 +121,18 @@
 
                         <div class="modal-footer">
                             <button type="submit" name="btn-actividad" id="btn-actividad" class="btn btn-danger"><span class="fa fa-save"></span> Guardar y Cerrar</button>
-                            <button  style="display:none;" type="button" name="btn-actividad-update" id="btn-actividad-update" class="btn btn-danger"><span class="fa fa-save"></span> Guardar y Cerrar</button>
-                            <button class="btn btn-dark" type="button" class="close" id="button-cancelar" data-dismiss="modal" aria-hidden="true" ><span class="fa fa-trash-o"></span> Cancelar</button>
+                            <button class="btn btn-dark" type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="
+                document.getElementById('actividad').value = 'saveactividades',
+                document.getElementById('id_industria').value = '',
+                document.getElementById('id_rel_industria_actividad').value = '',
+                document.getElementById('id_actividad').value = '',
+                document.getElementById('search_codigo').value = '',
+                document.getElementById('search_descripcion').value = '',
+                document.getElementById('detalle_actividad').value = '',
+                document.getElementById('observacion').value = '',
+                document.getElementById('fecha_inicio').value = '',
+                document.getElementById('es_actividad_principal').value = ''
+                "><span class="fa fa-trash-o"></span> Cancelar</button>
                         </div>
 
                     </form>
@@ -151,7 +161,7 @@
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><img src="{{asset('assets/images/close.png')}}" /></button>
                     </div>
 
-                    <form class="form form-material" name="saveasignacionproducto" id="saveasignacionproducto" >
+                    <form class="form form-material" name="saveasignacionproducto" id="saveasignacionproducto" action="#">
 
                         <div class="modal-body">
 
@@ -189,10 +199,11 @@
                                     <div class="form-group has-feedback">
                                         <label class="control-label">Unidad de Medida: <span class="symbol required"></span></label>
                                         <i class="fa fa-bars form-control-feedback"></i>
-                                        <select class="form-control" id="medida_producto" name="medida_producto" required="true" aria-required="true">
-                                            
+                                        <select class="form-control" id="medida_producto" name="medida_producto" required="" aria-required="true">
                                             <option value=""> -- SELECCIONE -- </option>
 
+
+                                            <option value=""></option>
                                         </select>
                                     </div>
                                 </div>
@@ -246,41 +257,13 @@
                             <h3 class="card-subtitle m-0"><i class="fa fa-tasks"></i> Detalles de Productos Asignados</h3>
                             <hr>
 
-                            <div id="rowActividad" class="row mt-3">
-
-                                        <div class="table-responsive">
-                                            <table  class="table table-bordered yajra-datatable-productos">
-
-                                                <thead>
-                                                    <tr bgcolor="#808080" class="text-white" role="row">
-                                                        <th>N°</th>
-                                                        <th>Descripcion</th>
-                                                        <th>Medida</th>
-                                                        <th>Cant. Producida</th>
-                                                        <th>Porc %</th>
-                                                        
-                                                        <th width="12%">Acciones</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody >
-
-
-                                                </tbody>
-                                            </table>
-                                            <span class="card-subtitle">Nota:
-                                                <i class="mdi mdi-plus-outline text-danger font-16"></i>(Asignar o editar materia prima cargada) - <i class="mdi mdi-table-edit text-danger font-16"></i>(Editar Producto) - <i class="mdi mdi-delete text-danger font-16"></i>(Eliminar Producto)
-                                            </span>
-                                        </div>
-
-                            </div>
-                            
+                            <div id="div_productos"></div>
 
                         </div>
 
 
                         <div class="modal-footer">
                             <button type="submit" name="btn-asignaproducto" id="btn-asignaproducto" class="btn btn-danger"><span class="fa fa-save"></span> Guardar</button>
-                            <button type="button" name="btn-update-producto" id="btn-update-producto" class="btn btn-danger" style="display:none"><span class="fa fa-save"></span> Guardar</button>
                             <button class="btn btn-dark" type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="
                 document.getElementById('asignaproducto').value = 'saveproducto',
                 document.getElementById('id_rel_actividad_productos').value = '',
@@ -341,7 +324,14 @@
                                 </div>
                             </div>
 
-                            
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group has-feedback">
+                                        <label class="control-label">Descripción de Producto: <span class="symbol required"></span></label>
+                                        <br /><abbr title="Descripción de Producto"><label id="nomproducto"></label></abbr>
+                                    </div>
+                                </div>
+                            </div>
 
                             <div class="row">
                                 <div class="col-md-12">
@@ -351,7 +341,6 @@
                                         <input type="hidden" name="proceso" id="asignamateria" value="savemateria" />
                                         <input type="hidden" name="id_rel_actividad_productos" id="id_asignacion_materia">
                                         <input type="hidden" name="id_rel_actividad_productos_materia_prima" id="id_rel_actividad_productos_materia_prima">
-                                        <input type="hidden" name="id_rel_industria_actividad_materia_prima" id="id_rel_industria_actividad_materia_prima">
                                         <input type="hidden" name="anio_materia" id="anio_materia">
                                         <input type="hidden" name="id_materia_prima" id="id_materia_prima" />
                                         <input type="text" class="form-control" name="search_materia" id="search_materia" placeholder="Realice la Búsqueda de Materia Prima o Ingrese Descripción" autocomplete="off" required="" aria-required="true" />
@@ -368,6 +357,8 @@
                                         <i class="fa fa-bars form-control-feedback"></i>
                                         <select class="form-control" id="medida_materia" name="medida_materia" required="" aria-required="true">
                                             <option value=""> -- SELECCIONE -- </option>
+
+                                            <option value=""></option>
                                         </select>
                                     </div>
                                 </div>
@@ -386,8 +377,8 @@
                                         <i class="fa fa-bars form-control-feedback"></i>
                                         <select class="form-control" id="es_propio_materia" name="es_propio_materia" required="" aria-required="true">
                                             <option value=""> -- SELECCIONE -- </option>
-                                            <option value="P">PROPIA</option>
-                                            <option value="A">ADQUIRIDA</option>
+                                            <option value="PROPIA">PROPIA</option>
+                                            <option value="ADQUIRIDA">ADQUIRIDA</option>
                                         </select>
                                     </div>
                                 </div>
@@ -411,7 +402,7 @@
                                     <div class="form-group has-feedback">
                                         <label class="control-label">Nombre de Provincia: <span style="cursor: pointer;" class="mdi mdi-alert-circle text-danger" data-container="body" title="Notificación: Ingrese Nombre de Provincia y seleccione en el Listado que se mostrará, en caso de no aparecer, escribala y el sistema se encargará de la asignación del mismo."></span><span class="symbol required"></span></label>
                                         <input type="hidden" name="id_provincia" id="id_provincia" />
-                                        <input type="text" class="form-control" name="search_provincia" id="search_provincia" placeholder="Ingrese Nombre de Provincia" disabled autocomplete="off" required="" aria-required="true" />
+                                        <input type="text" class="form-control" name="search_provincia" id="search_provincia" placeholder="Ingrese Nombre de Provincia" autocomplete="off" required="" aria-required="true" />
                                         <i class="fa fa-search form-control-feedback"></i>
                                     </div>
                                 </div>
@@ -422,7 +413,7 @@
                                     <div class="form-group has-feedback">
                                         <label class="control-label">Nombre de Localidad: <span style="cursor: pointer;" class="mdi mdi-alert-circle text-danger" data-container="body" title="Notificación: Ingrese Nombre de Localidad y seleccione en el Listado que se mostrará, en caso de no aparecer, escribala y el sistema se encargará de la asignación del mismo."></span><span class="symbol required"></span></label>
                                         <input type="hidden" name="id_localidad3" id="id_localidad3" />
-                                        <input type="text" class="form-control" name="search_localidad32" id="search_localidad32" placeholder="Ingrese Nombre de Localidad" disabled autocomplete="off" required="" aria-required="true" />
+                                        <input type="text" class="form-control" name="search_localidad3" id="search_localidad3" placeholder="Ingrese Nombre de Localidad" autocomplete="off" required="" aria-required="true" />
                                         <i class="fa fa-search form-control-feedback"></i>
                                     </div>
                                 </div>
@@ -453,34 +444,7 @@
                             <h3 class="card-subtitle m-0"><i class="fa fa-tasks"></i> Detalles de Materia Prima Asignadas</h3>
                             <hr>
 
-                            
-
-                            <div id="rowActividad" class="row mt-3">
-
-                                        <div class="table-responsive">
-                                            <table  class="table table-bordered yajra-datatable-materia">
-
-                                                <thead>
-                                                    <tr bgcolor="#808080" class="text-white" role="row">
-                                                        <th>N°</th>
-                                                        <th>Materia prima</th>
-                                                        <th>Cant. Producida</th>
-                                                        <th>Medida</th>
-                                                        <th width="12%">Acciones</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody >
-
-
-                                                </tbody>
-                                            </table>
-                                            <span class="card-subtitle">Nota:
-                                                <i class="mdi mdi-plus-outline text-danger font-16"></i>(Asignar o editar materia prima cargada) - <i class="mdi mdi-table-edit text-danger font-16"></i>(Editar Producto) - <i class="mdi mdi-delete text-danger font-16"></i>(Eliminar Producto)
-                                            </span>
-                                        </div>
-
-                            </div>
-                            
+                            <div id="div_materiaprima"></div>
 
                         </div>
 

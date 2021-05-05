@@ -16,6 +16,8 @@ use App\Models\Contribuyente;
 use App\Models\PeriodoActividadContribuyente;
 use App\Models\PuntoCardinal;
 
+use Yajra\DataTables\DataTables;
+
 
 class ProcedimientosController extends Controller
 {
@@ -50,6 +52,8 @@ class ProcedimientosController extends Controller
         ]);
     }
 
+
+
     /**
      * Show the form for creating a new resource.
      *
@@ -59,6 +63,7 @@ class ProcedimientosController extends Controller
     {
         //
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -82,10 +87,451 @@ class ProcedimientosController extends Controller
         $per_act_indu = new PeriodoActividadIndustriaController();
         $id_periodo_indu = $per_act_indu->store($request, $id_industria);
 
-       return response()->json(['success'=>1]);
+
+        $msg = "¡Datos Guardados exitosamente!";
+        return response()->json(array(
+            'status' => 200,
+            'msg' => $msg,
+            'id_industria' => $id_industria
+        ), 200);
 
 
     }
+
+    public function get_detalle_actividad(Request $request){
+
+        $response=array();
+
+        $response=DB::table('rel_industria_actividad')
+                ->join('actividad','rel_industria_actividad.id_actividad','=','actividad.id_Actividad')
+                ->join('industria','rel_industria_actividad.id_industria','=','industria.id_industria')
+                ->join('rubro_actividad','actividad.id_rubro','=','rubro_actividad.id_rubro_actividad')
+                ->where('id_rel_industria_actividad',intval($request->id))
+                ->select(
+                    'rel_industria_actividad.*',
+                    'actividad.*',
+                    'industria.nombre_de_fantasia as nombre_industria',
+                    'rubro_actividad.*'
+                )
+                ->first();
+
+        return response()->json( $response);
+    }
+
+     public function get_act_ind(Request $request){
+        if ($request->ajax()) {
+
+            $data = DB::table('rel_industria_actividad')
+                ->join('actividad','rel_industria_actividad.id_actividad','=','actividad.id_actividad')
+                ->where('id_industria',intval($request->id_industria))
+                ->select(
+                    'rel_industria_actividad.*',
+                    'actividad.actividad as nombre_actividad'
+                )
+                ->get();
+
+            return Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function($row){
+
+                    $actionBtn =  '<span style="cursor: pointer;" data-placement="left" title="Ver Actividad" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalDetalleActividad" data-backdrop="static" data-keyboard="false" onClick="VerActividad('.$row->id_rel_industria_actividad.')"><i class="mdi mdi-eye font-22 text-danger"></i></span>
+                                    <span style="cursor: pointer;" data-placement="left" title="Actualizar Actividad" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalActividad" data-backdrop="static" data-keyboard="false" onClick="getActividad('.$row->id_rel_industria_actividad.')"><i class="mdi mdi-table-edit font-22 text-danger"></i></span>
+                                   <span style="cursor: pointer;" data-placement="left" title="Asignar o Editar Producto Cargado" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalAsignaProducto" onClick="AddProductoActividad('.$row->id_rel_industria_actividad.',\''.$row->nombre_actividad.'\')"><i class="mdi mdi-plus-outline font-22 text-danger"></i></span>
+                                  <span style="cursor: pointer;" data-placement="left" title="Asignar o Editar Materia Prima Cargada" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalAsignaMateria" onclick="AddMateriaActividad('.$row->id_rel_industria_actividad.')"><i class="mdi mdi-basket-fill font-22 text-danger"></i></span>
+                                   <span style="cursor: pointer;" title="Eliminar Actividad" onClick="EliminarActividad('.$row->id_rel_industria_actividad.')"><i class="mdi mdi-delete font-22 text-danger"></i></span>';
+                    return $actionBtn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+    }
+
+    public function listRelActProd(Request $request){
+
+         if ($request->ajax()) {
+         $data = DB::table('rel_actividad_producto')
+                ->join('producto','rel_actividad_producto.id_producto','=','producto.id_producto')
+                ->join('unidad_de_medida','rel_actividad_producto.id_unidad_de_medida','=','unidad_de_medida.id_unidad_de_medida')
+
+                ->where('id_rel_industria_actividad',intval($request->id_asignacion_producto)) //es el id_rel_industira_actividad
+                ->select(
+                    'rel_actividad_producto.*',
+                    'producto.producto as nombre_producto',
+                    'unidad_de_medida.unidad_de_medida'
+
+                )
+                ->get();
+
+            return Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function($row){
+
+                    $actionBtn =  '<span style="cursor: pointer;" data-placement="left" title="Actualizar Producto" onclick="Update_Producto('.$row->id_rel_actividad_producto.')"><i class="mdi mdi-table-edit font-22 text-danger"></i></span>
+                                    <span style="cursor: pointer;" onclick="EliminarProductoAsignado('.$row->id_rel_actividad_producto.')" title="Eliminar Producto"><i class="mdi mdi-delete font-24 text-danger"></i></span>';
+                    return $actionBtn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+    }
+    public function listmatprima(Request $request){
+
+         if ($request->ajax()) {
+         $data = DB::table('rel_actividad_materia_prima')
+                ->join('materia_prima','rel_actividad_materia_prima.id_materia_prima','=','materia_prima.id_materia_prima')
+                ->join('unidad_de_medida','rel_actividad_materia_prima.unidad_de_medida','=','unidad_de_medida.id_unidad_de_medida')
+
+                ->where('id_rel_industria_actividad',intval($request->id_rel_industria_actividad_materia_prima)) //es el id_rel_industira_actividad
+                ->select(
+                    'rel_actividad_materia_prima.*',
+                    'materia_prima.materia_prima as nombre_materia_prima',
+                    'unidad_de_medida.unidad_de_medida'
+
+                )
+                ->get();
+
+            return Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function($row){
+
+                    $actionBtn =  '
+                                    <span style="cursor: pointer;" onclick="EliminarMateriaPrimaAsignada('.$row->id_rel_actividad_materia_prima.')" title="Eliminar Materia prima"><i class="mdi mdi-delete font-24 text-danger"></i></span>';
+                    return $actionBtn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+    }
+
+    public function getDatosProducto(Request $request){
+
+        $response=DB::table('rel_actividad_producto')->where('id_rel_actividad_producto',intval($request->id_producto))
+            ->join('producto','rel_actividad_producto.id_producto','=','producto.id_producto')
+            ->select(
+                'rel_actividad_producto.*',
+                'producto.producto as nomproducto'
+            )
+            ->get();
+         return response()->json( $response);
+    }
+
+    public function getUnidades(){
+        $unidades= DB::table('unidad_de_medida')->where('activo','S')->get();
+
+         $response = array();
+        foreach($unidades as $unidad){
+           $response[] = array("value"=>$unidad->id_unidad_de_medida,"label"=>trim($unidad->unidad_de_medida));
+        }
+
+        return response()->json($response);
+    }
+
+    public function motivoImportacion(){
+         $unidades= DB::table('motivo_importacion')->where('activo','S')->get();
+
+         $response = array();
+        foreach($unidades as $unidad){
+           $response[] = array("value"=>$unidad->id_motivo_importacion,"label"=>trim($unidad->motivo_importacion));
+        }
+
+        return response()->json($response);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function storeActividad(Request $request)
+    {
+        //esta funcion establece la relacion entre industria y actividad
+
+
+        $params = array();
+        parse_str($request->data, $params);
+        $fecha = Carbon::createFromFormat('d-m-Y', $params['fecha_inicio'])->toDateTimeString();
+        $date = Carbon::now()->format('Y');
+
+        $status =200;
+        $act_principal=array();
+
+        //comprobaciones
+
+
+
+        if($params['es_actividad_principal'] == 'S'){
+            $act_principal = DB::table('rel_industria_actividad')
+            ->where('id_industria', intval($params['id_industria_modal']))
+            ->where('es_actividad_principal', 'S')
+            ->get();
+        }
+
+        $act_existente= DB::table('rel_industria_actividad')
+            ->where('id_industria', intval($params['id_industria_modal']))
+            ->where('id_actividad', intval($params['id_actividad']))
+            ->get();
+
+
+        if (count($act_principal) > 0) {
+            $msg = "¡Ya existe una actividad principal!";
+            $status=3;
+        }else if(count($act_existente) > 0){
+             $msg = "¡Esta actividad ya se encuentra cargada!";
+             $status=4;
+        }else {
+            $id_rel_actividad_industria = DB::table('rel_industria_actividad')->insertGetId([
+                'id_industria' => intval($params['id_industria_modal']),
+                'id_actividad' => intval($params['id_actividad']),
+                'observacion' => $params['observacion'],
+                'anio' => $date,
+                'fecha_inicio' => $fecha,
+                'fecha_de_actualizacion' => Carbon::now(),
+                'es_actividad_principal' => $params['es_actividad_principal']
+            ]);
+
+            $msg = "¡Datos Guardados exitosamente!";
+        }
+
+
+        return response()->json(array('status' => $status, 'msg' => $msg), 200);
+
+
+    }
+
+    public function updateActividad(Request $request){
+
+
+        $params = array();
+        parse_str($request->data, $params);
+        $fecha = Carbon::createFromFormat('d-m-Y', $params['fecha_inicio'])->toDateTimeString();
+        $date = Carbon::now()->format('Y');
+
+        $status =200;
+        $act_principal=array();
+
+        //comprobaciones
+
+
+
+        if($params['es_actividad_principal'] == 'S'){
+            $act_principal = DB::table('rel_industria_actividad')
+            ->where('id_rel_industria_actividad','!=',intval($params['id_rel_industria_actividad']))
+            ->where('id_industria', intval($params['id_industria_modal']))
+            ->where('es_actividad_principal', 'S')
+            ->get();
+        }
+
+        $act_existente= DB::table('rel_industria_actividad')
+            ->where('id_rel_industria_actividad','!=',intval($params['id_rel_industria_actividad']))
+            ->where('id_industria', intval($params['id_industria_modal']))
+            ->where('id_actividad', intval($params['id_actividad']))
+            ->get();
+
+
+        if (count($act_principal) > 0) {
+            $msg = "¡Ya existe una actividad principal!";
+            $status=3;
+        }else if(count($act_existente) > 0){
+             $msg = "¡Esta actividad ya se encuentra cargada!";
+             $status=4;
+        }else {
+            $id_rel_actividad_industria = DB::table('rel_industria_actividad')
+                ->where('id_rel_industria_actividad',intval($params['id_rel_industria_actividad']))
+                ->update([
+                'id_industria' => intval($params['id_industria_modal']),
+                'id_actividad' => intval($params['id_actividad']),
+                'observacion' => $params['observacion'],
+                'anio' => $date,
+                'fecha_inicio' => $fecha,
+                'fecha_de_actualizacion' => Carbon::now(),
+                'es_actividad_principal' => $params['es_actividad_principal']
+            ]);
+
+            $msg = "¡Datos Actualizados exitosamente!";
+        }
+
+
+        return response()->json(array('status' => $status, 'msg' => $msg), 200);
+    }
+
+    public function saveAsignacionProducto(Request $request){
+         $params=[];
+         parse_str($request->data,$params);
+
+
+        $date = Carbon::now()->format('Y');
+
+        $status =200;
+
+
+        //comprobaciones
+        $prod_existente= DB::table('rel_actividad_producto')
+            ->where('id_rel_industria_actividad', intval($params['id_rel_industria_actividad']))
+            ->where('id_producto', intval($params['id_producto']))
+            ->get();
+
+
+        if(count($prod_existente) > 0){
+             $msg = "¡Este producto ya se encuentra cargado!";
+             $status=1;
+        }else {
+            $id_rel_producto_actividad = DB::table('rel_actividad_producto')->insertGetId([
+                'id_rel_industria_actividad' => intval($params['id_rel_industria_actividad']),
+                'id_producto' => intval($params['id_producto']),
+                'id_unidad_de_medida' => intval($params['medida_producto']),
+                'cantidad_producida' => intval($params['cantidad_producida']),
+                'porcentaje_sobre_produccion' =>intval( $params['porcentaje_sobre_produccion']),
+                'ventas_en_provincia' =>intval( $params['ventas_en_provincia']),
+                'ventas_en_otras_provincias' =>intval( $params['ventas_en_otras_provincias']),
+                'ventas_internacionales' =>intval( $params['ventas_internacionales']),
+                'anio' => $date,
+                'fecha_de_actualizacion' => Carbon::now(),
+            ]);
+
+            $msg = "¡Datos Guardados exitosamente!";
+        }
+
+
+        return response()->json(array('status' => $status, 'msg' => $msg), 200);
+
+    }
+
+    public function saveAsignacionMateria(Request $request){
+         $params=[];
+         parse_str($request->data,$params);
+
+
+        $date = Carbon::now()->format('Y');
+
+        $status =200;
+
+         //comprobaciones
+        $prod_existente= DB::table('rel_actividad_materia_prima')
+            ->where('id_rel_industria_actividad', intval($params['id_rel_industria_actividad_materia_prima']))
+            ->where('id_materia_prima', intval($params['id_materia_prima']))
+            ->get();
+
+
+
+
+        if(count($prod_existente) > 0){
+             $msg = "¡Esta materia ya se encuentra cargada!";
+             $status=1;
+        }else {
+
+            if($params['id_materia_prima'] == ""){
+                 //cargar industria
+
+                    $materia = new MateriaPrimaController();
+                    $id_materia= $materia->store($request);
+            }else{
+
+                $id_materia=intval($params['id_materia_prima']);
+
+
+
+            }
+
+             $id_rel_actividad_materia_prima = DB::table('rel_actividad_materia_prima')->insertGetId([
+                'id_rel_industria_actividad' => intval($params['id_rel_industria_actividad_materia_prima']),
+                'id_materia_prima' => $id_materia,
+                'unidad_de_medida' => intval($params['medida_materia']),
+                'cantidad' => intval($params['cantidad_materia']),
+                'es_propio' => $params['es_propio_materia'],
+                'id_localidad' => intval($params['id_localidad3']),
+                'id_pais' => intval($params['id_pais']),
+
+                'id_motivo_importacion' => intval($params['motivo_importacion_materia']),
+                'detalles' => intval($params['detalles_materia']),
+                'anio' => $date,
+                'fecha_de_actualizacion' => Carbon::now(),
+            ]);
+
+            $msg = "¡Datos Guardados exitosamente!";
+
+        }
+
+
+        return response()->json(array('status' => $status, 'msg' => $msg), 200);
+    }
+
+    public function updateRelActProd(Request $request){
+
+
+        $params=[];
+
+        parse_str($request->data, $params);
+
+
+        $date = Carbon::now()->format('Y');
+
+        $status =200;
+
+        //comprobaciones
+        /*$prod_existente= DB::table('rel_actividad_producto')
+            ->where('id_rel_industria_actividad','!=', intval($params['id_rel_industria_actividad']))
+            ->where('id_producto', intval($params['id_producto']))
+            ->get();*/
+
+
+        /*if(count($prod_existente) > 0){
+             $msg = "¡Este producto ya se encuentra cargado!";
+             $status=1;
+        }else {*/
+            $id_rel_producto_actividad = DB::table('rel_actividad_producto')
+                ->where('id_rel_actividad_producto',intval($params['id_rel_actividad_productos']))
+                ->update([
+                'id_rel_industria_actividad' => intval($params['id_rel_industria_actividad']),
+                'id_producto' => intval($params['id_producto']),
+                'id_unidad_de_medida' => intval($params['medida_producto']),
+                'cantidad_producida' => intval($params['cantidad_producida']),
+                'porcentaje_sobre_produccion' =>intval( $params['porcentaje_sobre_produccion']),
+                'ventas_en_provincia' =>intval( $params['ventas_en_provincia']),
+                'ventas_en_otras_provincias' =>intval( $params['ventas_en_otras_provincias']),
+                'ventas_internacionales' =>intval( $params['ventas_internacionales']),
+                'anio' => $date,
+                'fecha_de_actualizacion' => Carbon::now(),
+            ]);
+
+            $msg = "¡Datos Actualizados exitosamente!";
+       // }
+
+
+        return response()->json(array('status' => $status, 'msg' => $msg), 200);
+
+    }
+
+   public function eliminarProductoAsignado(Request $request){
+
+        if(DB::table('rel_actividad_producto')->where('id_rel_actividad_producto',intval($request->id_rel_act_producto))->delete()){
+             return response()->json(array('status' => 200), 200);
+        }
+
+   }
+
+
+   public function eliminarMateriaPrima(Request $request){
+
+        if(DB::table('rel_actividad_materia_prima')->where('id_rel_actividad_materia_prima',intval($request->id_materia))->delete()){
+             return response()->json(array('status' => 200), 200);
+        }
+
+   }
+
+   //funcion para eliminar la actividad relacionad a la industria
+   public function eliminarActividad(Request $request){
+
+        //id es el id de la relacion industria actividad
+         DB::table('rel_actividad_producto')->where('id_rel_industria_actividad',intval($request->id))->delete();
+         DB::table('rel_actividad_materia_prima')->where('id_rel_industria_actividad',intval($request->id))->delete();
+         DB::table('rel_industria_actividad')->where('id_rel_industria_actividad',intval($request->id))->delete();
+
+         return response()->json(array('status' => 200), 200);
+   }
+
+
+
 
     /**
      * Store a newly created resource in storage.
@@ -98,6 +544,7 @@ class ProcedimientosController extends Controller
         //
     }
 
+
     /**
      * Display the specified resource.
      *
@@ -108,6 +555,7 @@ class ProcedimientosController extends Controller
     {
 
     }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -213,6 +661,7 @@ class ProcedimientosController extends Controller
         ]);
     }
 
+
     /**
      * Update the specified resource in storage.
      *
@@ -224,6 +673,7 @@ class ProcedimientosController extends Controller
     {
         //
     }
+
 
     /**
      * Update the specified resource in storage.
@@ -248,9 +698,10 @@ class ProcedimientosController extends Controller
         $per_act_indu = new PeriodoActividadIndustriaController();
         $per_act_indu->update($request, intVal($params['id_industria']));
 
-       return response()->json(['success'=>1]);
+        return response()->json(['success' => 1]);
 
     }
+
 
     /**
      * Remove the specified resource from storage.

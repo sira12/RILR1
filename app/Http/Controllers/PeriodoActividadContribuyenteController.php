@@ -50,6 +50,7 @@ class PeriodoActividadContribuyenteController extends Controller
          $periodo->fecha_de_actualizacion=Carbon::now();
 
          $periodo->save();
+          return $periodo->id_periodo;
     }
 
     /**
@@ -97,6 +98,7 @@ class PeriodoActividadContribuyenteController extends Controller
         $periodo->fecha_de_actualizacion=Carbon::now();
 
         $periodo->save();
+        return $periodo->id_periodo;
     }
 
     /**
@@ -123,6 +125,8 @@ class PeriodoActividadContribuyenteController extends Controller
          $periodo->fecha_de_actualizacion=Carbon::now();
 
          $periodo->save();
+
+         return $periodo->id_periodo;
     }
 
     /**

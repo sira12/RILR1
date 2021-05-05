@@ -1,10 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Provincia;
-use Illuminate\Http\Request;
 
-class ProvinciaController extends Controller
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
+class MateriaPrimaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -30,47 +31,42 @@ class ProvinciaController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return int
      */
     public function store(Request $request)
     {
-        //
-    }
-     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+        $params=[];
+        parse_str($request->data,$params);
 
-    public function getProvincias(Request $request)
-    {
-        if($request->search == ''){
-            $provincias=Provincia::orderby('barrio','asc')->select('id_provincia','provincia')->limit(5)->get();
+
+        $id = DB::table('materia_prima')->insertGetId([
+            'materia_prima'=>$params['search_materia'],
+            'activo'=>'S'
+        ]);
+
+        return $id;
+    }
+
+    public function getMateriaPrima(Request $request){
+
+          if($request->search == ''){
+            $materias=DB::table('materia_prima')->select('id_materia_prima','materia_prima')->limit(5)->get();
 
         }else{
-
-            if($request->id_pais){
-                 $provincias=Provincia::where("provincia", "LIKE", "%{$request->search}%")
-                     ->where('id_pais',intval($request->id_pais))
-                     ->where('activo','S')
-                ->get();
-            }else{
-                $provincias=Provincia::where("provincia", "LIKE", "%{$request->search}%")
-                ->where('activo','S')
-                ->get();
-            }
-
+            $materias=DB::table('materia_prima')->where("materia_prima", "LIKE", "%{$request->search}%")
+            ->where('activo','S')
+            ->get();
         }
 
 
         $response = array();
-        foreach($provincias as $provincia){
-           $response[] = array("value"=>$provincia->id_provincia,"label"=>trim($provincia->provincia));
+        foreach($materias as $materia){
+           $response[] = array("value"=>$materia->id_materia_prima,"label"=>trim($materia->materia_prima));
         }
 
         return response()->json($response);
-    }
+
+   }
 
     /**
      * Display the specified resource.

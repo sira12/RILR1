@@ -67,7 +67,7 @@
                                             </div>
 
                                             <div class="row">
-                                                <div class="col-md-4">
+                                                <div class="col-md-6">
                                                     <div class="form-group has-feedback">
                                                         <label class="control-label">Nº de Cuit: <span
                                                                 class="symbol required"></span></label>
@@ -76,7 +76,7 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="col-md-4">
+                                                <div class="col-md-6">
                                                     <div class="form-group has-feedback">
                                                         <label class="control-label">Razon Social<span
                                                                 class="symbol required"></span></label>
@@ -90,7 +90,7 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="col-md-4">
+                                                <!--<div class="col-md-4">
                                                     <div class="form-group has-feedback">
                                                         <label class="control-label">Personeria: <span
                                                                 class="symbol required"></span></label>
@@ -113,7 +113,7 @@
 
 
                                                     </div>
-                                                </div>
+                                                </div>-->
 
 
                                             </div>
@@ -470,7 +470,7 @@
                                             </div>
 
 
-                                            <div class="row">
+                                            <!--<div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group has-feedback">
                                                         <div class="fileinput fileinput-new" data-provides="fileinput">
@@ -509,7 +509,7 @@
                                                     </div>
                                                 </div>
 
-                                            </div>
+                                            </div>-->
 
 
                                             <div class="text-right">

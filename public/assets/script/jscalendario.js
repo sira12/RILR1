@@ -43,12 +43,13 @@ $('body').on('focus',".calendariomodal", function(){
     weekHeader: 'Sm',
     dateFormat: 'dd-mm-yy',
     firstDay: 1,
-    maxDate: 0,
+
     changeMonth: true,
     changeYear: true,
     yearRange: '1900:' + new Date().getFullYear()
+
   });
-$('#ui-datepicker-div').appendTo($('#MyModalActividad'));
+
 });
 
 
@@ -95,6 +96,7 @@ $('body').on('focus',".actividades", function(){
     changeYear: true,
     yearRange: '1900:' + new Date().getFullYear()
   });
+
 });
 
 $('body').on('focus',".calendario2", function(){
@@ -363,6 +365,31 @@ $("#fecha_actividad_industria").datepicker({
     }
   });
 });
+
+
+$("#fecha_inicio").datepicker({
+     closeText: 'Cerrar',
+     prevText: '<Anterior',
+     nextText: 'Siguiente>',
+     currentText: 'Hoy',
+     monthNamesShort: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+     monthNames: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
+     dayNames: ['Domingo', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado'],
+     dayNamesShort: ['Dom','Lun','Mar','Mie','Juv','Vie','Sab'],
+     dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sa'],
+     weekHeader: 'Sm',
+     dateFormat: 'dd-mm-yy',
+     firstDay: 1,
+     isRTL: false,
+     showMonthAfterYear: false,
+     changeMonth: true,
+     changeYear: true,
+     yearSuffix: '',
+    minDate: $("#fecha_actividad_contribuyente").val(),
+     onClose: function (selectedDate) {
+      $("#fecha_actividad_industria").datepicker("option", "maxDate", selectedDate);
+    }
+  });
 
 
 
