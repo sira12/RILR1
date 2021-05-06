@@ -688,7 +688,7 @@
                                                     <tr bgcolor="#808080" class="text-white" role="row">
                                                         <th>N°</th>
                                                         <th>Fecha Inicio</th>
-                                                        <th>Carácter</th>
+                                                        <th>Act. Principal</th>
                                                         <th>Actividad (Debe de coincidir con la actividad declarada en AFIP y DGIP)</th>
                                                         
                                                         <th width="12%">Acciones</th>

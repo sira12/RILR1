@@ -752,8 +752,10 @@ function cargar_tabla_actividades() {
             },
         ],
         columnDefs: [
-            {
 
+           
+            {
+               
                 targets: 2,
                 "data": "es_actividad_principal",
                 "render": function (data, type, row, meta) {
@@ -765,9 +767,9 @@ function cargar_tabla_actividades() {
 
                     var caracter = "";
                     if (row.es_actividad_principal == "N") {
-                        caracter = "Secundaria"
+                        caracter = "No"
                     } else {
-                        caracter = "Primaria"
+                        caracter = "Si"
 
                     }
                     return caracter;
