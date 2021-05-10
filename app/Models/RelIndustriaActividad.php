@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Industria extends Model
+class RelIndustriaActividad extends Model
 {
     use HasFactory;
 
@@ -15,14 +15,14 @@ class Industria extends Model
      *
      * @var string
      */
-    protected $table = 'industria';
+    protected $table = 'rel_industria_actividad';
 
     /**
      * The primary key associated with the table.
      *
      * @var string
      */
-    protected $primaryKey = 'id_industria';
+    protected $primaryKey = 'id_rel_industria_actividad';
 
     /**
      * Indicates if the model should be timestamped.
@@ -30,11 +30,4 @@ class Industria extends Model
      * @var bool
      */
     public $timestamps = false;
-
-
-
-    public function relactividades()
-    {
-        return $this->hasMany(RelIndustriaActividad::class);
-    }
 }

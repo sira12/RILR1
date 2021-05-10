@@ -1462,6 +1462,34 @@ $("#button-cancelar").on('click', function () {
 
 
 })
+$("#button-cancelar-producto").on('click', function () {
+
+  $("#btn-update-producto").hide();//oculto boton actualizar producto
+  $("#btn-asignaproducto").show();//muestro el de asignar
+
+  if ($("#updatesignacionproducto").length > 0) {
+    // hacer algo aquí si el elemento existe
+
+    //cambio el id del form y el nombre #se lo deja original
+    $("#updatesignacionproducto").prop('id', 'saveasignacionproducto');
+    $("#saveasignacionproducto").prop('name', 'saveasignacionproducto');
+
+  }
+
+  //se restablecen todos los valores del form
+  document.getElementById('id_rel_actividad_productos').value = ''
+  document.getElementById('id_asignacion_producto').value = ''
+  document.getElementById('anio_producto').value = ''
+  document.getElementById('id_producto').value = ''
+  document.getElementById('search_producto').value = ''
+  document.getElementById('medida_producto').value = ''
+  document.getElementById('cantidad_producida').value = ''
+  document.getElementById('porcentaje_sobre_produccion').value = ''
+  document.getElementById('ventas_en_provincia').value = ''
+  document.getElementById('ventas_en_otras_provincias').value = ''
+  document.getElementById('ventas_internacionales').value = ''
+
+})
 
 
 $("#btn-actividad-update").on('click', function () {
@@ -1540,7 +1568,7 @@ $("#btn-actividad-update").on('click', function () {
           $("#save").fadeIn(1000, function () {
 
             var n = noty({
-              text: "<span class='fa fa-warning'></span> LA FECHA DE ACTIVIDAD NO PUEDE SER MENOR QUE LA FECHA INICIO DE CONTRIBUYENTE, VERIFIQUE NUEVAMENTE POR FAVOR..!",
+              text: "<span class='fa fa-warning'></span>"+data.msg,
               theme: 'defaultTheme',
               layout: 'center',
               type: 'warning',
@@ -1638,7 +1666,7 @@ $("#btn-actividad-update").on('click', function () {
 function EliminarActividad(id_rel_industria_actividad) {
   swal({
     title: "¿Estás seguro?",
-    text: "¿Estás seguro de Eliminar esta Actividad del Establecimiento?",
+    text: "¿Estás seguro de Eliminar esta Actividad del Establecimiento? Esto también eliminará los productos y materia prima asociados a esta actividad",
     type: "warning",
     showCancelButton: true,
     cancelButtonText: "Cancelar",
@@ -1650,9 +1678,9 @@ function EliminarActividad(id_rel_industria_actividad) {
     $.ajax({
       type: "POST",
       url: "/eliminarActividad",
-      data:{
+      data: {
         _token: $('meta[name="csrf-token"]').attr('content'),
-        id:id_rel_industria_actividad
+        id: id_rel_industria_actividad
       },
 
       success: function (data) {
@@ -1660,7 +1688,48 @@ function EliminarActividad(id_rel_industria_actividad) {
         if (data.status == 200) {
 
           swal("Eliminado!", "Datos eliminados con éxito!", "success");
-         cargar_tabla_actividades()
+          cargar_tabla_actividades()
+
+        } else if (data == 2) {
+
+          swal("Oops", "Esta Actividad no puede ser Eliminada, tiene registros relacionados!", "error");
+
+        } else {
+
+          swal("Oops", "Usted no tiene Acceso para Eliminar Actividad de Establecimiento, no tienes Privilegios para este Proceso!", "error");
+
+        }
+      }
+    })
+  });
+}
+//funcion para dar de baja la actividad
+function BajaActividad(id){
+  swal({
+    title: "¿Estás seguro?",
+    text: "¿Estás seguro de dar de baja esta Actividad del Establecimiento?",
+    type: "warning",
+    showCancelButton: true,
+    cancelButtonText: "Cancelar",
+    cancelButtonColor: '#d33',
+    closeOnConfirm: false,
+    confirmButtonText: "Dar de baja",
+    confirmButtonColor: "#808080"
+  }, function () {
+    $.ajax({
+      type: "POST",
+      url: "/BajaActividad",
+      data: {
+        _token: $('meta[name="csrf-token"]').attr('content'),
+        id: id
+      },
+
+      success: function (data) {
+
+        if (data.status == 200) {
+
+          swal("Genial!", "La actividad se dio de baja con éxito!", "success");
+          cargar_tabla_actividades()
 
         } else if (data == 2) {
 
@@ -1837,10 +1906,6 @@ $("#btn-update-producto").on('click', function () {
               timeout: 5000,
             });
 
-
-
-
-
             // aqui asigno cada valor a los campos correspondientes
             $("#id_rel_actividad_productos").val('')
 
@@ -1867,6 +1932,18 @@ $("#btn-update-producto").on('click', function () {
             $("#btn-actividad-update").html('<span class="fa fa-save"></span> Guardar y Cerrar');
             //recargo la tabla de actividades
             cargar_tabla_productos();
+          });
+        } else if (data.status == 1) {
+          $("#save").fadeIn(1000, function () {
+
+            var n = noty({
+              text: '<center> ' + data.msg + ' </center>',
+              theme: 'defaultTheme',
+              layout: 'center',
+              type: 'information',
+              timeout: 5000,
+            });
+
           });
         }
       }
@@ -1983,6 +2060,19 @@ function MotivoImportacionMateria() {
   }
 }
 
+//muestra u oculta formulario dependiendo el origen de la materia prima
+function pideDatosOrigen(){
+
+  var valor = $("#es_propio_materia").val();
+
+  if(valor == "A"){
+    $(".origen").show();
+  }else{
+    $(".origen").hide();
+  }
+}
+
+
 //ACTIVA INPUT DETALLES IMPORTACION EN METERIA PRIMA
 function ActivaDetallesMateriaPrima(detalles) {
 
@@ -2079,7 +2169,7 @@ function EliminarMateriaPrimaAsignada(id_rel_actividad_productos_materia_prima) 
       url: "/eliminarMateriaPrima",
       data: {
         _token: $('meta[name="csrf-token"]').attr('content'),
-        id_materia:id_rel_actividad_productos_materia_prima
+        id_materia: id_rel_actividad_productos_materia_prima
       },
       success: function (data) {
 

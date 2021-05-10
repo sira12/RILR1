@@ -281,20 +281,7 @@
                         <div class="modal-footer">
                             <button type="submit" name="btn-asignaproducto" id="btn-asignaproducto" class="btn btn-danger"><span class="fa fa-save"></span> Guardar</button>
                             <button type="button" name="btn-update-producto" id="btn-update-producto" class="btn btn-danger" style="display:none"><span class="fa fa-save"></span> Guardar</button>
-                            <button class="btn btn-dark" type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="
-                document.getElementById('asignaproducto').value = 'saveproducto',
-                document.getElementById('id_rel_actividad_productos').value = '',
-                document.getElementById('id_asignacion_producto').value = '',
-                document.getElementById('anio_producto').value = '',
-                document.getElementById('id_producto').value = '',
-                document.getElementById('search_producto').value = '',
-                document.getElementById('medida_producto').value = '',
-                document.getElementById('cantidad_producida').value = '',
-                document.getElementById('porcentaje_sobre_produccion').value = '',
-                document.getElementById('ventas_en_provincia').value = '',
-                document.getElementById('ventas_en_otras_provincias').value = '',
-                document.getElementById('ventas_internacionales').value = ''
-                "><span class="fa fa-trash-o"></span> Cancelar</button>
+                            <button class="btn btn-dark" id="button-cancelar-producto"type="button" class="close" data-dismiss="modal" aria-hidden="true" ><span class="fa fa-trash-o"></span> Cancelar</button>
                         </div>
 
                     </form>
@@ -384,7 +371,7 @@
                                     <div class="form-group has-feedback">
                                         <label class="control-label">Es Propia o Adquirida: <span class="symbol required"></span></label>
                                         <i class="fa fa-bars form-control-feedback"></i>
-                                        <select class="form-control" id="es_propio_materia" name="es_propio_materia" required="" aria-required="true">
+                                        <select class="form-control" id="es_propio_materia" name="es_propio_materia" onchange="pideDatosOrigen()" required="" aria-required="true">
                                             <option value=""> -- SELECCIONE -- </option>
                                             <option value="P">PROPIA</option>
                                             <option value="A">ADQUIRIDA</option>
@@ -393,11 +380,11 @@
                                 </div>
                             </div>
 
-                            <h3 class="card-subtitle text-muted"><i class="fa fa-file-text"></i> Origen de la Materia Prima</h3>
-                            <span class="card-subtitle text-muted">En caso de que la Provincia sea diferente a La Rioja, deberá de seleccionar el Motivo y Detalles de la Importación</span>
+                            <h3 class="card-subtitle text-muted origen"><i class="fa fa-file-text"></i> Origen de la Materia Prima</h3>
+                            <span class="card-subtitle text-muted origen">En caso de que la Provincia sea diferente a La Rioja, deberá de seleccionar el Motivo y Detalles de la Importación</span>
                             <hr>
 
-                            <div class="row">
+                            <div class="row origen">
                                 <div class="col-md-6">
                                     <div class="form-group has-feedback">
                                         <label class="control-label">Nombre de Pais: <span style="cursor: pointer;" class="mdi mdi-alert-circle text-danger" data-container="body" title="Notificación: Ingrese Nombre de Pais y seleccione en el Listado que se mostrará, en caso de no aparecer, escribala y el sistema se encargará de la asignación del mismo."></span><span class="symbol required"></span></label>
@@ -417,7 +404,7 @@
                                 </div>
                             </div>
 
-                            <div class="row">
+                            <div class="row origen">
                                 <div class="col-md-6">
                                     <div class="form-group has-feedback">
                                         <label class="control-label">Nombre de Localidad: <span style="cursor: pointer;" class="mdi mdi-alert-circle text-danger" data-container="body" title="Notificación: Ingrese Nombre de Localidad y seleccione en el Listado que se mostrará, en caso de no aparecer, escribala y el sistema se encargará de la asignación del mismo."></span><span class="symbol required"></span></label>
@@ -440,7 +427,7 @@
                                 </div>
                             </div>
 
-                            <div class="row">
+                            <div class="row origen">
                                 <div class="col-md-12">
                                     <div class="form-group has-feedback2">
                                         <label class="control-label">Detalle el Motivo por el cual Importa la materia Prima: </label>

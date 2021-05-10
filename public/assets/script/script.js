@@ -2948,6 +2948,8 @@ $('document').ready(function () {
 
 function muestraForm() {
 
+	//muestra mensaje de que cargue la industria antes de proceder 
+
 	console.log($("#id_industria_modal").val());
 
 	if ($("#id_industria_modal").val() < 1) {
@@ -3191,6 +3193,8 @@ $('document').ready(function () {
 
 							$('#search_localidad32').val(""); // display the selected text
 							$('#id_localidad3').val(""); // save selected id to input
+
+							$(".origen").show(); 
 
 							cargar_tabla_materia();
 						});

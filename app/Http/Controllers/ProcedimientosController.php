@@ -53,7 +53,6 @@ class ProcedimientosController extends Controller
     }
 
 
-
     /**
      * Show the form for creating a new resource.
      *
@@ -98,47 +97,54 @@ class ProcedimientosController extends Controller
 
     }
 
-    public function get_detalle_actividad(Request $request){
+    //saca los detalles de la actividad
+    public function get_detalle_actividad(Request $request)
+    {
 
-        $response=array();
+        $response = array();
 
-        $response=DB::table('rel_industria_actividad')
-                ->join('actividad','rel_industria_actividad.id_actividad','=','actividad.id_Actividad')
-                ->join('industria','rel_industria_actividad.id_industria','=','industria.id_industria')
-                ->join('rubro_actividad','actividad.id_rubro','=','rubro_actividad.id_rubro_actividad')
-                ->where('id_rel_industria_actividad',intval($request->id))
-                ->select(
-                    'rel_industria_actividad.*',
-                    'actividad.*',
-                    'industria.nombre_de_fantasia as nombre_industria',
-                    'rubro_actividad.*'
-                )
-                ->first();
+        $response = DB::table('rel_industria_actividad')
+            ->join('actividad', 'rel_industria_actividad.id_actividad', '=', 'actividad.id_Actividad')
+            ->join('industria', 'rel_industria_actividad.id_industria', '=', 'industria.id_industria')
+            ->join('rubro_actividad', 'actividad.id_rubro', '=', 'rubro_actividad.id_rubro_actividad')
+            ->where('id_rel_industria_actividad', intval($request->id))
+            ->select(
+                'rel_industria_actividad.*',
+                'actividad.*',
+                'industria.nombre_de_fantasia as nombre_industria',
+                'rubro_actividad.*'
+            )
+            ->first();
 
-        return response()->json( $response);
+        return response()->json($response);
     }
 
-     public function get_act_ind(Request $request){
+    //listar actividades de la industria
+    public function get_act_ind(Request $request)
+    {
         if ($request->ajax()) {
 
             $data = DB::table('rel_industria_actividad')
-                ->join('actividad','rel_industria_actividad.id_actividad','=','actividad.id_actividad')
-                ->where('id_industria',intval($request->id_industria))
+                ->join('actividad', 'rel_industria_actividad.id_actividad', '=', 'actividad.id_actividad')
+                ->where('id_industria', intval($request->id_industria))
+                ->where('fecha_fin',NULL)
                 ->select(
                     'rel_industria_actividad.*',
-                    'actividad.actividad as nombre_actividad'
+                    'actividad.actividad as nombre_actividad',
+                    'actividad.nomenclatura_ib as nomenclatura'
                 )
                 ->get();
 
             return Datatables::of($data)
                 ->addIndexColumn()
-                ->addColumn('action', function($row){
+                ->addColumn('action', function ($row) {
 
-                    $actionBtn =  '<span style="cursor: pointer;" data-placement="left" title="Ver Actividad" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalDetalleActividad" data-backdrop="static" data-keyboard="false" onClick="VerActividad('.$row->id_rel_industria_actividad.')"><i class="mdi mdi-eye font-22 text-danger"></i></span>
-                                    <span style="cursor: pointer;" data-placement="left" title="Actualizar Actividad" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalActividad" data-backdrop="static" data-keyboard="false" onClick="getActividad('.$row->id_rel_industria_actividad.')"><i class="mdi mdi-table-edit font-22 text-danger"></i></span>
-                                   <span style="cursor: pointer;" data-placement="left" title="Asignar o Editar Producto Cargado" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalAsignaProducto" onClick="AddProductoActividad('.$row->id_rel_industria_actividad.',\''.$row->nombre_actividad.'\')"><i class="mdi mdi-plus-outline font-22 text-danger"></i></span>
-                                  <span style="cursor: pointer;" data-placement="left" title="Asignar o Editar Materia Prima Cargada" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalAsignaMateria" onclick="AddMateriaActividad('.$row->id_rel_industria_actividad.')"><i class="mdi mdi-basket-fill font-22 text-danger"></i></span>
-                                   <span style="cursor: pointer;" title="Eliminar Actividad" onClick="EliminarActividad('.$row->id_rel_industria_actividad.')"><i class="mdi mdi-delete font-22 text-danger"></i></span>';
+                    $actionBtn = '<span style="cursor: pointer;" data-placement="left" title="Ver Actividad" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalDetalleActividad" data-backdrop="static" data-keyboard="false" onClick="VerActividad(' . $row->id_rel_industria_actividad . ')"><i class="mdi mdi-eye font-22 text-danger"></i></span>
+                                    <span style="cursor: pointer;" data-placement="left" title="Actualizar Actividad" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalActividad" data-backdrop="static" data-keyboard="false" onClick="getActividad(' . $row->id_rel_industria_actividad . ')"><i class="mdi mdi-table-edit font-22 text-danger"></i></span>
+                                   <span style="cursor: pointer;" data-placement="left" title="Asignar o Editar Producto Cargado" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalAsignaProducto" onClick="AddProductoActividad(' . $row->id_rel_industria_actividad . ',\'' . $row->nombre_actividad . '\')"><i class="mdi mdi-plus-outline font-22 text-danger"></i></span>
+                                  <span style="cursor: pointer;" data-placement="left" title="Asignar o Editar Materia Prima Cargada" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalAsignaMateria" onclick="AddMateriaActividad(' . $row->id_rel_industria_actividad . ')"><i class="mdi mdi-basket-fill font-22 text-danger"></i></span>
+                                  <span style="cursor: pointer;" data-placement="left" title="Dar de baja la actividad" onclick="BajaActividad(' . $row->id_rel_industria_actividad . ')"><i class="mdi mdi-arrow-down-bold-circle-outline font-22 text-danger"></i></span>
+                                   <span style="cursor: pointer;" title="Eliminar Actividad" onClick="EliminarActividad(' . $row->id_rel_industria_actividad . ')"><i class="mdi mdi-delete font-22 text-danger"></i></span>';
                     return $actionBtn;
                 })
                 ->rawColumns(['action'])
@@ -146,42 +152,48 @@ class ProcedimientosController extends Controller
         }
     }
 
-    public function listRelActProd(Request $request){
+    //listar productos modal
+    public function listRelActProd(Request $request)
+    {
 
-         if ($request->ajax()) {
-         $data = DB::table('rel_actividad_producto')
-                ->join('producto','rel_actividad_producto.id_producto','=','producto.id_producto')
-                ->join('unidad_de_medida','rel_actividad_producto.id_unidad_de_medida','=','unidad_de_medida.id_unidad_de_medida')
+        if ($request->ajax()) {
+            $data = DB::table('rel_actividad_producto')
+                ->join('producto', 'rel_actividad_producto.id_producto', '=', 'producto.id_producto')
+                ->join('unidad_de_medida', 'rel_actividad_producto.id_unidad_de_medida', '=', 'unidad_de_medida.id_unidad_de_medida')
 
-                ->where('id_rel_industria_actividad',intval($request->id_asignacion_producto)) //es el id_rel_industira_actividad
+                ->where('id_rel_industria_actividad', intval($request->id_asignacion_producto)) //es el id_rel_industira_actividad
                 ->select(
                     'rel_actividad_producto.*',
                     'producto.producto as nombre_producto',
-                    'unidad_de_medida.unidad_de_medida'
+                    'unidad_de_medida.unidad_de_medida',
+
+
 
                 )
                 ->get();
 
             return Datatables::of($data)
                 ->addIndexColumn()
-                ->addColumn('action', function($row){
+                ->addColumn('action', function ($row) {
 
-                    $actionBtn =  '<span style="cursor: pointer;" data-placement="left" title="Actualizar Producto" onclick="Update_Producto('.$row->id_rel_actividad_producto.')"><i class="mdi mdi-table-edit font-22 text-danger"></i></span>
-                                    <span style="cursor: pointer;" onclick="EliminarProductoAsignado('.$row->id_rel_actividad_producto.')" title="Eliminar Producto"><i class="mdi mdi-delete font-24 text-danger"></i></span>';
+                    $actionBtn = '<span style="cursor: pointer;" data-placement="left" title="Actualizar Producto" onclick="Update_Producto(' . $row->id_rel_actividad_producto . ')"><i class="mdi mdi-table-edit font-22 text-danger"></i></span>
+                                    <span style="cursor: pointer;" onclick="EliminarProductoAsignado(' . $row->id_rel_actividad_producto . ')" title="Eliminar Producto"><i class="mdi mdi-delete font-24 text-danger"></i></span>';
                     return $actionBtn;
                 })
                 ->rawColumns(['action'])
                 ->make(true);
         }
     }
-    public function listmatprima(Request $request){
 
-         if ($request->ajax()) {
-         $data = DB::table('rel_actividad_materia_prima')
-                ->join('materia_prima','rel_actividad_materia_prima.id_materia_prima','=','materia_prima.id_materia_prima')
-                ->join('unidad_de_medida','rel_actividad_materia_prima.unidad_de_medida','=','unidad_de_medida.id_unidad_de_medida')
+    //listar materia prima modal
+    public function listmatprima(Request $request)
+    {
 
-                ->where('id_rel_industria_actividad',intval($request->id_rel_industria_actividad_materia_prima)) //es el id_rel_industira_actividad
+        if ($request->ajax()) {
+            $data = DB::table('rel_actividad_materia_prima')
+                ->join('materia_prima', 'rel_actividad_materia_prima.id_materia_prima', '=', 'materia_prima.id_materia_prima')
+                ->join('unidad_de_medida', 'rel_actividad_materia_prima.unidad_de_medida', '=', 'unidad_de_medida.id_unidad_de_medida')
+                ->where('id_rel_industria_actividad', intval($request->id_rel_industria_actividad_materia_prima)) //es el id_rel_industira_actividad
                 ->select(
                     'rel_actividad_materia_prima.*',
                     'materia_prima.materia_prima as nombre_materia_prima',
@@ -192,10 +204,10 @@ class ProcedimientosController extends Controller
 
             return Datatables::of($data)
                 ->addIndexColumn()
-                ->addColumn('action', function($row){
+                ->addColumn('action', function ($row) {
 
-                    $actionBtn =  '
-                                    <span style="cursor: pointer;" onclick="EliminarMateriaPrimaAsignada('.$row->id_rel_actividad_materia_prima.')" title="Eliminar Materia prima"><i class="mdi mdi-delete font-24 text-danger"></i></span>';
+                    $actionBtn = '
+                                    <span style="cursor: pointer;" onclick="EliminarMateriaPrimaAsignada(' . $row->id_rel_actividad_materia_prima . ')" title="Eliminar Materia prima"><i class="mdi mdi-delete font-24 text-danger"></i></span>';
                     return $actionBtn;
                 })
                 ->rawColumns(['action'])
@@ -203,40 +215,48 @@ class ProcedimientosController extends Controller
         }
     }
 
-    public function getDatosProducto(Request $request){
+    //saca datos de un producto especifico
+    public function getDatosProducto(Request $request)
+    {
 
-        $response=DB::table('rel_actividad_producto')->where('id_rel_actividad_producto',intval($request->id_producto))
-            ->join('producto','rel_actividad_producto.id_producto','=','producto.id_producto')
+        $response = DB::table('rel_actividad_producto')->where('id_rel_actividad_producto', intval($request->id_producto))
+            ->join('producto', 'rel_actividad_producto.id_producto', '=', 'producto.id_producto')
             ->select(
                 'rel_actividad_producto.*',
                 'producto.producto as nomproducto'
             )
             ->get();
-         return response()->json( $response);
+        return response()->json($response);
     }
 
-    public function getUnidades(){
-        $unidades= DB::table('unidad_de_medida')->where('activo','S')->get();
+    //saca unidad de medida
+    public function getUnidades()
+    {
+        $unidades = DB::table('unidad_de_medida')->where('activo', 'S')->get();
 
-         $response = array();
-        foreach($unidades as $unidad){
-           $response[] = array("value"=>$unidad->id_unidad_de_medida,"label"=>trim($unidad->unidad_de_medida));
+        $response = array();
+        foreach ($unidades as $unidad) {
+            $response[] = array("value" => $unidad->id_unidad_de_medida, "label" => trim($unidad->unidad_de_medida));
         }
 
         return response()->json($response);
     }
 
-    public function motivoImportacion(){
-         $unidades= DB::table('motivo_importacion')->where('activo','S')->get();
+    //saca motivos de importacion
+    public function motivoImportacion()
+    {
+        $unidades = DB::table('motivo_importacion')->where('activo', 'S')->get();
 
-         $response = array();
-        foreach($unidades as $unidad){
-           $response[] = array("value"=>$unidad->id_motivo_importacion,"label"=>trim($unidad->motivo_importacion));
+        $response = array();
+        foreach ($unidades as $unidad) {
+            $response[] = array("value" => $unidad->id_motivo_importacion, "label" => trim($unidad->motivo_importacion));
         }
 
         return response()->json($response);
     }
 
+
+    //guarda actividad
     /**
      * Store a newly created resource in storage.
      *
@@ -253,33 +273,34 @@ class ProcedimientosController extends Controller
         $fecha = Carbon::createFromFormat('d-m-Y', $params['fecha_inicio'])->toDateTimeString();
         $date = Carbon::now()->format('Y');
 
-        $status =200;
-        $act_principal=array();
+        $status = 200;
+        $act_principal = array();
 
         //comprobaciones
 
 
-
-        if($params['es_actividad_principal'] == 'S'){
+        if ($params['es_actividad_principal'] == 'S') {
             $act_principal = DB::table('rel_industria_actividad')
-            ->where('id_industria', intval($params['id_industria_modal']))
-            ->where('es_actividad_principal', 'S')
-            ->get();
+                ->where('id_industria', intval($params['id_industria_modal']))
+                ->where('es_actividad_principal', 'S')
+                ->where('fecha_fin',NULL)
+                ->get();
         }
 
-        $act_existente= DB::table('rel_industria_actividad')
+        $act_existente = DB::table('rel_industria_actividad')
             ->where('id_industria', intval($params['id_industria_modal']))
             ->where('id_actividad', intval($params['id_actividad']))
+            ->where('fecha_fin',NULL)
             ->get();
 
 
         if (count($act_principal) > 0) {
             $msg = "¡Ya existe una actividad principal!";
-            $status=3;
-        }else if(count($act_existente) > 0){
-             $msg = "¡Esta actividad ya se encuentra cargada!";
-             $status=4;
-        }else {
+            $status = 3;
+        } else if (count($act_existente) > 0) {
+            $msg = "¡Esta actividad ya se encuentra cargada!";
+            $status = 4;
+        } else {
             $id_rel_actividad_industria = DB::table('rel_industria_actividad')->insertGetId([
                 'id_industria' => intval($params['id_industria_modal']),
                 'id_actividad' => intval($params['id_actividad']),
@@ -299,7 +320,9 @@ class ProcedimientosController extends Controller
 
     }
 
-    public function updateActividad(Request $request){
+    //actualiza actividad
+    public function updateActividad(Request $request)
+    {
 
 
         $params = array();
@@ -307,46 +330,47 @@ class ProcedimientosController extends Controller
         $fecha = Carbon::createFromFormat('d-m-Y', $params['fecha_inicio'])->toDateTimeString();
         $date = Carbon::now()->format('Y');
 
-        $status =200;
-        $act_principal=array();
+        $status = 200;
+        $act_principal = array();
 
         //comprobaciones
 
 
-
-        if($params['es_actividad_principal'] == 'S'){
+        if ($params['es_actividad_principal'] == 'S') {
             $act_principal = DB::table('rel_industria_actividad')
-            ->where('id_rel_industria_actividad','!=',intval($params['id_rel_industria_actividad']))
-            ->where('id_industria', intval($params['id_industria_modal']))
-            ->where('es_actividad_principal', 'S')
-            ->get();
+                ->where('id_rel_industria_actividad', '!=', intval($params['id_rel_industria_actividad']))
+                ->where('id_industria', intval($params['id_industria_modal']))
+                ->where('es_actividad_principal', 'S')
+                 ->where('fecha_fin',NULL)
+                ->get();
         }
 
-        $act_existente= DB::table('rel_industria_actividad')
-            ->where('id_rel_industria_actividad','!=',intval($params['id_rel_industria_actividad']))
+        $act_existente = DB::table('rel_industria_actividad')
+            ->where('id_rel_industria_actividad', '!=', intval($params['id_rel_industria_actividad']))
             ->where('id_industria', intval($params['id_industria_modal']))
             ->where('id_actividad', intval($params['id_actividad']))
+             ->where('fecha_fin',NULL)
             ->get();
 
 
         if (count($act_principal) > 0) {
             $msg = "¡Ya existe una actividad principal!";
-            $status=3;
-        }else if(count($act_existente) > 0){
-             $msg = "¡Esta actividad ya se encuentra cargada!";
-             $status=4;
-        }else {
+            $status = 3;
+        } else if (count($act_existente) > 0) {
+            $msg = "¡Esta actividad ya se encuentra cargada!";
+            $status = 4;
+        } else {
             $id_rel_actividad_industria = DB::table('rel_industria_actividad')
-                ->where('id_rel_industria_actividad',intval($params['id_rel_industria_actividad']))
+                ->where('id_rel_industria_actividad', intval($params['id_rel_industria_actividad']))
                 ->update([
-                'id_industria' => intval($params['id_industria_modal']),
-                'id_actividad' => intval($params['id_actividad']),
-                'observacion' => $params['observacion'],
-                'anio' => $date,
-                'fecha_inicio' => $fecha,
-                'fecha_de_actualizacion' => Carbon::now(),
-                'es_actividad_principal' => $params['es_actividad_principal']
-            ]);
+                    'id_industria' => intval($params['id_industria_modal']),
+                    'id_actividad' => intval($params['id_actividad']),
+                    'observacion' => $params['observacion'],
+                    'anio' => $date,
+                    'fecha_inicio' => $fecha,
+                    'fecha_de_actualizacion' => Carbon::now(),
+                    'es_actividad_principal' => $params['es_actividad_principal']
+                ]);
 
             $msg = "¡Datos Actualizados exitosamente!";
         }
@@ -355,41 +379,51 @@ class ProcedimientosController extends Controller
         return response()->json(array('status' => $status, 'msg' => $msg), 200);
     }
 
-    public function saveAsignacionProducto(Request $request){
-         $params=[];
-         parse_str($request->data,$params);
+    //asigna el producto a la actividad
+    public function saveAsignacionProducto(Request $request)
+    {
+        $params = [];
+        parse_str($request->data, $params);
 
 
         $date = Carbon::now()->format('Y');
 
-        $status =200;
+        $status = 200;
 
+        if ($params['id_producto'] == "") {
+            $producto = new ProductoController();
+            $id_producto = $producto->store($request);
+        } else {
+            $id_producto = intval($params['id_producto']);
+        }
 
         //comprobaciones
-        $prod_existente= DB::table('rel_actividad_producto')
+        $prod_existente = DB::table('rel_actividad_producto')
             ->where('id_rel_industria_actividad', intval($params['id_rel_industria_actividad']))
-            ->where('id_producto', intval($params['id_producto']))
+            ->where('id_producto', $id_producto)
             ->get();
 
 
-        if(count($prod_existente) > 0){
-             $msg = "¡Este producto ya se encuentra cargado!";
-             $status=1;
-        }else {
+        if (count($prod_existente) > 0) {
+            $msg = "¡Este producto ya se encuentra cargado!";
+            $status = 1;
+        } else {
             $id_rel_producto_actividad = DB::table('rel_actividad_producto')->insertGetId([
                 'id_rel_industria_actividad' => intval($params['id_rel_industria_actividad']),
-                'id_producto' => intval($params['id_producto']),
+                'id_producto' => $id_producto,
                 'id_unidad_de_medida' => intval($params['medida_producto']),
                 'cantidad_producida' => intval($params['cantidad_producida']),
-                'porcentaje_sobre_produccion' =>intval( $params['porcentaje_sobre_produccion']),
-                'ventas_en_provincia' =>intval( $params['ventas_en_provincia']),
-                'ventas_en_otras_provincias' =>intval( $params['ventas_en_otras_provincias']),
-                'ventas_internacionales' =>intval( $params['ventas_internacionales']),
+                'porcentaje_sobre_produccion' => intval($params['porcentaje_sobre_produccion']),
+                'ventas_en_provincia' => intval($params['ventas_en_provincia']),
+                'ventas_en_otras_provincias' => intval($params['ventas_en_otras_provincias']),
+                'ventas_internacionales' => intval($params['ventas_internacionales']),
                 'anio' => $date,
                 'fecha_de_actualizacion' => Carbon::now(),
             ]);
 
             $msg = "¡Datos Guardados exitosamente!";
+
+
         }
 
 
@@ -397,43 +431,42 @@ class ProcedimientosController extends Controller
 
     }
 
-    public function saveAsignacionMateria(Request $request){
-         $params=[];
-         parse_str($request->data,$params);
+    //asigna materia prima a la actividad
+    public function saveAsignacionMateria(Request $request)
+    {
+        $params = [];
+        parse_str($request->data, $params);
 
 
         $date = Carbon::now()->format('Y');
 
-        $status =200;
+        $status = 200;
 
-         //comprobaciones
-        $prod_existente= DB::table('rel_actividad_materia_prima')
+        //comprobaciones
+        $prod_existente = DB::table('rel_actividad_materia_prima')
             ->where('id_rel_industria_actividad', intval($params['id_rel_industria_actividad_materia_prima']))
             ->where('id_materia_prima', intval($params['id_materia_prima']))
             ->get();
 
 
+        if (count($prod_existente) > 0) {
+            $msg = "¡Esta materia ya se encuentra cargada!";
+            $status = 1;
+        } else {
 
+            if ($params['id_materia_prima'] == "") {
+                //cargar industria
 
-        if(count($prod_existente) > 0){
-             $msg = "¡Esta materia ya se encuentra cargada!";
-             $status=1;
-        }else {
+                $materia = new MateriaPrimaController();
+                $id_materia = $materia->store($request);
+            } else {
 
-            if($params['id_materia_prima'] == ""){
-                 //cargar industria
-
-                    $materia = new MateriaPrimaController();
-                    $id_materia= $materia->store($request);
-            }else{
-
-                $id_materia=intval($params['id_materia_prima']);
-
+                $id_materia = intval($params['id_materia_prima']);
 
 
             }
 
-             $id_rel_actividad_materia_prima = DB::table('rel_actividad_materia_prima')->insertGetId([
+            $id_rel_actividad_materia_prima = DB::table('rel_actividad_materia_prima')->insertGetId([
                 'id_rel_industria_actividad' => intval($params['id_rel_industria_actividad_materia_prima']),
                 'id_materia_prima' => $id_materia,
                 'unidad_de_medida' => intval($params['medida_materia']),
@@ -456,81 +489,123 @@ class ProcedimientosController extends Controller
         return response()->json(array('status' => $status, 'msg' => $msg), 200);
     }
 
-    public function updateRelActProd(Request $request){
+    //actualiza el producto y la relacion con la actividad
+    public function updateRelActProd(Request $request)
+    {
 
 
-        $params=[];
+        $params = [];
 
         parse_str($request->data, $params);
 
 
-        $date = Carbon::now()->format('Y');
+       // $date = Carbon::now()->format('Y');
+        $status = 200;
 
-        $status =200;
+
+        $id_producto_actual = intval($params['id_producto']);
 
         //comprobaciones
-        /*$prod_existente= DB::table('rel_actividad_producto')
-            ->where('id_rel_industria_actividad','!=', intval($params['id_rel_industria_actividad']))
-            ->where('id_producto', intval($params['id_producto']))
-            ->get();*/
+        $prod_existente = DB::table('rel_actividad_producto')
+            ->where('id_rel_industria_actividad', intval($params['id_rel_industria_actividad']))
+            ->where('id_producto', $id_producto_actual)
+            ->where('id_rel_actividad_producto', '!=', intval($params['id_rel_actividad_productos']))
+            ->get();
+
+        //si escribio mal el nombre y quiere editarlo pero el nombre coincide con el de otro
+        //hay que eliminar el registro mal cargado y asignarle el que tiene el mismo nombre-----------esto por ahora no, solo devuelvo msj de que ya existe el prod con ese nombre
+
+        $productos_nombre_iguales = DB::table('producto')->where('producto', $params['search_producto'])
+            ->where('id_producto','!=',  $id_producto_actual )
+            ->get();
+
+        if (count($productos_nombre_iguales) >= 1) {
+
+            /*$id_prod_igual = $productos_iguales[0]->id_producto;
+            $id_prod_viejo= $id_producto_actual;
+            $id_producto_actual=$id_prod_igual;*/
+
+            $msg = "¡Ya existe un producto con el mismo nombre!";
+            $status = 1;
 
 
-        /*if(count($prod_existente) > 0){
-             $msg = "¡Este producto ya se encuentra cargado!";
-             $status=1;
-        }else {*/
+        } else if (count($prod_existente) > 0) {
+            $msg = "¡Este producto ya se encuentra cargado!";
+            $status = 1;
+        } else {
+
+            $producto = new ProductoController();
+            $id_producto = $producto->update($request,$id_producto_actual);
+
             $id_rel_producto_actividad = DB::table('rel_actividad_producto')
-                ->where('id_rel_actividad_producto',intval($params['id_rel_actividad_productos']))
+                ->where('id_rel_actividad_producto', intval($params['id_rel_actividad_productos']))
                 ->update([
-                'id_rel_industria_actividad' => intval($params['id_rel_industria_actividad']),
-                'id_producto' => intval($params['id_producto']),
-                'id_unidad_de_medida' => intval($params['medida_producto']),
-                'cantidad_producida' => intval($params['cantidad_producida']),
-                'porcentaje_sobre_produccion' =>intval( $params['porcentaje_sobre_produccion']),
-                'ventas_en_provincia' =>intval( $params['ventas_en_provincia']),
-                'ventas_en_otras_provincias' =>intval( $params['ventas_en_otras_provincias']),
-                'ventas_internacionales' =>intval( $params['ventas_internacionales']),
-                'anio' => $date,
-                'fecha_de_actualizacion' => Carbon::now(),
-            ]);
+                    'id_rel_industria_actividad' => intval($params['id_rel_industria_actividad']),
+                    'id_producto' => $id_producto_actual,
+                    'id_unidad_de_medida' => intval($params['medida_producto']),
+                    'cantidad_producida' => intval($params['cantidad_producida']),
+                    'porcentaje_sobre_produccion' => intval($params['porcentaje_sobre_produccion']),
+                    'ventas_en_provincia' => intval($params['ventas_en_provincia']),
+                    'ventas_en_otras_provincias' => intval($params['ventas_en_otras_provincias']),
+                    'ventas_internacionales' => intval($params['ventas_internacionales']),
+                    'anio' => intval($params['anio_producto']),
+                    'fecha_de_actualizacion' => Carbon::now(),
+                ]);
+
+            /*if (isset($id_prod_igual)) {
+                DB::table('producto')->where('id_producto', $id_prod_viejo)->delete();
+            }*/
 
             $msg = "¡Datos Actualizados exitosamente!";
-       // }
+
+
+        }
 
 
         return response()->json(array('status' => $status, 'msg' => $msg), 200);
 
     }
 
-   public function eliminarProductoAsignado(Request $request){
+    //elminar productos asignado a la materia prima
+    public function eliminarProductoAsignado(Request $request)
+    {
 
-        if(DB::table('rel_actividad_producto')->where('id_rel_actividad_producto',intval($request->id_rel_act_producto))->delete()){
-             return response()->json(array('status' => 200), 200);
+        if (DB::table('rel_actividad_producto')->where('id_rel_actividad_producto', intval($request->id_rel_act_producto))->delete()) {
+            return response()->json(array('status' => 200), 200);
         }
 
-   }
+    }
 
+    //elimina materia prima asignada a ala actividad
+    public function eliminarMateriaPrima(Request $request)
+    {
 
-   public function eliminarMateriaPrima(Request $request){
-
-        if(DB::table('rel_actividad_materia_prima')->where('id_rel_actividad_materia_prima',intval($request->id_materia))->delete()){
-             return response()->json(array('status' => 200), 200);
+        if (DB::table('rel_actividad_materia_prima')->where('id_rel_actividad_materia_prima', intval($request->id_materia))->delete()) {
+            return response()->json(array('status' => 200), 200);
         }
 
-   }
+    }
 
-   //funcion para eliminar la actividad relacionad a la industria
-   public function eliminarActividad(Request $request){
+    //funcion para eliminar la actividad relacionad a la industria
+    public function eliminarActividad(Request $request)
+    {
 
         //id es el id de la relacion industria actividad
-         DB::table('rel_actividad_producto')->where('id_rel_industria_actividad',intval($request->id))->delete();
-         DB::table('rel_actividad_materia_prima')->where('id_rel_industria_actividad',intval($request->id))->delete();
-         DB::table('rel_industria_actividad')->where('id_rel_industria_actividad',intval($request->id))->delete();
+        DB::table('rel_actividad_producto')->where('id_rel_industria_actividad', intval($request->id))->delete();
+        DB::table('rel_actividad_materia_prima')->where('id_rel_industria_actividad', intval($request->id))->delete();
+        DB::table('rel_industria_actividad')->where('id_rel_industria_actividad', intval($request->id))->delete();
+
+        return response()->json(array('status' => 200), 200);
+    }
+
+    //dar de baja la actividad
+    public function BajaActividad(Request $request){
+         DB::table('rel_industria_actividad')->where('id_rel_industria_actividad', intval($request->id))->update([
+             'fecha_fin'=>Carbon::now()
+         ]);
 
          return response()->json(array('status' => 200), 200);
-   }
-
-
+    }
 
 
     /**

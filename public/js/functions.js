@@ -501,7 +501,7 @@ $(document).ready(function () {
 
 
     //buscar producto
-
+    var length_search_producto
     $("#search_producto").autocomplete({
         source: function (request, response) {
             // Fetch data
@@ -524,20 +524,17 @@ $(document).ready(function () {
         select: function (event, ui) {
             // Set selection
 
-          $('#id_producto').val(ui.item.value);
+            $('#id_producto').val(ui.item.value);
             $('#search_producto').val(ui.item.label);
-           
+            length_search_producto=ui.item.label.length
             return false;
         }
     });
-    $("#search_producto").change(function () {
+    $("#search_producto").keyup(function () {
 
-        if ($(this).val().length < 1) {
+      
+        if ($(this).val().length < length_search_producto) {
             $('#id_producto').val("");
-
-            $('#search_producto').val("");
-
-           
         }
     });//si seleccio0na uno y despues borra el seleccionado se resetean los inputs
     
@@ -743,6 +740,7 @@ function cargar_tabla_actividades() {
             { data: 'DT_RowIndex', name: 'DT_RowIndex' },
             { data: 'fecha_inicio', name: 'fecha_inicio' },
             { data: 'es_actividad_principal', name: 'es_actividad_principal' },
+            { data: 'nomenclatura', name: 'nomenclatura' },
             { data: 'nombre_actividad', name: 'nombre_actividad' },
             {
                 data: 'action',
@@ -876,6 +874,9 @@ function cargar_tabla_productos() {
     })
 
 }
+
+
+
 
 //moostrar forms
 $(document).ready(function () {

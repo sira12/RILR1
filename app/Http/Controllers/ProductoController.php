@@ -35,7 +35,29 @@ class ProductoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+         $params=[];
+         parse_str($request->data,$params);
+
+        //comprobar si el producto existe; si existe se devuelve id del producto
+        $result=Producto::where('producto',$params['search_producto'])->get();
+
+        if(count($result) >= 1){
+            //devulvo id
+            $response=$result[0]['id_producto'];
+        }else{
+            //si no existe guardarlo
+            $producto= new Producto();
+
+            $producto->producto=$params['search_producto'];
+            $producto->activo="S";
+
+            $producto->save();
+            //devuelvo id
+            $response=$producto->id_producto;
+        }
+
+        return $response;
     }
 
 
@@ -90,7 +112,16 @@ class ProductoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $params=[];
+        parse_str($request->data,$params);
+
+        $producto=Producto::find($id);
+
+        $producto->producto=$params['search_producto'];
+
+        if($producto->save()){
+            return $producto->id_producto;
+        }
     }
 
     /**

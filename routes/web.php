@@ -84,6 +84,7 @@ Route::get('/procedimientos',[ProcedimientosController::class,'index'] )->middle
     Route::post('/listmatprima', [ProcedimientosController::class, 'listmatprima'])->middleware(['auth']);
     Route::post('/eliminarMateriaPrima', [ProcedimientosController::class, 'eliminarMateriaPrima'])->middleware(['auth']);
     Route::post('/eliminarActividad', [ProcedimientosController::class, 'eliminarActividad'])->middleware(['auth']);
+    Route::post('/BajaActividad', [ProcedimientosController::class, 'BajaActividad'])->middleware(['auth']);
 
 
 //fin guardar datosgenerales
