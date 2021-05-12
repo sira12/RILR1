@@ -708,6 +708,62 @@
                                         </div>
 
                                     </div>
+                                    <div id="rowActividad" class="row mt-3">
+
+                                        <div class="table-responsive">
+                                            <table  class="yajra-datatable-productos-actividad">
+
+                                                <thead>
+                                                    <tr bgcolor="#808080" class="text-white" role="row">
+                                                        <th>N°</th>
+                                                        <th>Nombre de producto</th>
+                                                        <th>ANombre de actividad</th>
+                                                        <th>Nomenclatura</th>
+                                                        
+                                                        
+                                                    
+                                                    </tr>
+                                                </thead>
+                                                <tbody >
+
+
+                                                </tbody>
+                                            </table>
+
+                                           
+                                            <span class="card-subtitle">Nota:
+                                                <i class="mdi mdi-eye text-danger font-16"></i>(Ver Actividad) - <i class="mdi mdi-plus-outline text-danger font-16"></i>(Asignar Producto) - <i class="mdi mdi-table-edit text-danger font-16"></i>(Editar Actividad) - <i class="mdi mdi-basket-fill font-16 text-danger"></i>(Asignar o editar Materia prima) - <i class="mdi mdi-arrow-down-bold-circle-outline font-16 text-danger"></i>(Dar de baja actividad)  <i class="mdi mdi-delete text-danger font-16"></i>(Eliminar Actividad)
+                                            </span>
+                                        </div>
+
+                                    </div>
+                                    <div id="rowActividad" class="row mt-3">
+
+                                        <div class="table-responsive">
+                                            <table  class="yajra-datatable-materia-actividad">
+
+                                                <thead>
+                                                    <tr bgcolor="#808080" class="text-white" role="row">
+                                                        <th>N°</th>
+                                                        <th>Nombre de materia</th>
+                                                        <th>Nombre de actividad</th>
+                                                        <th>Nomenclatura</th>
+                                                        
+                                                    </tr>
+                                                </thead>
+                                                <tbody >
+
+
+                                                </tbody>
+                                            </table>
+
+                                           
+                                            <span class="card-subtitle">Nota:
+                                                <i class="mdi mdi-eye text-danger font-16"></i>(Ver Actividad) - <i class="mdi mdi-plus-outline text-danger font-16"></i>(Asignar Producto) - <i class="mdi mdi-table-edit text-danger font-16"></i>(Editar Actividad) - <i class="mdi mdi-basket-fill font-16 text-danger"></i>(Asignar o editar Materia prima) - <i class="mdi mdi-arrow-down-bold-circle-outline font-16 text-danger"></i>(Dar de baja actividad)  <i class="mdi mdi-delete text-danger font-16"></i>(Eliminar Actividad)
+                                            </span>
+                                        </div>
+
+                                    </div>
                                 </section>
                             </div><!-- Div secciones -->
 
