@@ -165,8 +165,7 @@ class ProductoController extends Controller
              ->get();
  
          //si escribio mal el nombre y quiere editarlo pero el nombre coincide con el de otro
-         //hay que eliminar el registro mal cargado y asignarle el que tiene el mismo nombre-----------esto por ahora no, solo devuelvo msj de que ya existe el prod con ese nombre
- 
+          
          $productos_nombre_iguales = DB::table('producto')->where('producto', $params['search_producto'])
              ->where('id_producto','!=',  $id_producto_actual )
              ->get();
@@ -185,15 +184,32 @@ class ProductoController extends Controller
              $msg = "¡Este producto ya se encuentra cargado!";
              $status = 1;
          } else {
- 
-             $producto = new ProductoController();
-             $id_producto = $producto->update($request,$id_producto_actual);
+
+            
+            //comprobacion si el prod esta siendo utilizado
+            
+            $prod_utilizado = DB::table('rel_actividad_producto')
+            ->where('id_rel_industria_actividad','!=', intval($params['id_rel_industria_actividad']))
+            ->where('id_producto', $id_producto_actual)
+            ->where('id_rel_actividad_producto', '!=', intval($params['id_rel_actividad_productos']))
+            ->get();
+
+            if(count($prod_utilizado) < 1){
+            //si el producto no est'a siendo utilizado lo edito
+                $producto = new ProductoController();
+                $id_producto = $producto->update($request,$id_producto_actual);
+            }else{
+                //tengo que cargar uno nuevo
+                $producto = new ProductoController();
+                $id_producto = $producto->store($request);
+            }
+          
  
              $id_rel_producto_actividad = DB::table('rel_actividad_producto')
                  ->where('id_rel_actividad_producto', intval($params['id_rel_actividad_productos']))
                  ->update([
                      'id_rel_industria_actividad' => intval($params['id_rel_industria_actividad']),
-                     'id_producto' => $id_producto_actual,
+                     'id_producto' => $id_producto,
                      'id_unidad_de_medida' => intval($params['medida_producto']),
                      'cantidad_producida' => intval($params['cantidad_producida']),
                      'porcentaje_sobre_produccion' => intval($params['porcentaje_sobre_produccion']),
