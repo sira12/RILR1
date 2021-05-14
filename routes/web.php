@@ -54,7 +54,7 @@ Route::post('/getpais', [PaisController::class, 'getpais'])->middleware(['auth']
 //############ fin busquedas autocomplete ############
 
 
-Route::get('/panel', [IndexController::Class,'index'])->middleware(['auth'])->name('panel');
+Route::get('/panel', [IndexController::class,'index'])->middleware(['auth'])->name('panel');
 
 Route::get('/procedimientos',[ProcedimientosController::class,'index'] )->middleware(['auth'])->name('procedimientos');
 
@@ -69,22 +69,26 @@ Route::get('/procedimientos',[ProcedimientosController::class,'index'] )->middle
     Route::post('/listRelAct', [ProcedimientosController::class, 'get_act_ind'])->name('listRelAct')->middleware(['auth']);
     Route::post('/getDetalleActividad', [ProcedimientosController::class, 'get_detalle_actividad'])->middleware(['auth']);
     Route::post('/updateActividad', [ProcedimientosController::class, 'updateActividad'])->middleware(['auth']);
-    Route::post('/buscarProducto', [ProductoController::class, 'busqueda_producto'])->middleware(['auth']);
-    Route::post('/getUnidades', [ProcedimientosController::class, 'getUnidades'])->middleware(['auth']);
-    Route::post('/saveAsignacionProducto', [ProcedimientosController::class, 'saveAsignacionProducto'])->middleware(['auth']);
-    Route::post('/listRelActProd', [ProcedimientosController::class, 'listRelActProd'])->middleware(['auth']);
-    Route::post('/getDatosProducto', [ProcedimientosController::class, 'getDatosProducto'])->middleware(['auth']);
-    Route::post('/updateRelActProd', [ProcedimientosController::class, 'updateRelActProd'])->middleware(['auth']);
-    Route::post('/eliminarProductoAsignado', [ProcedimientosController::class, 'eliminarProductoAsignado'])->middleware(['auth']);
-
-    Route::post('/getMateriaPrima', [MateriaPrimaController::class, 'getMateriaPrima'])->middleware(['auth']);
-
-    Route::post('/motivoImportacion', [ProcedimientosController::class, 'motivoImportacion'])->middleware(['auth']);
-    Route::post('/saveAsignacionMateria', [ProcedimientosController::class, 'saveAsignacionMateria'])->middleware(['auth']);
-    Route::post('/listmatprima', [ProcedimientosController::class, 'listmatprima'])->middleware(['auth']);
-    Route::post('/eliminarMateriaPrima', [ProcedimientosController::class, 'eliminarMateriaPrima'])->middleware(['auth']);
     Route::post('/eliminarActividad', [ProcedimientosController::class, 'eliminarActividad'])->middleware(['auth']);
     Route::post('/BajaActividad', [ProcedimientosController::class, 'BajaActividad'])->middleware(['auth']);
+    
+    //unidades
+    Route::post('/getUnidades', [ProcedimientosController::class, 'getUnidades'])->middleware(['auth']);
+
+    //producto
+    Route::post('/saveAsignacionProducto', [ProductoController::class, 'saveAsignacionProducto'])->middleware(['auth']);
+    Route::post('/updateRelActProd', [ProductoController::class, 'updateRelActProd'])->middleware(['auth']);
+    Route::post('/eliminarProductoAsignado', [ProductoController::class, 'eliminarProductoAsignado'])->middleware(['auth']);
+    Route::post('/buscarProducto', [ProductoController::class, 'busqueda_producto'])->middleware(['auth']);
+    Route::post('/getDatosProducto', [ProductoController::class, 'getDatosProducto'])->middleware(['auth']);
+    Route::post('/listRelActProd', [ProductoController::class, 'listRelActProd'])->middleware(['auth']);
+    
+    //materia prima
+    Route::post('/listmatprima', [MateriaPrimaController::class, 'listmatprima'])->middleware(['auth']);
+    Route::post('/motivoImportacion', [MateriaPrimaController::class, 'motivoImportacion'])->middleware(['auth']);
+    Route::post('/getMateriaPrima', [MateriaPrimaController::class, 'getMateriaPrima'])->middleware(['auth']);
+    Route::post('/saveAsignacionMateria', [MateriaPrimaController::class, 'saveAsignacionMateria'])->middleware(['auth']);
+    Route::post('/eliminarMateriaPrima', [MateriaPrimaController::class, 'eliminarMateriaPrima'])->middleware(['auth']);
 
 
 //fin guardar datosgenerales

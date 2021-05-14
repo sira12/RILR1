@@ -33,8 +33,8 @@ class Industria extends Model
 
 
 
-    public function relactividades()
+    public function actividades()
     {
-        return $this->hasMany(RelIndustriaActividad::class);
+        return $this->belongsToMany(Actividad::class, 'rel_industria_actividad','id_industria','id_actividad');
     }
 }

@@ -15,24 +15,25 @@ class IndexController extends Controller
      */
     public function index()
     {
-        $user=auth()->user();
+        $user = auth()->user();
 
-        $contribuyente=DB::table('rel_persona_contribuyente')->where('id_rel_persona_contribuyente',$user->id_rel_persona_contribuyente)->first();
+        $contribuyente = DB::table('rel_persona_contribuyente')->where('id_rel_persona_contribuyente', $user->id_rel_persona_contribuyente)->first();
 
-        $industrias=DB::table('industria')
-            ->leftjoin('rel_industria_actividad','industria.id_industria','=','rel_industria_actividad.id_industria')
-            ->select(
-                'industria.*',
-                        'rel_industria_actividad.id_rel_industria_actividad'
-            )
-            ->where('industria.id_contribuyente','=',$contribuyente->id_contribuyente)
-            ->get();
+        $industrias = Industria::where('industria.id_contribuyente', '=', $contribuyente->id_contribuyente)->get();
+        foreach ($industrias as $industria) {
+            $act = $industria->actividades;
+            $industria['actividad'] = $act;
+        }
 
-        return view('index',[
-            'industrias'=>$industrias,
-            'id_contribuyente'=>$contribuyente->id_contribuyente
+        return view('index', [
+            'industrias' => $industrias,
+            'id_contribuyente' => $contribuyente->id_contribuyente
         ]);
     }
+
+
+
+
 
     /**
      * Show the form for creating a new resource.

@@ -30,4 +30,6 @@ class RelIndustriaActividad extends Model
      * @var bool
      */
     public $timestamps = false;
+
+    
 }

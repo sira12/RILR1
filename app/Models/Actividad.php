@@ -22,4 +22,10 @@ class Actividad extends Model
      * @var string
      */
     protected $primaryKey = 'id_Actividad';
+
+
+    public function industrias()
+    {
+        return $this->belongsToMany(Industria::class);
+    }
 }

@@ -104,12 +104,12 @@
                                         @php
                                                         $proceso=false;
                                                         @endphp
-                                       @foreach($industrias as $clave => $industria)
+                                 @foreach($industrias as $clave => $industria)
                                             <tr role="row" class="odd">
                                                 <td>{{$clave +1}}</td>
                                                 <td>
-                                                        
-                                                    @if(!$industria->id_rel_industria_actividad)
+
+                                                    @if(!$industria->actividad)
 
                                                         <span class="badge badge-pill badge-warning"> <b>Tramite en proceso</b></span>
                                                         @php
