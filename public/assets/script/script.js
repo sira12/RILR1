@@ -2962,6 +2962,7 @@ function muestraForm() {
 
 	} {
 		cargar_tabla_actividades();
+	
 	}
 
 

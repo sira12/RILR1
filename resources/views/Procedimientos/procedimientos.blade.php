@@ -682,7 +682,7 @@
                                     <div id="rowActividad" class="row mt-3">
 
                                         <div class="table-responsive">
-                                            <table  class="table table-bordered yajra-datatable">
+                                            <table class="table table-bordered yajra-datatable">
 
                                                 <thead>
                                                     <tr bgcolor="#808080" class="text-white" role="row">
@@ -691,27 +691,27 @@
                                                         <th>Act. Principal</th>
                                                         <th>Nomenclatura</th>
                                                         <th>Actividad (Debe de coincidir con la actividad declarada en AFIP y DGIP)</th>
-                                                        
+
                                                         <th width="12%">Acciones</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody >
+                                                <tbody>
 
 
                                                 </tbody>
                                             </table>
 
-                                           
+
                                             <span class="card-subtitle">Nota:
-                                                <i class="mdi mdi-eye text-danger font-16"></i>(Ver Actividad) - <i class="mdi mdi-plus-outline text-danger font-16"></i>(Asignar Producto) - <i class="mdi mdi-table-edit text-danger font-16"></i>(Editar Actividad) - <i class="mdi mdi-basket-fill font-16 text-danger"></i>(Asignar o editar Materia prima) - <i class="mdi mdi-arrow-down-bold-circle-outline font-16 text-danger"></i>(Dar de baja actividad)  <i class="mdi mdi-delete text-danger font-16"></i>(Eliminar Actividad)
+                                                <i class="mdi mdi-eye text-danger font-16"></i>(Ver Actividad) - <i class="mdi mdi-plus-outline text-danger font-16"></i>(Asignar Producto) - <i class="mdi mdi-table-edit text-danger font-16"></i>(Editar Actividad) - <i class="mdi mdi-basket-fill font-16 text-danger"></i>(Asignar o editar Materia prima) - <i class="mdi mdi-arrow-down-bold-circle-outline font-16 text-danger"></i>(Dar de baja actividad) <i class="mdi mdi-delete text-danger font-16"></i>(Eliminar Actividad)
                                             </span>
                                         </div>
 
                                     </div>
-                                    <div id="rowActividad" class="row mt-3">
+                                    <div class="row mt-3">
 
                                         <div class="table-responsive">
-                                            <table  class="yajra-datatable-productos-actividad">
+                                            <table class="yajra-datatable-productos-actividad">
 
                                                 <thead>
                                                     <tr bgcolor="#808080" class="text-white" role="row">
@@ -719,28 +719,26 @@
                                                         <th>Nombre de producto</th>
                                                         <th>ANombre de actividad</th>
                                                         <th>Nomenclatura</th>
-                                                        
-                                                        
-                                                    
+
+
+
                                                     </tr>
                                                 </thead>
-                                                <tbody >
+                                                <tbody>
 
 
                                                 </tbody>
                                             </table>
 
-                                           
-                                            <span class="card-subtitle">Nota:
-                                                <i class="mdi mdi-eye text-danger font-16"></i>(Ver Actividad) - <i class="mdi mdi-plus-outline text-danger font-16"></i>(Asignar Producto) - <i class="mdi mdi-table-edit text-danger font-16"></i>(Editar Actividad) - <i class="mdi mdi-basket-fill font-16 text-danger"></i>(Asignar o editar Materia prima) - <i class="mdi mdi-arrow-down-bold-circle-outline font-16 text-danger"></i>(Dar de baja actividad)  <i class="mdi mdi-delete text-danger font-16"></i>(Eliminar Actividad)
-                                            </span>
+
+
                                         </div>
 
                                     </div>
                                     <div id="rowActividad" class="row mt-3">
 
                                         <div class="table-responsive">
-                                            <table  class="yajra-datatable-materia-actividad">
+                                            <table class="yajra-datatable-materia-actividad">
 
                                                 <thead>
                                                     <tr bgcolor="#808080" class="text-white" role="row">
@@ -748,19 +746,17 @@
                                                         <th>Nombre de materia</th>
                                                         <th>Nombre de actividad</th>
                                                         <th>Nomenclatura</th>
-                                                        
+
                                                     </tr>
                                                 </thead>
-                                                <tbody >
+                                                <tbody>
 
 
                                                 </tbody>
                                             </table>
 
-                                           
-                                            <span class="card-subtitle">Nota:
-                                                <i class="mdi mdi-eye text-danger font-16"></i>(Ver Actividad) - <i class="mdi mdi-plus-outline text-danger font-16"></i>(Asignar Producto) - <i class="mdi mdi-table-edit text-danger font-16"></i>(Editar Actividad) - <i class="mdi mdi-basket-fill font-16 text-danger"></i>(Asignar o editar Materia prima) - <i class="mdi mdi-arrow-down-bold-circle-outline font-16 text-danger"></i>(Dar de baja actividad)  <i class="mdi mdi-delete text-danger font-16"></i>(Eliminar Actividad)
-                                            </span>
+
+
                                         </div>
 
                                     </div>

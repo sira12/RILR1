@@ -1568,7 +1568,7 @@ $("#btn-actividad-update").on('click', function () {
           $("#save").fadeIn(1000, function () {
 
             var n = noty({
-              text: "<span class='fa fa-warning'></span>"+data.msg,
+              text: "<span class='fa fa-warning'></span>" + data.msg,
               theme: 'defaultTheme',
               layout: 'center',
               type: 'warning',
@@ -1704,7 +1704,7 @@ function EliminarActividad(id_rel_industria_actividad) {
   });
 }
 //funcion para dar de baja la actividad
-function BajaActividad(id){
+function BajaActividad(id) {
   swal({
     title: "¿Estás seguro?",
     text: "¿Estás seguro de dar de baja esta Actividad del Establecimiento?",
@@ -2061,13 +2061,13 @@ function MotivoImportacionMateria() {
 }
 
 //muestra u oculta formulario dependiendo el origen de la materia prima
-function pideDatosOrigen(){
+function pideDatosOrigen() {
 
   var valor = $("#es_propio_materia").val();
 
-  if(valor == "A"){
+  if (valor == "A") {
     $(".origen").show();
-  }else{
+  } else {
     $(".origen").hide();
   }
 }
@@ -2127,28 +2127,228 @@ function AddMateriaActividad(id_rel_industria_actividad_materia_prima) {
 
 
 // FUNCION PARA ACTUALIZAR PRODUCTO ASIGNADO
-function UpdateMateriaPrima(id_rel_actividad_productos_materia_prima, id_rel_actividad_productos, id_materia_prima, nommateria, id_unidad_de_medida, cantidad,
-  es_propio, id_pais, search_pais, id_provincia, search_provincia, id_localidad, search_localidad, motivo_importacion, detalles, anio, proceso) {
-  // aqui asigno cada valor a los campos correspondientes
-  $("#saveasignacionmateria #id_rel_actividad_productos_materia_prima").val(id_rel_actividad_productos_materia_prima);
-  $("#saveasignacionmateria #id_asignacion").val(id_rel_actividad_productos);
-  $("#saveasignacionmateria #id_materia_prima").val(id_materia_prima);
-  $("#saveasignacionmateria #search_materia").val(nommateria);
-  $("#saveasignacionmateria #medida_materia").val(id_unidad_de_medida);
-  $("#saveasignacionmateria #cantidad_materia").val(cantidad);
-  $("#saveasignacionmateria #es_propio_materia").val(es_propio);
-  $("#saveasignacionmateria #id_pais_materia").val(id_pais);
-  $("#saveasignacionmateria #search_pais_materia").val(search_pais);
-  $("#saveasignacionmateria #id_provincia_materia").val(id_provincia);
-  $("#saveasignacionmateria #search_provincia_materia").val(search_provincia);
-  $("#saveasignacionmateria #id_localidad_materia").val(id_localidad);
-  $("#saveasignacionmateria #search_localidad_materia").val(search_localidad);
-  $("#saveasignacionmateria #motivo_importacion_materia").val(motivo_importacion);
-  $("#saveasignacionmateria #detalles_materia").val(detalles);
-  $("#saveasignacionmateria #anio_materia").val(anio);
-  $("#saveasignacionmateria #asignamateria").val(proceso);
-  (id_localidad == "134" ? $("#motivo_importacion_materia").attr('disabled', true) : $("#motivo_importacion_materia").attr('disabled', false));
+function UpdateMateriaPrima(id) {
+
+
+  $("#saveasignacionmateria").prop('id', 'updateAsignacionMateria');
+  $("#updateAsignacionMateria").prop('name', 'updateAsignacionMateria');
+
+  $.ajax({
+    type: "post",
+    url: "/getRelMatPrima",
+    data: {
+      _token: $('meta[name="csrf-token"]').attr('content'),
+      id_materia: id
+    },
+    success: function (response) {
+      console.log(response[0]);
+      // aqui asigno cada valor a los campos correspondientes
+      //$("#updateAsignacionMateria #id_rel_actividad_productos_materia_prima").val(id_rel_actividad_productos_materia_prima);
+      $("#updateAsignacionMateria #id_asignacion_materia").val(response[0].id_rel_actividad_materia_prima);
+      $("#updateAsignacionMateria #id_materia_prima").val(response[0].id_materia_prima);
+      $("#updateAsignacionMateria #search_materia").val(response[0].materia_prima);
+      $("#updateAsignacionMateria #medida_materia").val(response[0].unidad_de_medida);
+      $("#updateAsignacionMateria #cantidad_materia").val(response[0].cantidad);
+      $("#updateAsignacionMateria #es_propio_materia").val(response[0].es_propio);
+      $("#updateAsignacionMateria #id_pais").val(response[0].id_pais);
+      $("#updateAsignacionMateria #search_pais").val(response[0].pais);
+      $("#updateAsignacionMateria #id_provincia").val(response[0].id_provincia);
+      $("#updateAsignacionMateria #search_provincia").val(response[0].provincia);
+      $("#updateAsignacionMateria #id_localidad3").val(response[0].id_localidad);
+      $("#updateAsignacionMateria #search_localidad32").val(response[0].localidad);
+      $("#updateAsignacionMateria #motivo_importacion_materia").val(response[0].id_motivo_importacion == null ? "" : response[0].id_motivo_importacion);
+      $("#updateAsignacionMateria #detalles_materia").val(response[0].detalles);
+      $("#updateAsignacionMateria #anio_materia").val(response[0].anio);
+
+
+      response[0].es_propio == "P" ? $(".origen").hide() : $(".origen").show()
+
+      $("#btn-asignamateria").hide()
+      $("#btn-updateMateria").show()
+
+      //$("#updateAsignacionMateria #asignamateria").val(proceso);
+      //(response.id_localidad == "134" ? $("#motivo_importacion_materia").attr('disabled', true) : $("#motivo_importacion_materia").attr('disabled', false)); 
+    }
+  })
+
+
+
+
+
+
 }
+
+
+$("#btn-updateMateria").on('click', function () {
+
+
+  if ($("#search_materia").val() == "") {
+    var n = noty({
+      text: "<span class='fa fa-warning'></span> Debe Completar la busqueda de la materia prima",
+      theme: 'defaultTheme',
+      layout: 'center',
+      type: 'warning',
+      timeout: 5000,
+    });
+  } else if ($("#cantidad_materia").val() == "") {
+    var n = noty({
+      text: "<span class='fa fa-warning'></span> Debe ingresar una cantidad utilizada",
+      theme: 'defaultTheme',
+      layout: 'center',
+      type: 'warning',
+      timeout: 5000,
+    });
+  } else if ($("#es_propio_materia").val() == "A") {
+
+
+    if ($("#search_pais").val() == "") {
+      var n = noty({
+        text: "<span class='fa fa-warning'></span> Debe ingresar un pais",
+        theme: 'defaultTheme',
+        layout: 'center',
+        type: 'warning',
+        timeout: 5000,
+      });
+    }
+
+
+    if ($("#search_provincia").val() == "") {
+      var n = noty({
+        text: "<span class='fa fa-warning'></span> Debe ingresar una provincia",
+        theme: 'defaultTheme',
+        layout: 'center',
+        type: 'warning',
+        timeout: 5000,
+      });
+    }
+
+    if ($("#search_localidad32").val() == "") {
+      var n = noty({
+        text: "<span class='fa fa-warning'></span> Debe ingresar una localidad",
+        theme: 'defaultTheme',
+        layout: 'center',
+        type: 'warning',
+        timeout: 5000,
+      });
+    }
+
+  } else {
+
+    let data = $("#updateAsignacionMateria").serialize();
+
+
+    $.ajax({
+      type: 'POST',
+      url: '/updateRelActMat',
+      data: {
+        _token: $('meta[name="csrf-token"]').attr('content'),
+        data: data,
+      },
+      success: function (data) {
+        if (data.status == 200) {
+
+          $("#save").fadeIn(1000, function () {
+
+            var n = noty({
+              text: '<center> ' + data.msg + ' </center>',
+              theme: 'defaultTheme',
+              layout: 'center',
+              type: 'information',
+              timeout: 5000,
+            });
+
+            // aqui asigno cada valor a los campos correspondientes
+            $("#updateAsignacionMateria #id_asignacion_materia").val("");
+            $("#updateAsignacionMateria #id_materia_prima").val("");
+            $("#updateAsignacionMateria #search_materia").val("");
+            $("#updateAsignacionMateria #medida_materia").val("");
+            $("#updateAsignacionMateria #cantidad_materia").val("");
+            $("#updateAsignacionMateria #es_propio_materia").val("");
+            $("#updateAsignacionMateria #id_pais").val("");
+            $("#updateAsignacionMateria #search_pais").val("");
+            $("#updateAsignacionMateria #id_provincia").val("");
+            $("#updateAsignacionMateria #search_provincia").val("");
+            $("#updateAsignacionMateria #id_localidad3").val("");
+            $("#updateAsignacionMateria #search_localidad32").val("");
+            $("#updateAsignacionMateria #motivo_importacion_materia").val("");
+            $("#updateAsignacionMateria #detalles_materia").val("");
+            $("#updateAsignacionMateria #anio_materia").val("");
+
+            $(".origen").show()
+
+            $("#btn-asignamateria").show()
+            $("#btn-updateMateria").hide()
+
+
+
+            $("#updatesignacionproducto").prop('id', 'saveasignacionproducto');
+            $("#saveasignacionproducto").prop('name', 'saveasignacionproducto');
+
+            //recargo la tabla de actividades
+            cargar_tabla_materia();
+          });
+        } else if (data.status == 1) {
+          $("#save").fadeIn(1000, function () {
+
+            var n = noty({
+              text: '<center> ' + data.msg + ' </center>',
+              theme: 'defaultTheme',
+              layout: 'center',
+              type: 'information',
+              timeout: 5000,
+            });
+
+          });
+        }
+      }
+    });
+    return false;
+
+  }
+
+
+
+
+
+
+
+
+
+})
+
+
+$("#btn-cancelar-materia").on('click', function () {
+
+  
+
+  $("#updateAsignacionMateria #id_asignacion_materia").val("");
+  $("#updateAsignacionMateria #id_materia_prima").val("");
+  $("#updateAsignacionMateria #search_materia").val("");
+  $("#updateAsignacionMateria #medida_materia").val("");
+  $("#updateAsignacionMateria #cantidad_materia").val("");
+  $("#updateAsignacionMateria #es_propio_materia").val("");
+  $("#updateAsignacionMateria #id_pais").val("");
+  $("#updateAsignacionMateria #search_pais").val("");
+  $("#updateAsignacionMateria #id_provincia").val("");
+  $("#updateAsignacionMateria #search_provincia").val("");
+  $("#updateAsignacionMateria #id_localidad3").val("");
+  $("#updateAsignacionMateria #search_localidad32").val("");
+  $("#updateAsignacionMateria #motivo_importacion_materia").val("");
+  $("#updateAsignacionMateria #detalles_materia").val("");
+  $("#updateAsignacionMateria #anio_materia").val("");
+
+  $(".origen").show()
+
+  $("#btn-asignamateria").show()
+  $("#btn-updateMateria").hide()
+
+
+
+  $("#updatesignacionproducto").prop('id', 'saveasignacionproducto');
+  $("#saveasignacionproducto").prop('name', 'saveasignacionproducto');
+
+});
+
 
 
 /////FUNCION PARA ELIMINAR PRODUCTO ASIGNADO EN ACTIVIDAD

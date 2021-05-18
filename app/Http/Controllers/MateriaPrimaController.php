@@ -41,8 +41,9 @@ class MateriaPrimaController extends Controller
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
 
-                    $actionBtn = '
-                                     <span style="cursor: pointer;" onclick="EliminarMateriaPrimaAsignada(' . $row->id_rel_actividad_materia_prima . ')" title="Eliminar Materia prima"><i class="mdi mdi-delete font-24 text-danger"></i></span>';
+                    $actionBtn = '<span style="cursor: pointer;" onclick="EliminarMateriaPrimaAsignada(' . $row->id_rel_actividad_materia_prima . ')" title="Eliminar Materia prima"><i class="mdi mdi-delete font-24 text-danger"></i></span>
+                    
+                                 <span style="cursor: pointer;" data-placement="left" title="Actualizar Materia Prima" onclick="UpdateMateriaPrima(' . $row->id_rel_actividad_materia_prima . ');"><i class="mdi mdi-table-edit font-22 text-danger"></i></span>';
                     return $actionBtn;
                 })
                 ->rawColumns(['action'])
@@ -76,8 +77,6 @@ class MateriaPrimaController extends Controller
 
         $status = 200;
 
-        dd($params);
-        die();
 
         if ($params['id_materia_prima'] == "") {
             $materia = new MateriaPrimaController();
@@ -98,20 +97,33 @@ class MateriaPrimaController extends Controller
             $status = 1;
         } else {
 
-            if($params['es_propio_materia'] == "P"){
-                $pais=null;
-                $localidad=null;
-                $motivo=null;
-                $detalles="";
+            if ($params['es_propio_materia'] == "P") {
 
-            }else{
-                $pais=intval($params['id_pais']);
-                $localidad=intval($params['id_localidad3']);
-                $motivo=intval($params['motivo_importacion_materia']);
-                $detalles=$params['detalles_materia'];
+                $pais_localidad = DB::table('rel_industria_actividad')
+                    ->where('id_rel_industria_actividad', intval($params['id_rel_industria_actividad_materia_prima']))
+                    ->join('industria', 'rel_industria_actividad.id_industria', 'industria.id_industria')
+                    ->join('localidad', 'industria.id_localidad', 'localidad.id_localidad')
+                    ->join('provincia', 'localidad.id_provincia', 'provincia.id_provincia')
+                    ->join('pais', 'provincia.id_pais', 'pais.id_pais')
+                    ->select(
+                        'industria.id_localidad',
+                        'pais.id_pais'
+                    )
+                    ->get();
+
+
+                $pais = $pais_localidad[0]->id_pais;
+                $localidad = $pais_localidad[0]->id_localidad;
+                $motivo = null;
+                $detalles = "";
+            } else {
+                $pais = intval($params['id_pais']);
+                $localidad = intval($params['id_localidad3']);
+                $motivo = intval($params['motivo_importacion_materia']);
+                $detalles = $params['detalles_materia'];
             }
-            
-                $id_rel_actividad_materia_prima = DB::table('rel_actividad_materia_prima')->insertGetId([
+
+            $id_rel_actividad_materia_prima = DB::table('rel_actividad_materia_prima')->insertGetId([
                 'id_rel_industria_actividad' => intval($params['id_rel_industria_actividad_materia_prima']),
                 'id_materia_prima' => $id_materia,
                 'unidad_de_medida' => intval($params['medida_materia']),
@@ -131,6 +143,97 @@ class MateriaPrimaController extends Controller
 
         return response()->json(array('status' => $status, 'msg' => $msg), 200);
     }
+    public function updateRelActMat(Request $request)
+    {
+
+        $params = [];
+        parse_str($request->data, $params);
+
+      
+
+
+        $date = Carbon::now()->format('Y');
+
+        $status = 200;
+
+
+        if ($params['id_materia_prima'] == "") {
+            $materia = new MateriaPrimaController();
+            $id_materia = $materia->store($request);
+        } else {
+            $id_materia = intval($params['id_materia_prima']);
+        }
+
+        //comprobaciones
+        $mat_existente = DB::table('rel_actividad_materia_prima')
+            ->where('id_rel_industria_actividad', intval($params['id_rel_industria_actividad_materia_prima']))
+            ->where('id_materia_prima', intval($params['id_materia_prima']))
+            ->where('id_rel_actividad_materia_prima', '!=', intval($params['id_asignacion_materia']))
+            ->get();
+
+
+        $materia_nombre_iguales = DB::table('materia_prima')->where('materia_prima', $params['search_materia'])
+            ->where('id_materia_prima', '!=',  intval($params['id_materia_prima']))
+            ->get();
+
+        if (count($materia_nombre_iguales) >= 1) {
+
+            $msg = "¡Ya existe una materia prima con el mismo nombre!";
+            $status = 1;
+        } else if (count($mat_existente) > 0) {
+            $msg = "¡Esta materia ya se encuentra cargada en esta actividad!";
+            $status = 1;
+        } else {
+
+
+            //comprobacion si el prod esta siendo utilizado
+
+            $mat_utilizado = DB::table('rel_actividad_materia_prima')
+                ->where('id_rel_industria_actividad', '!=', intval($params['id_rel_industria_actividad_materia_prima']))
+                ->where('id_materia_prima', intval($params['id_materia_prima']))
+                ->where('id_rel_actividad_materia_prima', '!=', intval($params['id_asignacion_materia']))
+                ->get();
+
+
+            if (count($mat_utilizado) < 1) {
+                //si el producto no est'a siendo utilizado lo edito
+                $materia = new MateriaPrimaController();
+                $id_materia = $materia->update($request, intval($params['id_materia_prima']));
+            } else {
+                //tengo que cargar uno nuevo
+                $materia = new MateriaPrimaController();
+                $id_materia = $materia->store($request);
+            }
+
+
+            $pais = intval($params['id_pais']);
+            $localidad = intval($params['id_localidad3']);
+            $motivo = $params['motivo_importacion_materia']== "" ? null : intval($params['motivo_importacion_materia']);
+            $detalles = isset($params['detalles_materia']) ? $params['detalles_materia'] : "";
+
+
+            $id_rel_actividad_materia_prima = DB::table('rel_actividad_materia_prima')
+                ->where('id_rel_actividad_materia_prima', intval($params['id_asignacion_materia']))
+                ->update([
+                    'id_rel_industria_actividad' => intval($params['id_rel_industria_actividad_materia_prima']),
+                    'id_materia_prima' =>intval($params['id_materia_prima']),
+                    'unidad_de_medida' => intval($params['medida_materia']),
+                    'cantidad' => intval($params['cantidad_materia']),
+                    'es_propio' => $params['es_propio_materia'],
+                    'id_localidad' => $localidad,
+                    'id_pais' => $pais,
+                    'id_motivo_importacion' => $motivo,
+                    'detalles' => $detalles,
+                    'anio' => $date,
+                    'fecha_de_actualizacion' => Carbon::now(),
+                ]);
+
+            $msg = "¡Datos Actualizados exitosamente!";
+        }
+
+
+        return response()->json(array('status' => $status, 'msg' => $msg), 200);
+    }
 
 
     //elimina materia prima asignada a ala actividad
@@ -140,6 +243,30 @@ class MateriaPrimaController extends Controller
         if (DB::table('rel_actividad_materia_prima')->where('id_rel_actividad_materia_prima', intval($request->id_materia))->delete()) {
             return response()->json(array('status' => 200), 200);
         }
+    }
+
+
+    public function getRelMatPrima(Request $request)
+    {
+
+
+        $materia = DB::table('rel_actividad_materia_prima')
+            ->where('id_rel_actividad_materia_prima', intval($request->id_materia))
+            ->join('materia_prima', 'rel_actividad_materia_prima.id_materia_prima', 'materia_prima.id_materia_prima')
+            ->join('localidad', 'rel_actividad_materia_prima.id_localidad', 'localidad.id_localidad')
+            ->join('pais', 'rel_actividad_materia_prima.id_pais', 'pais.id_pais')
+            ->join('provincia', 'localidad.id_provincia', 'provincia.id_provincia')
+            ->select(
+                'rel_actividad_materia_prima.*',
+                'materia_prima.materia_prima',
+                'pais.pais',
+                'localidad.localidad',
+                'provincia.id_provincia',
+                'provincia.provincia'
+            )
+
+            ->get();
+        return $materia;
     }
 
     /**
@@ -233,8 +360,16 @@ class MateriaPrimaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
-    }
+        $params = [];
+        parse_str($request->data, $params);
+
+        if (
+            DB::table('materia_prima')->where('id_materia_prima', intval($params['id_materia_prima']))
+            ->update(['materia_prima' => $params['search_materia']])
+        ) {
+            return intval($params['id_materia_prima']);
+        }
+    }       
 
     /**
      * Remove the specified resource from storage.

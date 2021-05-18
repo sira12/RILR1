@@ -89,7 +89,8 @@ Route::get('/procedimientos',[ProcedimientosController::class,'index'] )->middle
     Route::post('/getMateriaPrima', [MateriaPrimaController::class, 'getMateriaPrima'])->middleware(['auth']);
     Route::post('/saveAsignacionMateria', [MateriaPrimaController::class, 'saveAsignacionMateria'])->middleware(['auth']);
     Route::post('/eliminarMateriaPrima', [MateriaPrimaController::class, 'eliminarMateriaPrima'])->middleware(['auth']);
-
+    Route::post('/getRelMatPrima', [MateriaPrimaController::class, 'getRelMatPrima'])->middleware(['auth']);
+    Route::post('/updateRelActMat', [MateriaPrimaController::class, 'updateRelActMat'])->middleware(['auth']);
 
 //fin guardar datosgenerales
 

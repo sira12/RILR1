@@ -877,6 +877,50 @@ function cargar_tabla_productos() {
 
 
 
+function cargar_tabla_materia_utilizada() {
+
+    var table = $('.yajra-datatable-materia-actividad').DataTable();
+
+
+    table.destroy();
+    //$('.yajra-datatable').empty();
+
+    var id_asignacion_producto = $("#id_asignacion_producto").val();
+    table.DataTable({
+        paginate:false,
+        serverSide: true,
+        searching: false,
+        "ajax": {
+            "url": "/listRelActProd",
+            "type": "POST",
+            "data": {
+                _token: $('meta[name="csrf-token"]').attr('content'),
+                id_asignacion_producto: id_asignacion_producto
+            },
+        },
+
+        columns: [
+            { data: 'DT_RowIndex', name: 'DT_RowIndex' },
+            { data: 'nombre_producto', name: 'nombre_producto' },
+            { data: 'unidad_de_medida', name: 'unidad_de_medida' },
+            { data: 'cantidad_producida', name: 'cantidad_producida' },
+            { data: 'porcentaje_sobre_produccion', name: 'porcentaje_sobre_produccion' },
+            {
+                data: 'action',
+                name: 'action',
+                orderable: true,
+                searchable: true
+            },
+        ],
+        columnDefs: [
+           
+        ]
+    })
+
+}
+
+
+
 
 //moostrar forms
 $(document).ready(function () {

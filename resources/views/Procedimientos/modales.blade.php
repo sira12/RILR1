@@ -336,8 +336,8 @@
                                     <div class="form-group has-feedback">
                                         <input type="hidden" name="seccionactividad" id="seccionactividad" value="">
                                         <input type="hidden" name="proceso" id="asignamateria" value="savemateria" />
-                                        <input type="hidden" name="id_rel_actividad_productos" id="id_asignacion_materia">
-                                        <input type="hidden" name="id_rel_actividad_productos_materia_prima" id="id_rel_actividad_productos_materia_prima">
+                                        <input type="hidden" name="id_asignacion_materia" id="id_asignacion_materia">
+                                        
                                         <input type="hidden" name="id_rel_industria_actividad_materia_prima" id="id_rel_industria_actividad_materia_prima">
                                         <input type="hidden" name="anio_materia" id="anio_materia">
                                         <input type="hidden" name="id_materia_prima" id="id_materia_prima" />
@@ -473,25 +473,8 @@
 
                         <div class="modal-footer">
                             <button type="submit" name="btn-asignamateria" id="btn-asignamateria" class="btn btn-danger"><span class="fa fa-save"></span> Guardar</button>
-                            <button class="btn btn-dark" type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="
-                document.getElementById('asignamateria').value = 'savemateria',
-                document.getElementById('id_asignacion_materia').value = '',
-                document.getElementById('anio_materia').value = '',
-                document.getElementById('id_producto').value = '',
-                document.getElementById('id_materia_prima').value = '',
-                document.getElementById('search_materia').value = '',
-                document.getElementById('medida_materia').value = '',
-                document.getElementById('cantidad_materia').value = '',
-                document.getElementById('es_propio_materia').value = '',
-                document.getElementById('id_pais').value = '',
-                document.getElementById('search_pais').value = '',
-                document.getElementById('id_provincia').value = '',
-                document.getElementById('search_provincia').value = '',
-                document.getElementById('id_localidad3').value = '',
-                document.getElementById('search_localidad3').value = '',
-                document.getElementById('motivo_importacion_materia').value = '',
-                document.getElementById('detalles_materia').value = ''
-                "><span class="fa fa-trash-o"></span> Cancelar</button>
+                            <button type="button" name="btn-updateMateria" id="btn-updateMateria" style="display:none" class="btn btn-danger"><span class="fa fa-save"></span> Guardar</button>
+                            <button class="btn btn-dark" type="button" class="close" data-dismiss="modal" aria-hidden="true" id="btn-cancelar-materia"><span class="fa fa-trash-o"></span> Cancelar</button>
                         </div>
                     </form>
 
