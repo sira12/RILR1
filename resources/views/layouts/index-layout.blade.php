@@ -64,6 +64,9 @@
 
 
     <!-- apps -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
+    
     <script src="{{ asset('assets/js/app.min.js')}}"></script>
     <script src="{{ asset('assets/js/app.init.horizontal-fullwidth.js')}}"></script>
     <script src="{{ asset('assets/js/app-style-switcher.js')}}"></script>
@@ -105,9 +108,7 @@
 
     <!-- Calendario -->
 
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
 
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
 
 </body>
 

@@ -59,8 +59,8 @@
                             <!--form body-->
                             <div class="row-horizon">
                                 <span class="categories selectedGat" href="#datosGenerales"><i class="fa fa-tasks"></i> Datos Generales</span>
-                                <span class="categories" href="#act" onclick="muestraForm()"><i class="fa fa-tasks"></i> Actividad</span>
-                                <span class="categories" id="seccion#3"><i class="fa fa-tasks"></i> Insumos y Servicios</span>
+                                <span class="categories" href="#act" onclick="muestraForm('actividades')"><i class="fa fa-tasks"></i> Actividad</span>
+                                <span class="categories" href="#insumos" onclick="muestraForm('insumos');getunidades();getMotivo();"><i class="fa fa-tasks"></i> Insumos y Servicios</span>
                                 <span class="categories" id="seccion#4" onclick="CargaFormulario('','');"><i class="fa fa-tasks"></i> Situación de la Planta</span>
                                 <span class="categories" id="seccion#5" onclick="CargaFormulario('','');"><i class="fa fa-tasks"></i> Ventas y Facturación</span>
                                 <span class="categories" id="seccion#6" onclick="CargaFormulario('','');"><i class="fa fa-tasks"></i> Prevención y Control Ambiental</span>
@@ -760,6 +760,281 @@
                                         </div>
 
                                     </div>
+                                </section>
+
+
+
+                                <section id="insumos">
+
+
+                                    <!-- ###################################### CONSULTA DE INSUMOS ###################################### -->
+
+                                    <h3 class="card-subtitle mt-3"> Insumos</h3>
+
+
+                                    <div class='alert alert-danger'>
+                                        <center><span class='fa fa-info-circle'></span> POR FAVOR REALICE LA CARGA DE ACTIVIDAD PARA ASIGNAR INSUMOS</center>
+                                    </div>
+
+                                    <div class="text-right">
+                                        <button type="button" class="btn btn-info" data-placement="left" title="Agregar Nuevo Insumo" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalInsumo" data-backdrop="static" data-keyboard="false" onClick="AddIdActividadInsumoModal('')"><i class="fa fa-plus-square"></i> Agregar Insumos</button>
+                                    </div>
+
+
+                                    <div class="row mt-3"><span class="card-subtitle">Detalle los 5 principales Insumos utilizados en el proceso de Industrialización</span>
+
+                                        <div class="table-responsive">
+                                            <table id="default_order" class="table table-bordered border display yajra-table-insumos">
+
+                                                <thead>
+                                                    <tr bgcolor="#808080" class="text-white" role="row">
+                                                        <th>N°</th>
+                                                        <th>Insumo Utilizado</th>
+                                                        <th>Cantidad</th>
+                                                        <th>Unidad de Medida</th>
+                                                        <th>Año</th>
+                                                        <th width="12%">Acciones</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="BusquedaRapida">
+
+
+                                                   <!-- <tr role="row" class="odd">
+                                                       
+
+                                                    </tr>-->
+
+                                                </tbody>
+                                            </table>
+                                            <span class="card-subtitle">Nota:
+                                                <i class="mdi mdi-eye text-danger font-16"></i>(Ver Insumo) - <i class="mdi mdi-table-edit text-danger font-16"></i>(Editar Insumo) - <i class="mdi mdi-delete text-danger font-16"></i>(Eliminar Insumo)
+                                            </span>
+                                        </div>
+
+                                    </div>
+
+                                    <hr>
+
+
+
+
+                                    <!-- ###################################### CONSULTA DE SERVICIOS BASICOS ###################################### -->
+
+                                    <h3 class="card-subtitle mt-3"> Servicios Básicos</h3>
+
+
+                                    <div class="text-right">
+                                        <button type="button" class="btn btn-info" data-placement="left" title="Agregar Nuevo Servicio" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalServiciosBasicos" data-backdrop="static" data-keyboard="false" onClick="AddIdServicioBasicoModal('')"><i class="fa fa-plus-square"></i> Agregar Servicios Básicos</button>
+                                    </div>
+
+
+                                    <div class="row mt-3"><span class="card-subtitle">Servicios Básicos (Agua, Energia Electrica, Gas-oil, Gas, Telefonia, Internet.)</span>
+
+                                        <div class="table-responsive">
+                                            <table id="default_order" class="table table-deredbor border display">
+
+                                                <thead>
+                                                    <tr bgcolor="#808080" class="text-white" role="row">
+                                                        <th>Servicio Utilizado</th>
+                                                        <th>Frecuencia</th>
+                                                        <th>Cantidad</th>
+                                                        <th>Costo</th>
+                                                        <th>Año</th>
+                                                        <th width="12%">Acciones</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="BusquedaRapida">
+
+
+                                                    <tr role="row" class="odd">
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+
+                                                        <td>
+                                                            <span style="cursor: pointer;" data-placement="left" title="Ver Servicio" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalDetalleServicio" data-backdrop="static" data-keyboard="false" onClick="VerServicioAsignado('')"><i class="mdi mdi-eye font-22 text-danger"></i></span>
+
+                                                            <span style="cursor: pointer;" data-placement="left" title="Actualizar Servicio" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalUpdateServicioBasico" data-backdrop="static" data-keyboard="false" onClick="UpdateServicioBasicoAsignado('')"><i class="mdi mdi-table-edit font-22 text-danger"></i></span>
+                                                        </td>
+                                                    </tr>
+
+                                                </tbody>
+                                            </table>
+                                            <span class="card-subtitle">Nota:
+                                                <i class="mdi mdi-eye text-danger font-16"></i>(Ver Servicio) - <i class="mdi mdi-table-edit text-danger font-16"></i>(Editar Servicio)
+                                            </span>
+                                        </div>
+
+                                    </div>
+
+                                    <hr>
+
+                                    <!-- ###################################### CONSULTA DE COMBUSTIBLE ###################################### -->
+
+                                    <h3 class="card-subtitle mt-3"> Combustible</h3>
+
+
+                                    <div class="text-right">
+                                        <button type="button" class="btn btn-info" data-placement="left" title="Agregar Nuevo Combustible" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalCombustible" data-backdrop="static" data-keyboard="false" onClick="AddIdCombustibleModal('')"><i class="fa fa-plus-square"></i> Agregar Combustible</button>
+                                    </div>
+
+
+                                    <div class="row mt-3"><span class="card-subtitle">Tipo de Combustible utilizado (Diesel, Leña, GNC, Nafta, Fuel Oil, Carbón, BLP, Biocombustible, Otro.)</span>
+
+                                        <div class="table-responsive">
+                                            <table id="default_order" class="table table-deredbor border display">
+
+                                                <thead>
+                                                    <tr bgcolor="#808080" class="text-white" role="row">
+                                                        <th>Tipo</th>
+                                                        <th>Frecuencia</th>
+                                                        <th>Unidad Medida</th>
+                                                        <th>Cantidad</th>
+                                                        <th>Costo</th>
+                                                        <th>Año</th>
+                                                        <th width="12%">Acciones</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="BusquedaRapida">
+
+
+                                                    <tr role="row" class="odd">
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td>
+                                                            <span style="cursor: pointer;" data-placement="left" title="Ver Servicio" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalDetalleServicio" data-backdrop="static" data-keyboard="false" onClick="VerServicioAsignado('')"><i class="mdi mdi-eye font-22 text-danger"></i></span>
+
+                                                            <span style="cursor: pointer;" data-placement="left" title="Actualizar Servicio" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalCombustible" data-backdrop="static" data-keyboard="false" onClick="UpdateCombustibleAsignado('');"><i class="mdi mdi-table-edit font-22 text-danger"></i></span>
+
+                                                            <span style="cursor: pointer;" title="Eliminar Insumo" onClick="EliminarServicioAsignado('')"><i class="mdi mdi-delete font-22 text-danger"></i></span>
+                                                        </td>
+                                                    </tr>
+
+                                                </tbody>
+                                            </table>
+                                            <span class="card-subtitle">Nota:
+                                                <i class="mdi mdi-eye text-danger font-16"></i>(Ver Servicio) - <i class="mdi mdi-table-edit text-danger font-16"></i>(Editar Servicio) - <i class="mdi mdi-delete text-danger font-16"></i>(Eliminar Servicio)
+                                            </span>
+                                        </div>
+
+                                    </div>
+
+                                    <hr>
+
+
+                                    <!-- ###################################### CONSULTA DE OTROS SERVICIOS ###################################### -->
+
+                                    <h3 class="card-subtitle mt-3"> Otros Servicios</h3>
+
+
+                                    <div class="text-right">
+
+                                        <button type="button" class="btn btn-info" data-placement="left" title="Agregar Nuevo Servicio" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalOtros" data-backdrop="static" data-keyboard="false" onClick="AddIdOtrosModal('')"><i class="fa fa-plus-square"></i> Agregar Otros Servicios</button>
+                                    </div>
+
+
+                                    <div class="row mt-3"><span class="card-subtitle">Otros Servicios Utilizados por la Planta (Servicios tercerizados, mano de obra indirecta, etc.)</span>
+
+                                        <div class="table-responsive">
+                                            <table id="default_order" class="table table-deredbor border display">
+
+                                                <thead>
+                                                    <tr bgcolor="#808080" class="text-white" role="row">
+                                                        <th>Servicio Utilizado</th>
+                                                        <th>Frecuencia</th>
+                                                        <th>Cantidad</th>
+                                                        <th>Costo</th>
+                                                        <th>Año</th>
+                                                        <th width="12%">Acciones</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="BusquedaRapida">
+
+                                                    <tr role="row" class="odd">
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td>
+                                                            <span style="cursor: pointer;" data-placement="left" title="Ver Servicio" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalDetalleServicio" data-backdrop="static" data-keyboard="false" onClick="VerServicioAsignado('')"><i class="mdi mdi-eye font-22 text-danger"></i></span>
+
+                                                            <span style="cursor: pointer;" data-placement="left" title="Actualizar Servicio" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalOtros" data-backdrop="static" data-keyboard="false" onClick="UpdateOtrosAsignado('');"><i class="mdi mdi-table-edit font-22 text-danger"></i></span>
+
+                                                            <span style="cursor: pointer;" title="Eliminar Insumo" onClick="EliminarServicioAsignado('')"><i class="mdi mdi-delete font-22 text-danger"></i></span>
+                                                        </td>
+                                                    </tr>
+
+                                                </tbody>
+                                            </table>
+                                            <span class="card-subtitle">Nota:
+                                                <i class="mdi mdi-eye text-danger font-16"></i>(Ver Servicio) - <i class="mdi mdi-table-edit text-danger font-16"></i>(Editar Servicio) - <i class="mdi mdi-delete text-danger font-16"></i>(Eliminar Servicio)
+                                            </span>
+                                        </div>
+
+                                    </div>
+
+                                    <hr>
+
+
+                                    <!-- ###################################### CONSULTA DE EGRESOS DEVENGADOS ###################################### -->
+
+                                    <h3 class="card-subtitle mt-3"> Gastos Generados</h3>
+
+                                   
+                                        <div class="text-right">
+
+                                            <button type="button" class="btn btn-info" data-placement="left" title="Agregar Nuevo Egreso" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalDevengados" data-backdrop="static" data-keyboard="false" onClick="AddIdActividadDevengadosModal('')"><i class="fa fa-plus-square"></i> Agregar Gasto Generado</button>
+                                        </div>
+                                   
+
+                                    <div class="row mt-3"><span class="card-subtitle">Gastos Generados (Sueldos, Contribuciones, Pagos, Costo y Alquileres.)</span>
+
+                                        <div class="table-responsive">
+                                            <table id="default_order" class="table table-deredbor border display">
+
+                                                <thead>
+                                                    <tr bgcolor="#808080" class="text-white" role="row">
+                                                        <th>Servicio Utilizado</th>
+                                                        <th>Frecuencia</th>
+                                                        <th>Cantidad</th>
+                                                        <th>Costo</th>
+                                                        <th>Año</th>
+                                                        <th width="12%">Acciones</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="BusquedaRapida">
+
+                                                   
+                                                            <tr role="row" class="odd">
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td>
+                                                                    <span style="cursor: pointer;" data-placement="left" title="Ver Servicio" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalDetalleServicio" data-backdrop="static" data-keyboard="false" onClick="VerServicioAsignado('')"><i class="mdi mdi-eye font-22 text-danger"></i></span>
+
+                                                                    <span style="cursor: pointer;" data-placement="left" title="Actualizar Egreso" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalUpdateDevengado" data-backdrop="static" data-keyboard="false" onClick="UpdateDevengadoAsignado('')"><i class="mdi mdi-table-edit font-22 text-danger"></i></span>
+                                                                </td>
+                                                            </tr>
+                                                  
+                                                </tbody>
+                                            </table>
+                                            <span class="card-subtitle">Nota:
+                                                <i class="mdi mdi-eye text-danger font-16"></i>(Ver Servicio) - <i class="mdi mdi-table-edit text-danger font-16"></i>(Editar Servicio)
+                                            </span>
+                                        </div>
+
+                                    </div>
+
+
                                 </section>
                             </div><!-- Div secciones -->
 

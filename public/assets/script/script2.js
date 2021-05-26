@@ -2072,6 +2072,20 @@ function pideDatosOrigen() {
   }
 }
 
+//mustra form de origen segun el modal desde el que se esté llamando
+function origen(ref) {
+
+  if(ref == 'origen_insumo'){
+    var valor = $("#es_propio_insumo").val();
+  }
+
+  if (valor == "A") {
+    $("."+ref+"").show();
+  } else {
+    $("."+ref+"").hide();
+  }
+}
+
 
 //ACTIVA INPUT DETALLES IMPORTACION EN METERIA PRIMA
 function ActivaDetallesMateriaPrima(detalles) {

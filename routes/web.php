@@ -13,6 +13,7 @@ use App\Http\Controllers\IndustriaController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\MateriaPrimaController;
 use App\Http\Controllers\PaisController;
+use App\Http\Controllers\InsumoController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -58,7 +59,7 @@ Route::get('/panel', [IndexController::class,'index'])->middleware(['auth'])->na
 
 Route::get('/procedimientos',[ProcedimientosController::class,'index'] )->middleware(['auth'])->name('procedimientos');
 
-//guardar datosgenerales
+//guardar Procedimientos
     //generales industria
     Route::post('/saveGenerales',[ProcedimientosController::class,'storeGenerales']);
     Route::get('/edit/tramite/{id}',[ProcedimientosController::class,'edit']);
@@ -71,7 +72,7 @@ Route::get('/procedimientos',[ProcedimientosController::class,'index'] )->middle
     Route::post('/updateActividad', [ProcedimientosController::class, 'updateActividad'])->middleware(['auth']);
     Route::post('/eliminarActividad', [ProcedimientosController::class, 'eliminarActividad'])->middleware(['auth']);
     Route::post('/BajaActividad', [ProcedimientosController::class, 'BajaActividad'])->middleware(['auth']);
-    
+
     //unidades
     Route::post('/getUnidades', [ProcedimientosController::class, 'getUnidades'])->middleware(['auth']);
 
@@ -82,7 +83,7 @@ Route::get('/procedimientos',[ProcedimientosController::class,'index'] )->middle
     Route::post('/buscarProducto', [ProductoController::class, 'busqueda_producto'])->middleware(['auth']);
     Route::post('/getDatosProducto', [ProductoController::class, 'getDatosProducto'])->middleware(['auth']);
     Route::post('/listRelActProd', [ProductoController::class, 'listRelActProd'])->middleware(['auth']);
-    
+
     //materia prima
     Route::post('/listmatprima', [MateriaPrimaController::class, 'listmatprima'])->middleware(['auth']);
     Route::post('/motivoImportacion', [MateriaPrimaController::class, 'motivoImportacion'])->middleware(['auth']);
@@ -92,7 +93,16 @@ Route::get('/procedimientos',[ProcedimientosController::class,'index'] )->middle
     Route::post('/getRelMatPrima', [MateriaPrimaController::class, 'getRelMatPrima'])->middleware(['auth']);
     Route::post('/updateRelActMat', [MateriaPrimaController::class, 'updateRelActMat'])->middleware(['auth']);
 
-//fin guardar datosgenerales
+
+    //insumos
+
+    Route::post('/search_insumo', [InsumoController::class, 'search_insumo'])->middleware(['auth']);
+    Route::post('/saveInsumo', [InsumoController::class, 'store'])->middleware(['auth']);
+    Route::post('/listInsumos', [InsumoController::class, 'listInsumos'])->middleware(['auth']);
+
+
+
+//fin guardar Procedimientos
 
 
 //datos generales Contribuyente
@@ -102,5 +112,3 @@ Route::post('/updateContribuyente',[ContribuyenteController::class,'updateContri
 
 // industria
 Route::post('/getIndustria',[IndustriaController::class,'getIndustria'])->middleware(['auth']);
-
-

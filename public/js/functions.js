@@ -457,7 +457,7 @@ $(document).ready(function () {
             $('#detalle_actividad').val("");
         }
     });//si seleccio0na uno y despues borra el seleccionado se resetean los inputs
-   
+
     $("#search_descripcion").autocomplete({
         source: function (request, response) {
             // Fetch data
@@ -517,7 +517,7 @@ $(document).ready(function () {
                 },
                 success: function (data) {
                     response(data);
-                    
+
                 }
             });
         },
@@ -526,19 +526,19 @@ $(document).ready(function () {
 
             $('#id_producto').val(ui.item.value);
             $('#search_producto').val(ui.item.label);
-            length_search_producto=ui.item.label.length
+            length_search_producto = ui.item.label.length
             return false;
         }
     });
     $("#search_producto").keyup(function () {
 
-      
+
         if ($(this).val().length < length_search_producto) {
             $('#id_producto').val("");
         }
     });//si seleccio0na uno y despues borra el seleccionado se resetean los inputs
-    
-    
+
+
     $("#search_materia").autocomplete({
         source: function (request, response) {
             // Fetch data
@@ -554,16 +554,16 @@ $(document).ready(function () {
                 },
                 success: function (data) {
                     response(data);
-                    
+
                 }
             });
         },
         select: function (event, ui) {
             // Set selection
 
-          $('#id_materia_prima').val(ui.item.value);
+            $('#id_materia_prima').val(ui.item.value);
             $('#search_materia').val(ui.item.label);
-           
+
             return false;
         }
     });
@@ -574,7 +574,7 @@ $(document).ready(function () {
 
             $('#search_materia').val("");
 
-           
+
         }
     });//si seleccio0na uno y despues borra el seleccionado se resetean los inputs
 
@@ -619,13 +619,13 @@ $(document).ready(function () {
 
             $('#search_localidad3').val("");
             $('#search_provincia').val("");
-          
+
 
 
             //deshabilitar campo calle y barrio
             $("#search_localidad3").prop("disabled", true);
             $("#search_provincia").prop("disabled", true);
-           
+
 
         } else {
             //$("#search_barrio").prop("disabled", false);
@@ -666,16 +666,16 @@ $(document).ready(function () {
             //limpiar id localidad, barrio, calle
 
             $('#id_localidad3').val("")
-            
-           
+
+
 
 
             $('#search_localidad32').val("");
-            
+
 
             //deshabilitar campo calle y barrio
             $("#search_localidad32").prop("disabled", true);
-          
+
         } else {
             //$("#search_barrio").prop("disabled", false);
             $("#search_localidad32").prop("disabled", false);
@@ -705,7 +705,171 @@ $(document).ready(function () {
             // Set selection
             $('#search_localidad32').val(ui.item.label); // display the selected text
             $('#id_localidad3').val(ui.item.value); // save selected id to input
-           
+
+            return false;
+        }
+    });
+
+    //############################INSUMOS##################################################
+    $("#search_insumo").autocomplete({
+        source: function (request, response) {
+            // Fetch data
+            $.ajax({
+                url: "/search_insumo",
+                type: 'post',
+                dataType: "json",
+                data: {
+                    _token: $('meta[name="csrf-token"]').attr('content'),
+                    search: request.term,
+
+
+                },
+                success: function (data) {
+                    response(data);
+                }
+            });
+        },
+        select: function (event, ui) {
+            // Set selection
+            $('#search_insumo').val(ui.item.label); // display the selected text
+            $('#id_insumo').val(ui.item.value); // save selected id to input
+
+            return false;
+        }
+    });
+
+    //busqueda paises 
+
+    $("#search_pais_insumo").autocomplete({
+        source: function (request, response) {
+            // Fetch data
+            $.ajax({
+                url: "/getpais",
+                type: 'post',
+                dataType: "json",
+                data: {
+                    _token: $('meta[name="csrf-token"]').attr('content'),
+                    search: request.term,
+
+                },
+                success: function (data) {
+                    response(data);
+                }
+            });
+        },
+        select: function (event, ui) {
+
+            id_pais=null
+            // Set selection
+            $('#search_pais_insumo').val(ui.item.label); // display the selected text
+            $('#id_pais_insumo').val(ui.item.value); // save selected id to input
+            id_pais = ui.item.value
+            return false;
+        }
+    });
+
+
+    $("#search_pais_insumo").change(function () {
+
+        if ($("#search_pais_insumo").val().length < 1) {
+            //limpiar id localidad, barrio, calle
+
+            $('#id_pais_insumo').val("")
+            $('#id_provincia_insumo').val("")
+            $('#id_localidad_insumo').val("")
+
+
+            $('#search_localidad_insumo').val("");
+            $('#search_provincia_insumo').val("");
+
+
+
+            //deshabilitar campo calle y barrio
+            $("#search_localidad_insumo").prop("disabled", true);
+            $("#search_provincia_insumo").prop("disabled", true);
+
+
+        } else {
+            //$("#search_barrio").prop("disabled", false);
+            $("#search_provincia_insumo").prop("disabled", false);
+        }
+    });
+
+
+    $("#search_provincia_insumo").autocomplete({
+        source: function (request, response) {
+            // Fetch data
+            $.ajax({
+                url: "/provincias",
+                type: 'post',
+                dataType: "json",
+                data: {
+                    _token: $('meta[name="csrf-token"]').attr('content'),
+                    search: request.term,
+                    id_pais: id_pais
+
+                },
+                success: function (data) {
+                    response(data);
+                }
+            });
+        },
+        select: function (event, ui) {
+
+            id_provincia_3=null
+            // Set selection
+            $('#search_provincia_insumo').val(ui.item.label); // display the selected text
+            $('#id_provincia_insumo').val(ui.item.value); // save selected id to input
+            id_provincia_3 = ui.item.value
+            return false;
+        }
+    });
+    $("#search_provincia_insumo").change(function () {
+
+        if ($("#search_provincia_insumo").val().length < 1) {
+            //limpiar id localidad, barrio, calle
+
+            $('#id_localidad_insumo').val("")
+
+
+
+
+            $('#search_localidad_insumo').val("");
+
+
+            //deshabilitar campo calle y barrio
+            $("#search_localidad_insumo").prop("disabled", true);
+
+        } else {
+            //$("#search_barrio").prop("disabled", false);
+            $("#search_localidad_insumo").prop("disabled", false);
+
+        }
+    });
+
+    $("#search_localidad32").autocomplete({
+        source: function (request, response) {
+            // Fetch data
+            $.ajax({
+                url: "/localidades",
+                type: 'post',
+                dataType: "json",
+                data: {
+                    _token: $('meta[name="csrf-token"]').attr('content'),
+                    search: request.term,
+                    id_prov: id_provincia_3
+
+                },
+                success: function (data) {
+                    response(data);
+                }
+            });
+        },
+        select: function (event, ui) {
+            // Set selection
+            $('#search_localidad32').val(ui.item.label); // display the selected text
+            $('#id_localidad3').val(ui.item.value); // save selected id to input
+
             return false;
         }
     });
@@ -751,9 +915,9 @@ function cargar_tabla_actividades() {
         ],
         columnDefs: [
 
-           
+
             {
-               
+
                 targets: 2,
                 "data": "es_actividad_principal",
                 "render": function (data, type, row, meta) {
@@ -779,12 +943,59 @@ function cargar_tabla_actividades() {
                 targets: 1,
                 "data": "fecha_inicio",
                 "render": function (data, type, row, meta) {
-                
+
                     return row.fecha_inicio.replace(/^(\d{4})-(\d{2})-(\d{2})$/g, '$3-$2-$1');
 
                 }
             },
         ]
+    })
+
+}
+function cargar_tabla_insumos() {
+
+    var table = $('.yajra-table-insumos').DataTable();
+
+
+    table.destroy();
+    //$('.yajra-datatable').empty();
+
+    var id_industria = $("#id_industria_modal").val();
+    table = $('.yajra-table-insumos').DataTable({
+        processing: false,
+        serverSide: true,
+        searching: false,
+        "ajax": {
+            "url": "/listInsumos",
+            "type": "POST",
+            "data": {
+                _token: $('meta[name="csrf-token"]').attr('content'),
+                id_industria: id_industria
+            },
+        },
+
+        columns: [
+            { data: 'DT_RowIndex', name: 'DT_RowIndex' },
+            { data: 'insumo_utilizado', name: 'insumo_utilizado' },
+            { data: 'cantidad', name: 'cantidad' },
+            { data: 'unidad', name: 'unidad' },
+            { data: 'anio', name: 'anio' },
+            {
+                data: 'action',
+                name: 'action',
+                orderable: true,
+                searchable: true
+            },
+        ],
+        columnDefs: [
+
+
+        ],
+        
+        createdRow: function (row, data, dataIndex) {
+            $(row).addClass('odd');
+            $(row).attr('role', 'row');
+        },
     })
 
 }
@@ -799,7 +1010,7 @@ function cargar_tabla_materia() {
 
     var id_asignacion_producto = $("#id_rel_industria_actividad_materia_prima").val();
     table = $('.yajra-datatable-materia').DataTable({
-        paginate:false,
+        paginate: false,
         serverSide: true,
         searching: false,
         "ajax": {
@@ -816,8 +1027,8 @@ function cargar_tabla_materia() {
             { data: 'nombre_materia_prima', name: 'nombre_materia_prima' },
             { data: 'cantidad', name: 'cantidad' },
             { data: 'unidad_de_medida', name: 'unidad_de_medida' },
-           
-            
+
+
             {
                 data: 'action',
                 name: 'action',
@@ -826,7 +1037,7 @@ function cargar_tabla_materia() {
             },
         ],
         columnDefs: [
-           
+
         ]
     })
 
@@ -843,7 +1054,7 @@ function cargar_tabla_productos() {
 
     var id_asignacion_producto = $("#id_asignacion_producto").val();
     table = $('.yajra-datatable-productos').DataTable({
-        paginate:false,
+        paginate: false,
         serverSide: true,
         searching: false,
         "ajax": {
@@ -869,7 +1080,7 @@ function cargar_tabla_productos() {
             },
         ],
         columnDefs: [
-           
+
         ]
     })
 
@@ -887,7 +1098,7 @@ function cargar_tabla_materia_utilizada() {
 
     var id_asignacion_producto = $("#id_asignacion_producto").val();
     table.DataTable({
-        paginate:false,
+        paginate: false,
         serverSide: true,
         searching: false,
         "ajax": {
@@ -913,7 +1124,7 @@ function cargar_tabla_materia_utilizada() {
             },
         ],
         columnDefs: [
-           
+
         ]
     })
 
@@ -947,5 +1158,40 @@ $(document).ready(function () {
 $(document).ready(function () {
     $('.venobox').venobox();
 });
+
+
+function getunidades() {
+    $.ajax({
+        type: "post",
+        url: "/getUnidades",
+        data: {
+            _token: $('meta[name="csrf-token"]').attr('content'),
+        },
+        success: function (response) {
+            $(response).each(function (i, v) { // indice, valor
+                $("#medida_insumo").append('<option value="' + v.value + '">' + v.label + '</option>');
+                $("#medida_combustible").append('<option value="' + v.value + '">' + v.label + '</option>');
+            })
+        }
+    });
+}
+
+
+function getMotivo() {
+    $.ajax({
+        type: "post",
+        url: "/motivoImportacion",
+        data: {
+            _token: $('meta[name="csrf-token"]').attr('content'),
+        },
+        success: function (response) {
+            $(response).each(function (i, v) {
+                $("#motivo_importacion_insumo").append('<option value="' + v.value + '">' + v.label + '</option>');
+                $("#motivo_importacion_combustible").append('<option value="' + v.value + '">' + v.label + '</option>');
+                $("#motivo_importacion_otros").append('<option value="' + v.value + '">' + v.label + '</option>');
+            })
+        }
+    });
+}
 
 

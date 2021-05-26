@@ -55,9 +55,7 @@
                                         <input type="hidden" name="seccionactividad" id="seccionactividad" value="">
                                         <input type="hidden" name="proceso" id="actividad" value="saveactividades" />
                                         <input type="hidden" name="id_rel_industria_actividad" id="id_rel_industria_actividad">
-                                        <input type="hidden" name="id_industria_modal" id="id_industria_modal" value="11"
-
-                                        >
+                                        <input type="hidden" name="id_industria_modal" id="id_industria_modal" value="11">
                                         <input type="hidden" name="id_actividad" id="id_actividad" />
                                         <input type="text" class="form-control" name="search_codigo" id="search_codigo" placeholder="Realice la búsqueda de Actividad por Código" autocomplete="off" required="" aria-required="true" />
                                         <i class="fa fa-search form-control-feedback"></i>
@@ -526,7 +524,7 @@
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><img src="{{asset('assets/images/close.png')}}" /></button>
                     </div>
 
-                    <form class="form form-material" name="saveasignacioninsumo" id="saveasignacioninsumo" action="#">
+                    <form class="form form-material" name="saveasignacioninsumo" id="saveasignacioninsumo" >
 
                         <div class="modal-body">
 
@@ -567,7 +565,7 @@
                                         <select class="form-control" id="medida_insumo" name="medida_insumo" required="" aria-required="true">
                                             <option value=""> -- SELECCIONE -- </option>
 
-                                            <option value="">
+                                           
                                         </select>
                                     </div>
                                 </div>
@@ -584,25 +582,25 @@
                                     <div class="form-group has-feedback">
                                         <label class="control-label">Es Propia o Adquirida: <span class="symbol required"></span></label>
                                         <i class="fa fa-bars form-control-feedback"></i>
-                                        <select class="form-control" id="es_propio_insumo" name="es_propio_insumo" required="" aria-required="true">
+                                        <select class="form-control" id="es_propio_insumo" onchange="origen('origen_insumo')" name="es_propio_insumo" required="" aria-required="true">
                                             <option value=""> -- SELECCIONE -- </option>
-                                            <option value="PROPIA">PROPIA</option>
-                                            <option value="ADQUIRIDA">ADQUIRIDA</option>
+                                            <option value="P">PROPIA</option>
+                                            <option value="A">ADQUIRIDA</option>
                                         </select>
                                     </div>
                                 </div>
                             </div>
 
-                            <h3 class="card-subtitle text-muted"><i class="fa fa-file-text"></i> Origen del Insumo</h3>
-                            <span class="card-subtitle text-muted">En caso de que la Provincia sea diferente a La Rioja, deberá de seleccionar el Motivo y Detalles de la Importación</span>
+                            <h3 class="card-subtitle text-muted origen_insumo"><i class="fa fa-file-text"></i> Origen del Insumo</h3>
+                            <span class="card-subtitle text-muted origen_insumo">En caso de que la Provincia sea diferente a La Rioja, deberá de seleccionar el Motivo y Detalles de la Importación</span>
                             <hr>
 
-                            <div class="row">
+                            <div class="row origen_insumo">
                                 <div class="col-md-6">
                                     <div class="form-group has-feedback">
                                         <label class="control-label">Nombre de Pais: <span style="cursor: pointer;" class="mdi mdi-alert-circle text-danger" data-container="body" title="Notificación: Ingrese Nombre de Pais y seleccione en el Listado que se mostrará, en caso de no aparecer, escribala y el sistema se encargará de la asignación del mismo."></span><span class="symbol required"></span></label>
-                                        <input type="hidden" name="id_pais2" id="id_pais2" />
-                                        <input type="text" class="form-control" name="search_pais2" id="search_pais2" placeholder="Ingrese Nombre de Pais" autocomplete="off" required="" aria-required="true" />
+                                        <input type="hidden" name="id_pais_insumo" id="id_pais_insumo" />
+                                        <input type="text" class="form-control" name="search_pais_insumo" id="search_pais_insumo" placeholder="Ingrese Nombre de Pais" autocomplete="off" required="" aria-required="true" />
                                         <i class="fa fa-search form-control-feedback"></i>
                                     </div>
                                 </div>
@@ -610,19 +608,19 @@
                                 <div class="col-md-6">
                                     <div class="form-group has-feedback">
                                         <label class="control-label">Nombre de Provincia: <span style="cursor: pointer;" class="mdi mdi-alert-circle text-danger" data-container="body" title="Notificación: Ingrese Nombre de Provincia y seleccione en el Listado que se mostrará, en caso de no aparecer, escribala y el sistema se encargará de la asignación del mismo."></span><span class="symbol required"></span></label>
-                                        <input type="hidden" name="id_provincia2" id="id_provincia2" />
-                                        <input type="text" class="form-control" name="search_provincia2" id="search_provincia2" placeholder="Ingrese Nombre de Provincia" autocomplete="off" required="" aria-required="true" />
+                                        <input type="hidden" name="id_provincia_insumo" id="id_provincia_insumo" />
+                                        <input type="text" class="form-control" disabled name="search_provincia_insumo" id="search_provincia_insumo" placeholder="Ingrese Nombre de Provincia" autocomplete="off" required="" aria-required="true" />
                                         <i class="fa fa-search form-control-feedback"></i>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="row">
+                            <div class="row origen_insumo">
                                 <div class="col-md-6">
                                     <div class="form-group has-feedback">
                                         <label class="control-label">Nombre de Localidad: <span style="cursor: pointer;" class="mdi mdi-alert-circle text-danger" data-container="body" title="Notificación: Ingrese Nombre de Localidad y seleccione en el Listado que se mostrará, en caso de no aparecer, escribala y el sistema se encargará de la asignación del mismo."></span><span class="symbol required"></span></label>
-                                        <input type="hidden" name="id_localidad4" id="id_localidad4" />
-                                        <input type="text" class="form-control" name="search_localidad4" id="search_localidad4" placeholder="Ingrese Nombre de Localidad" autocomplete="off" required="" aria-required="true" />
+                                        <input type="hidden" name="id_localidad_insumo" id="id_localidad_insumo" />
+                                        <input type="text" class="form-control" disabled name="search_localidad_insumo" id="search_localidad_insumo" placeholder="Ingrese Nombre de Localidad" autocomplete="off" required="" aria-required="true" />
                                         <i class="fa fa-search form-control-feedback"></i>
                                     </div>
                                 </div>
@@ -634,13 +632,12 @@
                                         <select class="form-control" id="motivo_importacion_insumo" name="motivo_importacion_insumo" onchange="MotivoImportacionInsumo();" required="" aria-required="true">
                                             <option value=""> -- SELECCIONE -- </option>
 
-                                            <option value=""></option>
                                         </select>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="row">
+                            <div class="row origen_insumo">
                                 <div class="col-md-12">
                                     <div class="form-group has-feedback2">
                                         <label class="control-label">Detalle el Motivo por el cual Importa el Insumo: </label>

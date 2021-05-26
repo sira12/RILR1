@@ -2805,139 +2805,139 @@ $('document').ready(function () {
 /* FUNCION JQUERY PARA VALIDAR REGISTRO DE ACTIVIDAD DE ESTABLECIMIENTO */
 
 
-	$("#btn-actividad").on('click', function () {
+$("#btn-actividad").on('click', function () {
 
-		/* validation */
-		$("#saveactividad").validate({
-			rules:
-			{
-				search_codigo: { required: true, },
-				search_descripcion: { required: true, },
-				observacion: { required: true, },
-				fecha_inicio: { required: true, },
-				es_actividad_principal: { required: true, },
-				//id_naturaleza_juridica: { required: true, },
-			},
-			messages:
-			{
-				search_codigo: { required: "Realice la Búsqueda de Actividad por Código" },
-				search_descripcion: { required: "Realice la Búsqueda de Actividad por Descripción" },
-				observacion: { required: "Ingrese Descripción de la Actividad" },
-				fecha_inicio: { required: "Ingrese Fecha de Inicio" },
-				es_actividad_principal: { required: "Seleccione Si es Actividad Principal" },
-				//id_naturaleza_juridica: { required: "Seleccione Naturaleza Juridica" },
-			},
-			submitHandler: function (form) {
+	/* validation */
+	$("#saveactividad").validate({
+		rules:
+		{
+			search_codigo: { required: true, },
+			search_descripcion: { required: true, },
+			observacion: { required: true, },
+			fecha_inicio: { required: true, },
+			es_actividad_principal: { required: true, },
+			//id_naturaleza_juridica: { required: true, },
+		},
+		messages:
+		{
+			search_codigo: { required: "Realice la Búsqueda de Actividad por Código" },
+			search_descripcion: { required: "Realice la Búsqueda de Actividad por Descripción" },
+			observacion: { required: "Ingrese Descripción de la Actividad" },
+			fecha_inicio: { required: "Ingrese Fecha de Inicio" },
+			es_actividad_principal: { required: "Seleccione Si es Actividad Principal" },
+			//id_naturaleza_juridica: { required: "Seleccione Naturaleza Juridica" },
+		},
+		submitHandler: function (form) {
 
-				var data = $("#saveactividad").serialize();
-				var seccion = $("input#seccionactividad").val();
-				var industria = $("input#id_industria").val();
+			var data = $("#saveactividad").serialize();
+			var seccion = $("input#seccionactividad").val();
+			var industria = $("input#id_industria").val();
 
-				$.ajax({
-					type: 'POST',
-					url: '/saveActividad',
+			$.ajax({
+				type: 'POST',
+				url: '/saveActividad',
 
-					data: {
-						_token: $('meta[name="csrf-token"]').attr('content'),
-						data: data,
-					},
-					beforeSend: function () {
-						$("#save").fadeOut();
-						$("#btn-actividad").html('<i class="fa fa-refresh"></i> Verificando...');
-					},
-					success: function (data) {
-						if (data == 1) {
+				data: {
+					_token: $('meta[name="csrf-token"]').attr('content'),
+					data: data,
+				},
+				beforeSend: function () {
+					$("#save").fadeOut();
+					$("#btn-actividad").html('<i class="fa fa-refresh"></i> Verificando...');
+				},
+				success: function (data) {
+					if (data == 1) {
 
-							$("#save").fadeIn(1000, function () {
+						$("#save").fadeIn(1000, function () {
 
-								var n = noty({
-									text: "<span class='fa fa-warning'></span> POR FAVOR DEBE DE COMPLETAR LOS CAMPOS REQUERIDOS, VERIFIQUE NUEVAMENTE POR FAVOR...!",
-									theme: 'defaultTheme',
-									layout: 'center',
-									type: 'warning',
-									timeout: 5000,
-								});
-								$("#btn-actividad").html('<span class="fa fa-save"></span> Agregar y Guardar');
-
+							var n = noty({
+								text: "<span class='fa fa-warning'></span> POR FAVOR DEBE DE COMPLETAR LOS CAMPOS REQUERIDOS, VERIFIQUE NUEVAMENTE POR FAVOR...!",
+								theme: 'defaultTheme',
+								layout: 'center',
+								type: 'warning',
+								timeout: 5000,
 							});
-						}
-						else if (data.status == 2) {
+							$("#btn-actividad").html('<span class="fa fa-save"></span> Agregar y Guardar');
 
-							$("#save").fadeIn(1000, function () {
-
-								var n = noty({
-									text: "<span class='fa fa-warning'></span> LA FECHA DE ACTIVIDAD NO PUEDE SER MENOR QUE LA FECHA INICIO DE CONTRIBUYENTE, VERIFIQUE NUEVAMENTE POR FAVOR ...!",
-									theme: 'defaultTheme',
-									layout: 'center',
-									type: 'warning',
-									timeout: 5000,
-								});
-								$("#btn-actividad").html('<span class="fa fa-save"></span> Agregar y Guardar');
-
-							});
-						}
-						else if (data.status == 3) {
-
-							$("#save").fadeIn(1000, function () {
-
-								var n = noty({
-									text: "<span class='fa fa-warning'></span>" + data.msg,
-									theme: 'defaultTheme',
-									layout: 'center',
-									type: 'warning',
-									timeout: 5000,
-								});
-								$("#btn-actividad").html('<span class="fa fa-save"></span> Agregar y Guardar');
-
-							});
-						}
-						else if (data.status == 4) {
-
-							$("#save").fadeIn(1000, function () {
-
-								var n = noty({
-									text: "<span class='fa fa-warning'></span>" + data.msg,
-									theme: 'defaultTheme',
-									layout: 'center',
-									type: 'warning',
-									timeout: 5000,
-								});
-								$("#btn-actividad").html('<span class="fa fa-save"></span> Agregar y Guardar');
-
-							});
-						}
-						else if (data.status == 200) {
-
-							$("#save").fadeIn(1000, function () {
-
-								var n = noty({
-									text: '<center> ' + data.msg + ' </center>',
-									theme: 'defaultTheme',
-									layout: 'center',
-									type: 'information',
-									timeout: 5000,
-								});
-								$('#MyModalActividad').modal('hide');
-								//$('#secciones').load("formularios.php?BuscaFormularioProcedimiento=si&seccion=" + seccion + "&in=" + industria);
-								//$("#saveactividad")[0].reset();
-								//$("#saveactividad #actividad").val("saveactividades");
-
-								//$("#saveactividad #id_industria").val("");
-
-
-								$("#saveactividad #id_actividad").val("");
-								$("#btn-actividad").html('<span class="fa fa-save"></span> Agregar y Guardar');
-								cargar_tabla_actividades();
-							});
-						}
+						});
 					}
-				});
-				return false;
-			}
-			/* form submit */
-		});
+					else if (data.status == 2) {
 
-	})
+						$("#save").fadeIn(1000, function () {
+
+							var n = noty({
+								text: "<span class='fa fa-warning'></span> LA FECHA DE ACTIVIDAD NO PUEDE SER MENOR QUE LA FECHA INICIO DE CONTRIBUYENTE, VERIFIQUE NUEVAMENTE POR FAVOR ...!",
+								theme: 'defaultTheme',
+								layout: 'center',
+								type: 'warning',
+								timeout: 5000,
+							});
+							$("#btn-actividad").html('<span class="fa fa-save"></span> Agregar y Guardar');
+
+						});
+					}
+					else if (data.status == 3) {
+
+						$("#save").fadeIn(1000, function () {
+
+							var n = noty({
+								text: "<span class='fa fa-warning'></span>" + data.msg,
+								theme: 'defaultTheme',
+								layout: 'center',
+								type: 'warning',
+								timeout: 5000,
+							});
+							$("#btn-actividad").html('<span class="fa fa-save"></span> Agregar y Guardar');
+
+						});
+					}
+					else if (data.status == 4) {
+
+						$("#save").fadeIn(1000, function () {
+
+							var n = noty({
+								text: "<span class='fa fa-warning'></span>" + data.msg,
+								theme: 'defaultTheme',
+								layout: 'center',
+								type: 'warning',
+								timeout: 5000,
+							});
+							$("#btn-actividad").html('<span class="fa fa-save"></span> Agregar y Guardar');
+
+						});
+					}
+					else if (data.status == 200) {
+
+						$("#save").fadeIn(1000, function () {
+
+							var n = noty({
+								text: '<center> ' + data.msg + ' </center>',
+								theme: 'defaultTheme',
+								layout: 'center',
+								type: 'information',
+								timeout: 5000,
+							});
+							$('#MyModalActividad').modal('hide');
+							//$('#secciones').load("formularios.php?BuscaFormularioProcedimiento=si&seccion=" + seccion + "&in=" + industria);
+							//$("#saveactividad")[0].reset();
+							//$("#saveactividad #actividad").val("saveactividades");
+
+							//$("#saveactividad #id_industria").val("");
+
+
+							$("#saveactividad #id_actividad").val("");
+							$("#btn-actividad").html('<span class="fa fa-save"></span> Agregar y Guardar');
+							cargar_tabla_actividades();
+						});
+					}
+				}
+			});
+			return false;
+		}
+		/* form submit */
+	});
+
+})
 
 
 
@@ -2946,29 +2946,39 @@ $('document').ready(function () {
 /* FUNCION JQUERY PARA VALIDAR REGISTRO DE ACTIVIDAD DE ESTABLECIMIENTO */
 
 
-function muestraForm() {
+function muestraForm(ref) {
 
 	//muestra mensaje de que cargue la industria antes de proceder 
 
 	console.log($("#id_industria_modal").val());
 
 	if ($("#id_industria_modal").val() < 1) {
-		$("#labelActividad").hide();
-		$("#buttonActividad").hide();
-		$("#rowActividad").hide();
+		//si no hay industria cargada en actividades mostrar el msj
+		if (ref == "actividades") {
 
-		document.getElementById("pasoAnterior").style.display = "block";
-		document.getElementById("pasoAnterior").style.visibility = "visible"
+			$("#labelActividad").hide();
+			$("#buttonActividad").hide();
+			$("#rowActividad").hide();
 
-	} {
-		cargar_tabla_actividades();
-	
+			document.getElementById("pasoAnterior").style.display = "block";
+			document.getElementById("pasoAnterior").style.visibility = "visible"
+		}
+
+
+	} else {
+
+		if (ref == "actividades") {
+
+			cargar_tabla_actividades();
+
+		} else if (ref == "insumos") {
+			cargar_tabla_insumos();
+		}
+
+
 	}
 
-
 }
-
-
 
 
 
@@ -3019,7 +3029,7 @@ $('document').ready(function () {
 				async: false,
 				data: {
 					_token: $('meta[name="csrf-token"]').attr('content'),
-					data:data
+					data: data
 				},
 				beforeSend: function () {
 					$("#save").fadeOut();
@@ -3031,7 +3041,7 @@ $('document').ready(function () {
 						$("#save").fadeIn(1000, function () {
 
 							var n = noty({
-								text: "<span class='fa fa-warning'></span>"+data.msg,
+								text: "<span class='fa fa-warning'></span>" + data.msg,
 								theme: 'defaultTheme',
 								layout: 'center',
 								type: 'warning',
@@ -3041,7 +3051,7 @@ $('document').ready(function () {
 
 						});
 					}
-					else if(data.status == 200) {
+					else if (data.status == 200) {
 
 						$("#save").fadeIn(1000, function () {
 
@@ -3064,7 +3074,7 @@ $('document').ready(function () {
 							$("#saveasignacionproducto #ventas_internacionales").val("");
 
 							cargar_tabla_productos()
-							
+
 							$("#btn-asignaproducto").html('<span class="fa fa-save"></span> Agregar y Guardar');
 						});
 					}
@@ -3138,19 +3148,19 @@ $('document').ready(function () {
 				async: false,
 				data: {
 					_token: $('meta[name="csrf-token"]').attr('content'),
-					data:data
+					data: data
 				},
 				beforeSend: function () {
 					$("#save").fadeOut();
 					$("#btn-asignamateria").html('<i class="fa fa-refresh"></i> Verificando...');
 				},
 				success: function (data) {
-					 if (data.status == 1) {
+					if (data.status == 1) {
 
 						$("#save").fadeIn(1000, function () {
 
 							var n = noty({
-								text: "<span class='fa fa-warning'></span>"+data.msg,
+								text: "<span class='fa fa-warning'></span>" + data.msg,
 								theme: 'defaultTheme',
 								layout: 'center',
 								type: 'warning',
@@ -3160,7 +3170,7 @@ $('document').ready(function () {
 
 						});
 					}
-					else if(data.status ==200){
+					else if (data.status == 200) {
 
 						$("#save").fadeIn(1000, function () {
 
@@ -3175,7 +3185,7 @@ $('document').ready(function () {
 							$("#muestracondicionmateria").html("");
 							$("#saveasignacionmateria #id_rel_actividad_productos_materia_prima").val("");
 							$("#saveasignacionmateria #id_materia_prima").val("");
-							
+
 							$("#saveasignacionmateria #search_materia").val("");
 							$("#saveasignacionmateria #medida_materia").val("");
 							$("#saveasignacionmateria #cantidad_materia").val("");
@@ -3183,7 +3193,7 @@ $('document').ready(function () {
 							$("#saveasignacionmateria #motivo_importacion_materia").val("");
 							$("#saveasignacionmateria #detalles_materia").val("");
 							$("#detalles_materia").attr('disabled', true);
-							
+
 							$("#btn-asignamateria").html('<span class="fa fa-save"></span> Agregar y Guardar');
 
 							$('#search_pais').val(""); // display the selected text
@@ -3195,7 +3205,7 @@ $('document').ready(function () {
 							$('#search_localidad32').val(""); // display the selected text
 							$('#id_localidad3').val(""); // save selected id to input
 
-							$(".origen").show(); 
+							$(".origen").show();
 
 							cargar_tabla_materia();
 						});
@@ -3260,61 +3270,65 @@ $('document').ready(function () {
 
 			var data = $("#saveasignacioninsumo").serialize();
 			var seccion = $("#seccioninsumo").val();
-			var industria = $("#industria_insumo").val();
+			var industria = $("#id_industria_modal").val();
 
 			$.ajax({
 				type: 'POST',
-				url: 'procedimientos.php',
+				url: '/saveInsumo',
 				async: false,
-				data: data,
+				data: {
+					_token: $('meta[name="csrf-token"]').attr('content'),
+					id_industria: industria,
+					data: data
+				},
 				beforeSend: function () {
 					$("#save").fadeOut();
 					$("#btn-insumo").html('<i class="fa fa-refresh"></i> Verificando...');
 				},
-				success: function (data) {
-					if (data == 1) {
+				success: function (response) {
+						/* if (data == 1) {
 
-						$("#save").fadeIn(1000, function () {
+							$("#save").fadeIn(1000, function () {
 
-							var n = noty({
-								text: "<span class='fa fa-warning'></span> POR FAVOR DEBE DE COMPLETAR LOS CAMPOS REQUERIDOS, VERIFIQUE NUEVAMENTE POR FAVOR...!",
-								theme: 'defaultTheme',
-								layout: 'center',
-								type: 'warning',
-								timeout: 5000,
+								var n = noty({
+									text: "<span class='fa fa-warning'></span> POR FAVOR DEBE DE COMPLETAR LOS CAMPOS REQUERIDOS, VERIFIQUE NUEVAMENTE POR FAVOR...!",
+									theme: 'defaultTheme',
+									layout: 'center',
+									type: 'warning',
+									timeout: 5000,
+								});
+								$("#btn-insumo").html('<span class="fa fa-save"></span> Agregar y Guardar');
+
 							});
-							$("#btn-insumo").html('<span class="fa fa-save"></span> Agregar y Guardar');
+						}
+						else if (data == 2) {
 
-						});
-					}
-					else if (data == 2) {
+							$("#save").fadeIn(1000, function () {
 
-						$("#save").fadeIn(1000, function () {
+								var n = noty({
+									text: "<span class='fa fa-warning'></span> ESTE INSUMO YA SE ENCUENTRA REGISTRADO, VERIFIQUE NUEVAMENTE POR FAVOR ...!",
+									theme: 'defaultTheme',
+									layout: 'center',
+									type: 'warning',
+									timeout: 5000,
+								});
+								$("#btn-insumo").html('<span class="fa fa-save"></span> Agregar y Guardar');
 
-							var n = noty({
-								text: "<span class='fa fa-warning'></span> ESTE INSUMO YA SE ENCUENTRA REGISTRADO, VERIFIQUE NUEVAMENTE POR FAVOR ...!",
-								theme: 'defaultTheme',
-								layout: 'center',
-								type: 'warning',
-								timeout: 5000,
 							});
-							$("#btn-insumo").html('<span class="fa fa-save"></span> Agregar y Guardar');
-
-						});
-					}
-					else {
+						}
+						else */ if (response.status == 200) {
 
 						$("#save").fadeIn(1000, function () {
 
 							var n = noty({
-								text: '<center> ' + data + ' </center>',
+								text: '<center> ' + response.msg + ' </center>',
 								theme: 'defaultTheme',
 								layout: 'center',
 								type: 'information',
 								timeout: 5000,
 							});
 							$('#MyModalInsumo').modal('hide');
-							$('#secciones').load("formularios.php?BuscaFormularioProcedimiento=si&seccion=" + seccion + "&in=" + industria);
+							//$('#secciones').load("formularios.php?BuscaFormularioProcedimiento=si&seccion=" + seccion + "&in=" + industria);
 							$("#saveasignacioninsumo")[0].reset();
 							$("#saveasignacioninsumo #insumo").val("saveinsumo");
 							$("#muestracondicioninsumo").html("");
@@ -3326,12 +3340,15 @@ $('document').ready(function () {
 							$("#saveasignacioninsumo #detalles_insumo").attr('disabled', true);
 							$("#btn-insumo").html('<span class="fa fa-save"></span> Agregar y Guardar');
 						});
+
 					}
+
+					return false;
 				}
+				/* form submit */
+
 			});
-			return false;
 		}
-		/* form submit */
 	});
 });
 /* FUNCION JQUERY PARA VALIDAR ASIGNACION DE INSUMOS */
