@@ -3378,12 +3378,12 @@ $('document').ready(function () {
 	$("#saveserviciobasico").validate({
 		rules:
 		{
-			cantidad_basica: { required: false, },
+			
 			costo_basico: { required: false, number: false },
 		},
 		messages:
 		{
-			cantidad_basica: { required: "Ingrese Cantidad Consumida" },
+			
 			costo_basico: { required: "Ingrese Costo Asociado", number: "Ingrese solo digitos" },
 		},
 		submitHandler: function (form) {
@@ -3394,9 +3394,12 @@ $('document').ready(function () {
 
 			$.ajax({
 				type: 'POST',
-				url: 'procedimientos.php',
+				url: '/saveSB',
 				async: false,
-				data: data,
+				data: {
+					_token: $('meta[name="csrf-token"]').attr('content'),
+					data:data
+				},
 				beforeSend: function () {
 					$("#save").fadeOut();
 					$("#btn-serviciobasico").html('<i class="fa fa-refresh"></i> Verificando...');
@@ -3447,19 +3450,19 @@ $('document').ready(function () {
 
 						});
 					}
-					else {
+					else if(data.status == 200) {
 
 						$("#save").fadeIn(1000, function () {
 
 							var n = noty({
-								text: '<center> ' + data + ' </center>',
+								text: '<center> ' + data.msg + ' </center>',
 								theme: 'defaultTheme',
 								layout: 'center',
 								type: 'information',
 								timeout: 5000,
 							});
 							$('#MyModalServiciosBasicos').modal('hide');
-							$('#secciones').load("formularios.php?BuscaFormularioProcedimiento=si&seccion=" + seccion + "&in=" + industria);
+							//$('#secciones').load("formularios.php?BuscaFormularioProcedimiento=si&seccion=" + seccion + "&in=" + industria);
 							$("#saveserviciobasico")[0].reset();
 							$("#saveserviciobasico #nombre_de_fantasia").text("");
 							$("#saveserviciobasico #industria_servicio_basico").val("");

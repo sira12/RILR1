@@ -44,7 +44,7 @@ class InsumoController extends Controller
          //si no existe guardarlo
          $insumo= new Insumo();
 
-         $insumo->producto=$params['search_insumo'];
+         $insumo->insumo=$params['search_insumo'];
          $insumo->activo="S";
 
          $insumo->save();

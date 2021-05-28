@@ -14,6 +14,7 @@ use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\MateriaPrimaController;
 use App\Http\Controllers\PaisController;
 use App\Http\Controllers\InsumoController;
+use App\Http\Controllers\ServicioController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -100,6 +101,10 @@ Route::get('/procedimientos',[ProcedimientosController::class,'index'] )->middle
     Route::post('/saveInsumo', [InsumoController::class, 'store'])->middleware(['auth']);
     Route::post('/listInsumos', [InsumoController::class, 'listInsumos'])->middleware(['auth']);
 
+    //servicios basicos
+
+    Route::post('/ser_basicos', [ServicioController::class, 'listar_servicios_basicos'])->middleware(['auth']);
+    Route::post('/saveSB', [ServicioController::class, 'store'])->middleware(['auth']);
 
 
 //fin guardar Procedimientos

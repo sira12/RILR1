@@ -824,7 +824,7 @@
 
 
                                     <div class="text-right">
-                                        <button type="button" class="btn btn-info" data-placement="left" title="Agregar Nuevo Servicio" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalServiciosBasicos" data-backdrop="static" data-keyboard="false" onClick="AddIdServicioBasicoModal('')"><i class="fa fa-plus-square"></i> Agregar Servicios Básicos</button>
+                                        <button type="button" class="btn btn-info" data-placement="left" title="Agregar Nuevo Servicio" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalServiciosBasicos" data-backdrop="static" data-keyboard="false" onClick="AddIdServicioBasicoModal()"><i class="fa fa-plus-square"></i> Agregar Servicios Básicos</button>
                                     </div>
 
 

@@ -741,23 +741,17 @@
                             </div>
 
                             <div class="table-responsive">
-                                <table id="default_order" class="table2 display">
+                                <table id="ser_basico" class="table2 display">
                                     <thead>
                                         <tr role="row">
                                             <th>Servicio Básico <span class="symbol required"></span></th>
-                                            <th>Total Consumo Anual <span class="symbol required"></span></th>
+                                           
                                             <th>Importe Total Anual <span class="symbol required"></span></th>
                                         </tr>
                                     </thead>
                                     <tbody>
 
-                                        <tr role="row" class="odd">
-                                            <td><input type="hidden" name="id_servicio_basico[]" id="id_servicio_basico" value="" /><label></label></td>
-
-                                            <td class="text-center"><input type="te" class="form-control" name="cantidad_basica[]" id="cantidad_basica" value="1" placeholder="Ingrese Total Consumo Anual" autocomplete="off" style="width:100%;height:40px;background:#f0f9fc;border-radius:5px 5px 5px 5px;" disabled="disabled"></td>
-
-                                            <td class="text-center"><input type="text" class="form-control" name="costo_basico[]" id="costo_basico" placeholder="Ingrese Importe Total Anual" autocomplete="off" onKeyPress="EvaluateText('%f', this);" onBlur="this.value = Number_Format(this.value, '2', ',', '.')" style="width:100%;height:40px;background:#f0f9fc;border-radius:5px 5px 5px 5px;"></td>
-                                        </tr>
+                                       
 
                                     </tbody>
                                 </table>

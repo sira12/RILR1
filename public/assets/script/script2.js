@@ -2075,14 +2075,14 @@ function pideDatosOrigen() {
 //mustra form de origen segun el modal desde el que se esté llamando
 function origen(ref) {
 
-  if(ref == 'origen_insumo'){
+  if (ref == 'origen_insumo') {
     var valor = $("#es_propio_insumo").val();
   }
 
   if (valor == "A") {
-    $("."+ref+"").show();
+    $("." + ref + "").show();
   } else {
-    $("."+ref+"").hide();
+    $("." + ref + "").hide();
   }
 }
 
@@ -2333,7 +2333,7 @@ $("#btn-updateMateria").on('click', function () {
 
 $("#btn-cancelar-materia").on('click', function () {
 
-  
+
 
   $("#updateAsignacionMateria #id_asignacion_materia").val("");
   $("#updateAsignacionMateria #id_materia_prima").val("");
@@ -2582,18 +2582,53 @@ function EliminarInsumoAsignado(id_rel_industria_insumos, id_industria, seccion,
 /////////////////////////////////// FUNCIONES ASIGNACION DE SERVICIOS A ACTIVIDAD //////////////////////////////////////
 
 // FUNCION PARA AGREGA ID ACTIVIDAD EN SERVICIO BASICO
-function AddIdServicioBasicoModal(id_industria, nombre_de_fantasia, zona, anio) {
+
+function AddIdServicioBasicoModal() {
   // aqui asigno cada valor a los campos correspondientes
-  $("#saveserviciobasico #industria_servicio_basico").val(id_industria);
-  $("#saveserviciobasico #nombre_de_fantasia").text(nombre_de_fantasia);
-  $("#saveserviciobasico #zona_local").val(zona);
-  $("#saveserviciobasico #anio_basico").val(anio);
+  /*  $("#saveserviciobasico #industria_servicio_basico").val(id_industria);
+   $("#saveserviciobasico #nombre_de_fantasia").text(nombre_de_fantasia);
+   $("#saveserviciobasico #zona_local").val(zona);
+   $("#saveserviciobasico #anio_basico").val(anio); */
+
+
+
+
+  $.ajax({
+    type: "post",
+    url: "/ser_basicos",
+    data: {
+      _token: $('meta[name="csrf-token"]').attr('content'),
+    },
+    success: function (response) {
+      var coma =",";
+      var punto="."
+
+      var flot="%f"
+     
+      $(response).each(function (i, v) {
+      
+        $('#ser_basico').append(
+
+          '<tr role="row" class="odd">'+
+          '<td><input type="hidden" name="id_servicio_basico[]" id="id_servicio_basico" value="'+v.id_servicio+'" /><label>'+v.servicio+'</label></td>'+
+
+                                            
+          '<td class="text-center"><input type="text" class="form-control" name="costo_basico[]" id="costo_basico" placeholder="Ingrese Importe Total Anual" autocomplete="off" onKeyPress="EvaluateText(\'' + flot + '\',this);" onBlur="this.value=Number_Format(this.value, 2,\'' + coma + '\',\'' + punto + '\')" style="width:100%;height:40px;background:#f0f9fc;border-radius:5px 5px 5px 5px;"></td>'
+          +'</tr>'
+
+        );
+
+
+      
+        })
+    }
+});
 }
 
 // FUNCION PARA ACTUALIZAR SERVICIOS BASICOS
 function UpdateServicioBasicoAsignado(id_rel_industria_servicios, id_industria, nombre_de_fantasia, nomservicio, costo, anio) {
-  // aqui asigno cada valor a los campos correspondientes
-  $("#updateserviciobasico #id_rel_industria_servicios_basicos").val(id_rel_industria_servicios);
+              // aqui asigno cada valor a los campos correspondientes
+              $("#updateserviciobasico #id_rel_industria_servicios_basicos").val(id_rel_industria_servicios);
   $("#updateserviciobasico #industria_servicio_basico_update").val(id_industria);
   $("#updateserviciobasico #nombre_de_fantasia").text(nombre_de_fantasia);
   $("#updateserviciobasico #nombre_servicio").val(nomservicio);
@@ -2606,8 +2641,8 @@ function UpdateServicioBasicoAsignado(id_rel_industria_servicios, id_industria, 
 
 // FUNCION PARA AGREGA ID ACTIVIDAD EN COMBUSTIBLE
 function AddIdCombustibleModal(id_industria, nombre_de_fantasia, anio) {
-  // aqui asigno cada valor a los campos correspondientes
-  $("#savecombustible #industria_combustible").val(id_industria);
+              // aqui asigno cada valor a los campos correspondientes
+              $("#savecombustible #industria_combustible").val(id_industria);
   $("#savecombustible #nombre_de_fantasia").text(nombre_de_fantasia);
   $("#savecombustible #anio_combustible").val(anio);
 }
@@ -2619,13 +2654,13 @@ function MotivoImportacionCombustible() {
 
   if (valor === '4' || valor === true) {
 
-    //deshabilitamos
-    $("#detalles_combustible").attr('disabled', false);
+              //deshabilitamos
+              $("#detalles_combustible").attr('disabled', false);
 
   } else {
 
-    // habilitamos
-    $("#detalles_combustible").attr('disabled', true);
+              // habilitamos
+              $("#detalles_combustible").attr('disabled', true);
 
   }
 }
@@ -2637,13 +2672,13 @@ function ActivaDetallesCombustible(detalles) {
 
   if (detalles === "0" || detalles === true) {
 
-    $("#detalles_combustible").attr('disabled', true);
+              $("#detalles_combustible").attr('disabled', true);
 
   } else {
 
-    // deshabilitamos
+              // deshabilitamos
 
-    $("#detalles_combustible").attr('disabled', false);
+              $("#detalles_combustible").attr('disabled', false);
 
   }
 }
@@ -2651,8 +2686,8 @@ function ActivaDetallesCombustible(detalles) {
 // FUNCION PARA ACTUALIZAR COMBUSTIBLE ASIGNADO
 function UpdateCombustibleAsignado(id_rel_industria_servicios, id_industria, nombre_de_fantasia, id_servicio, unidad_de_medida, nomfrecuencia, cantidad,
   costo, id_pais, search_pais, id_provincia, search_provincia, id_localidad, search_localidad, motivo_importacion, detalles, anio, proceso) {
-  // aqui asigno cada valor a los campos correspondientes
-  $("#savecombustible #id_rel_industria_combustible").val(id_rel_industria_servicios);
+              // aqui asigno cada valor a los campos correspondientes
+              $("#savecombustible #id_rel_industria_combustible").val(id_rel_industria_servicios);
   $("#savecombustible #industria_combustible").val(id_industria);
   $("#savecombustible #nombre_de_fantasia").text(nombre_de_fantasia);
   $("#savecombustible #id_servicio_combustible").val(id_servicio);
@@ -2679,8 +2714,8 @@ function UpdateCombustibleAsignado(id_rel_industria_servicios, id_industria, nom
 
 // FUNCION PARA AGREGA ID ACTIVIDAD EN OTROS SERVICIOS
 function AddIdOtrosModal(id_industria, nombre_de_fantasia, anio) {
-  // aqui asigno cada valor a los campos correspondientes
-  $("#saveotros #industria_otros").val(id_industria);
+              // aqui asigno cada valor a los campos correspondientes
+              $("#saveotros #industria_otros").val(id_industria);
   $("#saveotros #nombre_de_fantasia").text(nombre_de_fantasia);
   $("#saveotros #anio_otros").val(anio);
 }
@@ -2692,11 +2727,11 @@ function CondicionOtrosServicios(id_rel_otros, servicio_contratado) {
   var dataString = 'BuscaCondicionOtrosServicios=si&id_rel_industria_servicios=' + id_rel_otros + "&condicion_otros=" + servicio_contratado;
 
   $.ajax({
-    type: "GET",
+              type: "GET",
     url: "funciones.php",
     data: dataString,
     success: function (response) {
-      $('#muestracondicionotros').empty();
+              $('#muestracondicionotros').empty();
       $('#muestracondicionotros').append('' + response + '').fadeIn("slow");
     }
   });
@@ -2709,13 +2744,13 @@ function MotivoImportacionOtros() {
 
   if (valor === '4' || valor === true) {
 
-    //deshabilitamos
-    $("#detalles_otros").attr('disabled', false);
+              //deshabilitamos
+              $("#detalles_otros").attr('disabled', false);
 
   } else {
 
-    // habilitamos
-    $("#detalles_otros").attr('disabled', true);
+              // habilitamos
+              $("#detalles_otros").attr('disabled', true);
 
   }
 }
@@ -2727,13 +2762,13 @@ function ActivaDetallesOtros(detalles) {
 
   if (detalles === "0" || detalles === true) {
 
-    $("#detalles_otros").attr('disabled', true);
+              $("#detalles_otros").attr('disabled', true);
 
   } else {
 
-    // deshabilitamos
+              // deshabilitamos
 
-    $("#detalles_otros").attr('disabled', false);
+              $("#detalles_otros").attr('disabled', false);
 
   }
 }
@@ -2741,8 +2776,8 @@ function ActivaDetallesOtros(detalles) {
 // FUNCION PARA ACTUALIZAR OTROS SERVICIOS ASIGNADO
 function UpdateOtrosAsignado(id_rel_industria_servicios, id_industria, nombre_de_fantasia, id_servicio, nomservicio, servicio_contratado, frecuencia_de_contratacion, cantidad,
   costo, id_pais, search_pais, id_provincia, search_provincia, id_localidad, search_localidad, motivo_importacion, detalles, anio, proceso) {
-  // aqui asigno cada valor a los campos correspondientes
-  $("#saveotros #id_rel_industria_otros").val(id_rel_industria_servicios);
+              // aqui asigno cada valor a los campos correspondientes
+              $("#saveotros #id_rel_industria_otros").val(id_rel_industria_servicios);
   $("#saveotros #industria_otros").val(id_industria);
   $("#saveotros #nombre_de_fantasia").text(nombre_de_fantasia);
   $("#saveotros #id_servicio").val(id_servicio);
@@ -2774,8 +2809,8 @@ function UpdateOtrosAsignado(id_rel_industria_servicios, id_industria, nombre_de
 
 // FUNCION PARA AGREGA ID ACTIVIDAD EN EGRESOS DEVENGADOS
 function AddIdActividadDevengadosModal(id_industria, nombre_de_fantasia, zona, anio) {
-  // aqui asigno cada valor a los campos correspondientes
-  $("#savedevengados #industria_devengados").val(id_industria);
+              // aqui asigno cada valor a los campos correspondientes
+              $("#savedevengados #industria_devengados").val(id_industria);
   $("#savedevengados #nombre_de_fantasia").text(nombre_de_fantasia);
   $("#savedevengados #zona_devengado").val(zona);
   $("#savedevengados #anio_devengado").val(anio);
@@ -2783,8 +2818,8 @@ function AddIdActividadDevengadosModal(id_industria, nombre_de_fantasia, zona, a
 
 // FUNCION PARA ACTUALIZAR EGRESO DEVENGADO
 function UpdateDevengadoAsignado(id_rel_industria_servicios, id_industria, nombre_de_fantasia, nomservicio, costo, anio) {
-  // aqui asigno cada valor a los campos correspondientes
-  $("#updatedevengados #id_rel_industria_devengados_update").val(id_rel_industria_servicios);
+              // aqui asigno cada valor a los campos correspondientes
+              $("#updatedevengados #id_rel_industria_devengados_update").val(id_rel_industria_servicios);
   $("#updatedevengados #industria_devengados_update").val(id_industria);
   $("#updatedevengados #nombre_de_fantasia").text(nombre_de_fantasia);
   $("#updatedevengados #nombre_egreso").val(nomservicio);
@@ -2795,16 +2830,16 @@ function UpdateDevengadoAsignado(id_rel_industria_servicios, id_industria, nombr
 // FUNCION PARA MOSTRAR SERVICIO ASIGNADO EN VENTANA MODAL
 function VerServicioAsignado(id_rel_industria_servicios) {
 
-  $('#muestradetalleserviciomodal').html('<center><i class="fa fa-spin fa-spinner"></i> Cargando información, por favor espere....</center>');
+              $('#muestradetalleserviciomodal').html('<center><i class="fa fa-spin fa-spinner"></i> Cargando información, por favor espere....</center>');
 
   var dataString = 'BuscaDetalleServicioModal=si&id_rel_industria_servicios=' + id_rel_industria_servicios;
 
   $.ajax({
-    type: "GET",
+              type: "GET",
     url: "funciones.php",
     data: dataString,
     success: function (response) {
-      $('#muestradetalleserviciomodal').empty();
+              $('#muestradetalleserviciomodal').empty();
       $('#muestradetalleserviciomodal').append('' + response + '').fadeIn("slow");
 
     }
@@ -2814,36 +2849,36 @@ function VerServicioAsignado(id_rel_industria_servicios) {
 
 /////FUNCION PARA ELIMINAR SERVICIO ASIGNADO
 function EliminarServicioAsignado(id_rel_industria_servicios, id_industria, seccion, tipo) {
-  swal({
-    title: "¿Estás seguro?",
-    text: "¿Estás seguro de Eliminar este Servicio de la Industria?",
-    type: "warning",
-    showCancelButton: true,
-    cancelButtonText: "Cancelar",
-    cancelButtonColor: '#d33',
-    closeOnConfirm: false,
-    confirmButtonText: "Eliminar",
-    confirmButtonColor: "#808080"
-  }, function () {
-    $.ajax({
-      type: "GET",
-      url: "eliminar.php",
-      data: "id_rel_industria_servicios=" + id_rel_industria_servicios + "&tipo=" + tipo,
-      success: function (data) {
+              swal({
+                title: "¿Estás seguro?",
+                text: "¿Estás seguro de Eliminar este Servicio de la Industria?",
+                type: "warning",
+                showCancelButton: true,
+                cancelButtonText: "Cancelar",
+                cancelButtonColor: '#d33',
+                closeOnConfirm: false,
+                confirmButtonText: "Eliminar",
+                confirmButtonColor: "#808080"
+              }, function () {
+                $.ajax({
+                  type: "GET",
+                  url: "eliminar.php",
+                  data: "id_rel_industria_servicios=" + id_rel_industria_servicios + "&tipo=" + tipo,
+                  success: function (data) {
 
-        if (data == 1) {
+                    if (data == 1) {
 
-          swal("Eliminado!", "Datos eliminados con éxito!", "success");
-          $('#secciones').load("formularios.php?BuscaFormularioProcedimiento=si&seccion=" + seccion + "&in=" + id_industria);
+                      swal("Eliminado!", "Datos eliminados con éxito!", "success");
+                      $('#secciones').load("formularios.php?BuscaFormularioProcedimiento=si&seccion=" + seccion + "&in=" + id_industria);
 
-        } else {
+                    } else {
 
-          swal("Oops", "Usted no tiene Acceso para Eliminar Servicios Asignados, no tienes Privilegios para este Proceso!", "error");
+                      swal("Oops", "Usted no tiene Acceso para Eliminar Servicios Asignados, no tienes Privilegios para este Proceso!", "error");
 
-        }
-      }
-    })
-  });
+                    }
+                  }
+                })
+              });
 }
 
 
@@ -2869,8 +2904,8 @@ function EliminarServicioAsignado(id_rel_industria_servicios, id_industria, secc
 
 // FUNCION PARA AGREGA ID ACTIVIDAD EN SITUACION DE PLANTA
 function AddIdSituacionModal(id_industria, nombre_de_fantasia, anio) {
-  // aqui asigno cada valor a los campos correspondientes
-  $("#savesituacion #industria_situacion").val(id_industria);
+              // aqui asigno cada valor a los campos correspondientes
+              $("#savesituacion #industria_situacion").val(id_industria);
   $("#savesituacion #nombre_de_fantasia").text(nombre_de_fantasia);
   $("#savesituacion #anio_situacion").val(anio);
 }
@@ -2883,14 +2918,14 @@ function DeclaroInversion() {
 
   if (valor === '1' || valor === true) {
 
-    //deshabilitamos
-    $("#inversion_anual").attr('disabled', false);
+              //deshabilitamos
+              $("#inversion_anual").attr('disabled', false);
     $("#inversion_activo_fijo").attr('disabled', false);
 
   } else {
 
-    // habilitamos
-    $("#inversion_anual").attr('disabled', true);
+              // habilitamos
+              $("#inversion_anual").attr('disabled', true);
     $("#inversion_activo_fijo").attr('disabled', true);
 
   }
@@ -2900,16 +2935,16 @@ function DeclaroInversion() {
 // FUNCION PARA MOSTRAR SITUACION DE PLANTA ASIGNADO EN VENTANA MODAL
 function VerSituacion(id_situacion_de_planta) {
 
-  $('#muestradetallesituacionmodal').html('<center><i class="fa fa-spin fa-spinner"></i> Cargando información, por favor espere....</center>');
+              $('#muestradetallesituacionmodal').html('<center><i class="fa fa-spin fa-spinner"></i> Cargando información, por favor espere....</center>');
 
   var dataString = 'BuscaDetalleSituacionModal=si&id_situacion_de_planta=' + id_situacion_de_planta;
 
   $.ajax({
-    type: "GET",
+              type: "GET",
     url: "funciones.php",
     data: dataString,
     success: function (response) {
-      $('#muestradetallesituacionmodal').empty();
+              $('#muestradetallesituacionmodal').empty();
       $('#muestradetallesituacionmodal').append('' + response + '').fadeIn("slow");
 
     }
@@ -2921,13 +2956,13 @@ function ActivaDeclaraInversion(valor) {
 
   if (valor === "1" || valor === true) {
 
-    $("#inversion_anual").attr('disabled', false);
+              $("#inversion_anual").attr('disabled', false);
     $("#inversion_activo_fijo").attr('disabled', false);
 
   } else {
 
-    // habilitamos
-    $("#inversion_anual").attr('disabled', true);
+              // habilitamos
+              $("#inversion_anual").attr('disabled', true);
     $("#inversion_activo_fijo").attr('disabled', true);
 
   }
@@ -2936,8 +2971,8 @@ function ActivaDeclaraInversion(valor) {
 // FUNCION PARA ACTUALIZAR SITUACION DE PLANTA ASIGNADO
 function UpdateSituacion(id_situacion_de_planta, id_industria, nombre_de_fantasia, produccion_sobre_capacidad, superficie_lote,
   superficie_planta, es_zona_industrial, declara_inversion, inversion_anual, inversion_activo_fijo, capacidad_instalada, capacidad_ociosa, anio, proceso) {
-  // aqui asigno cada valor a los campos correspondientes
-  $("#savesituacion #id_situacion_de_planta").val(id_situacion_de_planta);
+              // aqui asigno cada valor a los campos correspondientes
+              $("#savesituacion #id_situacion_de_planta").val(id_situacion_de_planta);
   $("#savesituacion #industria_situacion").val(id_industria);
   $("#savesituacion #nombre_de_fantasia").text(nombre_de_fantasia);
   $("#savesituacion #produccion_sobre_capacidad").val(produccion_sobre_capacidad);
@@ -2956,36 +2991,36 @@ function UpdateSituacion(id_situacion_de_planta, id_industria, nombre_de_fantasi
 
 /////FUNCION PARA ELIMINAR SITUACION DE PLANTA ASIGNADO
 function EliminarSituacion(id_situacion_de_planta, id_industria, seccion, tipo) {
-  swal({
-    title: "¿Estás seguro?",
-    text: "¿Estás seguro de Eliminar esta Situación de Planta?",
-    type: "warning",
-    showCancelButton: true,
-    cancelButtonText: "Cancelar",
-    cancelButtonColor: '#d33',
-    closeOnConfirm: false,
-    confirmButtonText: "Eliminar",
-    confirmButtonColor: "#808080"
-  }, function () {
-    $.ajax({
-      type: "GET",
-      url: "eliminar.php",
-      data: "id_situacion_de_planta=" + id_situacion_de_planta + "&tipo=" + tipo,
-      success: function (data) {
+              swal({
+                title: "¿Estás seguro?",
+                text: "¿Estás seguro de Eliminar esta Situación de Planta?",
+                type: "warning",
+                showCancelButton: true,
+                cancelButtonText: "Cancelar",
+                cancelButtonColor: '#d33',
+                closeOnConfirm: false,
+                confirmButtonText: "Eliminar",
+                confirmButtonColor: "#808080"
+              }, function () {
+                $.ajax({
+                  type: "GET",
+                  url: "eliminar.php",
+                  data: "id_situacion_de_planta=" + id_situacion_de_planta + "&tipo=" + tipo,
+                  success: function (data) {
 
-        if (data == 1) {
+                    if (data == 1) {
 
-          swal("Eliminado!", "Datos eliminados con éxito!", "success");
-          $('#secciones').load("formularios.php?BuscaFormularioProcedimiento=si&seccion=" + seccion + "&in=" + id_industria);
+                      swal("Eliminado!", "Datos eliminados con éxito!", "success");
+                      $('#secciones').load("formularios.php?BuscaFormularioProcedimiento=si&seccion=" + seccion + "&in=" + id_industria);
 
-        } else {
+                    } else {
 
-          swal("Oops", "Usted no tiene Acceso para Eliminar Situación de Planta, no tienes Privilegios para este Proceso!", "error");
+                      swal("Oops", "Usted no tiene Acceso para Eliminar Situación de Planta, no tienes Privilegios para este Proceso!", "error");
 
-        }
-      }
-    })
-  });
+                    }
+                  }
+                })
+              });
 }
 
 
@@ -3008,8 +3043,8 @@ function EliminarSituacion(id_situacion_de_planta, id_industria, seccion, tipo) 
 
 // FUNCION PARA AGREGA ID ACTIVIDAD EN MOTIVO OCIOSIDAD
 function AddIdMotivoModal(id_industria, nombre_de_fantasia, anio) {
-  // aqui asigno cada valor a los campos correspondientes
-  $("#savemotivoasignado #industria_motivo").val(id_industria);
+              // aqui asigno cada valor a los campos correspondientes
+              $("#savemotivoasignado #industria_motivo").val(id_industria);
   $("#savemotivoasignado #nombre_de_fantasia").text(nombre_de_fantasia);
   $("#savemotivoasignado #anio_motivo").val(anio);
 }
@@ -3017,16 +3052,16 @@ function AddIdMotivoModal(id_industria, nombre_de_fantasia, anio) {
 // FUNCION PARA MOSTRAR MOTIVO OCIOSIDAD EN VENTANA MODAL
 function VerMotivo(id_rel_industria_motivo_ociosidad) {
 
-  $('#muestradetallemotivomodal').html('<center><i class="fa fa-spin fa-spinner"></i> Cargando información, por favor espere....</center>');
+              $('#muestradetallemotivomodal').html('<center><i class="fa fa-spin fa-spinner"></i> Cargando información, por favor espere....</center>');
 
   var dataString = 'BuscaDetalleMotivoModal=si&id_rel_industria_motivo_ociosidad=' + id_rel_industria_motivo_ociosidad;
 
   $.ajax({
-    type: "GET",
+              type: "GET",
     url: "funciones.php",
     data: dataString,
     success: function (response) {
-      $('#muestradetallemotivomodal').empty();
+              $('#muestradetallemotivomodal').empty();
       $('#muestradetallemotivomodal').append('' + response + '').fadeIn("slow");
 
     }
@@ -3035,8 +3070,8 @@ function VerMotivo(id_rel_industria_motivo_ociosidad) {
 
 // FUNCION PARA ACTUALIZAR MOTIVO OCIOSIDAD
 function UpdateMotivo(id_rel_industria_motivo_ociosidad, id_industria, nombre_de_fantasia, id_motivo_ociosidad, nommotivo, anio, proceso) {
-  // aqui asigno cada valor a los campos correspondientes
-  $("#savemotivoasignado #id_rel_industria_motivo_ociosidad").val(id_rel_industria_motivo_ociosidad);
+              // aqui asigno cada valor a los campos correspondientes
+              $("#savemotivoasignado #id_rel_industria_motivo_ociosidad").val(id_rel_industria_motivo_ociosidad);
   $("#savemotivoasignado #industria_motivo").val(id_industria);
   $("#savemotivoasignado #nombre_de_fantasia").text(nombre_de_fantasia);
   $("#savemotivoasignado #id_motivo_ociosidad").val(id_motivo_ociosidad);
@@ -3048,36 +3083,36 @@ function UpdateMotivo(id_rel_industria_motivo_ociosidad, id_industria, nombre_de
 
 /////FUNCION PARA ELIMINAR MOTIVO OCIOSIDAD ASIGNADO
 function EliminarMotivo(id_rel_industria_motivo_ociosidad, id_industria, seccion, tipo) {
-  swal({
-    title: "¿Estás seguro?",
-    text: "¿Estás seguro de Eliminar este Motivo de Ociosidad?",
-    type: "warning",
-    showCancelButton: true,
-    cancelButtonText: "Cancelar",
-    cancelButtonColor: '#d33',
-    closeOnConfirm: false,
-    confirmButtonText: "Eliminar",
-    confirmButtonColor: "#808080"
-  }, function () {
-    $.ajax({
-      type: "GET",
-      url: "eliminar.php",
-      data: "id_rel_industria_motivo_ociosidad=" + id_rel_industria_motivo_ociosidad + "&tipo=" + tipo,
-      success: function (data) {
+              swal({
+                title: "¿Estás seguro?",
+                text: "¿Estás seguro de Eliminar este Motivo de Ociosidad?",
+                type: "warning",
+                showCancelButton: true,
+                cancelButtonText: "Cancelar",
+                cancelButtonColor: '#d33',
+                closeOnConfirm: false,
+                confirmButtonText: "Eliminar",
+                confirmButtonColor: "#808080"
+              }, function () {
+                $.ajax({
+                  type: "GET",
+                  url: "eliminar.php",
+                  data: "id_rel_industria_motivo_ociosidad=" + id_rel_industria_motivo_ociosidad + "&tipo=" + tipo,
+                  success: function (data) {
 
-        if (data == 1) {
+                    if (data == 1) {
 
-          swal("Eliminado!", "Datos eliminados con éxito!", "success");
-          $('#secciones').load("formularios.php?BuscaFormularioProcedimiento=si&seccion=" + seccion + "&in=" + id_industria);
+                      swal("Eliminado!", "Datos eliminados con éxito!", "success");
+                      $('#secciones').load("formularios.php?BuscaFormularioProcedimiento=si&seccion=" + seccion + "&in=" + id_industria);
 
-        } else {
+                    } else {
 
-          swal("Oops", "Usted no tiene Acceso para Eliminar Motivo de Ociosidad Asignados, no tienes Privilegios para este Proceso!", "error");
+                      swal("Oops", "Usted no tiene Acceso para Eliminar Motivo de Ociosidad Asignados, no tienes Privilegios para este Proceso!", "error");
 
-        }
-      }
-    })
-  });
+                    }
+                  }
+                })
+              });
 }
 
 
@@ -3100,8 +3135,8 @@ function EliminarMotivo(id_rel_industria_motivo_ociosidad, id_industria, seccion
 
 // FUNCION PARA AGREGA ID ACTIVIDAD EN PERSONAL OCUPADO
 function AddIdPersonalModal(id_industria, nombre_de_fantasia, anio) {
-  // aqui asigno cada valor a los campos correspondientes
-  $("#savepersonal #industria_personal").val(id_industria);
+              // aqui asigno cada valor a los campos correspondientes
+              $("#savepersonal #industria_personal").val(id_industria);
   $("#savepersonal #nombre_de_fantasia").text(nombre_de_fantasia);
   $("#savepersonal #anio_personal").val(anio);
 }
@@ -3110,16 +3145,16 @@ function AddIdPersonalModal(id_industria, nombre_de_fantasia, anio) {
 // FUNCION PARA MOSTRAR PERSONAL OCUPADO EN VENTANA MODAL
 function VerPersonal(industria, rol_trabajador, anio) {
 
-  $('#muestradetallepersonalmodal').html('<center><i class="fa fa-spin fa-spinner"></i> Cargando información, por favor espere....</center>');
+              $('#muestradetallepersonalmodal').html('<center><i class="fa fa-spin fa-spinner"></i> Cargando información, por favor espere....</center>');
 
   var dataString = 'BuscaDetallePersonalModal=si&industria=' + industria + "&rol_trabajador=" + rol_trabajador + "&anio=" + anio;
 
   $.ajax({
-    type: "GET",
+              type: "GET",
     url: "funciones.php",
     data: dataString,
     success: function (response) {
-      $('#muestradetallepersonalmodal').empty();
+              $('#muestradetallepersonalmodal').empty();
       $('#muestradetallepersonalmodal').append('' + response + '').fadeIn("slow");
 
     }
@@ -3129,8 +3164,8 @@ function VerPersonal(industria, rol_trabajador, anio) {
 // FUNCION PARA ACTUALIZAR PERSONAL OCUPADO
 function UpdatePersonal(id_industria, nombre_de_fantasia, rol_trabajador, nomrol, anio) {
 
-  // aqui asigno cada valor a los campos correspondientes
-  $("#updatepersonal #industria_personal_update").val(id_industria);
+              // aqui asigno cada valor a los campos correspondientes
+              $("#updatepersonal #industria_personal_update").val(id_industria);
   $("#updatepersonal #nombre_de_fantasia").text(nombre_de_fantasia);
   $("#updatepersonal #rol_trabajador").text(nomrol);
   $("#updatepersonal #anio_personal_update").val(anio);
@@ -3140,11 +3175,11 @@ function UpdatePersonal(id_industria, nombre_de_fantasia, rol_trabajador, nomrol
   var dataString = 'BuscaDetallesPersonalUpdate=si&industria=' + id_industria + "&rol_trabajador=" + rol_trabajador + "&anio=" + anio;
 
   $.ajax({
-    type: "GET",
+              type: "GET",
     url: "funciones.php",
     data: dataString,
     success: function (response) {
-      $('#detallespersonal').empty();
+              $('#detallespersonal').empty();
       $('#detallespersonal').append('' + response + '').fadeIn("slow");
 
     }
@@ -3153,36 +3188,36 @@ function UpdatePersonal(id_industria, nombre_de_fantasia, rol_trabajador, nomrol
 
 /////FUNCION PARA ELIMINAR PERSONAL OCUPADO
 function EliminarPersonal(industria, rol_trabajador, anio, seccion, tipo) {
-  swal({
-    title: "¿Estás seguro?",
-    text: "¿Estás seguro de Eliminar este Personal Ocupado?",
-    type: "warning",
-    showCancelButton: true,
-    cancelButtonText: "Cancelar",
-    cancelButtonColor: '#d33',
-    closeOnConfirm: false,
-    confirmButtonText: "Eliminar",
-    confirmButtonColor: "#808080"
-  }, function () {
-    $.ajax({
-      type: "GET",
-      url: "eliminar.php",
-      data: "industria=" + industria + "&rol_trabajador=" + rol_trabajador + "&anio=" + anio + "&tipo=" + tipo,
-      success: function (data) {
+              swal({
+                title: "¿Estás seguro?",
+                text: "¿Estás seguro de Eliminar este Personal Ocupado?",
+                type: "warning",
+                showCancelButton: true,
+                cancelButtonText: "Cancelar",
+                cancelButtonColor: '#d33',
+                closeOnConfirm: false,
+                confirmButtonText: "Eliminar",
+                confirmButtonColor: "#808080"
+              }, function () {
+                $.ajax({
+                  type: "GET",
+                  url: "eliminar.php",
+                  data: "industria=" + industria + "&rol_trabajador=" + rol_trabajador + "&anio=" + anio + "&tipo=" + tipo,
+                  success: function (data) {
 
-        if (data == 1) {
+                    if (data == 1) {
 
-          swal("Eliminado!", "Datos eliminados con éxito!", "success");
-          $('#secciones').load("formularios.php?BuscaFormularioProcedimiento=si&seccion=" + seccion + "&in=" + industria);
+                      swal("Eliminado!", "Datos eliminados con éxito!", "success");
+                      $('#secciones').load("formularios.php?BuscaFormularioProcedimiento=si&seccion=" + seccion + "&in=" + industria);
 
-        } else {
+                    } else {
 
-          swal("Oops", "Usted no tiene Acceso para Eliminar Efluente, no tienes Privilegios para este Proceso!", "error");
+                      swal("Oops", "Usted no tiene Acceso para Eliminar Efluente, no tienes Privilegios para este Proceso!", "error");
 
-        }
-      }
-    })
-  });
+                    }
+                  }
+                })
+              });
 }
 
 
@@ -3203,22 +3238,22 @@ function EliminarPersonal(industria, rol_trabajador, anio, seccion, tipo) {
 
 // FUNCION PARA ASIGNAR CONTADOR EN MODAL PROVINCIAS
 function AsignaContadorProvincia(contador, num) {
-  // aqui asigno cada valor a los campos correspondientes
-  $("#contador").val(contador);
+              // aqui asigno cada valor a los campos correspondientes
+              $("#contador").val(contador);
   $("#num").val(num);
 }
 
 // FUNCION PARA ASIGNAR CONTADOR EN MODAL PAISES
 function AsignaContadorPais(contador2, num2) {
-  // aqui asigno cada valor a los campos correspondientes
-  $("#contador2").val(contador2);
+              // aqui asigno cada valor a los campos correspondientes
+              $("#contador2").val(contador2);
   $("#num2").val(num2);
 }
 
 // FUNCION PARA AGREGA ID ACTIVIDAD EN VENTA
 function AddIdVentaModal(id_industria, nombre_de_fantasia, anio) {
-  // aqui asigno cada valor a los campos correspondientes
-  $("#saveventa #industria_venta").val(id_industria);
+              // aqui asigno cada valor a los campos correspondientes
+              $("#saveventa #industria_venta").val(id_industria);
   $("#saveventa #nombre_de_fantasia").text(nombre_de_fantasia);
   $("#saveventa #anio_venta").val(anio);
 }
@@ -3226,23 +3261,23 @@ function AddIdVentaModal(id_industria, nombre_de_fantasia, anio) {
 // FUNCION PARA LIMIAR ID DE RADIO
 function Limpiar(i) {
 
-  $("#provincia2_" + i).html('');
+              $("#provincia2_" + i).html('');
   $("#pais2_" + i).html('');
 }
 
 // FUNCION PARA MOSTRAR VENTA ASIGNADA EN VENTANA MODAL
 function VerVenta(id_destino_ventas) {
 
-  $('#muestradetalleventamodal').html('<center><i class="fa fa-spin fa-spinner"></i> Cargando información, por favor espere....</center>');
+              $('#muestradetalleventamodal').html('<center><i class="fa fa-spin fa-spinner"></i> Cargando información, por favor espere....</center>');
 
   var dataString = 'BuscaDetalleVentaModal=si&id_destino_ventas=' + id_destino_ventas;
 
   $.ajax({
-    type: "GET",
+              type: "GET",
     url: "funciones.php",
     data: dataString,
     success: function (response) {
-      $('#muestradetalleventamodal').empty();
+              $('#muestradetalleventamodal').empty();
       $('#muestradetalleventamodal').append('' + response + '').fadeIn("slow");
 
     }
@@ -3252,8 +3287,8 @@ function VerVenta(id_destino_ventas) {
 // FUNCION PARA ACTUALIZAR VENTA ASIGNADA
 function UpdateVenta(id_destino_ventas, id_industria, nombre_de_fantasia, clasificacion_venta, provincia, otro_pais, anio) {
 
-  // aqui asigno cada valor a los campos correspondientes
-  $("#updateventa #id_destino_ventas").val(id_destino_ventas);
+              // aqui asigno cada valor a los campos correspondientes
+              $("#updateventa #id_destino_ventas").val(id_destino_ventas);
   $("#updateventa #industria_venta_update").val(id_industria);
   $("#updateventa #nombre_de_fantasia").text(nombre_de_fantasia);
   $("#updateventa #clasificacion_venta").text(clasificacion_venta);
@@ -3264,11 +3299,11 @@ function UpdateVenta(id_destino_ventas, id_industria, nombre_de_fantasia, clasif
   var dataString = 'BuscaDetallesVentaUpdate=si&id_destino_ventas=' + id_destino_ventas;
 
   $.ajax({
-    type: "GET",
+              type: "GET",
     url: "funciones.php",
     data: dataString,
     success: function (response) {
-      $('#detalles_venta').empty();
+              $('#detalles_venta').empty();
       $('#detalles_venta').append('' + response + '').fadeIn("slow");
 
     }
@@ -3279,18 +3314,18 @@ function UpdateVenta(id_destino_ventas, id_industria, nombre_de_fantasia, clasif
 // FUNCION PARA ASIGNAR OTRAS PROVINCIA PARA ACTUALIZAR
 function AgregarProvinciaUpdate() {
 
-  $('#provincia2').html('<center><i class="fa fa-spin fa-spinner"></i> Procesando información, por favor espere....</center>');
+              $('#provincia2').html('<center><i class="fa fa-spin fa-spinner"></i> Procesando información, por favor espere....</center>');
 
   var check = $("#check3").val();
   var dataString = $("#provinciasupdate").serialize();
   var url = 'funciones.php?MuestraProvinciasUpdate=si';
 
   $.ajax({
-    type: "GET",
+              type: "GET",
     url: url,
     data: dataString,
     success: function (response) {
-      $('#pais2').html("");
+              $('#pais2').html("");
       $('#provincia2').empty();
       $('#provincia2').append('' + response + '').fadeIn("slow");
     }
@@ -3300,18 +3335,18 @@ function AgregarProvinciaUpdate() {
 // FUNCION PARA ASIGNAR OTROS PAISES PARA ACTUALIZAR
 function AgregarPaisUpdate() {
 
-  $('#pais2').html('<center><i class="fa fa-spin fa-spinner"></i> Procesando información, por favor espere....</center>');
+              $('#pais2').html('<center><i class="fa fa-spin fa-spinner"></i> Procesando información, por favor espere....</center>');
 
   var check = $("#check4").val();
   var dataString = $("#paisesupdate").serialize();
   var url = 'funciones.php?MuestraPaisesUpdate=si';
 
   $.ajax({
-    type: "GET",
+              type: "GET",
     url: url,
     data: dataString,
     success: function (response) {
-      $('#provincia2').html("");
+              $('#provincia2').html("");
       $('#pais2').empty();
       $('#pais2').append('' + response + '').fadeIn("slow");
     }
@@ -3320,36 +3355,36 @@ function AgregarPaisUpdate() {
 
 /////FUNCION PARA ELIMINAR VENTAS ASIGNADO
 function EliminarVenta(id_destino_ventas, id_industria, seccion, tipo) {
-  swal({
-    title: "¿Estás seguro?",
-    text: "¿Estás seguro de Eliminar esta Venta de la Industria?",
-    type: "warning",
-    showCancelButton: true,
-    cancelButtonText: "Cancelar",
-    cancelButtonColor: '#d33',
-    closeOnConfirm: false,
-    confirmButtonText: "Eliminar",
-    confirmButtonColor: "#808080"
-  }, function () {
-    $.ajax({
-      type: "GET",
-      url: "eliminar.php",
-      data: "id_destino_ventas=" + id_destino_ventas + "&tipo=" + tipo,
-      success: function (data) {
+              swal({
+                title: "¿Estás seguro?",
+                text: "¿Estás seguro de Eliminar esta Venta de la Industria?",
+                type: "warning",
+                showCancelButton: true,
+                cancelButtonText: "Cancelar",
+                cancelButtonColor: '#d33',
+                closeOnConfirm: false,
+                confirmButtonText: "Eliminar",
+                confirmButtonColor: "#808080"
+              }, function () {
+                $.ajax({
+                  type: "GET",
+                  url: "eliminar.php",
+                  data: "id_destino_ventas=" + id_destino_ventas + "&tipo=" + tipo,
+                  success: function (data) {
 
-        if (data == 1) {
+                    if (data == 1) {
 
-          swal("Eliminado!", "Datos eliminados con éxito!", "success");
-          $('#secciones').load("formularios.php?BuscaFormularioProcedimiento=si&seccion=" + seccion + "&in=" + id_industria);
+                      swal("Eliminado!", "Datos eliminados con éxito!", "success");
+                      $('#secciones').load("formularios.php?BuscaFormularioProcedimiento=si&seccion=" + seccion + "&in=" + id_industria);
 
-        } else {
+                    } else {
 
-          swal("Oops", "Usted no tiene Acceso para Eliminar Ventas, no tienes Privilegios para este Proceso!", "error");
+                      swal("Oops", "Usted no tiene Acceso para Eliminar Ventas, no tienes Privilegios para este Proceso!", "error");
 
-        }
-      }
-    })
-  });
+                    }
+                  }
+                })
+              });
 }
 
 
@@ -3371,8 +3406,8 @@ function EliminarVenta(id_destino_ventas, id_industria, seccion, tipo) {
 
 // FUNCION PARA AGREGA ID ACTIVIDAD EN FACTURACION
 function AddIdFacturacionModal(id_industria, nombre_de_fantasia, anio) {
-  // aqui asigno cada valor a los campos correspondientes
-  $("#savefacturacion #industria_facturacion").val(id_industria);
+              // aqui asigno cada valor a los campos correspondientes
+              $("#savefacturacion #industria_facturacion").val(id_industria);
   $("#savefacturacion #nombre_de_fantasia").text(nombre_de_fantasia);
   $("#savefacturacion #anio_facturacion").val(anio);
 }
@@ -3380,13 +3415,13 @@ function AddIdFacturacionModal(id_industria, nombre_de_fantasia, anio) {
 // FUNCION PARA SUMAR PORCENTAJE EN FACTURACION
 function SumaPorcentaje() {
 
-  interno = $("#porcentaje_prevision_mercado_interno").val();
+              interno = $("#porcentaje_prevision_mercado_interno").val();
   externo = $("#porcentaje_prevision_mercado_externo").val();
   suma = parseFloat(interno) + parseFloat(externo);
 
   if (suma > 100) {
 
-    swal("Oops", "LA SUMATORIA DE AMBOS PORCENTAJE NO PUEDE SOBREPASAR EL 100%, VERIFIQUE NUEVAMENTE POR FAVOR!", "error");
+              swal("Oops", "LA SUMATORIA DE AMBOS PORCENTAJE NO PUEDE SOBREPASAR EL 100%, VERIFIQUE NUEVAMENTE POR FAVOR!", "error");
     $("#porcentaje_prevision_mercado_interno").focus();
     $("#porcentaje_prevision_mercado_interno").val("");
     $("#porcentaje_prevision_mercado_externo").val("");
@@ -3399,16 +3434,16 @@ function SumaPorcentaje() {
 // FUNCION PARA MOSTRAR FACTURACION ASIGNADO EN VENTANA MODAL
 function VerFacturacion(id_facturacion) {
 
-  $('#muestradetallefacturacionmodal').html('<center><i class="fa fa-spin fa-spinner"></i> Cargando información, por favor espere....</center>');
+              $('#muestradetallefacturacionmodal').html('<center><i class="fa fa-spin fa-spinner"></i> Cargando información, por favor espere....</center>');
 
   var dataString = 'BuscaDetalleFacturacionModal=si&id_facturacion=' + id_facturacion;
 
   $.ajax({
-    type: "GET",
+              type: "GET",
     url: "funciones.php",
     data: dataString,
     success: function (response) {
-      $('#muestradetallefacturacionmodal').empty();
+              $('#muestradetallefacturacionmodal').empty();
       $('#muestradetallefacturacionmodal').append('' + response + '').fadeIn("slow");
 
     }
@@ -3418,16 +3453,16 @@ function VerFacturacion(id_facturacion) {
 // FUNCION PARA VERIFICAR CATEGORIA DE INGRESO
 function VerificaIngreso(id_facturacion) {
 
-  $('#muestraingresos').html('<center><i class="fa fa-spin fa-spinner"></i> Cargando información, por favor espere....</center>');
+              $('#muestraingresos').html('<center><i class="fa fa-spin fa-spinner"></i> Cargando información, por favor espere....</center>');
 
   var dataString = 'VerificaCategoriaIngreso=si&id_facturacion=' + id_facturacion;
 
   $.ajax({
-    type: "GET",
+              type: "GET",
     url: "funciones.php",
     data: dataString,
     success: function (response) {
-      $('#muestraingresos').empty();
+              $('#muestraingresos').empty();
       $('#muestraingresos').append('' + response + '').fadeIn("slow");
 
     }
@@ -3436,8 +3471,8 @@ function VerificaIngreso(id_facturacion) {
 
 // FUNCION PARA ACTUALIZAR FACTURACION ASIGNADO
 function UpdateFacturacion(id_facturacion, id_industria, nombre_de_fantasia, prevision_ingresos_anio_corriente, prevision_ingresos_anio_corriente_dolares, porcentaje_prevision_mercado_interno, porcentaje_prevision_mercado_externo, anio, proceso) {
-  // aqui asigno cada valor a los campos correspondientes
-  $("#savefacturacion #id_facturacion").val(id_facturacion);
+              // aqui asigno cada valor a los campos correspondientes
+              $("#savefacturacion #id_facturacion").val(id_facturacion);
   $("#savefacturacion #industria_facturacion").val(id_industria);
   $("#savefacturacion #nombre_de_fantasia").text(nombre_de_fantasia);
   $("#savefacturacion #prevision_ingresos_anio_corriente").val(prevision_ingresos_anio_corriente);
@@ -3450,36 +3485,36 @@ function UpdateFacturacion(id_facturacion, id_industria, nombre_de_fantasia, pre
 
 /////FUNCION PARA ELIMINAR FACTURACION ASIGNADO
 function EliminarFacturacion(id_facturacion, id_industria, seccion, tipo) {
-  swal({
-    title: "¿Estás seguro?",
-    text: "¿Estás seguro de Eliminar esta Facturación de la Industria?",
-    type: "warning",
-    showCancelButton: true,
-    cancelButtonText: "Cancelar",
-    cancelButtonColor: '#d33',
-    closeOnConfirm: false,
-    confirmButtonText: "Eliminar",
-    confirmButtonColor: "#808080"
-  }, function () {
-    $.ajax({
-      type: "GET",
-      url: "eliminar.php",
-      data: "id_facturacion=" + id_facturacion + "&tipo=" + tipo,
-      success: function (data) {
+              swal({
+                title: "¿Estás seguro?",
+                text: "¿Estás seguro de Eliminar esta Facturación de la Industria?",
+                type: "warning",
+                showCancelButton: true,
+                cancelButtonText: "Cancelar",
+                cancelButtonColor: '#d33',
+                closeOnConfirm: false,
+                confirmButtonText: "Eliminar",
+                confirmButtonColor: "#808080"
+              }, function () {
+                $.ajax({
+                  type: "GET",
+                  url: "eliminar.php",
+                  data: "id_facturacion=" + id_facturacion + "&tipo=" + tipo,
+                  success: function (data) {
 
-        if (data == 1) {
+                    if (data == 1) {
 
-          swal("Eliminado!", "Datos eliminados con éxito!", "success");
-          $('#secciones').load("formularios.php?BuscaFormularioProcedimiento=si&seccion=" + seccion + "&in=" + id_industria);
+                      swal("Eliminado!", "Datos eliminados con éxito!", "success");
+                      $('#secciones').load("formularios.php?BuscaFormularioProcedimiento=si&seccion=" + seccion + "&in=" + id_industria);
 
-        } else {
+                    } else {
 
-          swal("Oops", "Usted no tiene Acceso para Eliminar Facturaciones, no tienes Privilegios para este Proceso!", "error");
+                      swal("Oops", "Usted no tiene Acceso para Eliminar Facturaciones, no tienes Privilegios para este Proceso!", "error");
 
-        }
-      }
-    })
-  });
+                    }
+                  }
+                })
+              });
 }
 
 
@@ -3501,8 +3536,8 @@ function EliminarFacturacion(id_facturacion, id_industria, seccion, tipo) {
 
 // FUNCION PARA AGREGA ID ACTIVIDAD EN EFLUENTES
 function AddIdEfluenteModal(id_industria, nombre_de_fantasia, anio) {
-  // aqui asigno cada valor a los campos correspondientes
-  $("#saveefluente #industria_efluente").val(id_industria);
+              // aqui asigno cada valor a los campos correspondientes
+              $("#saveefluente #industria_efluente").val(id_industria);
   $("#saveefluente #nombre_de_fantasia").text(nombre_de_fantasia);
   $("#saveefluente #anio_efluente").val(anio);
 }
@@ -3511,16 +3546,16 @@ function AddIdEfluenteModal(id_industria, nombre_de_fantasia, anio) {
 // FUNCION PARA MOSTRAR EFLUENTES ASIGNADO EN VENTANA MODAL
 function VerEfluente(id_rel_industria_efluente) {
 
-  $('#muestradetalleefluentemodal').html('<center><i class="fa fa-spin fa-spinner"></i> Cargando información, por favor espere....</center>');
+              $('#muestradetalleefluentemodal').html('<center><i class="fa fa-spin fa-spinner"></i> Cargando información, por favor espere....</center>');
 
   var dataString = 'BuscaDetalleEfluenteModal=si&id_rel_industria_efluente=' + id_rel_industria_efluente;
 
   $.ajax({
-    type: "GET",
+              type: "GET",
     url: "funciones.php",
     data: dataString,
     success: function (response) {
-      $('#muestradetalleefluentemodal').empty();
+              $('#muestradetalleefluentemodal').empty();
       $('#muestradetalleefluentemodal').append('' + response + '').fadeIn("slow");
 
     }
@@ -3529,8 +3564,8 @@ function VerEfluente(id_rel_industria_efluente) {
 
 // FUNCION PARA ACTUALIZAR EFLUENTES ASIGNADO
 function UpdateEfluente(id_rel_industria_efluente, id_industria, nombre_de_fantasia, efluente, nomefluente, tratamiento_residuo, destino, anio, proceso) {
-  // aqui asigno cada valor a los campos correspondientes
-  $("#saveefluente #id_rel_industria_efluente").val(id_rel_industria_efluente);
+              // aqui asigno cada valor a los campos correspondientes
+              $("#saveefluente #id_rel_industria_efluente").val(id_rel_industria_efluente);
   $("#saveefluente #industria_efluente").val(id_industria);
   $("#saveefluente #nombre_de_fantasia").text(nombre_de_fantasia);
   $("#saveefluente #id_efluente").val(efluente);
@@ -3543,36 +3578,36 @@ function UpdateEfluente(id_rel_industria_efluente, id_industria, nombre_de_fanta
 
 /////FUNCION PARA ELIMINAR EFLUENTES ASIGNADO
 function EliminarEfluente(id_rel_industria_efluente, id_industria, seccion, tipo) {
-  swal({
-    title: "¿Estás seguro?",
-    text: "¿Estás seguro de Eliminar este Efluente de la Industria?",
-    type: "warning",
-    showCancelButton: true,
-    cancelButtonText: "Cancelar",
-    cancelButtonColor: '#d33',
-    closeOnConfirm: false,
-    confirmButtonText: "Eliminar",
-    confirmButtonColor: "#808080"
-  }, function () {
-    $.ajax({
-      type: "GET",
-      url: "eliminar.php",
-      data: "id_rel_industria_efluente=" + id_rel_industria_efluente + "&tipo=" + tipo,
-      success: function (data) {
+              swal({
+                title: "¿Estás seguro?",
+                text: "¿Estás seguro de Eliminar este Efluente de la Industria?",
+                type: "warning",
+                showCancelButton: true,
+                cancelButtonText: "Cancelar",
+                cancelButtonColor: '#d33',
+                closeOnConfirm: false,
+                confirmButtonText: "Eliminar",
+                confirmButtonColor: "#808080"
+              }, function () {
+                $.ajax({
+                  type: "GET",
+                  url: "eliminar.php",
+                  data: "id_rel_industria_efluente=" + id_rel_industria_efluente + "&tipo=" + tipo,
+                  success: function (data) {
 
-        if (data == 1) {
+                    if (data == 1) {
 
-          swal("Eliminado!", "Datos eliminados con éxito!", "success");
-          $('#secciones').load("formularios.php?BuscaFormularioProcedimiento=si&seccion=" + seccion + "&in=" + id_industria);
+                      swal("Eliminado!", "Datos eliminados con éxito!", "success");
+                      $('#secciones').load("formularios.php?BuscaFormularioProcedimiento=si&seccion=" + seccion + "&in=" + id_industria);
 
-        } else {
+                    } else {
 
-          swal("Oops", "Usted no tiene Acceso para Eliminar Efluente, no tienes Privilegios para este Proceso!", "error");
+                      swal("Oops", "Usted no tiene Acceso para Eliminar Efluente, no tienes Privilegios para este Proceso!", "error");
 
-        }
-      }
-    })
-  });
+                    }
+                  }
+                })
+              });
 }
 
 
@@ -3594,8 +3629,8 @@ function EliminarEfluente(id_rel_industria_efluente, id_industria, seccion, tipo
 
 // FUNCION PARA AGREGA ID ACTIVIDAD EN CERTIFICADO
 function AddIdCertificadoModal(id_industria, nombre_de_fantasia, actividad_contribuyente, anio) {
-  // aqui asigno cada valor a los campos correspondientes
-  $("#savecertificado #industria_certificado").val(id_industria);
+              // aqui asigno cada valor a los campos correspondientes
+              $("#savecertificado #industria_certificado").val(id_industria);
   $("#savecertificado #nombre_de_fantasia").text(nombre_de_fantasia);
   $("#savecertificado #fecha_contribuyente_certificado").val(actividad_contribuyente);
   $("#savecertificado #anio_certificado").val(anio);
@@ -3606,14 +3641,14 @@ function ProcesarCertificado(estado_certificado, i) {
 
   if (estado_certificado === 'POSEE' || estado_certificado === true) {
 
-    //deshabilitamos
-    $("#inicio_certificado_" + i).attr('disabled', false);
+              //deshabilitamos
+              $("#inicio_certificado_" + i).attr('disabled', false);
     $("#fin_certificado_" + i).attr('disabled', false);
 
   } else {
 
-    // habilitamos
-    $("#inicio_certificado_" + i).attr('disabled', true);
+              // habilitamos
+              $("#inicio_certificado_" + i).attr('disabled', true);
     $("#fin_certificado_" + i).attr('disabled', true);
   }
 
@@ -3625,13 +3660,13 @@ function ActivaRadioCertificado(estado_certificado) {
 
   if (estado_certificado === "POSEE" || estado_certificado === true) {
 
-    $("#inicio_certificado").attr('disabled', false);
+              $("#inicio_certificado").attr('disabled', false);
     $("#fin_certificado").attr('disabled', false);
 
   } else {
 
-    // habilitamos
-    $("#inicio_certificado").attr('disabled', true);
+              // habilitamos
+              $("#inicio_certificado").attr('disabled', true);
     $("#fin_certificado").attr('disabled', true);
 
   }
@@ -3642,14 +3677,14 @@ function ProcesarCertificadoUpdate(estado_certificado) {
 
   if (estado_certificado === 'POSEE' || estado_certificado === true) {
 
-    //deshabilitamos
-    $("#inicio_certificado").attr('disabled', false);
+              //deshabilitamos
+              $("#inicio_certificado").attr('disabled', false);
     $("#fin_certificado").attr('disabled', false);
 
   } else {
 
-    // habilitamos
-    $("#inicio_certificado").attr('disabled', true);
+              // habilitamos
+              $("#inicio_certificado").attr('disabled', true);
     $("#fin_certificado").attr('disabled', true);
   }
 
@@ -3658,16 +3693,16 @@ function ProcesarCertificadoUpdate(estado_certificado) {
 // FUNCION PARA MOSTRAR CERTIFICADO ASIGNADO EN VENTANA MODAL
 function VerCertificado(id_rel_industria_certificado) {
 
-  $('#muestradetallecertificadomodal').html('<center><i class="fa fa-spin fa-spinner"></i> Cargando información, por favor espere....</center>');
+              $('#muestradetallecertificadomodal').html('<center><i class="fa fa-spin fa-spinner"></i> Cargando información, por favor espere....</center>');
 
   var dataString = 'BuscaDetalleCertificadoModal=si&id_rel_industria_certificado=' + id_rel_industria_certificado;
 
   $.ajax({
-    type: "GET",
+              type: "GET",
     url: "funciones.php",
     data: dataString,
     success: function (response) {
-      $('#muestradetallecertificadomodal').empty();
+              $('#muestradetallecertificadomodal').empty();
       $('#muestradetallecertificadomodal').append('' + response + '').fadeIn("slow");
 
     }
@@ -3677,8 +3712,8 @@ function VerCertificado(id_rel_industria_certificado) {
 // FUNCION PARA ACTUALIZAR CERTIFICADO ASIGNADO
 function UpdateCertificado(id_rel_industria_certificado, id_industria, nombre_de_fantasia, nombre_certificado, estado_certificado, inicio_certificado
   , fin_certificado, actividad_contribuyente, anio) {
-  // aqui asigno cada valor a los campos correspondientes
-  $("#updatecertificado #id_rel_industria_certificado").val(id_rel_industria_certificado);
+              // aqui asigno cada valor a los campos correspondientes
+              $("#updatecertificado #id_rel_industria_certificado").val(id_rel_industria_certificado);
   $("#updatecertificado #industria_certificado_update").val(id_industria);
   $("#updatecertificado #nombre_de_fantasia").text(nombre_de_fantasia);
   $("#updatecertificado #nombre_certificado").text(nombre_certificado);
@@ -3691,36 +3726,36 @@ function UpdateCertificado(id_rel_industria_certificado, id_industria, nombre_de
 
 /////FUNCION PARA ELIMINAR CERTIFICADO ASIGNADO
 function EliminarCertificado(id_rel_industria_certificado, id_industria, seccion, tipo) {
-  swal({
-    title: "¿Estás seguro?",
-    text: "¿Estás seguro de Eliminar este Certificado de la Industria?",
-    type: "warning",
-    showCancelButton: true,
-    cancelButtonText: "Cancelar",
-    cancelButtonColor: '#d33',
-    closeOnConfirm: false,
-    confirmButtonText: "Eliminar",
-    confirmButtonColor: "#808080"
-  }, function () {
-    $.ajax({
-      type: "GET",
-      url: "eliminar.php",
-      data: "id_rel_industria_certificado=" + id_rel_industria_certificado + "&tipo=" + tipo,
-      success: function (data) {
+              swal({
+                title: "¿Estás seguro?",
+                text: "¿Estás seguro de Eliminar este Certificado de la Industria?",
+                type: "warning",
+                showCancelButton: true,
+                cancelButtonText: "Cancelar",
+                cancelButtonColor: '#d33',
+                closeOnConfirm: false,
+                confirmButtonText: "Eliminar",
+                confirmButtonColor: "#808080"
+              }, function () {
+                $.ajax({
+                  type: "GET",
+                  url: "eliminar.php",
+                  data: "id_rel_industria_certificado=" + id_rel_industria_certificado + "&tipo=" + tipo,
+                  success: function (data) {
 
-        if (data == 1) {
+                    if (data == 1) {
 
-          swal("Eliminado!", "Datos eliminados con éxito!", "success");
-          $('#secciones').load("formularios.php?BuscaFormularioProcedimiento=si&seccion=" + seccion + "&in=" + id_industria);
+                      swal("Eliminado!", "Datos eliminados con éxito!", "success");
+                      $('#secciones').load("formularios.php?BuscaFormularioProcedimiento=si&seccion=" + seccion + "&in=" + id_industria);
 
-        } else {
+                    } else {
 
-          swal("Oops", "Usted no tiene Acceso para Eliminar Certificado, no tienes Privilegios para este Proceso!", "error");
+                      swal("Oops", "Usted no tiene Acceso para Eliminar Certificado, no tienes Privilegios para este Proceso!", "error");
 
-        }
-      }
-    })
-  });
+                    }
+                  }
+                })
+              });
 }
 
 
@@ -3746,8 +3781,8 @@ function EliminarCertificado(id_rel_industria_certificado, id_industria, seccion
 
 // FUNCION PARA AGREGA ID ACTIVIDAD EN SISTEMA DE CALIDAD
 function AddIdSistemaModal(id_industria, nombre_de_fantasia, anio) {
-  // aqui asigno cada valor a los campos correspondientes
-  $("#savesistema #industria_sistema").val(id_industria);
+              // aqui asigno cada valor a los campos correspondientes
+              $("#savesistema #industria_sistema").val(id_industria);
   $("#savesistema #nombre_de_fantasia").text(nombre_de_fantasia);
   $("#savesistema #anio_sistema").val(anio);
 }
@@ -3757,14 +3792,14 @@ function ProcesarSistema(estado_sistema, i) {
 
   if (estado_sistema === 'POSEE' || estado_sistema === true) {
 
-    //deshabilitamos
-    $("#inicio_sistema_" + i).attr('disabled', false);
+              //deshabilitamos
+              $("#inicio_sistema_" + i).attr('disabled', false);
     $("#fin_sistema_" + i).attr('disabled', false);
 
   } else {
 
-    // habilitamos
-    $("#inicio_sistema_" + i).attr('disabled', true);
+              // habilitamos
+              $("#inicio_sistema_" + i).attr('disabled', true);
     $("#fin_sistema_" + i).attr('disabled', true);
   }
 
@@ -3776,13 +3811,13 @@ function ActivaRadioSistema(estado_sistema) {
 
   if (estado_sistema === "POSEE" || estado_sistema === true) {
 
-    $("#inicio_sistema").attr('disabled', false);
+              $("#inicio_sistema").attr('disabled', false);
     $("#fin_sistema").attr('disabled', false);
 
   } else {
 
-    // habilitamos
-    $("#inicio_sistema").attr('disabled', true);
+              // habilitamos
+              $("#inicio_sistema").attr('disabled', true);
     $("#fin_sistema").attr('disabled', true);
 
   }
@@ -3793,14 +3828,14 @@ function ProcesarSistemaUpdate(estado_sistema) {
 
   if (estado_sistema === 'POSEE' || estado_sistema === true) {
 
-    //deshabilitamos
-    $("#inicio_sistema").attr('disabled', false);
+              //deshabilitamos
+              $("#inicio_sistema").attr('disabled', false);
     $("#fin_sistema").attr('disabled', false);
 
   } else {
 
-    // habilitamos
-    $("#inicio_sistema").attr('disabled', true);
+              // habilitamos
+              $("#inicio_sistema").attr('disabled', true);
     $("#fin_sistema").attr('disabled', true);
   }
 }
@@ -3809,16 +3844,16 @@ function ProcesarSistemaUpdate(estado_sistema) {
 // FUNCION PARA MOSTRAR SISTEMA DE CALIDAD ASIGNADO EN VENTANA MODAL
 function VerSistema(id_rel_industria_sistema) {
 
-  $('#muestradetallesistemamodal').html('<center><i class="fa fa-spin fa-spinner"></i> Cargando información, por favor espere....</center>');
+              $('#muestradetallesistemamodal').html('<center><i class="fa fa-spin fa-spinner"></i> Cargando información, por favor espere....</center>');
 
   var dataString = 'BuscaDetalleSistemaModal=si&id_rel_industria_sistema=' + id_rel_industria_sistema;
 
   $.ajax({
-    type: "GET",
+              type: "GET",
     url: "funciones.php",
     data: dataString,
     success: function (response) {
-      $('#muestradetallesistemamodal').empty();
+              $('#muestradetallesistemamodal').empty();
       $('#muestradetallesistemamodal').append('' + response + '').fadeIn("slow");
 
     }
@@ -3827,8 +3862,8 @@ function VerSistema(id_rel_industria_sistema) {
 
 // FUNCION PARA ACTUALIZAR SISTEMA DE CALIDAD ASIGNADO
 function UpdateSistema(id_rel_industria_sistema, id_industria, nombre_de_fantasia, nomsistema, estado_sistema, inicio_sistema, fin_sistema, anio) {
-  // aqui asigno cada valor a los campos correspondientes
-  $("#updatesistema #id_rel_industria_sistema").val(id_rel_industria_sistema);
+              // aqui asigno cada valor a los campos correspondientes
+              $("#updatesistema #id_rel_industria_sistema").val(id_rel_industria_sistema);
   $("#updatesistema #industria_sistema_update").val(id_industria);
   $("#updatesistema #nombre_de_fantasia").text(nombre_de_fantasia);
   $("#updatesistema #nombre_sistema").text(nomsistema);
@@ -3840,36 +3875,36 @@ function UpdateSistema(id_rel_industria_sistema, id_industria, nombre_de_fantasi
 
 /////FUNCION PARA ELIMINAR SISTEMA DE CALIDAD ASIGNADO
 function EliminarSistema(id_rel_industria_sistema, id_industria, seccion, tipo) {
-  swal({
-    title: "¿Estás seguro?",
-    text: "¿Estás seguro de Eliminar esta Norma de Calidad de la Industria?",
-    type: "warning",
-    showCancelButton: true,
-    cancelButtonText: "Cancelar",
-    cancelButtonColor: '#d33',
-    closeOnConfirm: false,
-    confirmButtonText: "Eliminar",
-    confirmButtonColor: "#808080"
-  }, function () {
-    $.ajax({
-      type: "GET",
-      url: "eliminar.php",
-      data: "id_rel_industria_sistema=" + id_rel_industria_sistema + "&tipo=" + tipo,
-      success: function (data) {
+              swal({
+                title: "¿Estás seguro?",
+                text: "¿Estás seguro de Eliminar esta Norma de Calidad de la Industria?",
+                type: "warning",
+                showCancelButton: true,
+                cancelButtonText: "Cancelar",
+                cancelButtonColor: '#d33',
+                closeOnConfirm: false,
+                confirmButtonText: "Eliminar",
+                confirmButtonColor: "#808080"
+              }, function () {
+                $.ajax({
+                  type: "GET",
+                  url: "eliminar.php",
+                  data: "id_rel_industria_sistema=" + id_rel_industria_sistema + "&tipo=" + tipo,
+                  success: function (data) {
 
-        if (data == 1) {
+                    if (data == 1) {
 
-          swal("Eliminado!", "Datos eliminados con éxito!", "success");
-          $('#secciones').load("formularios.php?BuscaFormularioProcedimiento=si&seccion=" + seccion + "&in=" + id_industria);
+                      swal("Eliminado!", "Datos eliminados con éxito!", "success");
+                      $('#secciones').load("formularios.php?BuscaFormularioProcedimiento=si&seccion=" + seccion + "&in=" + id_industria);
 
-        } else {
+                    } else {
 
-          swal("Oops", "Usted no tiene Acceso para Eliminar Norma de Calidad, no tienes Privilegios para este Proceso!", "error");
+                      swal("Oops", "Usted no tiene Acceso para Eliminar Norma de Calidad, no tienes Privilegios para este Proceso!", "error");
 
-        }
-      }
-    })
-  });
+                    }
+                  }
+                })
+              });
 }
 
 
@@ -3893,8 +3928,8 @@ function EliminarSistema(id_rel_industria_sistema, id_industria, seccion, tipo) 
 
 // FUNCION PARA AGREGA ID ACTIVIDAD EN PROMOCIONES
 function AddIdPromocionModal(id_industria, nombre_de_fantasia, anio) {
-  // aqui asigno cada valor a los campos correspondientes
-  $("#savepromocion #industria_promocion").val(id_industria);
+              // aqui asigno cada valor a los campos correspondientes
+              $("#savepromocion #industria_promocion").val(id_industria);
   $("#savepromocion #nombre_de_fantasia").text(nombre_de_fantasia);
   $("#savepromocion #anio_promocion").val(anio);
 }
@@ -3904,14 +3939,14 @@ function ProcesarPromocion(estado_promocion, i) {
 
   if (estado_promocion === 'POSEE' || estado_promocion === true) {
 
-    //deshabilitamos
-    $("#inicio_promocion_" + i).attr('disabled', false);
+              //deshabilitamos
+              $("#inicio_promocion_" + i).attr('disabled', false);
     $("#fin_promocion_" + i).attr('disabled', false);
 
   } else {
 
-    // habilitamos
-    $("#inicio_promocion_" + i).attr('disabled', true);
+              // habilitamos
+              $("#inicio_promocion_" + i).attr('disabled', true);
     $("#fin_promocion_" + i).attr('disabled', true);
   }
 
@@ -3923,13 +3958,13 @@ function ActivaRadioPromocion(estado_promocion) {
 
   if (estado_promocion === "POSEE" || estado_promocion === true) {
 
-    $("#inicio_promocion").attr('disabled', false);
+              $("#inicio_promocion").attr('disabled', false);
     $("#fin_promocion").attr('disabled', false);
 
   } else {
 
-    // habilitamos
-    $("#inicio_promocion").attr('disabled', true);
+              // habilitamos
+              $("#inicio_promocion").attr('disabled', true);
     $("#fin_promocion").attr('disabled', true);
 
   }
@@ -3940,14 +3975,14 @@ function ProcesarPromocionUpdate(estado_promocion) {
 
   if (estado_promocion === 'POSEE' || estado_promocion === true) {
 
-    //deshabilitamos
-    $("#inicio_promocion").attr('disabled', false);
+              //deshabilitamos
+              $("#inicio_promocion").attr('disabled', false);
     $("#fin_promocion").attr('disabled', false);
 
   } else {
 
-    // habilitamos
-    $("#inicio_promocion").attr('disabled', true);
+              // habilitamos
+              $("#inicio_promocion").attr('disabled', true);
     $("#fin_promocion").attr('disabled', true);
   }
 }
@@ -3955,16 +3990,16 @@ function ProcesarPromocionUpdate(estado_promocion) {
 // FUNCION PARA MOSTRAR PROMOCIONES ASIGNADO EN VENTANA MODAL
 function VerPromocion(id_rel_industria_promocion_industrial) {
 
-  $('#muestradetallepromocionmodal').html('<center><i class="fa fa-spin fa-spinner"></i> Cargando información, por favor espere....</center>');
+              $('#muestradetallepromocionmodal').html('<center><i class="fa fa-spin fa-spinner"></i> Cargando información, por favor espere....</center>');
 
   var dataString = 'BuscaDetallePromocionModal=si&id_rel_industria_promocion_industrial=' + id_rel_industria_promocion_industrial;
 
   $.ajax({
-    type: "GET",
+              type: "GET",
     url: "funciones.php",
     data: dataString,
     success: function (response) {
-      $('#muestradetallepromocionmodal').empty();
+              $('#muestradetallepromocionmodal').empty();
       $('#muestradetallepromocionmodal').append('' + response + '').fadeIn("slow");
 
     }
@@ -3977,8 +4012,8 @@ function VerPromocion(id_rel_industria_promocion_industrial) {
 // FUNCION PARA ACTUALIZAR CERTIFICADO ASIGNADO
 function UpdatePromocion(id_rel_industria_promocion_industrial, id_industria, nombre_de_fantasia, nompromocion, estado_promocion, inicio_promocion
   , fin_promocion, anio) {
-  // aqui asigno cada valor a los campos correspondientes
-  $("#updatepromocion #id_rel_industria_promocion_industrial").val(id_rel_industria_promocion_industrial);
+              // aqui asigno cada valor a los campos correspondientes
+              $("#updatepromocion #id_rel_industria_promocion_industrial").val(id_rel_industria_promocion_industrial);
   $("#updatepromocion #industria_promocion_update").val(id_industria);
   $("#updatepromocion #nombre_de_fantasia").text(nombre_de_fantasia);
   $("#updatepromocion #nombre_promocion").text(nompromocion);
@@ -3991,36 +4026,36 @@ function UpdatePromocion(id_rel_industria_promocion_industrial, id_industria, no
 
 /////FUNCION PARA ELIMINAR PROMOCIONES ASIGNADO
 function EliminarPromocion(id_rel_industria_promocion_industrial, id_industria, seccion, tipo) {
-  swal({
-    title: "¿Estás seguro?",
-    text: "¿Estás seguro de Eliminar esta Promoción Industrial?",
-    type: "warning",
-    showCancelButton: true,
-    cancelButtonText: "Cancelar",
-    cancelButtonColor: '#d33',
-    closeOnConfirm: false,
-    confirmButtonText: "Eliminar",
-    confirmButtonColor: "#808080"
-  }, function () {
-    $.ajax({
-      type: "GET",
-      url: "eliminar.php",
-      data: "id_rel_industria_promocion_industrial=" + id_rel_industria_promocion_industrial + "&tipo=" + tipo,
-      success: function (data) {
+              swal({
+                title: "¿Estás seguro?",
+                text: "¿Estás seguro de Eliminar esta Promoción Industrial?",
+                type: "warning",
+                showCancelButton: true,
+                cancelButtonText: "Cancelar",
+                cancelButtonColor: '#d33',
+                closeOnConfirm: false,
+                confirmButtonText: "Eliminar",
+                confirmButtonColor: "#808080"
+              }, function () {
+                $.ajax({
+                  type: "GET",
+                  url: "eliminar.php",
+                  data: "id_rel_industria_promocion_industrial=" + id_rel_industria_promocion_industrial + "&tipo=" + tipo,
+                  success: function (data) {
 
-        if (data == 1) {
+                    if (data == 1) {
 
-          swal("Eliminado!", "Datos eliminados con éxito!", "success");
-          $('#secciones').load("formularios.php?BuscaFormularioProcedimiento=si&seccion=" + seccion + "&in=" + id_industria);
+                      swal("Eliminado!", "Datos eliminados con éxito!", "success");
+                      $('#secciones').load("formularios.php?BuscaFormularioProcedimiento=si&seccion=" + seccion + "&in=" + id_industria);
 
-        } else {
+                    } else {
 
-          swal("Oops", "Usted no tiene Acceso para Eliminar Promociones Industriales, no tienes Privilegios para este Proceso!", "error");
+                      swal("Oops", "Usted no tiene Acceso para Eliminar Promociones Industriales, no tienes Privilegios para este Proceso!", "error");
 
-        }
-      }
-    })
-  });
+                    }
+                  }
+                })
+              });
 }
 
 
@@ -4043,8 +4078,8 @@ function EliminarPromocion(id_rel_industria_promocion_industrial, id_industria, 
 
 // FUNCION PARA AGREGA ID ACTIVIDAD EN ECONOMIA DEL CONOCIMIENTO
 function AddIdEconomiaModal(id_industria, nombre_de_fantasia, anio) {
-  // aqui asigno cada valor a los campos correspondientes
-  $("#saveeconomia #industria_economia").val(id_industria);
+              // aqui asigno cada valor a los campos correspondientes
+              $("#saveeconomia #industria_economia").val(id_industria);
   $("#saveeconomia #nombre_de_fantasia").text(nombre_de_fantasia);
   $("#saveeconomia #anio_economia").val(anio);
 }
@@ -4053,16 +4088,16 @@ function AddIdEconomiaModal(id_industria, nombre_de_fantasia, anio) {
 // FUNCION PARA MOSTRAR ECONOMIA DEL CONOCIMIENTO ASIGNADO EN VENTANA MODAL
 function VerEconomia(id_economia) {
 
-  $('#muestradetalleeconomiamodal').html('<center><i class="fa fa-spin fa-spinner"></i> Cargando información, por favor espere....</center>');
+              $('#muestradetalleeconomiamodal').html('<center><i class="fa fa-spin fa-spinner"></i> Cargando información, por favor espere....</center>');
 
   var dataString = 'BuscaDetalleEconomiaModal=si&id_economia=' + id_economia;
 
   $.ajax({
-    type: "GET",
+              type: "GET",
     url: "funciones.php",
     data: dataString,
     success: function (response) {
-      $('#muestradetalleeconomiamodal').empty();
+              $('#muestradetalleeconomiamodal').empty();
       $('#muestradetalleeconomiamodal').append('' + response + '').fadeIn("slow");
 
     }
@@ -4073,16 +4108,16 @@ function VerEconomia(id_economia) {
 // FUNCION PARA VERIFICAR TIPOS DE SECTORES
 function VerificaEconomia(id_economia) {
 
-  $('#muestraeconomia').html('<center><i class="fa fa-spin fa-spinner"></i> Cargando información, por favor espere....</center>');
+              $('#muestraeconomia').html('<center><i class="fa fa-spin fa-spinner"></i> Cargando información, por favor espere....</center>');
 
   var dataString = 'ProcesaEconomia=si&id_economia=' + id_economia;
 
   $.ajax({
-    type: "GET",
+              type: "GET",
     url: "funciones.php",
     data: dataString,
     success: function (response) {
-      $('#muestraeconomia').empty();
+              $('#muestraeconomia').empty();
       $('#muestraeconomia').append('' + response + '').fadeIn("slow");
     }
   });
@@ -4097,13 +4132,13 @@ function ActivaSector(sector) {
 
   if (sector === "7" || sector === true) {
 
-    // deshabilitamos
-    $("#otro_sector").attr('disabled', false);
+              // deshabilitamos
+              $("#otro_sector").attr('disabled', false);
 
   } else {
 
-    // habilitamos
-    $("#otro_sector").attr('disabled', true);
+              // habilitamos
+              $("#otro_sector").attr('disabled', true);
 
   }
 }
@@ -4114,13 +4149,13 @@ function ActivaPersonal(personal) {
 
   if (personal === "11" || personal === true) {
 
-    // habilitamos
-    $("#otro_personal").attr('disabled', false);
+              // habilitamos
+              $("#otro_personal").attr('disabled', false);
 
   } else {
 
-    // deshabilitamos
-    $("#otro_personal").attr('disabled', true);
+              // deshabilitamos
+              $("#otro_personal").attr('disabled', true);
 
   }
 }
@@ -4128,8 +4163,8 @@ function ActivaPersonal(personal) {
 
 // FUNCION PARA ACTUALIZAR ECONOMIA DEL CONOCIMIENTO ASIGNADO
 function UpdateEconomia(id_economia, id_industria, nombre_de_fantasia, anio, proceso) {
-  // aqui asigno cada valor a los campos correspondientes
-  $("#saveeconomia #id_economia").val(id_economia);
+              // aqui asigno cada valor a los campos correspondientes
+              $("#saveeconomia #id_economia").val(id_economia);
   $("#saveeconomia #industria_economia").val(id_industria);
   $("#saveeconomia #nombre_de_fantasia").text(nombre_de_fantasia);
   $("#saveeconomia #anio_economia").val(anio);
@@ -4138,34 +4173,34 @@ function UpdateEconomia(id_economia, id_industria, nombre_de_fantasia, anio, pro
 
 /////FUNCION PARA ELIMINAR ECONOMIA DEL CONOCIMIENTO ASIGNADO
 function EliminarEconomia(id_economia, id_industria, seccion, tipo) {
-  swal({
-    title: "¿Estás seguro?",
-    text: "¿Estás seguro de Eliminar esta Economia de Conocimiento?",
-    type: "warning",
-    showCancelButton: true,
-    cancelButtonText: "Cancelar",
-    cancelButtonColor: '#d33',
-    closeOnConfirm: false,
-    confirmButtonText: "Eliminar",
-    confirmButtonColor: "#808080"
-  }, function () {
-    $.ajax({
-      type: "GET",
-      url: "eliminar.php",
-      data: "id_economia=" + id_economia + "&tipo=" + tipo,
-      success: function (data) {
+              swal({
+                title: "¿Estás seguro?",
+                text: "¿Estás seguro de Eliminar esta Economia de Conocimiento?",
+                type: "warning",
+                showCancelButton: true,
+                cancelButtonText: "Cancelar",
+                cancelButtonColor: '#d33',
+                closeOnConfirm: false,
+                confirmButtonText: "Eliminar",
+                confirmButtonColor: "#808080"
+              }, function () {
+                $.ajax({
+                  type: "GET",
+                  url: "eliminar.php",
+                  data: "id_economia=" + id_economia + "&tipo=" + tipo,
+                  success: function (data) {
 
-        if (data == 1) {
+                    if (data == 1) {
 
-          swal("Eliminado!", "Datos eliminados con éxito!", "success");
-          $('#secciones').load("formularios.php?BuscaFormularioProcedimiento=si&seccion=" + seccion + "&in=" + id_industria);
+                      swal("Eliminado!", "Datos eliminados con éxito!", "success");
+                      $('#secciones').load("formularios.php?BuscaFormularioProcedimiento=si&seccion=" + seccion + "&in=" + id_industria);
 
-        } else {
+                    } else {
 
-          swal("Oops", "Usted no tiene Acceso para Eliminar Economia de Conocimiento, no tienes Privilegios para este Proceso!", "error");
+                      swal("Oops", "Usted no tiene Acceso para Eliminar Economia de Conocimiento, no tienes Privilegios para este Proceso!", "error");
 
-        }
-      }
-    })
-  });
+                    }
+                  }
+                })
+              });
 }

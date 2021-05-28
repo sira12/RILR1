@@ -847,7 +847,7 @@ $(document).ready(function () {
         }
     });
 
-    $("#search_localidad32").autocomplete({
+    $("#search_localidad_insumo").autocomplete({
         source: function (request, response) {
             // Fetch data
             $.ajax({
@@ -867,8 +867,8 @@ $(document).ready(function () {
         },
         select: function (event, ui) {
             // Set selection
-            $('#search_localidad32').val(ui.item.label); // display the selected text
-            $('#id_localidad3').val(ui.item.value); // save selected id to input
+            $('#search_localidad_insumo').val(ui.item.label); // display the selected text
+            $('#id_localidad_insumo').val(ui.item.value); // save selected id to input
 
             return false;
         }
@@ -1193,5 +1193,6 @@ function getMotivo() {
         }
     });
 }
+
 
 
