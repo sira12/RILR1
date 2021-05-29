@@ -3301,12 +3301,13 @@ $('document').ready(function () {
 
 							});
 						}
-						else if (data == 2) {
+						else*/ if (response.status == 1) {
 
 							$("#save").fadeIn(1000, function () {
 
+								console.log(response.msg)
 								var n = noty({
-									text: "<span class='fa fa-warning'></span> ESTE INSUMO YA SE ENCUENTRA REGISTRADO, VERIFIQUE NUEVAMENTE POR FAVOR ...!",
+									text: "<span class='fa fa-warning'>"+data.msg+"</span>",
 									theme: 'defaultTheme',
 									layout: 'center',
 									type: 'warning',
@@ -3316,7 +3317,7 @@ $('document').ready(function () {
 
 							});
 						}
-						else */ if (response.status == 200) {
+						else if (response.status == 200) {
 
 						$("#save").fadeIn(1000, function () {
 
@@ -3339,6 +3340,7 @@ $('document').ready(function () {
 							$("#saveasignacioninsumo #anio_insumo").val("");
 							$("#saveasignacioninsumo #detalles_insumo").attr('disabled', true);
 							$("#btn-insumo").html('<span class="fa fa-save"></span> Agregar y Guardar');
+							cargar_tabla_insumos();
 						});
 
 					}

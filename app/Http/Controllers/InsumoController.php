@@ -68,8 +68,7 @@ class InsumoController extends Controller
 
        parse_str($request->data,$params);
 
-
-
+        
        $id_industria= intval($request->id_industria);
 
        $date = Carbon::now()->format('Y');
@@ -117,7 +116,7 @@ class InsumoController extends Controller
              $pais = intval($params['id_pais_insumo']);
              $localidad = intval($params['id_localidad_insumo']);
              $motivo = intval($params['motivo_importacion_insumo']);
-             $detalles = $params['detalles_insumo'];
+             $detalles = isset($params['detalles_insumo']) ?  $params['detalles_insumo'] : "";
          }
 
          $id_rel_insumo_industria = DB::table('rel_industria_insumo')->insertGetId([
