@@ -100,6 +100,9 @@ Route::get('/procedimientos',[ProcedimientosController::class,'index'] )->middle
     Route::post('/search_insumo', [InsumoController::class, 'search_insumo'])->middleware(['auth']);
     Route::post('/saveInsumo', [InsumoController::class, 'store'])->middleware(['auth']);
     Route::post('/listInsumos', [InsumoController::class, 'listInsumos'])->middleware(['auth']);
+    Route::post('/getInsumo', [InsumoController::class, 'getInsumo'])->middleware(['auth']);
+    Route::post('/updateInsumo', [InsumoController::class, 'updateRelInsumo'])->middleware(['auth']);
+    Route::post('/deleteRelInsumo', [InsumoController::class, 'deleteRel'])->middleware(['auth']);
 
     //servicios basicos
 

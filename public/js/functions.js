@@ -991,11 +991,11 @@ function cargar_tabla_insumos() {
 
 
         ],
-        
+        /* 
         createdRow: function (row, data, dataIndex) {
             $(row).addClass('odd');
             $(row).attr('role', 'row');
-        },
+        }, */
     })
 
 }
@@ -1130,6 +1130,20 @@ function cargar_tabla_materia_utilizada() {
 
 }
 
+//limpiar id insumo
+
+$(document).ready(function () {
+    $("#search_insumo").keyup(function(){
+        
+        console.log($("#search_insumo").val().length)
+        if($("#search_insumo").val().length < 1){
+
+          
+            $("#id_insumo").val("");
+        }
+
+      });
+})  
 
 
 

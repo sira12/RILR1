@@ -652,24 +652,8 @@
 
                         <div class="modal-footer">
                             <button type="submit" name="btn-insumo" id="btn-insumo" class="btn btn-danger"><span class="fa fa-save"></span> Guardar</button>
-                            <button class="btn btn-dark" type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="
-                document.getElementById('insumo').value = 'saveinsumo',
-                document.getElementById('industria_insumo').value = '',
-                document.getElementById('anio_insumo').value = '',
-                document.getElementById('id_insumo').value = '',
-                document.getElementById('search_insumo').value = '',
-                document.getElementById('medida_insumo').value = '',
-                document.getElementById('cantidad_insumo').value = '',
-                document.getElementById('es_propio_insumo').value = '',
-                document.getElementById('id_pais2').value = '',
-                document.getElementById('search_pais2').value = '',
-                document.getElementById('id_provincia2').value = '',
-                document.getElementById('search_provincia2').value = '',
-                document.getElementById('id_localidad4').value = '',
-                document.getElementById('search_localidad4').value = '',
-                document.getElementById('motivo_importacion_insumo').value = '',
-                document.getElementById('detalles_insumo').value = ''
-                "><span class="fa fa-trash-o"></span> Cancelar</button>
+                            <button type="button" name="btn-insumo-update" style="display:none" id="btn-insumo-update" class="btn btn-danger"><span class="fa fa-save"></span> Guardar</button>
+                            <button class="btn btn-dark" id="btn-cancelar-insumo" type="button" class="close" data-dismiss="modal" aria-hidden="true" ><span class="fa fa-trash-o"></span> Cancelar</button>
                         </div>
                     </form>
 

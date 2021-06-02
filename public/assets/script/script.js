@@ -3286,45 +3286,31 @@ $('document').ready(function () {
 					$("#btn-insumo").html('<i class="fa fa-refresh"></i> Verificando...');
 				},
 				success: function (response) {
-						/* if (data == 1) {
+					if (response.status == 1) {
 
-							$("#save").fadeIn(1000, function () {
 
-								var n = noty({
-									text: "<span class='fa fa-warning'></span> POR FAVOR DEBE DE COMPLETAR LOS CAMPOS REQUERIDOS, VERIFIQUE NUEVAMENTE POR FAVOR...!",
-									theme: 'defaultTheme',
-									layout: 'center',
-									type: 'warning',
-									timeout: 5000,
-								});
-								$("#btn-insumo").html('<span class="fa fa-save"></span> Agregar y Guardar');
 
-							});
-						}
-						else*/ if (response.status == 1) {
-
-							$("#save").fadeIn(1000, function () {
-
-								console.log(response.msg)
-								var n = noty({
-									text: "<span class='fa fa-warning'>"+data.msg+"</span>",
-									theme: 'defaultTheme',
-									layout: 'center',
-									type: 'warning',
-									timeout: 5000,
-								});
-								$("#btn-insumo").html('<span class="fa fa-save"></span> Agregar y Guardar');
+						$("#save").fadeIn(1000, function () {
+							var n = noty({
+								text: "<span class='fa fa-warning' style='font-size:18px;'></span>" + response.msg,
+								theme: 'relax',
+								layout: 'topCenter',
+								type: 'warning',
+								timeout: 5000,
 
 							});
-						}
-						else if (response.status == 200) {
+							$("#btn-insumo").html('<span class="fa fa-save"></span> Agregar y Guardar');
+
+						});
+					}
+					else if (response.status == 200) {
 
 						$("#save").fadeIn(1000, function () {
 
 							var n = noty({
-								text: '<center> ' + response.msg + ' </center>',
-								theme: 'defaultTheme',
-								layout: 'center',
+								text: '<center style="font-size:15px;"> ' + response.msg + ' </center>',
+								theme: 'relax',
+								layout: 'topCenter',
 								type: 'information',
 								timeout: 5000,
 							});
@@ -3357,6 +3343,221 @@ $('document').ready(function () {
 
 
 
+$("#btn-insumo-update").on('click', function () {
+	$("#btn-insumo-update").html('<i class="fa fa-refresh"></i> Verificando...');
+	var val = 1;
+	if ($("#search_insumo").val() == "") {
+		val = 0
+		var n = noty({
+			text: "<span class='fa fa-warning'></span> Debe Completar la busqueda del insumo",
+			theme: 'defaultTheme',
+			layout: 'topCenter',
+			type: 'warning',
+			timeout: 5000,
+		});
+	} else if ($("#medida_insumo").val() == "") {
+		val = 0
+		var n = noty({
+			text: "<span class='fa fa-warning'></span> Debe seleccionar unidad de medida",
+			theme: 'defaultTheme',
+			layout: 'topCenter',
+			type: 'warning',
+			timeout: 5000,
+		});
+
+	} else if ($("#cantidad_insumo").val() == "") {
+		val = 0
+		var n = noty({
+			text: "<span class='fa fa-warning'></span> Debe indicar una cantidad",
+			theme: 'defaultTheme',
+			layout: 'topCenter',
+			type: 'warning',
+			timeout: 5000,
+		});
+
+	} else if ($("#es_propio_insumo").val() == "") {
+		val = 0
+		var n = noty({
+			text: "<span class='fa fa-warning'></span> Debe indicar el origen del insumo",
+			theme: 'defaultTheme',
+			layout: 'topCenter',
+			type: 'warning',
+			timeout: 5000,
+		});
+	} else if ($("#es_propio_insumo").val() == "A") {
+
+		if ($("#search_pais_insumo").val() == "") {
+			val = 0
+			var n = noty({
+				text: "<span class='fa fa-warning'></span> Debe indicar el pais",
+				theme: 'defaultTheme',
+				layout: 'topCenter',
+				type: 'warning',
+				timeout: 5000,
+			});
+		} else if ($("#search_provincia_insumo").val() == "") {
+			val = 0
+			var n = noty({
+				text: "<span class='fa fa-warning'></span> Debe indicar la provincia",
+				theme: 'defaultTheme',
+				layout: 'topCenter',
+				type: 'warning',
+				timeout: 5000,
+			});
+		} else if ($("#search_localidad_insumo").val() == "") {
+			val = 0
+			var n = noty({
+				text: "<span class='fa fa-warning'></span> Debe indicar la localidad",
+				theme: 'defaultTheme',
+				layout: 'topCenter',
+				type: 'warning',
+				timeout: 5000,
+			});
+		}
+
+
+
+	}
+
+
+	if (val == 1) {
+		var data = $("#updateasignacioninsumo").serialize();
+		var seccion = $("#seccioninsumo").val();
+		var industria = $("#id_industria_modal").val();
+
+		$.ajax({
+			type: 'POST',
+			url: '/updateInsumo',
+			async: false,
+			data: {
+				_token: $('meta[name="csrf-token"]').attr('content'),
+				id_industria: industria,
+				data: data
+			},
+			beforeSend: function () {
+				$("#save").fadeOut();
+				$("#btn-insumo-update").html('<i class="fa fa-refresh"></i> Verificando...');
+			},
+			success: function (response) {
+				if (response.status == 1) {
+
+
+
+					$("#save").fadeIn(1000, function () {
+						var n = noty({
+							text: "<span class='fa fa-warning' style='font-size:18px;'></span>" + response.msg,
+							theme: 'relax',
+							layout: 'topCenter',
+							type: 'warning',
+							timeout: 5000,
+
+						});
+						$("#btn-insumo-update").html('<span class="fa fa-save"></span> Agregar y Guardar');
+
+					});
+				}
+				else if (response.status == 200) {
+
+					$("#save").fadeIn(1000, function () {
+
+						var n = noty({
+							text: '<center style="font-size:15px;"> ' + response.msg + ' </center>',
+							theme: 'relax',
+							layout: 'topCenter',
+							type: 'information',
+							timeout: 5000,
+						});
+						$('#MyModalInsumo').modal('hide');
+
+
+					
+
+						// aqui asigno cada valor a los campos correspondientes
+						$("#updateasignacioninsumo #id_rel_industria_insumos").val("");
+						//$("#updateasignacioninsumo #industria_insumo").val(id_industria);
+						//$("#updateasignacioninsumo #nombre_de_fantasia").text(nombre_de_fantasia);
+						$("#updateasignacioninsumo #id_insumo").val("");
+						$("#updateasignacioninsumo #search_insumo").val("");
+						$("#updateasignacioninsumo #medida_insumo").val("");
+						$("#updateasignacioninsumo #cantidad_insumo").val("");
+						$("#updateasignacioninsumo #es_propio_insumo").val("");
+
+
+						$("#updateasignacioninsumo #id_pais_insumo").val("");
+						$("#updateasignacioninsumo #search_pais_insumo").val("");
+						$("#updateasignacioninsumo #id_provincia_insumo").val("");
+						$("#updateasignacioninsumo #search_provincia_insumo").val("");
+						$("#updateasignacioninsumo #id_localidad_insumo").val("");
+						$("#updateasignacioninsumo #search_localidad_insumo").val("");
+						$("#updateasignacioninsumo #motivo_importacion_insumo").val("");
+
+						$("#updateasignacioninsumo #detalles_insumo").val("");
+
+
+						$("#btn-insumo-update").html('<span class="fa fa-save"></span> Agregar y Guardar');
+
+						$("#btn-insumo").show();
+      
+						$("#btn-insumo-update").hide();
+				  
+
+						$("#saveasignacioninsumo").prop('id', 'updateasignacioninsumo');
+						$("#updateasignacioninsumo").prop('name', 'updateasignacioninsumo');
+						cargar_tabla_insumos();
+					});
+
+				}
+
+				return false;
+			}
+			/* form submit */
+
+		});
+	}
+
+
+
+
+
+})
+
+
+
+
+//btn cancelar insumo
+
+
+$("#btn-cancelar-insumo").on('click', function () {
+
+	$("#updateasignacioninsumo").prop('id', 'saveasignacioninsumo');
+	$("#saveasignacioninsumo").prop('name', 'saveasignacioninsumo');
+
+	$("#btn-insumo").show();
+
+	$("#btn-insumo-update").hide();
+
+
+	document.getElementById('industria_insumo').value = '',
+		document.getElementById('anio_insumo').value = '',
+		document.getElementById('id_insumo').value = '',
+		document.getElementById('search_insumo').value = '',
+		document.getElementById('medida_insumo').value = '',
+		document.getElementById('cantidad_insumo').value = '',
+		document.getElementById('es_propio_insumo').value = '',
+		document.getElementById('id_pais_insumo').value = '',
+		document.getElementById('search_pais_insumo').value = '',
+		document.getElementById('id_provincia_insumo').value = '',
+		document.getElementById('search_provincia_insumo').value = '',
+		document.getElementById('id_localidad_insumo').value = '',
+		document.getElementById('search_localidad_insumo').value = '',
+		document.getElementById('motivo_importacion_insumo').value = '',
+		document.getElementById('detalles_insumo').value = ''
+
+
+
+});
+
+
 
 
 
@@ -3380,12 +3581,12 @@ $('document').ready(function () {
 	$("#saveserviciobasico").validate({
 		rules:
 		{
-			
+
 			costo_basico: { required: false, number: false },
 		},
 		messages:
 		{
-			
+
 			costo_basico: { required: "Ingrese Costo Asociado", number: "Ingrese solo digitos" },
 		},
 		submitHandler: function (form) {
@@ -3400,7 +3601,7 @@ $('document').ready(function () {
 				async: false,
 				data: {
 					_token: $('meta[name="csrf-token"]').attr('content'),
-					data:data
+					data: data
 				},
 				beforeSend: function () {
 					$("#save").fadeOut();
@@ -3452,7 +3653,7 @@ $('document').ready(function () {
 
 						});
 					}
-					else if(data.status == 200) {
+					else if (data.status == 200) {
 
 						$("#save").fadeIn(1000, function () {
 

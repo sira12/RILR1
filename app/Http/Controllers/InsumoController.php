@@ -68,7 +68,7 @@ class InsumoController extends Controller
 
        parse_str($request->data,$params);
 
-        
+
        $id_industria= intval($request->id_industria);
 
        $date = Carbon::now()->format('Y');
@@ -141,6 +141,118 @@ class InsumoController extends Controller
 
     }
 
+    public function getInsumo (Request $request) {
+
+        $insumo=DB::table('rel_industria_insumo')->where('id_rel_industria_insumo',$request->id_rel_insumo)
+        ->join('insumo', 'rel_industria_insumo.id_insumo','insumo.id_insumo')
+        ->join('pais','rel_industria_insumo.id_pais','pais.id_pais')
+        ->join('localidad','rel_industria_insumo.id_localidad','localidad.id_localidad')
+        ->join('provincia','localidad.id_provincia','provincia.id_provincia')
+        ->select(
+          'rel_industria_insumo.*',
+          'insumo.insumo',
+          'pais.pais',
+          'localidad.localidad',
+          'provincia.provincia',
+          'provincia.id_provincia'
+
+
+        )
+        ->get();
+
+        return response()->json($insumo);
+
+
+
+
+
+    }
+
+    public function updateRelInsumo (Request $request) {
+      $params=[];
+
+      parse_str($request->data,$params);
+
+      $id_industria= intval($request->id_industria);
+
+      $date = Carbon::now()->format('Y');
+      $status = 200;
+
+      //si el id del insumo viene vacio significa que no encontró el insumo, por lo tanto hay que cargarlo
+      if ($params['id_insumo'] == "") {
+          $insumo = new InsumoController();
+          $id_insumo = $insumo->store_insumo($request);
+      } else {
+          $id_insumo = intval($params['id_insumo']);
+      }
+
+      //comprobaciones
+      $ins_existente = DB::table('rel_industria_insumo')
+          ->where('id_industria', $id_industria)
+          ->where('id_insumo',  $id_insumo)
+          ->where('id_rel_industria_insumo','!=',intval($params['id_rel_industria_insumos']))
+          ->get();
+
+       //si el insumo ya esta cargado para esta industria devolver msj
+      if (count($ins_existente) > 0) {
+          $msg = "¡Este insumo ya se encuentra cargado para esta industria!";
+          $status = 1;
+      } else {
+
+
+        if ($params['es_propio_insumo'] == "P") {
+
+
+            $pais = intval($params['id_pais_insumo']);
+            $localidad = intval($params['id_localidad_insumo']);
+
+            $motivo = null;
+            $detalles = "";
+        } else {
+
+            $pais = intval($params['id_pais_insumo']);
+            $localidad = intval($params['id_localidad_insumo']);
+            $motivo = $params['motivo_importacion_insumo'] !== "" ? intval($params['motivo_importacion_insumo']) : NULL;
+            $detalles = isset($params['detalles_insumo']) ?  $params['detalles_insumo'] : "";
+        }
+
+
+
+
+
+            $id_rel_producto_actividad = DB::table('rel_industria_insumo')
+                ->where('id_rel_industria_insumo', intval($params['id_rel_industria_insumos']))
+                ->update([
+                  'id_industria' => $id_industria,
+                  'id_insumo' => $id_insumo,
+                  'id_unidad_de_medida' => intval($params['medida_insumo']),
+                  'cantidad' => intval($params['cantidad_insumo']),
+                  'es_propio' => $params['es_propio_insumo'],
+                  'id_localidad' =>  $localidad ,
+                  'id_pais' => $pais,
+                  'id_motivo_importacion' => $motivo,
+                  'detalles' => $detalles,
+
+                  'fecha_de_actualizacion' => Carbon::now(),
+                ]);
+
+
+        $msg = "¡Datos Actualizados exitosamente!";
+
+      }
+
+      return response()->json(array('status' => $status, 'msg' => $msg), 200);
+
+
+    }
+
+    public function deleteRel (Request $request){
+
+      if(DB::table('rel_industria_insumo')->where('id_rel_industria_insumo', intval($request->id_rel_insumo))->delete()){
+        return response()->json(array('status' => 200), 200);
+      }
+
+    }
 
     public function listInsumos (Request $request) {
 

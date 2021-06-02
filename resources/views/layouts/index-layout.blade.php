@@ -1,6 +1,16 @@
 <html>
 
 <head>
+
+
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Ing. Ruben Chirinos">
     <title>RILR</title>
 
     <!-- Favicon icon -->
@@ -12,7 +22,7 @@
     <!-- toast CSS -->
     <link href="{{ asset('assets/plugins/bower_components/toast-master/css/jquery.toast.css')}}" rel="stylesheet">
     <!-- Datatables CSS -->
-    <link href="{{ asset('assets/plugins/datatables/dataTables.bootstrap4.css')}}" rel="stylesheet">
+    <!-- <link href="{{ asset('assets/plugins/datatables/dataTables.bootstrap4.css')}}" rel="stylesheet"> -->
     <!-- Sweet-Alert -->
     <link rel="stylesheet" href="{{ asset('assets/css/sweetalert.css')}}">
     <!-- animation CSS -->
@@ -35,7 +45,7 @@
     <script src="{{ asset('js/functions.js')}}"></script>
 
     <link rel="stylesheet" href="{{asset('assets/venobox/venobox/venobox.min.css')}}" />
-<script src="{{asset('assets/venobox/venobox/venobox.min.js')}}"></script>
+    <script src="{{asset('assets/venobox/venobox/venobox.min.js')}}"></script>
 </head>
 
 <body onLoad="muestraReloj()" class="fix-header">
@@ -61,7 +71,8 @@
         @yield('content')
         @include('footer')
     </div>
-
+   
+   
 
     <!-- apps -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
@@ -90,15 +101,23 @@
 
     <!-- script jquery -->
     <script type="text/javascript" src="{{ asset('assets/script/titulos.js')}}"></script>
+    <script type="text/javascript" src="{{asset('assets/js/bootstrap-inputmask.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('assets/script/mask.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('assets/script/menu.js')}}"></script>
     <script type="text/javascript" src="{{ asset('assets/script/script2.js')}}"></script>
     <script type="text/javascript" src="{{ asset('assets/script/validation.min.js')}}"></script>
     <script type="text/javascript" src="{{ asset('assets/script/script.js')}}"></script>
     <link rel="stylesheet" href="{{ asset('assets/calendario/jquery-ui.css')}}" />
+    
     {{--<script src="{{ asset('assets/calendario/jquery-ui.js')}}"></script>--}}
     <!-- script jquery -->
-
+    
+    
+    <script src="{{asset('assets/plugins/fileupload/bootstrap-fileupload.min.js')}}"></script>
     <!-- jQuery -->
     <script src="{{ asset('assets/plugins/noty/packaged/jquery.noty.packaged.min.js')}}"></script>
+
+   
 
      <!-- Calendario -->
      <link rel="stylesheet" href="{{ asset('assets/calendario/jquery-ui.css')}}" />

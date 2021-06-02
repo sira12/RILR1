@@ -2502,33 +2502,68 @@ function ActivaDetallesInsumo(detalles) {
 }
 
 // FUNCION PARA ACTUALIZAR INSUMO ASIGNADO
-function UpdateInsumoAsignado(id_rel_industria_insumos, id_industria, nombre_de_fantasia, id_insumo, nominsumo, id_unidad_de_medida, cantidad,
-  es_propio, id_pais, search_pais, id_provincia, search_provincia, id_localidad, search_localidad, motivo_importacion, detalles, anio, proceso) {
-  // aqui asigno cada valor a los campos correspondientes
-  $("#saveasignacioninsumo #id_rel_industria_insumos").val(id_rel_industria_insumos);
-  $("#saveasignacioninsumo #industria_insumo").val(id_industria);
-  $("#saveasignacioninsumo #nombre_de_fantasia").text(nombre_de_fantasia);
-  $("#saveasignacioninsumo #id_insumo").val(id_insumo);
-  $("#saveasignacioninsumo #search_insumo").val(nominsumo);
-  $("#saveasignacioninsumo #medida_insumo").val(id_unidad_de_medida);
-  $("#saveasignacioninsumo #cantidad_insumo").val(cantidad);
-  $("#saveasignacioninsumo #es_propio_insumo").val(es_propio);
-  $("#saveasignacioninsumo #id_pais_insumo").val(id_pais);
-  $("#saveasignacioninsumo #search_pais_insumo").val(search_pais);
-  $("#saveasignacioninsumo #id_provincia_insumo").val(id_provincia);
-  $("#saveasignacioninsumo #search_provincia_insumo").val(search_provincia);
-  $("#saveasignacioninsumo #id_localidad_insumo").val(id_localidad);
-  $("#saveasignacioninsumo #search_localidad_insumo").val(search_localidad);
-  $("#saveasignacioninsumo #motivo_importacion_insumo").val(motivo_importacion);
-  $("#saveasignacioninsumo #detalles_insumo").val(detalles);
-  $("#saveasignacioninsumo #anio_insumo").val(anio);
-  $("#saveasignacioninsumo #insumo").val(proceso);
-  (id_localidad == "134" ? $("#motivo_importacion_insumo").attr('disabled', true) : $("#motivo_importacion_insumo").attr('disabled', false));
+function UpdateInsumoAsignado(id_rel_industria_insumos) {
+
+  $.ajax({
+    type: "POST",
+    url: "/getInsumo",
+    data: {
+      _token: $('meta[name="csrf-token"]').attr('content'),
+      id_rel_insumo:id_rel_industria_insumos
+    },
+    success: function (response) {
+
+      $("#btn-insumo").hide();
+      
+      $("#btn-insumo-update").show();
+
+      console.log(response)
+
+      $("#saveasignacioninsumo").prop('id', 'updateasignacioninsumo');
+      $("#updateasignacioninsumo").prop('name', 'updateasignacioninsumo');
+
+       // aqui asigno cada valor a los campos correspondientes
+        $("#updateasignacioninsumo #id_rel_industria_insumos").val(response[0].id_rel_industria_insumo);
+        //$("#updateasignacioninsumo #industria_insumo").val(id_industria);
+        //$("#updateasignacioninsumo #nombre_de_fantasia").text(nombre_de_fantasia);
+        $("#updateasignacioninsumo #id_insumo").val(response[0].id_insumo);
+        $("#updateasignacioninsumo #search_insumo").val(response[0].insumo);
+        $("#updateasignacioninsumo #medida_insumo").val(response[0].id_unidad_de_medida);
+        $("#updateasignacioninsumo #cantidad_insumo").val(response[0].cantidad);
+        $("#updateasignacioninsumo #es_propio_insumo").val(response[0].es_propio);
+
+
+        $("#updateasignacioninsumo #id_pais_insumo").val(response[0].id_pais);
+        $("#updateasignacioninsumo #search_pais_insumo").val(response[0].pais);
+        $("#updateasignacioninsumo #id_provincia_insumo").val(response[0].id_provincia);
+        $("#updateasignacioninsumo #search_provincia_insumo").val(response[0].provincia);
+        $("#updateasignacioninsumo #id_localidad_insumo").val(response[0].id_localidad);
+        $("#updateasignacioninsumo #search_localidad_insumo").val(response[0].localidad);
+       
+
+        if(response[0].es_propio=="P"){
+
+          $(".origen_insumo").hide();
+
+        }else{
+          $(".origen_insumo").show();
+
+          $("#updateasignacioninsumo #motivo_importacion_insumo").val(response[0].id_motivo_importacion);
+
+          $("#updateasignacioninsumo #detalles_insumo").val(response[0].detalles);
+
+         
+        }
+       
+    }
+  });
+
+ 
 }
 
 
 /////FUNCION PARA ELIMINAR INSUMO ASIGNADO
-function EliminarInsumoAsignado(id_rel_industria_insumos, id_industria, seccion, tipo) {
+function EliminarInsumoAsignado(id_rel_industria_insumos) {
   swal({
     title: "¿Estás seguro?",
     text: "¿Estás seguro de Eliminar este Insumo de la Industria?",
@@ -2541,15 +2576,18 @@ function EliminarInsumoAsignado(id_rel_industria_insumos, id_industria, seccion,
     confirmButtonColor: "#808080"
   }, function () {
     $.ajax({
-      type: "GET",
-      url: "eliminar.php",
-      data: "id_rel_industria_insumos=" + id_rel_industria_insumos + "&tipo=" + tipo,
+      type: "POST",
+      url: "/deleteRelInsumo",
+      data:{
+        _token: $('meta[name="csrf-token"]').attr('content'),
+        id_rel_insumo:id_rel_industria_insumos
+      },
       success: function (data) {
 
-        if (data == 1) {
+        if (data.status == 200) {
 
           swal("Eliminado!", "Datos eliminados con éxito!", "success");
-          $('#secciones').load("formularios.php?BuscaFormularioProcedimiento=si&seccion=" + seccion + "&in=" + id_industria);
+          cargar_tabla_insumos();
 
         } else {
 
@@ -2592,7 +2630,6 @@ function AddIdServicioBasicoModal() {
 
 
 
-
   $.ajax({
     type: "post",
     url: "/ser_basicos",
@@ -2600,6 +2637,7 @@ function AddIdServicioBasicoModal() {
       _token: $('meta[name="csrf-token"]').attr('content'),
     },
     success: function (response) {
+      $("#ser_basico").find("tr").remove(); 
       var coma =",";
       var punto="."
 
@@ -2610,10 +2648,10 @@ function AddIdServicioBasicoModal() {
         $('#ser_basico').append(
 
           '<tr role="row" class="odd">'+
-          '<td><input type="hidden" name="id_servicio_basico[]" id="id_servicio_basico" value="'+v.id_servicio+'" /><label>'+v.servicio+'</label></td>'+
+          '<td><input type="hidden" name="id_servicio_basico[]"  value="'+v.id_servicio+'" /><label>'+v.servicio+'</label></td>'+
 
                                             
-          '<td class="text-center"><input type="text" class="form-control" name="costo_basico[]" id="costo_basico" placeholder="Ingrese Importe Total Anual" autocomplete="off" onKeyPress="EvaluateText(\'' + flot + '\',this);" onBlur="this.value=Number_Format(this.value, 2,\'' + coma + '\',\'' + punto + '\')" style="width:100%;height:40px;background:#f0f9fc;border-radius:5px 5px 5px 5px;"></td>'
+          '<td class="text-center"><input type="text" class="form-control" name="costo_basico[]"  placeholder="Ingrese Importe Total Anual" autocomplete="off" onKeyPress="EvaluateText(\'' + flot + '\',this);" onBlur="this.value=Number_Format(this.value, 2,\'' + coma + '\',\'' + punto + '\')" style="width:100%;height:40px;background:#f0f9fc;border-radius:5px 5px 5px 5px;"></td>'
           +'</tr>'
 
         );

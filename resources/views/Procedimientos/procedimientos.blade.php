@@ -767,12 +767,13 @@
                                 <section id="insumos">
 
 
+
                                     <!-- ###################################### CONSULTA DE INSUMOS ###################################### -->
 
                                     <h3 class="card-subtitle mt-3"> Insumos</h3>
 
 
-                                    <div class='alert alert-danger'>
+                                    <div class='alert alert-danger' style="display: none;">
                                         <center><span class='fa fa-info-circle'></span> POR FAVOR REALICE LA CARGA DE ACTIVIDAD PARA ASIGNAR INSUMOS</center>
                                     </div>
 
@@ -797,12 +798,6 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody class="BusquedaRapida">
-
-
-                                                   <!-- <tr role="row" class="odd">
-                                                       
-
-                                                    </tr>-->
 
                                                 </tbody>
                                             </table>
@@ -987,12 +982,12 @@
 
                                     <h3 class="card-subtitle mt-3"> Gastos Generados</h3>
 
-                                   
-                                        <div class="text-right">
 
-                                            <button type="button" class="btn btn-info" data-placement="left" title="Agregar Nuevo Egreso" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalDevengados" data-backdrop="static" data-keyboard="false" onClick="AddIdActividadDevengadosModal('')"><i class="fa fa-plus-square"></i> Agregar Gasto Generado</button>
-                                        </div>
-                                   
+                                    <div class="text-right">
+
+                                        <button type="button" class="btn btn-info" data-placement="left" title="Agregar Nuevo Egreso" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalDevengados" data-backdrop="static" data-keyboard="false" onClick="AddIdActividadDevengadosModal('')"><i class="fa fa-plus-square"></i> Agregar Gasto Generado</button>
+                                    </div>
+
 
                                     <div class="row mt-3"><span class="card-subtitle">Gastos Generados (Sueldos, Contribuciones, Pagos, Costo y Alquileres.)</span>
 
@@ -1011,20 +1006,20 @@
                                                 </thead>
                                                 <tbody class="BusquedaRapida">
 
-                                                   
-                                                            <tr role="row" class="odd">
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td>
-                                                                    <span style="cursor: pointer;" data-placement="left" title="Ver Servicio" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalDetalleServicio" data-backdrop="static" data-keyboard="false" onClick="VerServicioAsignado('')"><i class="mdi mdi-eye font-22 text-danger"></i></span>
 
-                                                                    <span style="cursor: pointer;" data-placement="left" title="Actualizar Egreso" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalUpdateDevengado" data-backdrop="static" data-keyboard="false" onClick="UpdateDevengadoAsignado('')"><i class="mdi mdi-table-edit font-22 text-danger"></i></span>
-                                                                </td>
-                                                            </tr>
-                                                  
+                                                    <tr role="row" class="odd">
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td>
+                                                            <span style="cursor: pointer;" data-placement="left" title="Ver Servicio" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalDetalleServicio" data-backdrop="static" data-keyboard="false" onClick="VerServicioAsignado('')"><i class="mdi mdi-eye font-22 text-danger"></i></span>
+
+                                                            <span style="cursor: pointer;" data-placement="left" title="Actualizar Egreso" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalUpdateDevengado" data-backdrop="static" data-keyboard="false" onClick="UpdateDevengadoAsignado('')"><i class="mdi mdi-table-edit font-22 text-danger"></i></span>
+                                                        </td>
+                                                    </tr>
+
                                                 </tbody>
                                             </table>
                                             <span class="card-subtitle">Nota:
@@ -1064,5 +1059,5 @@
     <!-- ============================================================== -->
     <!-- End Page wrapper  -->
     <!-- ============================================================== -->
-
-    @endsection
+</div>
+@endsection

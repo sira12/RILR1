@@ -86,25 +86,28 @@
                         </span>
                     </a>
 
-                   {{-- <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY">
+                    <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY">
                         <div class="d-flex no-block align-items-center p-3 mb-2 border-bottom">
+                            <div>
+                                <img src="{{ asset('fotos/avatar.png')}}" width="80" class="rounded-circle">
+                            </div>
 
-                            <img src="{{ asset('fotos/avatar.png')}}" width="80" class="rounded-circle">
+
+
+
+                            <div class="ml-2">
+                                <h5 class="mb-0"><abbr title="Nombres/Razón Social">razonsocial</abbr></h5>
+                                <p class="mb-0 text-muted"><abbr title="Correo Electrónico">email</abbr></p>
+                                <p class="mb-0 text-muted"><abbr title="Nº de Teléfono">celular</abbr></p>
+                            </div>
                         </div>
+
+                        <a class="dropdown-item" href="perfil"><i class="fa fa-user"></i> Ver Perfil</a>
+                        <a class="dropdown-item" href="password"><i class="fa fa-edit"></i> Actualizar Password</a>
+                        <a class="dropdown-item" href="bloqueo"><i class="fa fa-clock-o"></i> Bloquear Sesión</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="logout"><i class="fa fa-power-off"></i> Cerrar Sesión</a>
                     </div>
-
-                    <div class="ml-2">
-                        <h5 class="mb-0"><abbr title="Nombres/Razón Social">razonsocial</abbr></h5>
-                        <p class="mb-0 text-muted"><abbr title="Correo Electrónico">email</abbr></p>
-                        <p class="mb-0 text-muted"><abbr title="Nº de Teléfono">celular</abbr></p>
-                    </div>
-
-                    <a class="dropdown-item" href="perfil"><i class="fa fa-user"></i> Ver Perfil</a>
-                    <a class="dropdown-item" href="password"><i class="fa fa-edit"></i> Actualizar Password</a>
-                    <a class="dropdown-item" href="bloqueo"><i class="fa fa-clock-o"></i> Bloquear Sesión</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="logout"><i class="fa fa-power-off"></i> Cerrar Sesión</a>--}}
-
                 </li>
 
                 <!-- ============================================================== -->
