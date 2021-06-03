@@ -43,7 +43,7 @@ class ServicioController extends Controller
     }
 
     public function listar_servicios_basicos(Request $request) {
-       return response()->json(DB::table('servicio')->where('id_clasificacion_servicio',1)->where('activo','S')->get());
+       return response()->json(DB::table('servicio')->where('id_clasificacion_servicio',intval($request->id))->where('activo','S')->get());
     }
 
     /**

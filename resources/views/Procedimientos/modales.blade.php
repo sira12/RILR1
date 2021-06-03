@@ -878,7 +878,7 @@
                                         <select class="form-control" id="id_servicio_combustible" name="id_servicio_combustible" required="" aria-required="true">
                                             <option value=""> -- SELECCIONE -- </option>
 
-                                            <option value=""></option>
+                                            
 
                                         </select>
                                     </div>
@@ -891,8 +891,7 @@
                                         <select class="form-control" id="medida_combustible" name="medida_combustible" required="" aria-required="true">
                                             <option value=""> -- SELECCIONE -- </option>
 
-                                            <option value="">
-                                                << /option>
+                                            
 
                                         </select>
                                     </div>
@@ -901,25 +900,11 @@
 
 
                             <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group has-feedback">
-                                        <label class="control-label">Frecuencia de Contratación: <span class="symbol required"></span></label>
-                                        <input type="text" class="form-control" name="frecuencia_combustible" id="frecuencia_combustible" placeholder="Ingrese Frecuencia de Contratación" autocomplete="off" value="ANUAL" style="background:#f0f9fc;" disabled="disabled" required="" aria-required="true">
-                                        <i class="fa fa-pencil form-control-feedback"></i>
-                                    </div>
-                                </div>
+                                
 
-                                <div class="col-md-4">
+                                <div class="col-md-12">
                                     <div class="form-group has-feedback">
-                                        <label class="control-label">Cantidad de Veces en la Frecuencia: <span class="symbol required"></span></label>
-                                        <input type="text" class="form-control" name="cantidad_combustible" id="cantidad_combustible" placeholder="Ingrese Cantidad de Veces" autocomplete="off" value="1" style="background:#f0f9fc;" disabled="disabled" required="" aria-required="true">
-                                        <i class="fa fa-pencil form-control-feedback"></i>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4">
-                                    <div class="form-group has-feedback">
-                                        <label class="control-label">Costo Involucrado para la Frecuencia: <span class="symbol required"></span></label>
+                                        <label class="control-label">Costo anual del combustible: <span class="symbol required"></span></label>
                                         <input type="text" class="form-control" name="costo_combustible" id="costo_combustible" placeholder="Ingrese Costo en Combustible" autocomplete="off" onKeyPress="EvaluateText('%f', this);" onBlur="this.value = NumberFormat(this.value, '2', '.', '')" required="" aria-required="true">
                                         <i class="fa fa-tint form-control-feedback"></i>
                                     </div>
@@ -934,8 +919,8 @@
                                 <div class="col-md-6">
                                     <div class="form-group has-feedback">
                                         <label class="control-label">Nombre de Pais: <span style="cursor: pointer;" class="mdi mdi-alert-circle text-danger" data-container="body" title="Notificación: Ingrese Nombre de Pais y seleccione en el Listado que se mostrará, en caso de no aparecer, escribala y el sistema se encargará de la asignación del mismo."></span><span class="symbol required"></span></label>
-                                        <input type="hidden" name="id_pais3" id="id_pais3" />
-                                        <input type="text" class="form-control" name="search_pais3" id="search_pais3" placeholder="Ingrese Nombre de Pais" autocomplete="off" required="" aria-required="true" />
+                                        <input type="hidden" name="id_pais_combustible" id="id_pais_combustible" />
+                                        <input type="text" class="form-control" name="search_pais_combustible" id="search_pais_combustible" placeholder="Ingrese Nombre de Pais" autocomplete="off" required="" aria-required="true" />
                                         <i class="fa fa-search form-control-feedback"></i>
                                     </div>
                                 </div>
@@ -943,8 +928,8 @@
                                 <div class="col-md-6">
                                     <div class="form-group has-feedback">
                                         <label class="control-label">Nombre de Provincia: <span style="cursor: pointer;" class="mdi mdi-alert-circle text-danger" data-container="body" title="Notificación: Ingrese Nombre de Provincia y seleccione en el Listado que se mostrará, en caso de no aparecer, escribala y el sistema se encargará de la asignación del mismo."></span><span class="symbol required"></span></label>
-                                        <input type="hidden" name="id_provincia3" id="id_provincia3" />
-                                        <input type="text" class="form-control" name="search_provincia3" id="search_provincia3" placeholder="Ingrese Nombre de Provincia" autocomplete="off" required="" aria-required="true" />
+                                        <input type="hidden" name="id_provincia_combustible" id="id_provincia_combustible" />
+                                        <input type="text" class="form-control" name="search_provincia_combustible" id="search_provincia_combustible" placeholder="Ingrese Nombre de Provincia" autocomplete="off" required="" aria-required="true" />
                                         <i class="fa fa-search form-control-feedback"></i>
                                     </div>
                                 </div>
@@ -954,8 +939,8 @@
                                 <div class="col-md-6">
                                     <div class="form-group has-feedback">
                                         <label class="control-label">Nombre de Localidad: <span style="cursor: pointer;" class="mdi mdi-alert-circle text-danger" data-container="body" title="Notificación: Ingrese Nombre de Localidad y seleccione en el Listado que se mostrará, en caso de no aparecer, escribala y el sistema se encargará de la asignación del mismo."></span><span class="symbol required"></span></label>
-                                        <input type="hidden" name="id_localidad5" id="id_localidad5" />
-                                        <input type="text" class="form-control" name="search_localidad5" id="search_localidad5" placeholder="Ingrese Nombre de Localidad" autocomplete="off" required="" aria-required="true" />
+                                        <input type="hidden" name="id_localidad_combustible" id="id_localidad_combustible" />
+                                        <input type="text" class="form-control" name="search_localidad_combustible" id="search_localidad_combustible" placeholder="Ingrese Nombre de Localidad" autocomplete="off" required="" aria-required="true" />
                                         <i class="fa fa-search form-control-feedback"></i>
                                     </div>
                                 </div>
@@ -967,8 +952,7 @@
                                         <select class="form-control" id="motivo_importacion_combustible" name="motivo_importacion_combustible" onchange="MotivoImportacionCombustible();" required="" aria-required="true">
                                             <option value=""> -- SELECCIONE -- </option>
 
-                                            <option value=""></option>
-
+                                        
                                         </select>
                                     </div>
                                 </div>

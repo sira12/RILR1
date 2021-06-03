@@ -875,6 +875,142 @@ $(document).ready(function () {
     });
 
 
+    //#########################combustible$#####################
+
+    $("#search_pais_combustible").autocomplete({
+        source: function (request, response) {
+            // Fetch data
+            $.ajax({
+                url: "/getpais",
+                type: 'post',
+                dataType: "json",
+                data: {
+                    _token: $('meta[name="csrf-token"]').attr('content'),
+                    search: request.term,
+
+                },
+                success: function (data) {
+                    response(data);
+                }
+            });
+        },
+        select: function (event, ui) {
+
+            id_pais=null
+            // Set selection
+            $('#search_pais_combustible').val(ui.item.label); // display the selected text
+            $('#id_pais_combustible').val(ui.item.value); // save selected id to input
+            id_pais = ui.item.value
+            return false;
+        }
+    });
+
+
+    $("#search_pais_combustible").keyup(function () {
+
+        if ($("#search_pais_combustible").val().length < 1) {
+            //limpiar id localidad, barrio, calle
+
+            $('#id_pais_combustible').val("")
+            $('#id_provincia_combustible').val("")
+            $('#id_localidad_combustible').val("")
+
+
+            $('#search_localidad_combustible').val("");
+            $('#search_provincia_combustible').val("");
+
+
+
+            //deshabilitar campo calle y barrio
+            $("#search_localidad_combustible").prop("disabled", true);
+            $("#search_provincia_combustible").prop("disabled", true);
+
+
+        } else {
+            //$("#search_barrio").prop("disabled", false);
+            $("#search_provincia_combustible").prop("disabled", false);
+        }
+    });
+
+
+    $("#search_provincia_combustible").autocomplete({
+        source: function (request, response) {
+            // Fetch data
+            $.ajax({
+                url: "/provincias",
+                type: 'post',
+                dataType: "json",
+                data: {
+                    _token: $('meta[name="csrf-token"]').attr('content'),
+                    search: request.term,
+                    id_pais: id_pais
+
+                },
+                success: function (data) {
+                    response(data);
+                }
+            });
+        },
+        select: function (event, ui) {
+
+            id_provincia_3=null
+            // Set selection
+            $('#search_provincia_combustible').val(ui.item.label); // display the selected text
+            $('#id_provincia_combustible').val(ui.item.value); // save selected id to input
+            id_provincia_3 = ui.item.value
+            return false;
+        }
+    });
+    $("#search_provincia_combustible").keyup(function () {
+
+        if ($("#search_provincia_combustible").val().length < 1) {
+            //limpiar id localidad, barrio, calle
+
+            $('#id_localidad_combustible').val("")
+
+
+
+
+            $('#search_localidad_combustible').val("");
+
+
+            //deshabilitar campo calle y barrio
+            $("#search_localidad_combustible").prop("disabled", true);
+
+        } else {
+            //$("#search_barrio").prop("disabled", false);
+            $("#search_localidad_combustible").prop("disabled", false);
+
+        }
+    });
+
+    $("#search_localidad_combustible").autocomplete({
+        source: function (request, response) {
+            // Fetch data
+            $.ajax({
+                url: "/localidades",
+                type: 'post',
+                dataType: "json",
+                data: {
+                    _token: $('meta[name="csrf-token"]').attr('content'),
+                    search: request.term,
+                    id_prov: id_provincia_3
+
+                },
+                success: function (data) {
+                    response(data);
+                }
+            });
+        },
+        select: function (event, ui) {
+            // Set selection
+            $('#search_localidad_combustible').val(ui.item.label); // display the selected text
+            $('#id_localidad_combustible').val(ui.item.value); // save selected id to input
+
+            return false;
+        }
+    });
+
 
 });
 
@@ -991,11 +1127,11 @@ function cargar_tabla_insumos() {
 
 
         ],
-        /* 
+        
         createdRow: function (row, data, dataIndex) {
             $(row).addClass('odd');
             $(row).attr('role', 'row');
-        }, */
+        },
     })
 
 }
@@ -1130,20 +1266,6 @@ function cargar_tabla_materia_utilizada() {
 
 }
 
-//limpiar id insumo
-
-$(document).ready(function () {
-    $("#search_insumo").keyup(function(){
-        
-        console.log($("#search_insumo").val().length)
-        if($("#search_insumo").val().length < 1){
-
-          
-            $("#id_insumo").val("");
-        }
-
-      });
-})  
 
 
 

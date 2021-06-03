@@ -60,7 +60,7 @@
                             <div class="row-horizon">
                                 <span class="categories selectedGat" href="#datosGenerales"><i class="fa fa-tasks"></i> Datos Generales</span>
                                 <span class="categories" href="#act" onclick="muestraForm('actividades')"><i class="fa fa-tasks"></i> Actividad</span>
-                                <span class="categories" href="#insumos" onclick="muestraForm('insumos');getunidades();getMotivo();"><i class="fa fa-tasks"></i> Insumos y Servicios</span>
+                                <span class="categories" href="#insumos" onclick="muestraForm('insumos');"><i class="fa fa-tasks"></i> Insumos y Servicios</span>
                                 <span class="categories" id="seccion#4" onclick="CargaFormulario('','');"><i class="fa fa-tasks"></i> Situación de la Planta</span>
                                 <span class="categories" id="seccion#5" onclick="CargaFormulario('','');"><i class="fa fa-tasks"></i> Ventas y Facturación</span>
                                 <span class="categories" id="seccion#6" onclick="CargaFormulario('','');"><i class="fa fa-tasks"></i> Prevención y Control Ambiental</span>
@@ -819,7 +819,7 @@
 
 
                                     <div class="text-right">
-                                        <button type="button" class="btn btn-info" data-placement="left" title="Agregar Nuevo Servicio" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalServiciosBasicos" data-backdrop="static" data-keyboard="false" onClick="AddIdServicioBasicoModal()"><i class="fa fa-plus-square"></i> Agregar Servicios Básicos</button>
+                                        <button type="button" class="btn btn-info" data-placement="left" title="Agregar Nuevo Servicio" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalServiciosBasicos" data-backdrop="static" data-keyboard="false" ><i class="fa fa-plus-square"></i> Agregar Servicios Básicos</button>
                                     </div>
 
 

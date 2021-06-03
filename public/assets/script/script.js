@@ -2972,6 +2972,10 @@ function muestraForm(ref) {
 			cargar_tabla_actividades();
 
 		} else if (ref == "insumos") {
+			getunidades();
+			getMotivo();
+			getServicios("sb",1);
+			getServicios("com",2);
 			cargar_tabla_insumos();
 		}
 

@@ -2619,9 +2619,9 @@ function EliminarInsumoAsignado(id_rel_industria_insumos) {
 
 /////////////////////////////////// FUNCIONES ASIGNACION DE SERVICIOS A ACTIVIDAD //////////////////////////////////////
 
-// FUNCION PARA AGREGA ID ACTIVIDAD EN SERVICIO BASICO
 
-function AddIdServicioBasicoModal() {
+//funcion para cargar servicios en modal
+function getServicios( ref,id_clasif) {
   // aqui asigno cada valor a los campos correspondientes
   /*  $("#saveserviciobasico #industria_servicio_basico").val(id_industria);
    $("#saveserviciobasico #nombre_de_fantasia").text(nombre_de_fantasia);
@@ -2635,30 +2635,46 @@ function AddIdServicioBasicoModal() {
     url: "/ser_basicos",
     data: {
       _token: $('meta[name="csrf-token"]').attr('content'),
+      id:id_clasif
     },
     success: function (response) {
-      $("#ser_basico").find("tr").remove(); 
-      var coma =",";
-      var punto="."
 
-      var flot="%f"
-     
-      $(response).each(function (i, v) {
+
+      if(ref == "sb"){
+        $("#ser_basico").find("tr").remove(); 
+        var coma =",";
+        var punto="."
+
+        var flot="%f"
+       
+        $(response).each(function (i, v) {
+        
+          $('#ser_basico').append(
+
+            '<tr role="row" class="odd">'+
+            '<td><input type="hidden" name="id_servicio_basico[]"  value="'+v.id_servicio+'" /><label>'+v.servicio+'</label></td>'+
+
+                                              
+            '<td class="text-center"><input type="text" class="form-control" name="costo_basico[]"  placeholder="Ingrese Importe Total Anual" autocomplete="off" onKeyPress="EvaluateText(\'' + flot + '\',this);" onBlur="this.value=Number_Format(this.value, 2,\'' + coma + '\',\'' + punto + '\')" style="width:100%;height:40px;background:#f0f9fc;border-radius:5px 5px 5px 5px;"></td>'
+            +'</tr>'
+
+          );
+
+
+        
+          })
+      }else if(ref == "com"){
+
+          //id_servicio_combustible
+
+          $(response).each(function (i, v) { // indice, valor
+                $("#id_servicio_combustible").append('<option value="' + v.id_servicio + '">' + v.servicio + '</option>');
+                
+            })
+
+      }
+
       
-        $('#ser_basico').append(
-
-          '<tr role="row" class="odd">'+
-          '<td><input type="hidden" name="id_servicio_basico[]"  value="'+v.id_servicio+'" /><label>'+v.servicio+'</label></td>'+
-
-                                            
-          '<td class="text-center"><input type="text" class="form-control" name="costo_basico[]"  placeholder="Ingrese Importe Total Anual" autocomplete="off" onKeyPress="EvaluateText(\'' + flot + '\',this);" onBlur="this.value=Number_Format(this.value, 2,\'' + coma + '\',\'' + punto + '\')" style="width:100%;height:40px;background:#f0f9fc;border-radius:5px 5px 5px 5px;"></td>'
-          +'</tr>'
-
-        );
-
-
-      
-        })
     }
 });
 }
