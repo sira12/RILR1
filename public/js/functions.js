@@ -738,6 +738,15 @@ $(document).ready(function () {
         }
     });
 
+    $("#search_insumo").keyup(function () {
+
+        if ($("#search_insumo").val().length < 1) {
+            
+            $('#id_insumo').val("")
+            
+        }
+    });
+
     //busqueda paises 
 
     $("#search_pais_insumo").autocomplete({
@@ -1012,6 +1021,181 @@ $(document).ready(function () {
     });
 
 
+
+    // otros
+
+    $("#search_servicio_otros").autocomplete({
+        source: function (request, response) {
+            // Fetch data
+            $.ajax({
+                url: "/search_servicio_otros",
+                type: 'post',
+                dataType: "json",
+                data: {
+                    _token: $('meta[name="csrf-token"]').attr('content'),
+                    search: request.term,
+
+
+                },
+                success: function (data) {
+                    response(data);
+                }
+            });
+        },
+        select: function (event, ui) {
+            // Set selection
+            $('#search_servicio_otros').val(ui.item.label); // display the selected text
+            $('#id_servicio_otros').val(ui.item.value); // save selected id to input
+
+            return false;
+        }
+    });
+
+    $("#search_servicio_otros").keyup(function () {
+
+        if ($("#search_servicio_otros").val().length < 1) {
+            
+            $('#id_servicio_otros').val("")
+            
+        }
+    });
+
+
+    $("#search_pais_otros").autocomplete({
+        source: function (request, response) {
+            // Fetch data
+            $.ajax({
+                url: "/getpais",
+                type: 'post',
+                dataType: "json",
+                data: {
+                    _token: $('meta[name="csrf-token"]').attr('content'),
+                    search: request.term,
+
+                },
+                success: function (data) {
+                    response(data);
+                }
+            });
+        },
+        select: function (event, ui) {
+
+            id_pais=null
+            // Set selection
+            $('#search_pais_otros').val(ui.item.label); // display the selected text
+            $('#id_pais_otros').val(ui.item.value); // save selected id to input
+            id_pais = ui.item.value
+            return false;
+        }
+    });
+
+
+    $("#search_pais_otros").keyup(function () {
+
+        if ($("#search_pais_otros").val().length < 1) {
+            //limpiar id localidad, barrio, calle
+
+            $('#id_pais_otros').val("")
+            $('#id_provincia_otros').val("")
+            $('#id_localidad_otros').val("")
+
+
+            $('#search_localidad_otros').val("");
+            $('#search_provincia_otros').val("");
+
+
+
+            //deshabilitar campo calle y barrio
+            $("#search_localidad_otros").prop("disabled", true);
+            $("#search_provincia_otros").prop("disabled", true);
+
+
+        } else {
+            //$("#search_barrio").prop("disabled", false);
+            $("#search_provincia_otros").prop("disabled", false);
+        }
+    });
+
+
+    $("#search_provincia_otros").autocomplete({
+        source: function (request, response) {
+            // Fetch data
+            $.ajax({
+                url: "/provincias",
+                type: 'post',
+                dataType: "json",
+                data: {
+                    _token: $('meta[name="csrf-token"]').attr('content'),
+                    search: request.term,
+                    id_pais: id_pais
+
+                },
+                success: function (data) {
+                    response(data);
+                }
+            });
+        },
+        select: function (event, ui) {
+
+            id_provincia_3=null
+            // Set selection
+            $('#search_provincia_otros').val(ui.item.label); // display the selected text
+            $('#id_provincia_otros').val(ui.item.value); // save selected id to input
+            id_provincia_3 = ui.item.value
+            return false;
+        }
+    });
+    $("#search_provincia_otros").keyup(function () {
+
+        if ($("#search_provincia_otros").val().length < 1) {
+            //limpiar id localidad, barrio, calle
+
+            $('#id_localidad_otros').val("")
+
+
+
+
+            $('#search_localidad_otros').val("");
+
+
+            //deshabilitar campo calle y barrio
+            $("#search_localidad_otros").prop("disabled", true);
+
+        } else {
+            //$("#search_barrio").prop("disabled", false);
+            $("#search_localidad_otros").prop("disabled", false);
+
+        }
+    });
+
+    $("#search_localidad_otros").autocomplete({
+        source: function (request, response) {
+            // Fetch data
+            $.ajax({
+                url: "/localidades",
+                type: 'post',
+                dataType: "json",
+                data: {
+                    _token: $('meta[name="csrf-token"]').attr('content'),
+                    search: request.term,
+                    id_prov: id_provincia_3
+
+                },
+                success: function (data) {
+                    response(data);
+                }
+            });
+        },
+        select: function (event, ui) {
+            // Set selection
+            $('#search_localidad_otros').val(ui.item.label); // display the selected text
+            $('#id_localidad_otros').val(ui.item.value); // save selected id to input
+
+            return false;
+        }
+    });
+
+
 });
 
 function cargar_tabla_actividades() {
@@ -1090,14 +1274,11 @@ function cargar_tabla_actividades() {
 }
 function cargar_tabla_insumos() {
 
-    var table = $('.yajra-table-insumos').DataTable();
-
-
-    table.destroy();
-    //$('.yajra-datatable').empty();
+    $('.yajra-table-insumos').DataTable().destroy();
+    
 
     var id_industria = $("#id_industria_modal").val();
-    table = $('.yajra-table-insumos').DataTable({
+    $('.yajra-table-insumos').DataTable({
         processing: false,
         serverSide: true,
         searching: false,
@@ -1252,6 +1433,50 @@ function cargar_tabla_materia_utilizada() {
             { data: 'unidad_de_medida', name: 'unidad_de_medida' },
             { data: 'cantidad_producida', name: 'cantidad_producida' },
             { data: 'porcentaje_sobre_produccion', name: 'porcentaje_sobre_produccion' },
+            {
+                data: 'action',
+                name: 'action',
+                orderable: true,
+                searchable: true
+            },
+        ],
+        columnDefs: [
+
+        ]
+    })
+
+}
+
+
+function cargar_tabla_combustible() {
+
+    var table = $('.yajra-datatable-combustible').DataTable();
+
+
+    table.destroy();
+    //$('.yajra-datatable').empty();
+
+    var id_industria = $("#id_industria_modal").val();
+    table = $('.yajra-datatable-combustible').DataTable({
+        processing: false,
+        serverSide: true,
+        searching: false,
+        "ajax": {
+            "url": "/listRelcombustible",
+            "type": "POST",
+            "data": {
+                _token: $('meta[name="csrf-token"]').attr('content'),
+                id_industria: id_industria
+            },
+        },
+        
+        columns: [
+            { data: 'DT_RowIndex', name: 'DT_RowIndex' },
+            { data: 'servicio_utilizado', name: 'servicio_utilizado' },
+            { data: 'frecuencia', name: 'frecuencia' },
+            { data: 'unidad', name: 'unidad' },
+            { data: 'costo', name: 'costo' },
+            { data: 'anio', name: 'anio' },
             {
                 data: 'action',
                 name: 'action',

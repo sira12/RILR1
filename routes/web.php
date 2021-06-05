@@ -107,7 +107,19 @@ Route::get('/procedimientos',[ProcedimientosController::class,'index'] )->middle
     //servicios basicos
 
     Route::post('/ser_basicos', [ServicioController::class, 'listar_servicios_basicos'])->middleware(['auth']);
-    Route::post('/saveSB', [ServicioController::class, 'store'])->middleware(['auth']);
+    Route::post('/saveServicio', [ServicioController::class, 'saveRelServicio'])->middleware(['auth']);
+
+    Route::post('/getServicio', [ServicioController::class, 'getServicio'])->middleware(['auth']);
+    Route::post('/updateServicio', [ServicioController::class, 'updateRelServicio'])->middleware(['auth']);
+    Route::post('/deleteServicio', [ServicioController::class, 'deleteRelServicio'])->middleware(['auth']);
+
+    //combustible
+
+      Route::post('/listRelcombustible', [ServicioController::class, 'listRelcombustible'])->middleware(['auth']);
+    //otros
+      Route::post('/search_servicio_otros', [ServicioController::class, 'search_servicio_otros'])->middleware(['auth']);
+
+
 
 
 //fin guardar Procedimientos

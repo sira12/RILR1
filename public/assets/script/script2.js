@@ -2517,7 +2517,7 @@ function UpdateInsumoAsignado(id_rel_industria_insumos) {
       
       $("#btn-insumo-update").show();
 
-      console.log(response)
+     
 
       $("#saveasignacioninsumo").prop('id', 'updateasignacioninsumo');
       $("#updateasignacioninsumo").prop('name', 'updateasignacioninsumo');
@@ -2738,28 +2738,47 @@ function ActivaDetallesCombustible(detalles) {
 }
 
 // FUNCION PARA ACTUALIZAR COMBUSTIBLE ASIGNADO
-function UpdateCombustibleAsignado(id_rel_industria_servicios, id_industria, nombre_de_fantasia, id_servicio, unidad_de_medida, nomfrecuencia, cantidad,
-  costo, id_pais, search_pais, id_provincia, search_provincia, id_localidad, search_localidad, motivo_importacion, detalles, anio, proceso) {
-              // aqui asigno cada valor a los campos correspondientes
-              $("#savecombustible #id_rel_industria_combustible").val(id_rel_industria_servicios);
-  $("#savecombustible #industria_combustible").val(id_industria);
-  $("#savecombustible #nombre_de_fantasia").text(nombre_de_fantasia);
-  $("#savecombustible #id_servicio_combustible").val(id_servicio);
-  $("#savecombustible #medida_combustible").val(unidad_de_medida);
-  $("#savecombustible #frecuencia_combustible").val(nomfrecuencia);
-  $("#savecombustible #cantidad_combustible").val(cantidad);
-  $("#savecombustible #costo_combustible").val(costo);
-  $("#savecombustible #id_pais_combustible").val(id_pais);
-  $("#savecombustible #search_pais_combustible").val(search_pais);
-  $("#savecombustible #id_provincia_combustible").val(id_provincia);
-  $("#savecombustible #search_provincia_combustible").val(search_provincia);
-  $("#savecombustible #id_localidad_combustible").val(id_localidad);
-  $("#savecombustible #search_localidad_combustible").val(search_localidad);
-  $("#savecombustible #motivo_importacion_combustible").val(motivo_importacion);
-  $("#savecombustible #detalles_combustible").val(detalles);
-  $("#savecombustible #anio_combustible").val(anio);
-  $("#savecombustible #combustibles").val(proceso);
-  (id_localidad == "134" ? $("#motivo_importacion_combustible").attr('disabled', true) : $("#motivo_importacion_combustible").attr('disabled', false));
+function UpdateCombustibleAsignado(id_rel_industria_servicios) {
+
+
+  $.ajax({
+    type: "post",
+    url: "/getServicio",
+    data: {
+      _token: $('meta[name="csrf-token"]').attr('content'),
+      id:id_rel_industria_servicios
+    },
+    success: function (response) {
+
+      $("#btn-combustible-update").show();
+						$("#btn-combustible").hide();
+
+      $("#savecombustible").prop('id', 'updatecombustible');
+      $("#updatecombustible").prop('name', 'updatecombustible');
+       // aqui asigno cada valor a los campos correspondientes
+      $("#updatecombustible #id_rel_industria_combustible").val(response[0].id_rel_industria_servicio);
+      //$("#updatecombustible #industria_combustible").val(response[0].id_industria);
+      //$("#updatecombustible #nombre_de_fantasia").text(nombre_de_fantasia);
+      $("#updatecombustible #id_servicio_combustible").val(response[0].id_servicio);
+      $("#updatecombustible #medida_combustible").val(response[0].id_unidad_de_medida);
+      //$("#updatecombustible #frecuencia_combustible").val(response[0].nomfrecuencia);
+      //$("#updatecombustible #cantidad_combustible").val(cantidad);
+      $("#updatecombustible #costo_combustible").val(response[0].costo);
+      $("#updatecombustible #id_pais_combustible").val(response[0].id_pais);
+      $("#updatecombustible #search_pais_combustible").val(response[0].pais);
+      $("#updatecombustible #id_provincia_combustible").val(response[0].id_provincia);
+      $("#updatecombustible #search_provincia_combustible").val(response[0].provincia);
+      $("#updatecombustible #id_localidad_combustible").val(response[0].id_localidad);
+      $("#updatecombustible #search_localidad_combustible").val(response[0].localidad);
+      $("#updatecombustible #motivo_importacion_combustible").val(response[0].id_motivo_importacion);
+      $("#updatecombustible #detalles_combustible").val(response[0].detalles);
+      //$("#updatecombustible #anio_combustible").val(anio);
+      //$("#updatecombustible #combustibles").val(proceso);
+      response[0].detalles ? $("#detalles_combustible").attr('disabled', false) : $("#detalles_combustible").attr('disabled', true);
+    }
+  })
+  
+ 
 }
 
 
@@ -2902,7 +2921,7 @@ function VerServicioAsignado(id_rel_industria_servicios) {
 
 
 /////FUNCION PARA ELIMINAR SERVICIO ASIGNADO
-function EliminarServicioAsignado(id_rel_industria_servicios, id_industria, seccion, tipo) {
+function EliminarServicioAsignado(id_rel_industria_servicios) {
               swal({
                 title: "¿Estás seguro?",
                 text: "¿Estás seguro de Eliminar este Servicio de la Industria?",
@@ -2915,15 +2934,19 @@ function EliminarServicioAsignado(id_rel_industria_servicios, id_industria, secc
                 confirmButtonColor: "#808080"
               }, function () {
                 $.ajax({
-                  type: "GET",
-                  url: "eliminar.php",
-                  data: "id_rel_industria_servicios=" + id_rel_industria_servicios + "&tipo=" + tipo,
+                  type: "POST",
+                  url: "/deleteServicio",
+                  data: {
+                    _token: $('meta[name="csrf-token"]').attr('content'),
+                    id:id_rel_industria_servicios
+                  },
                   success: function (data) {
 
-                    if (data == 1) {
+                    if (data.status == 200) {
 
                       swal("Eliminado!", "Datos eliminados con éxito!", "success");
-                      $('#secciones').load("formularios.php?BuscaFormularioProcedimiento=si&seccion=" + seccion + "&in=" + id_industria);
+                      cargar_tabla_combustible();
+                      //$('#secciones').load("formularios.php?BuscaFormularioProcedimiento=si&seccion=" + seccion + "&in=" + id_industria);
 
                     } else {
 

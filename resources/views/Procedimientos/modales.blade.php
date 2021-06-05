@@ -877,9 +877,6 @@
                                         <input type="hidden" name="anio_combustible" id="anio_combustible">
                                         <select class="form-control" id="id_servicio_combustible" name="id_servicio_combustible" required="" aria-required="true">
                                             <option value=""> -- SELECCIONE -- </option>
-
-                                            
-
                                         </select>
                                     </div>
                                 </div>
@@ -890,9 +887,6 @@
                                         <i class="fa fa-bars form-control-feedback"></i>
                                         <select class="form-control" id="medida_combustible" name="medida_combustible" required="" aria-required="true">
                                             <option value=""> -- SELECCIONE -- </option>
-
-                                            
-
                                         </select>
                                     </div>
                                 </div>
@@ -973,24 +967,8 @@
 
                         <div class="modal-footer">
                             <button type="submit" name="btn-combustible" id="btn-combustible" class="btn btn-danger"><span class="fa fa-save"></span> Guardar</button>
-                            <button class="btn btn-dark" type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="
-                document.getElementById('combustibles').value = 'savecombustible',
-                document.getElementById('id_rel_industria_combustible').value = '',
-                document.getElementById('industria_combustible').value = '',
-                document.getElementById('anio_combustible').value = '',
-                document.getElementById('id_servicio_combustible').value = '',
-                document.getElementById('frecuencia_combustible').value = 'ANUAL',
-                document.getElementById('cantidad_combustible').value = '1',
-                document.getElementById('costo_combustible').value = '',
-                document.getElementById('id_pais3').value = '',
-                document.getElementById('search_pais3').value = '',
-                document.getElementById('id_provincia3').value = '',
-                document.getElementById('search_provincia3').value = '',
-                document.getElementById('id_localidad5').value = '',
-                document.getElementById('search_localidad5').value = '',
-                document.getElementById('motivo_importacion_combustible').value = '',
-                document.getElementById('detalles_combustible').value = ''
-                "><span class="fa fa-trash-o"></span> Cancelar</button>
+                            <button type="button" name="btn-combustible-update" style="display:none" id="btn-combustible-update" class="btn btn-danger"><span class="fa fa-save"></span> Guardar</button>
+                            <button class="btn btn-dark" type="button" id="btn-cancelar-combustible" class="close" data-dismiss="modal" aria-hidden="true" ><span class="fa fa-trash-o"></span> Cancelar</button>
                         </div>
                     </form>
 
@@ -1038,7 +1016,7 @@
                             </div>
 
                             <div class="row">
-                                <div class="col-md-12">
+                                <div class="col-md-6">
                                     <label class="control-label">Servicio Utilizado: <span style="cursor: pointer;" class="mdi mdi-alert-circle text-danger" data-container="body" title="Notificación: Ingrese Nombre de Servicio y seleccione en el Listado que se mostrará, en caso de no aparecer, escribala y el sistema se encargará de la asignación del mismo."></span><span class="symbol required"></span></label>
                                     <div class="form-group has-feedback">
                                         <input type="hidden" name="seccionotros" id="seccionotros" value="">
@@ -1046,44 +1024,22 @@
                                         <input type="hidden" name="id_rel_industria_otros" id="id_rel_industria_otros">
                                         <input type="hidden" name="industria_otros" id="industria_otros">
                                         <input type="hidden" name="anio_otros" id="anio_otros">
-                                        <input type="hidden" name="id_servicio" id="id_servicio" />
-                                        <input type="text" class="form-control" name="search_servicio" id="search_servicio" placeholder="Realice la Búsqueda de Servicio o Ingrese Descripción" autocomplete="off" required="" aria-required="true" />
+                                        <input type="hidden" name="id_servicio_otros" id="id_servicio_otros" />
+                                        <input type="text" class="form-control" name="search_servicio_otros" id="search_servicio_otros" placeholder="Realice la Búsqueda de Servicio o Ingrese Descripción" autocomplete="off" required="" aria-required="true" />
                                         <i class="fa fa-search form-control-feedback"></i>
                                     </div>
                                 </div>
-                            </div>
 
-
-                            <div class="row">
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <div class="form-group has-feedback">
-                                        <label class="control-label">Frecuencia de Contratación: <span class="symbol required"></span></label>
-                                        <i class="fa fa-bars form-control-feedback"></i>
-                                        <select class="form-control" id="frecuencia_otros" name="frecuencia_otros" required="" aria-required="true">
-                                            <option value=""> -- SELECCIONE -- </option>
-
-                                            <option value=""></option>
-
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4">
-                                    <div class="form-group has-feedback">
-                                        <label class="control-label">Cantidad de Veces en la Frecuencia: <span class="symbol required"></span></label>
-                                        <input type="text" class="form-control" name="cantidad_otros" id="cantidad_otros" placeholder="Ingrese Cantidad de Veces" autocomplete="off" required="" aria-required="true">
-                                        <i class="fa fa-pencil form-control-feedback"></i>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4">
-                                    <div class="form-group has-feedback">
-                                        <label class="control-label">Costo Involucrado para la Frecuencia: <span class="symbol required"></span></label>
+                                        <label class="control-label">Costo anual del servicio: <span class="symbol required"></span></label>
                                         <input type="text" class="form-control" name="costo_otros" id="costo_otros" placeholder="Ingrese Costo Involucrado en Frecuencia" autocomplete="off" onKeyPress="EvaluateText('%f', this);" onBlur="this.value = NumberFormat(this.value, '2', '.', '')" required="" aria-required="true">
                                         <i class="fa fa-tint form-control-feedback"></i>
                                     </div>
                                 </div>
                             </div>
+
+
 
                             <h3 class="card-subtitle text-muted"><i class="fa fa-file-text"></i> Origen del Servicio</h3>
                             <span class="card-subtitle text-muted">En caso de que la Provincia sea diferente a La Rioja, deberá de seleccionar el Motivo y Detalles de la Importación</span>
@@ -1093,8 +1049,8 @@
                                 <div class="col-md-6">
                                     <div class="form-group has-feedback">
                                         <label class="control-label">Nombre de Pais: <span style="cursor: pointer;" class="mdi mdi-alert-circle text-danger" data-container="body" title="Notificación: Ingrese Nombre de Pais y seleccione en el Listado que se mostrará, en caso de no aparecer, escribala y el sistema se encargará de la asignación del mismo."></span><span class="symbol required"></span></label>
-                                        <input type="hidden" name="id_pais4" id="id_pais4" value="" />
-                                        <input type="text" class="form-control" name="search_pais4" id="search_pais4" placeholder="Ingrese Nombre de Pais" autocomplete="off" value="" required="" aria-required="true" />
+                                        <input type="hidden" name="id_pais_otros" id="id_pais4" value="" />
+                                        <input type="text" class="form-control" name="search_pais_otros" id="search_pais_otros" placeholder="Ingrese Nombre de Pais" autocomplete="off" value="" required="" aria-required="true" />
                                         <i class="fa fa-search form-control-feedback"></i>
                                     </div>
                                 </div>
@@ -1102,8 +1058,8 @@
                                 <div class="col-md-6">
                                     <div class="form-group has-feedback">
                                         <label class="control-label">Nombre de Provincia: <span style="cursor: pointer;" class="mdi mdi-alert-circle text-danger" data-container="body" title="Notificación: Ingrese Nombre de Provincia y seleccione en el Listado que se mostrará, en caso de no aparecer, escribala y el sistema se encargará de la asignación del mismo."></span><span class="symbol required"></span></label>
-                                        <input type="hidden" name="id_provincia4" id="id_provincia4" value="" />
-                                        <input type="text" class="form-control" name="search_provincia4" id="search_provincia4" placeholder="Ingrese Nombre de Provincia" autocomplete="off" value="" required="" aria-required="true" />
+                                        <input type="hidden" name="id_provincia_otros" id="id_provincia_otros" value="" />
+                                        <input type="text" class="form-control" name="search_provincia_otros" id="search_provincia_otros" placeholder="Ingrese Nombre de Provincia" autocomplete="off" value="" required="" aria-required="true" />
                                         <i class="fa fa-search form-control-feedback"></i>
                                     </div>
                                 </div>
@@ -1113,8 +1069,8 @@
                                 <div class="col-md-6">
                                     <div class="form-group has-feedback">
                                         <label class="control-label">Nombre de Localidad: <span style="cursor: pointer;" class="mdi mdi-alert-circle text-danger" data-container="body" title="Notificación: Ingrese Nombre de Localidad y seleccione en el Listado que se mostrará, en caso de no aparecer, escribala y el sistema se encargará de la asignación del mismo."></span><span class="symbol required"></span></label>
-                                        <input type="hidden" name="id_localidad6" id="id_localidad6" />
-                                        <input type="text" class="form-control" name="search_localidad6" id="search_localidad6" placeholder="Ingrese Nombre de Localidad" autocomplete="off" required="" aria-required="true" />
+                                        <input type="hidden" name="id_localidad_otros" id="id_localidad_otros" />
+                                        <input type="text" class="form-control" name="search_localidad_otros" id="search_localidad_otros" placeholder="Ingrese Nombre de Localidad" autocomplete="off" required="" aria-required="true" />
                                         <i class="fa fa-search form-control-feedback"></i>
                                     </div>
                                 </div>
@@ -1126,7 +1082,7 @@
                                         <select class="form-control" id="motivo_importacion_otros" name="motivo_importacion_otros" onchange="MotivoImportacionOtros();" required="" aria-required="true">
                                             <option value=""> -- SELECCIONE -- </option>
 
-                                            <option value=""></option>
+                                           
 
                                         </select>
                                     </div>
@@ -1149,24 +1105,24 @@
                         <div class="modal-footer">
                             <button type="submit" name="btn-otros" id="btn-otros" class="btn btn-danger"><span class="fa fa-save"></span> Guardar</button>
                             <button class="btn btn-dark" type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="
-                document.getElementById('otros').value = 'saveotros',
-                document.getElementById('id_rel_industria_otros').value = '',
-                document.getElementById('anio_otros').value = '',
-                document.getElementById('industria_otros').value = '',
-                document.getElementById('id_servicio').value = '',
-                document.getElementById('search_servicio').value = '',
-                document.getElementById('frecuencia_otros').value = '',
-                document.getElementById('cantidad_otros').value = '',
-                document.getElementById('costo_otros').value = '',
-                document.getElementById('id_pais4').value = '',
-                document.getElementById('search_pais4').value = '',
-                document.getElementById('id_provincia4').value = '',
-                document.getElementById('search_provincia4').value = '',
-                document.getElementById('id_localidad6').value = '',
-                document.getElementById('search_localidad6').value = '',
-                document.getElementById('motivo_importacion_otros').value = '',
-                document.getElementById('detalles_otros').value = ''
-                "><span class="fa fa-trash-o"></span> Cancelar</button>
+                                document.getElementById('otros').value = 'saveotros',
+                                document.getElementById('id_rel_industria_otros').value = '',
+                                document.getElementById('anio_otros').value = '',
+                                document.getElementById('industria_otros').value = '',
+                                document.getElementById('id_servicio').value = '',
+                                document.getElementById('search_servicio').value = '',
+                                document.getElementById('frecuencia_otros').value = '',
+                                document.getElementById('cantidad_otros').value = '',
+                                document.getElementById('costo_otros').value = '',
+                                document.getElementById('id_pais4').value = '',
+                                document.getElementById('search_pais4').value = '',
+                                document.getElementById('id_provincia4').value = '',
+                                document.getElementById('search_provincia4').value = '',
+                                document.getElementById('id_localidad6').value = '',
+                                document.getElementById('search_localidad6').value = '',
+                                document.getElementById('motivo_importacion_otros').value = '',
+                                document.getElementById('detalles_otros').value = ''
+                                "><span class="fa fa-trash-o"></span> Cancelar</button>
                         </div>
                     </form>
 
@@ -1221,7 +1177,7 @@
                                     <thead>
                                         <tr role="row">
                                             <th>Servicios <span class="symbol required"></span></th>
-                                            <th>Total Consumo Anual <span class="symbol required"></span></th>
+                                            
                                             <th>Importe Total Anual <span class="symbol required"></span></th>
                                         </tr>
                                     </thead>
@@ -1230,7 +1186,7 @@
                                         <tr role="row" class="odd">
                                             <td><input type="hidden" name="id_servicio_devengado[]" id="id_servicio_devengado" value="" /><label></label></td>
 
-                                            <td class="text-center"><input type="text" class="form-control" name="cantidad_devengado[]" id="cantidad_devengado" value="1" placeholder="Ingrese Total Consumo Anual" autocomplete="off" style="width:100%;height:40px;background:#f0f9fc;border-radius:5px 5px 5px 5px;" disabled="disabled"></td>
+                                           
 
                                             <td class="text-center"><input type="text" class="form-control" name="costo_devengado[]" id="costo_devengado" placeholder="Ingrese Importe Total Anual" autocomplete="off" onKeyPress="EvaluateText('%f', this);" onBlur="this.value = Number_Format(this.value, '2', ',', '.')" style="width:100%;height:40px;background:#f0f9fc;border-radius:5px 5px 5px 5px;"></td>
                                         </tr>

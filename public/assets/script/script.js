@@ -2977,6 +2977,7 @@ function muestraForm(ref) {
 			getServicios("sb",1);
 			getServicios("com",2);
 			cargar_tabla_insumos();
+			cargar_tabla_combustible();
 		}
 
 
@@ -3597,15 +3598,16 @@ $('document').ready(function () {
 
 			var data = $("#saveserviciobasico").serialize();
 			var seccion = $("#seccionserviciobasico").val();
-			var industria = $("#industria_servicio_basico").val();
+			var industria = $("#id_industria_modal").val();
 
 			$.ajax({
 				type: 'POST',
-				url: '/saveSB',
+				url: '/saveServicio',
 				async: false,
 				data: {
 					_token: $('meta[name="csrf-token"]').attr('content'),
-					data: data
+					data: data,
+					id_industria:industria
 				},
 				beforeSend: function () {
 					$("#save").fadeOut();
@@ -3827,26 +3829,30 @@ $('document').ready(function () {
 
 			var data = $("#savecombustible").serialize();
 			var seccion = $("#seccioncombustible").val();
-			var industria = $("#industria_combustible").val();
+			var industria = $("#id_industria_modal").val();
 
 			$.ajax({
 				type: 'POST',
-				url: 'procedimientos.php',
+				url: '/saveServicio',
 				async: false,
-				data: data,
+				data: {
+					_token: $('meta[name="csrf-token"]').attr('content'),
+					data:data,
+					id_industria: industria
+				},
 				beforeSend: function () {
 					$("#save").fadeOut();
 					$("#btn-combustible").html('<i class="fa fa-refresh"></i> Verificando...');
 				},
 				success: function (data) {
-					if (data == 1) {
+					if (data.status == 1) {
 
 						$("#save").fadeIn(1000, function () {
 
 							var n = noty({
-								text: "<span class='fa fa-warning'></span> POR FAVOR DEBE DE COMPLETAR LOS CAMPOS REQUERIDOS, VERIFIQUE NUEVAMENTE POR FAVOR...!",
+								text: "<span class='fa fa-warning'></span>"+data.msg,
 								theme: 'defaultTheme',
-								layout: 'center',
+								layout: 'topCenter',
 								type: 'warning',
 								timeout: 5000,
 							});
@@ -3869,19 +3875,19 @@ $('document').ready(function () {
 
 						});
 					}
-					else {
+					else if(data.status == 200){
 
 						$("#save").fadeIn(1000, function () {
 
 							var n = noty({
-								text: '<center> ' + data + ' </center>',
+								text: '<center> ' + data.msg + ' </center>',
 								theme: 'defaultTheme',
-								layout: 'center',
+								layout: 'topCenter',
 								type: 'information',
 								timeout: 5000,
 							});
 							$('#MyModalCombustible').modal('hide');
-							$('#secciones').load("formularios.php?BuscaFormularioProcedimiento=si&seccion=" + seccion + "&in=" + industria);
+							//$('#secciones').load("formularios.php?BuscaFormularioProcedimiento=si&seccion=" + seccion + "&in=" + industria);
 							$("#savecombustible")[0].reset();
 							$("#savecombustible #combustibles").val("savecombustible");
 							$("#savecombustible #nombre_de_fantasia").text("");
@@ -3889,6 +3895,7 @@ $('document').ready(function () {
 							$("#savecombustible #industria_combustible").val("");
 							$("#savecombustible #anio_combustible").val("");
 							$("#btn-combustible").html('<span class="fa fa-save"></span> Agregar y Guardar');
+							cargar_tabla_combustible();
 						});
 					}
 				}
@@ -3900,6 +3907,190 @@ $('document').ready(function () {
 });
 /* FUNCION JQUERY PARA VALIDAR ASIGNACION DE COMBUSTIBLE */
 
+//update combustible
+
+
+$("#btn-combustible-update").on('click',function(){
+
+	/* validation */
+
+	if($("#id_servicio_combustible").val().length < 1){
+		var n = noty({
+			text: "<span class='fa fa-warning'></span> Debe seleccionar un combustible",
+			theme: 'defaultTheme',
+			layout: 'topCenter',
+			type: 'warning',
+			timeout: 5000,
+		});
+	}else if($("#medida_combustible").val().length < 1){
+		var n = noty({
+			text: "<span class='fa fa-warning'></span> Debe seleccionar una unidad de medida",
+			theme: 'defaultTheme',
+			layout: 'topCenter',
+			type: 'warning',
+			timeout: 5000,
+		});
+	}else if($("#costo_combustible").val().length < 1){
+		var n = noty({
+			text: "<span class='fa fa-warning'></span> Debe ingresar un monto anual",
+			theme: 'defaultTheme',
+			layout: 'topCenter',
+			type: 'warning',
+			timeout: 5000,
+		});
+	}else if($("#search_pais_combustible").val().length < 1){
+		var n = noty({
+			text: "<span class='fa fa-warning'></span>Debe ingresar un pais",
+			theme: 'defaultTheme',
+			layout: 'topCenter',
+			type: 'warning',
+			timeout: 5000,
+		});
+	}else if($("#search_provincia_combustible").val().length < 1){
+		var n = noty({
+			text: "<span class='fa fa-warning'></span>Debe ingresar una provincia",
+			theme: 'defaultTheme',
+			layout: 'topCenter',
+			type: 'warning',
+			timeout: 5000,
+		});
+	}else if($("#search_localidad_combustible").val().length < 1){
+		var n = noty({
+			text: "<span class='fa fa-warning'></span>Debe ingresar una localidad",
+			theme: 'defaultTheme',
+			layout: 'topCenter',
+			type: 'warning',
+			timeout: 5000,
+		});
+	}else{
+
+
+		var data = $("#updatecombustible").serialize();
+		var seccion = $("#seccioncombustible").val();
+		var industria = $("#id_industria_modal").val();
+
+		$.ajax({
+			type: 'POST',
+			url: '/updateServicio',
+			async: false,
+			data: {
+				_token: $('meta[name="csrf-token"]').attr('content'),
+				data:data,
+				id_industria: industria
+			},
+			beforeSend: function () {
+				$("#save").fadeOut();
+				$("#btn-combustible-update").html('<i class="fa fa-refresh"></i> Verificando...');
+			},
+			success: function (data) {
+				if (data.status == 1) {
+
+					$("#save").fadeIn(1000, function () {
+
+						var n = noty({
+							text: "<span class='fa fa-warning'></span>"+data.msg,
+							theme: 'defaultTheme',
+							layout: 'topCenter',
+							type: 'warning',
+							timeout: 5000,
+						});
+						$("#btn-combustible").html('<span class="fa fa-save"></span> Agregar y Guardar');
+
+					});
+				}
+				else if (data == 2) {
+
+					$("#save").fadeIn(1000, function () {
+
+						var n = noty({
+							text: "<span class='fa fa-warning'></span> ESTE COMBUSTIBLE YA SE ENCUENTRA REGISTRADO, VERIFIQUE NUEVAMENTE POR FAVOR ...!",
+							theme: 'defaultTheme',
+							layout: 'center',
+							type: 'warning',
+							timeout: 5000,
+						});
+						$("#btn-combustible").html('<span class="fa fa-save"></span> Agregar y Guardar');
+
+					});
+				}
+				else if(data.status == 200){
+
+					$("#save").fadeIn(1000, function () {
+
+						var n = noty({
+							text: '<center> ' + data.msg + ' </center>',
+							theme: 'defaultTheme',
+							layout: 'topCenter',
+							type: 'information',
+							timeout: 5000,
+						});
+						$('#MyModalCombustible').modal('hide');
+
+						// aqui asigno cada valor a los campos correspondientes
+						$("#updatecombustible #id_rel_industria_combustible").val("");
+						//$("#updatecombustible #industria_combustible").val(response[0].id_industria);
+						//$("#updatecombustible #nombre_de_fantasia").text(nombre_de_fantasia);
+						$("#updatecombustible #id_servicio_combustible").val("");
+						$("#updatecombustible #medida_combustible").val("");
+						//$("#updatecombustible #frecuencia_combustible").val(response[0].nomfrecuencia);
+						//$("#updatecombustible #cantidad_combustible").val(cantidad);
+						$("#updatecombustible #costo_combustible").val("");
+						$("#updatecombustible #id_pais_combustible").val("");
+						$("#updatecombustible #search_pais_combustible").val("");
+						$("#updatecombustible #id_provincia_combustible").val("");
+						$("#updatecombustible #search_provincia_combustible").val("");
+						$("#updatecombustible #id_localidad_combustible").val("");
+						$("#updatecombustible #search_localidad_combustible").val("");
+						$("#updatecombustible #motivo_importacion_combustible").val("");
+						$("#updatecombustible #detalles_combustible").val("");
+						
+						$("#updatecombustible")[0].reset();
+						
+						$("#updatecombustible").prop('id', 'savecombustible');
+						$("#savecombustible").prop('name', 'savecombustible');
+
+						$("#btn-combustible-update").hide();
+						$("#btn-combustible").show();
+
+						cargar_tabla_combustible();
+						$("#btn-combustible-update").html('<span class="fa fa-save"></span> Agregar y Guardar');
+					});
+				}
+			}
+		});
+		return false;
+
+	}
+	
+
+		
+		
+		
+	
+
+
+
+});
+
+$("#btn-cancelar-combustible").on('click',function(){
+	document.getElementById('combustibles').value = 'savecombustible',
+	document.getElementById('id_rel_industria_combustible').value = '',
+	document.getElementById('industria_combustible').value = '',
+	document.getElementById('anio_combustible').value = '',
+	document.getElementById('id_servicio_combustible').value = '',
+	
+	document.getElementById('medida_combustible').value = '',
+	document.getElementById('costo_combustible').value = '',
+	document.getElementById('id_pais_combustible').value = '',
+	document.getElementById('search_pais_combustible').value = '',
+	document.getElementById('id_provincia_combustible').value = '',
+	document.getElementById('search_provincia_combustible').value = '',
+	document.getElementById('id_localidad_combustible').value = '',
+	document.getElementById('search_localidad_combustible').value = '',
+	document.getElementById('motivo_importacion_combustible').value = '',
+	document.getElementById('detalles_combustible').value = ''
+                
+})
 
 
 
@@ -3952,13 +4143,17 @@ $('document').ready(function () {
 
 			var data = $("#saveotros").serialize();
 			var seccion = $("#seccionotros").val();
-			var industria = $("#industria_otros").val();
+			var industria = $("#id_industria_modal").val();
 
 			$.ajax({
 				type: 'POST',
-				url: 'procedimientos.php',
+				url: '/saveServicio',
 				async: false,
-				data: data,
+				data: {
+					_token: $('meta[name="csrf-token"]').attr('content'),
+					data:data,
+					id_industria: industria
+				},
 				beforeSend: function () {
 					$("#save").fadeOut();
 					$("#btn-otros").html('<i class="fa fa-refresh"></i> Verificando...');

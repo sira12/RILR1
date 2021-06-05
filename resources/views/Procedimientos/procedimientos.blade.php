@@ -783,9 +783,9 @@
 
 
                                     <div class="row mt-3"><span class="card-subtitle">Detalle los 5 principales Insumos utilizados en el proceso de Industrialización</span>
-
+                                    </div>
                                         <div class="table-responsive">
-                                            <table id="default_order" class="table table-bordered border display yajra-table-insumos">
+                                            <table  class="table table-deredbor border display  yajra-table-insumos">
 
                                                 <thead>
                                                     <tr bgcolor="#808080" class="text-white" role="row">
@@ -806,7 +806,7 @@
                                             </span>
                                         </div>
 
-                                    </div>
+                                    
 
                                     <hr>
 
@@ -877,16 +877,16 @@
 
 
                                     <div class="row mt-3"><span class="card-subtitle">Tipo de Combustible utilizado (Diesel, Leña, GNC, Nafta, Fuel Oil, Carbón, BLP, Biocombustible, Otro.)</span>
-
+                                    </div>
                                         <div class="table-responsive">
-                                            <table id="default_order" class="table table-deredbor border display">
+                                            <table id="default_order" class="table table-deredbor border display yajra-datatable-combustible">
 
                                                 <thead>
                                                     <tr bgcolor="#808080" class="text-white" role="row">
+                                                        <th>N°</th>
                                                         <th>Tipo</th>
                                                         <th>Frecuencia</th>
                                                         <th>Unidad Medida</th>
-                                                        <th>Cantidad</th>
                                                         <th>Costo</th>
                                                         <th>Año</th>
                                                         <th width="12%">Acciones</th>
@@ -895,21 +895,7 @@
                                                 <tbody class="BusquedaRapida">
 
 
-                                                    <tr role="row" class="odd">
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td>
-                                                            <span style="cursor: pointer;" data-placement="left" title="Ver Servicio" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalDetalleServicio" data-backdrop="static" data-keyboard="false" onClick="VerServicioAsignado('')"><i class="mdi mdi-eye font-22 text-danger"></i></span>
-
-                                                            <span style="cursor: pointer;" data-placement="left" title="Actualizar Servicio" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalCombustible" data-backdrop="static" data-keyboard="false" onClick="UpdateCombustibleAsignado('');"><i class="mdi mdi-table-edit font-22 text-danger"></i></span>
-
-                                                            <span style="cursor: pointer;" title="Eliminar Insumo" onClick="EliminarServicioAsignado('')"><i class="mdi mdi-delete font-22 text-danger"></i></span>
-                                                        </td>
-                                                    </tr>
+                                                    
 
                                                 </tbody>
                                             </table>
@@ -918,7 +904,7 @@
                                             </span>
                                         </div>
 
-                                    </div>
+                                   
 
                                     <hr>
 
