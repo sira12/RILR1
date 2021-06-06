@@ -102,7 +102,7 @@ class ServicioController extends Controller
 
 
 
-        $date = Carbon::now()->format('Y');
+        $date = Carbon::now()->format('Y');//2021
         $status = 200;
 
 
@@ -157,9 +157,49 @@ class ServicioController extends Controller
 
 
         }elseif($params['proceso']=="saveserviciobasico"){
+            $i=0;
 
-            dd($params);
-            die();
+            $pais_localidad = DB::table('industria')
+                 ->where('id_industria', $id_industria)
+                 ->join('localidad', 'industria.id_localidad', 'localidad.id_localidad')
+                 ->join('provincia', 'localidad.id_provincia', 'provincia.id_provincia')
+                 ->join('pais', 'provincia.id_pais', 'pais.id_pais')
+                 ->select(
+                     'industria.id_localidad',
+                     'pais.id_pais'
+                 )
+                 ->get();
+
+             $pais = $pais_localidad[0]->id_pais;
+             $localidad = $pais_localidad[0]->id_localidad;
+             $motivo = null;
+             $detalles = null;
+
+
+
+            foreach($params['id_servicio_basico'] as $valor){
+
+
+                $id=DB::table('rel_industria_servicio')->insertGetId([
+                  'id_industria' => $id_industria,
+                  'id_servicio' => intval($valor),
+                  'id_frecuencia_de_contratacion' => 1,
+                  'costo' => intval($params['costo_basico'][$i]),
+                  'id_localidad' =>  $localidad ,
+                  'id_pais' => $pais,
+                  'id_motivo_importacion' => $motivo ,
+                  'detalles' => $detalles,
+                  'anio' => $date,
+                  'fecha_de_actualizacion' => Carbon::now(),
+                  'id_unidad_de_medida'=>1
+              ]);
+
+
+                $i++;
+            }
+
+             $msg = "¡Datos Guardados exitosamente!";
+
 
         }
 
