@@ -1049,7 +1049,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group has-feedback">
                                         <label class="control-label">Nombre de Pais: <span style="cursor: pointer;" class="mdi mdi-alert-circle text-danger" data-container="body" title="Notificación: Ingrese Nombre de Pais y seleccione en el Listado que se mostrará, en caso de no aparecer, escribala y el sistema se encargará de la asignación del mismo."></span><span class="symbol required"></span></label>
-                                        <input type="hidden" name="id_pais_otros" id="id_pais4" value="" />
+                                        <input type="hidden" name="id_pais_otros" id="id_pais_otros" value="" />
                                         <input type="text" class="form-control" name="search_pais_otros" id="search_pais_otros" placeholder="Ingrese Nombre de Pais" autocomplete="off" value="" required="" aria-required="true" />
                                         <i class="fa fa-search form-control-feedback"></i>
                                     </div>
@@ -1104,25 +1104,8 @@
 
                         <div class="modal-footer">
                             <button type="submit" name="btn-otros" id="btn-otros" class="btn btn-danger"><span class="fa fa-save"></span> Guardar</button>
-                            <button class="btn btn-dark" type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="
-                                document.getElementById('otros').value = 'saveotros',
-                                document.getElementById('id_rel_industria_otros').value = '',
-                                document.getElementById('anio_otros').value = '',
-                                document.getElementById('industria_otros').value = '',
-                                document.getElementById('id_servicio').value = '',
-                                document.getElementById('search_servicio').value = '',
-                                document.getElementById('frecuencia_otros').value = '',
-                                document.getElementById('cantidad_otros').value = '',
-                                document.getElementById('costo_otros').value = '',
-                                document.getElementById('id_pais4').value = '',
-                                document.getElementById('search_pais4').value = '',
-                                document.getElementById('id_provincia4').value = '',
-                                document.getElementById('search_provincia4').value = '',
-                                document.getElementById('id_localidad6').value = '',
-                                document.getElementById('search_localidad6').value = '',
-                                document.getElementById('motivo_importacion_otros').value = '',
-                                document.getElementById('detalles_otros').value = ''
-                                "><span class="fa fa-trash-o"></span> Cancelar</button>
+                             <button type="button" name="btn-otros-update"  style="display:none;" id="btn-otros-update" class="btn btn-danger"><span class="fa fa-save"></span> Guardar</button>
+                            <button class="btn btn-dark" id="btn-cancelar-otros" type="button" class="close" data-dismiss="modal" aria-hidden="true" ><span class="fa fa-trash-o"></span> Cancelar</button>
                         </div>
                     </form>
 

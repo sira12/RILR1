@@ -2847,29 +2847,48 @@ function ActivaDetallesOtros(detalles) {
 }
 
 // FUNCION PARA ACTUALIZAR OTROS SERVICIOS ASIGNADO
-function UpdateOtrosAsignado(id_rel_industria_servicios, id_industria, nombre_de_fantasia, id_servicio, nomservicio, servicio_contratado, frecuencia_de_contratacion, cantidad,
-  costo, id_pais, search_pais, id_provincia, search_provincia, id_localidad, search_localidad, motivo_importacion, detalles, anio, proceso) {
-              // aqui asigno cada valor a los campos correspondientes
-              $("#saveotros #id_rel_industria_otros").val(id_rel_industria_servicios);
-  $("#saveotros #industria_otros").val(id_industria);
-  $("#saveotros #nombre_de_fantasia").text(nombre_de_fantasia);
-  $("#saveotros #id_servicio").val(id_servicio);
-  $("#saveotros #search_servicio").val(nomservicio);
-  $("#saveotros #frecuencia_otros").val(frecuencia_de_contratacion);
-  $("#saveotros #cantidad_otros").val(cantidad);
-  $("#saveotros #costo_otros").val(costo);
-  $("#saveotros #servicio_contratado").val(servicio_contratado);
-  $("#saveotros #id_pais_servicio").val(id_pais);
-  $("#saveotros #search_pais_servicio").val(search_pais);
-  $("#saveotros #id_provincia_servicio").val(id_provincia);
-  $("#saveotros #search_provincia_servicio").val(search_provincia);
-  $("#saveotros #id_localidad_servicio").val(id_localidad);
-  $("#saveotros #search_localidad_servicio").val(search_localidad);
-  $("#saveotros #motivo_importacion_otros").val(motivo_importacion);
-  $("#saveotros #detalles_otros").val(detalles);
-  $("#saveotros #anio_otros").val(anio);
-  $("#saveotros #otros").val(proceso);
-  (id_localidad == "134" ? $("#motivo_importacion_otros").attr('disabled', true) : $("#motivo_importacion_otros").attr('disabled', false));
+function UpdateOtrosAsignado(id_rel_industria_servicios) {
+  // aqui asigno cada valor a los campos correspondientes
+
+  $.ajax({
+    type: "POST",
+    url: "/getServicio",
+    data: {
+       _token: $('meta[name="csrf-token"]').attr('content'),
+      id:id_rel_industria_servicios
+    },
+    success: function (response) {
+      
+      $("#btn-otros-update").show();
+      $("#btn-otros").hide();
+
+      $("#saveotros").prop('id', 'updateotros');
+      $("#updateotros").prop('name', 'updateotros');
+
+
+      $("#updateotros #id_rel_industria_otros").val(response[0].id_rel_industria_servicio);
+      //$("#updateotros #industria_otros").val(id_industria);
+      //$("#updateotros #nombre_de_fantasia").text(nombre_de_fantasia);
+      $("#updateotros #id_servicio_otros").val(response[0].id_servicio);
+      $("#updateotros #search_servicio_otros").val(response[0].servicio);
+
+      $("#updateotros #costo_otros").val(response[0].costo);
+      //$("#updateotros #servicio_contratado").val(servicio_contratado);
+      $("#updateotros #id_pais_otros").val(response[0].id_pais);
+      $("#updateotros #search_pais_otros").val(response[0].pais);
+      $("#updateotros #id_provincia_otros").val(response[0].id_provincia);
+      $("#updateotros #search_provincia_otros").val(response[0].provincia);
+      $("#updateotros #id_localidad_otros").val(response[0].id_localidad);
+      $("#updateotros #search_localidad_otros").val(response[0].localidad);
+      $("#updateotros #motivo_importacion_otros").val(response[0].id_motivo_importacion);
+      $("#updateotros #detalles_otros").val(response[0].detalles);
+      //$("#updateotros #anio_otros").val(anio);
+      //$("#updateotros #otros").val(proceso);
+      //(id_localidad == "134" ? $("#motivo_importacion_otros").attr('disabled', true) : $("#motivo_importacion_otros").attr('disabled', false));
+      response[0].detalles ? $("#detalles_otros").attr('disabled', false) : $("#detalles_otros").attr('disabled', true);
+    }
+  });
+  
 }
 
 
@@ -2946,6 +2965,7 @@ function EliminarServicioAsignado(id_rel_industria_servicios) {
 
                       swal("Eliminado!", "Datos eliminados con éxito!", "success");
                       cargar_tabla_combustible();
+                      cargar_tabla_otros();
                       //$('#secciones').load("formularios.php?BuscaFormularioProcedimiento=si&seccion=" + seccion + "&in=" + id_industria);
 
                     } else {

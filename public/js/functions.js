@@ -1272,6 +1272,50 @@ function cargar_tabla_actividades() {
     })
 
 }
+
+function cargar_tabla_otros() {
+
+    var table = $('.yajra-table-otros').DataTable();
+
+
+    table.destroy();
+    //$('.yajra-datatable').empty();
+
+    var id_industria = $("#id_industria_modal").val();
+    table = $('.yajra-table-otros').DataTable({
+        processing: false,
+        serverSide: true,
+        searching: false,
+        "ajax": {
+            "url": "/listRelotros",
+            "type": "POST",
+            "data": {
+                _token: $('meta[name="csrf-token"]').attr('content'),
+                id_industria: id_industria
+            },
+        },
+
+        columns: [
+            { data: 'DT_RowIndex', name: 'DT_RowIndex' },
+            { data: 'servicio_utilizado', name: 'servicio_utilizado' },
+            { data: 'frecuencia', name: 'frecuencia' },
+            { data: 'costo', name: 'costo' },
+            { data: 'anio', name: 'anio' },
+            {
+                data: 'action',
+                name: 'action',
+                orderable: true,
+                searchable: true
+            },
+        ],
+        columnDefs: [
+
+
+     
+        ]
+    })
+
+}
 function cargar_tabla_insumos() {
 
     $('.yajra-table-insumos').DataTable().destroy();

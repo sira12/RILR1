@@ -824,7 +824,7 @@
 
 
                                     <div class="row mt-3"><span class="card-subtitle">Servicios Básicos (Agua, Energia Electrica, Gas-oil, Gas, Telefonia, Internet.)</span>
-
+                                    </div>
                                         <div class="table-responsive">
                                             <table id="default_order" class="table table-deredbor border display">
 
@@ -862,7 +862,7 @@
                                             </span>
                                         </div>
 
-                                    </div>
+                                   
 
                                     <hr>
 
@@ -921,15 +921,15 @@
 
 
                                     <div class="row mt-3"><span class="card-subtitle">Otros Servicios Utilizados por la Planta (Servicios tercerizados, mano de obra indirecta, etc.)</span>
-
+                                    </div>                                
                                         <div class="table-responsive">
-                                            <table id="default_order" class="table table-deredbor border display">
+                                            <table id="default_order" class="table table-deredbor border display yajra-table-otros">
 
                                                 <thead>
                                                     <tr bgcolor="#808080" class="text-white" role="row">
+                                                        <th>N°</th>
                                                         <th>Servicio Utilizado</th>
                                                         <th>Frecuencia</th>
-                                                        <th>Cantidad</th>
                                                         <th>Costo</th>
                                                         <th>Año</th>
                                                         <th width="12%">Acciones</th>
@@ -937,20 +937,7 @@
                                                 </thead>
                                                 <tbody class="BusquedaRapida">
 
-                                                    <tr role="row" class="odd">
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td>
-                                                            <span style="cursor: pointer;" data-placement="left" title="Ver Servicio" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalDetalleServicio" data-backdrop="static" data-keyboard="false" onClick="VerServicioAsignado('')"><i class="mdi mdi-eye font-22 text-danger"></i></span>
-
-                                                            <span style="cursor: pointer;" data-placement="left" title="Actualizar Servicio" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalOtros" data-backdrop="static" data-keyboard="false" onClick="UpdateOtrosAsignado('');"><i class="mdi mdi-table-edit font-22 text-danger"></i></span>
-
-                                                            <span style="cursor: pointer;" title="Eliminar Insumo" onClick="EliminarServicioAsignado('')"><i class="mdi mdi-delete font-22 text-danger"></i></span>
-                                                        </td>
-                                                    </tr>
+                                                    
 
                                                 </tbody>
                                             </table>
@@ -959,7 +946,7 @@
                                             </span>
                                         </div>
 
-                                    </div>
+                                    
 
                                     <hr>
 

@@ -2976,8 +2976,10 @@ function muestraForm(ref) {
 			getMotivo();
 			getServicios("sb",1);
 			getServicios("com",2);
+
 			cargar_tabla_insumos();
 			cargar_tabla_combustible();
+			cargar_tabla_otros();
 		}
 
 
@@ -4115,14 +4117,14 @@ $('document').ready(function () {
 	$("#saveotros").validate({
 		rules:
 		{
-			search_servicio: { required: true, },
+			search_servicio_otros: { required: true, },
 			servicio_contratado: { required: true, },
 			frecuencia_otros: { required: true, },
 			cantidad_otros: { required: true, number: true },
 			costo_otros: { required: true, number: true },
-			search_pais_servicio: { required: true, },
-			search_provincia_servicio: { required: true, },
-			search_localidad_servicio: { required: true, },
+			search_pais_otros: { required: true, },
+			search_provincia_otros: { required: true, },
+			search_localidad_otros: { required: true, },
 			motivo_importacion_otros: { required: true, },
 			detalles_otros: { required: true, },
 		},
@@ -4159,14 +4161,14 @@ $('document').ready(function () {
 					$("#btn-otros").html('<i class="fa fa-refresh"></i> Verificando...');
 				},
 				success: function (data) {
-					if (data == 1) {
+					if (data.status == 1) {
 
 						$("#save").fadeIn(1000, function () {
 
 							var n = noty({
-								text: "<span class='fa fa-warning'></span> POR FAVOR DEBE DE COMPLETAR LOS CAMPOS REQUERIDOS, VERIFIQUE NUEVAMENTE POR FAVOR...!",
+								text: "<span class='fa fa-warning'></span>"+data.msg,
 								theme: 'defaultTheme',
-								layout: 'center',
+								layout: 'topCenter',
 								type: 'warning',
 								timeout: 5000,
 							});
@@ -4189,19 +4191,19 @@ $('document').ready(function () {
 
 						});
 					}
-					else {
+					else if(data.status ==200) {
 
 						$("#save").fadeIn(1000, function () {
 
 							var n = noty({
-								text: '<center> ' + data + ' </center>',
+								text: '<center> ' + data.msg + ' </center>',
 								theme: 'defaultTheme',
-								layout: 'center',
+								layout: 'topCenter',
 								type: 'information',
 								timeout: 5000,
 							});
 							$('#MyModalOtros').modal('hide');
-							$('#secciones').load("formularios.php?BuscaFormularioProcedimiento=si&seccion=" + seccion + "&in=" + industria);
+							//$('#secciones').load("formularios.php?BuscaFormularioProcedimiento=si&seccion=" + seccion + "&in=" + industria);
 							$("#saveotros")[0].reset();
 							$("#saveotros #otros").val("saveotros");
 							$("#muestracondicionotros").html("");
@@ -4212,6 +4214,7 @@ $('document').ready(function () {
 							$("#saveotros #id_servicio").val("");
 							$("#saveotros #detalles_otros").attr('disabled', true);
 							$("#btn-otros").html('<span class="fa fa-save"></span> Agregar y Guardar');
+							cargar_tabla_otros();
 						});
 					}
 				}
@@ -4224,6 +4227,185 @@ $('document').ready(function () {
 /* FUNCION JQUERY PARA VALIDAR ASIGNACION DE OTROS SERVICIOS */
 
 
+//update otros
+
+$("#btn-otros-update").on('click',function(){
+
+	if($("#search_servicio_otros").val().length < 1){
+		var n = noty({
+			text: "<span class='fa fa-warning'></span> Debe seleccionar un servicio",
+			theme: 'defaultTheme',
+			layout: 'topCenter',
+			type: 'warning',
+			timeout: 5000,
+		});
+	}else if($("#costo_otros").val().length < 1){
+		var n = noty({
+			text: "<span class='fa fa-warning'></span> Debe indicar un costo",
+			theme: 'defaultTheme',
+			layout: 'topCenter',
+			type: 'warning',
+			timeout: 5000,
+		});
+	}else if($("#search_pais_otros").val().length < 1){
+		var n = noty({
+			text: "<span class='fa fa-warning'></span>Debe ingresar un pais",
+			theme: 'defaultTheme',
+			layout: 'topCenter',
+			type: 'warning',
+			timeout: 5000,
+		});
+	}else if($("#search_provincia_otros").val().length < 1){
+		var n = noty({
+			text: "<span class='fa fa-warning'></span>Debe ingresar una provincia",
+			theme: 'defaultTheme',
+			layout: 'topCenter',
+			type: 'warning',
+			timeout: 5000,
+		});
+	}else if($("#search_localidad_otros").val().length < 1){
+		var n = noty({
+			text: "<span class='fa fa-warning'></span>Debe ingresar una localidad",
+			theme: 'defaultTheme',
+			layout: 'topCenter',
+			type: 'warning',
+			timeout: 5000,
+		});
+	}else{
+	var data = $("#updateotros").serialize();
+	var seccion = $("#seccionotros").val();
+	var industria = $("#id_industria_modal").val();
+
+	$.ajax({
+		type: 'POST',
+		url: '/updateServicio',
+		async: false,
+		data: {
+			_token: $('meta[name="csrf-token"]').attr('content'),
+			data:data,
+			id_industria: industria
+		},
+		beforeSend: function () {
+			$("#save").fadeOut();
+			$("#btn-otros").html('<i class="fa fa-refresh"></i> Verificando...');
+		},
+		success: function (data) {
+			if (data.status == 1) {
+
+				$("#save").fadeIn(1000, function () {
+
+					var n = noty({
+						text: "<span class='fa fa-warning'></span>"+data.msg,
+						theme: 'defaultTheme',
+						layout: 'topCenter',
+						type: 'warning',
+						timeout: 5000,
+					});
+					$("#btn-otros").html('<span class="fa fa-save"></span> Agregar y Guardar');
+
+				});
+			}
+			else if (data == 2) {
+
+				$("#save").fadeIn(1000, function () {
+
+					var n = noty({
+						text: "<span class='fa fa-warning'></span> ESTE SERVICIO YA SE ENCUENTRA REGISTRADO, VERIFIQUE NUEVAMENTE POR FAVOR ...!",
+						theme: 'defaultTheme',
+						layout: 'center',
+						type: 'warning',
+						timeout: 5000,
+					});
+					$("#btn-otros-update").html('<span class="fa fa-save"></span> Agregar y Guardar');
+
+				});
+			}
+			else if(data.status ==200) {
+
+				$("#save").fadeIn(1000, function () {
+
+					var n = noty({
+						text: '<center> ' + data.msg + ' </center>',
+						theme: 'defaultTheme',
+						layout: 'topCenter',
+						type: 'information',
+						timeout: 5000,
+					});
+					$('#MyModalOtros').modal('hide');
+					//$('#secciones').load("formularios.php?BuscaFormularioProcedimiento=si&seccion=" + seccion + "&in=" + industria);
+					
+					$("#btn-otros-update").hide();
+			      $("#btn-otros").show();
+
+			     
+
+
+			      $("#updateotros #id_rel_industria_otros").val("");
+			      //$("#updateotros #industria_otros").val(id_industria);
+			      //$("#updateotros #nombre_de_fantasia").text(nombre_de_fantasia);
+			      $("#updateotros #id_servicio_otros").val("");
+			      $("#updateotros #search_servicio_otros").val("");
+
+			      $("#updateotros #costo_otros").val("");
+			      //$("#updateotros #servicio_contratado").val(servicio_contratado);
+			      $("#updateotros #id_pais_servicio").val("");
+			      $("#updateotros #search_pais_otros").val("");
+			      $("#updateotros #id_provincia_otros").val("");
+			      $("#updateotros #search_provincia_otros").val("");
+			      $("#updateotros #id_localidad_otros").val("");
+			      $("#updateotros #search_localidad_otros").val("");
+			      $("#updateotros #motivo_importacion_otros").val("");
+			      $("#updateotros #detalles_otros").val("");
+
+			       $("#updateotros").prop('id', 'saveotros');
+			      $("#saveotros").prop('name', 'saveotros');
+
+
+
+					/*$("#updateotros")[0].reset();
+					$("#updateotros #otros").val("saveotros");
+					$("#muestracondicionotros").html("");
+					$("#updateotros #nombre_de_fantasia").text("");
+					$("#updateotros #id_rel_industria_otros").val("");
+					$("#updateotros #industria_otros").val("");
+					$("#updateotros #anio_otros").val("");
+					$("#updateotros #id_servicio").val("");
+					$("#updateotros #detalles_otros").attr('disabled', true);*/
+					$("#btn-otros-update").html('<span class="fa fa-save"></span> Agregar y Guardar');
+					cargar_tabla_otros();
+				});
+			}
+		}
+	});
+}
+})
+
+//boton cancelar otros
+
+$("#btn-cancelar-otros").on('click',function(){
+
+	 $("#btn-otros-update").hide();
+     $("#btn-otros").show();
+
+     $("#updateotros").prop('id', 'saveotros');
+     $("#saveotros").prop('name', 'saveotros');
+
+	document.getElementById('otros').value = 'saveotros',
+    document.getElementById('id_rel_industria_otros').value = '',
+    document.getElementById('anio_otros').value = '',
+    document.getElementById('industria_otros').value = '',
+    document.getElementById('id_servicio_otros').value = '',
+    document.getElementById('search_servicio_otros').value = '',
+    document.getElementById('costo_otros').value = '',
+    document.getElementById('id_pais_otros').value = '',
+    document.getElementById('search_pais_otros').value = '',
+    document.getElementById('id_provincia_otros').value = '',
+    document.getElementById('search_provincia_otros').value = '',
+    document.getElementById('id_localidad_otros').value = '',
+    document.getElementById('search_localidad_otros').value = '',
+    document.getElementById('motivo_importacion_otros').value = '',
+    document.getElementById('detalles_otros').value = ''
+})
 
 
 

@@ -119,6 +119,8 @@ Route::get('/procedimientos',[ProcedimientosController::class,'index'] )->middle
     //otros
       Route::post('/search_servicio_otros', [ServicioController::class, 'search_servicio_otros'])->middleware(['auth']);
 
+      Route::post('/listRelotros', [ServicioController::class, 'listRelotros'])->middleware(['auth']);
+
 
 
 
