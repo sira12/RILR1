@@ -1336,10 +1336,11 @@ function cargar_tabla_basicos() {
                 _token: $('meta[name="csrf-token"]').attr('content'),
                 id_industria: id_industria
             },
-            
+                       
         },
-
+        
         columns: [
+
             { data: 'DT_RowIndex', name: 'DT_RowIndex' },
             { data: 'servicio_utilizado', name: 'servicio_utilizado' },
             { data: 'frecuencia', name: 'frecuencia' },
@@ -1355,9 +1356,32 @@ function cargar_tabla_basicos() {
         columnDefs: [
 
 
+            {
+
+                targets: 1,
+                "data": "servicio_utilizado",
+                "render": function (data, type, row, meta) {
+                    /* DEFINICION DE LAS VARIABLES: 
+                     * data: es el origen de dato... lo que segun el columns obtiene.
+                     * type: display (no se para que es).
+                     * row: todo el object con los valores de toda la fila
+                     * meta: el id de fila y columna en DT más las settings de DT */
+
+
+                     $( "#boton_servicio_basico" ).prop( "disabled", true );
+                    
+                    return row.servicio_utilizado;
+                }
+
+            },
+            
      
         ]
     })
+
+   
+
+    
 
 }
 function cargar_tabla_insumos() {
@@ -1579,6 +1603,66 @@ function cargar_tabla_combustible() {
 
 }
 
+function cargar_tabla_gastos() {
+
+    var table = $('.yajra-table-gastos').DataTable();
+
+
+    table.destroy();
+    //$('.yajra-datatable').empty();
+
+    var id_industria = $("#id_industria_modal").val();
+    table = $('.yajra-table-gastos').DataTable({
+        processing: false,
+        serverSide: true,
+        searching: false,
+        "ajax": {
+            "url": "/listRelGastos",
+            "type": "POST",
+            "data": {
+                _token: $('meta[name="csrf-token"]').attr('content'),
+                id_industria: id_industria
+            },
+        },
+        
+        columns: [
+            { data: 'DT_RowIndex', name: 'DT_RowIndex' },
+            { data: 'egreso', name: 'egreso' },
+            { data: 'importe', name: 'importe' },
+            { data: 'anio', name: 'anio' },
+            {
+                data: 'action',
+                name: 'action',
+                orderable: true,
+                searchable: true
+            },
+        ],
+        columnDefs: [
+
+            {
+
+                targets: 1,
+                "data": "egreso",
+                "render": function (data, type, row, meta) {
+                    /* DEFINICION DE LAS VARIABLES: 
+                     * data: es el origen de dato... lo que segun el columns obtiene.
+                     * type: display (no se para que es).
+                     * row: todo el object con los valores de toda la fila
+                     * meta: el id de fila y columna en DT más las settings de DT */
+
+
+                     $( "#agregar_egreso" ).prop( "disabled", true );
+                    
+                    return row.egreso;
+                }
+
+            },
+
+        ]
+    })
+
+}
+
 
 
 
@@ -1620,6 +1704,22 @@ function getunidades() {
             $(response).each(function (i, v) { // indice, valor
                 $("#medida_insumo").append('<option value="' + v.value + '">' + v.label + '</option>');
                 $("#medida_combustible").append('<option value="' + v.value + '">' + v.label + '</option>');
+            })
+        }
+    });
+}
+
+function getFrecuencia() {
+    $.ajax({
+        type: "post",
+        url: "/getFrecuencia",
+        data: {
+            _token: $('meta[name="csrf-token"]').attr('content'),
+        },
+        success: function (response) {
+            $(response).each(function (i, v) { // indice, valor
+                $("#frecuencia_otros").append('<option value="' + v.value + '">' + v.label + '</option>');
+             
             })
         }
     });

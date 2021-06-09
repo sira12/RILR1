@@ -20,6 +20,20 @@ class ServicioController extends Controller
         //
     }
 
+
+    //saca frecuencia
+    public function frecuencia()
+    {
+        $fr = DB::table('fecuencia_de_contratacion')->get();
+
+        $response = array();
+        foreach ($fr as $f) {
+            $response[] = array("value" => $f->id_fecuencia_de_contratacion, "label" => trim($f->fecuencia_de_contratacion));
+        }
+
+        return response()->json($response);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -38,7 +52,6 @@ class ServicioController extends Controller
      */
     public function store(Request $request)
     {
-
     }
 
     public function getServicio(Request $request)
@@ -47,17 +60,21 @@ class ServicioController extends Controller
 
         $servicio = DB::table('rel_industria_servicio')->where('id_rel_industria_servicio', $request->id)
             ->join('servicio', 'rel_industria_servicio.id_servicio', '=', 'servicio.id_servicio')
+            ->leftjoin('unidad_de_medida', 'rel_industria_servicio.id_unidad_de_medida','unidad_de_medida.id_unidad_de_medida')
             ->join('fecuencia_de_contratacion', 'rel_industria_servicio.id_frecuencia_de_contratacion', '=', 'fecuencia_de_contratacion.id_fecuencia_de_contratacion')
             ->join('pais', 'rel_industria_servicio.id_pais', 'pais.id_pais')
             ->join('localidad', 'rel_industria_servicio.id_localidad', 'localidad.id_localidad')
             ->join('provincia', 'localidad.id_provincia', 'provincia.id_provincia')
+            ->leftjoin('motivo_importacion','rel_industria_servicio.id_motivo_importacion','motivo_importacion.id_motivo_importacion')
             ->select(
                 'rel_industria_servicio.*',
                 'servicio.servicio',
                 'pais.pais',
                 'localidad.localidad',
                 'provincia.provincia',
-                'provincia.id_provincia'
+                'provincia.id_provincia',
+                'unidad_de_medida.unidad_de_medida',
+                'motivo_importacion.motivo_importacion'
             )
             ->get();
 
@@ -133,7 +150,7 @@ class ServicioController extends Controller
                     'id_unidad_de_medida' => intval($params['medida_combustible']),
                     'id_motivo_importacion' => isset($params['motivo_importacion_combustible']) && $params['motivo_importacion_combustible'] != "" ? intval($params['motivo_importacion_combustible']) : null,
                     'detalles' => isset($params['detalles_combustible']) ? $params['detalles_combustible'] : "",
-                     'cantidad_consumida'=>0,
+                    'cantidad_consumida' => 0,
                     'anio' => $date,
                     'fecha_de_actualizacion' => Carbon::now(),
                 ]);
@@ -142,8 +159,7 @@ class ServicioController extends Controller
             }
         } elseif ($params['proceso'] == "saveotros") {
 
-
-
+            
             //si el id del insumo viene vacio significa que no encontró el insumo, por lo tanto hay que cargarlo
             if ($params['id_servicio_otros'] == "") {
                 $servicio = new ServicioController();
@@ -175,7 +191,8 @@ class ServicioController extends Controller
                     'id_pais' => intval($params['id_pais_otros']),
                     'id_motivo_importacion' => intval($params['motivo_importacion_otros']),
                     'detalles' => isset($params['detalles_otros']) ? $params['detalles_otros'] : "",
-                     'cantidad_consumida'=>0,
+                    'cantidad_consumida' => intval($params['cantidad_otros']),
+                    'id_frecuencia_de_contratacion'=> intval($params['frecuencia_otros']),
                     'anio' => $date,
                     'fecha_de_actualizacion' => Carbon::now(),
                     'id_unidad_de_medida' => null
@@ -213,7 +230,7 @@ class ServicioController extends Controller
                     'id_pais' => $pais,
                     'id_motivo_importacion' => $motivo,
                     'detalles' => $detalles,
-                    'cantidad_consumida'=>0,
+                    'cantidad_consumida' => 0,
                     'anio' => $date,
                     'fecha_de_actualizacion' => Carbon::now(),
                     'id_unidad_de_medida' => null
@@ -296,7 +313,7 @@ class ServicioController extends Controller
             $ser_existente = DB::table('rel_industria_servicio')
                 ->where('id_industria', $id_industria)
                 ->where('id_servicio',  $id_servicio)
-                ->where('id_rel_industria_servicio','!=',intval($params['id_rel_industria_otros']))
+                ->where('id_rel_industria_servicio', '!=', intval($params['id_rel_industria_otros']))
                 ->get();
 
             if (count($ser_existente) > 0) {
@@ -306,23 +323,25 @@ class ServicioController extends Controller
 
 
                 $id = DB::table('rel_industria_servicio')
-                ->where('id_rel_industria_servicio', intval($params['id_rel_industria_otros']))
+                    ->where('id_rel_industria_servicio', intval($params['id_rel_industria_otros']))
                     ->update([
-                    'id_industria' => $id_industria,
-                    'id_servicio' => $id_servicio,
-                    'id_frecuencia_de_contratacion' => 1,
-                    'costo' => intval($params['costo_otros']),
-                    'id_localidad' =>  intval($params['id_localidad_otros']),
-                    'id_pais' => intval($params['id_pais_otros']),
-                    'id_motivo_importacion' => intval($params['motivo_importacion_otros']),
-                    'detalles' => isset($params['detalles_otros']) ? $params['detalles_otros'] : "",
-                    'anio' => $date,
-                    'fecha_de_actualizacion' => Carbon::now(),
-                    'id_unidad_de_medida' => null
-                ]);
+                        'id_industria' => $id_industria,
+                        'id_servicio' => $id_servicio,
+                        'id_frecuencia_de_contratacion' => 1,
+                        'costo' => intval($params['costo_otros']),
+                        'id_localidad' =>  intval($params['id_localidad_otros']),
+                        'id_pais' => intval($params['id_pais_otros']),
+                        'id_motivo_importacion' => intval($params['motivo_importacion_otros']),
+                        'detalles' => isset($params['detalles_otros']) ? $params['detalles_otros'] : "",
+                        'cantidad_consumida' => intval($params['cantidad_otros']),
+                        'id_frecuencia_de_contratacion'=> intval($params['frecuencia_otros']),
+                        'anio' => $date,
+                        'fecha_de_actualizacion' => Carbon::now(),
+                        'id_unidad_de_medida' => null
+                    ]);
                 $msg = "¡Datos Actualizados exitosamente!";
             }
-        }elseif ($params['proceso'] == "updateserviciobasico") {
+        } elseif ($params['proceso'] == "updateserviciobasico") {
 
 
             $i = 0;
@@ -348,32 +367,27 @@ class ServicioController extends Controller
 
                 $id = DB::table('rel_industria_servicio')->where('id_rel_industria_servicio', intval($params['id_rel_industria_servicios_basicos']))
                     ->update([
-                    'id_industria' => $id_industria,
-                    'id_servicio' => intval($valor),
-                    'id_frecuencia_de_contratacion' => 1,
-                    'costo' => intval($params['costo_basico'][$i]),
-                    'id_localidad' =>  $localidad,
-                    'id_pais' => $pais,
-                    'id_motivo_importacion' => $motivo,
-                    'detalles' => $detalles,
-                    'anio' => $date,
-                    'fecha_de_actualizacion' => Carbon::now(),
-                    'id_unidad_de_medida' => null
-                ]);
+                        'id_industria' => $id_industria,
+                        'id_servicio' => intval($valor),
+                        'id_frecuencia_de_contratacion' => 1,
+                        'costo' => intval($params['costo_basico'][$i]),
+                        'id_localidad' =>  $localidad,
+                        'id_pais' => $pais,
+                        'id_motivo_importacion' => $motivo,
+                        'detalles' => $detalles,
+                        'anio' => $date,
+                        'fecha_de_actualizacion' => Carbon::now(),
+                        'id_unidad_de_medida' => null
+                    ]);
 
 
                 $i++;
             }
 
             $msg = "¡Datos atualizados exitosamente!";
-
-
-
         }
 
         return response()->json(array('status' => $status, 'msg' => $msg), 200);
-
-
     }
 
     public function deleteRelServicio(Request $request)
@@ -485,9 +499,9 @@ class ServicioController extends Controller
 
                     $actionBtn = '
 
-                    <span style="cursor: pointer;" data-placement="left" title="Ver Servicio" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalDetalleServicio" data-backdrop="static" data-keyboard="false" onClick="VerServicioAsignado('. $row->id_rel_industria_servicio .')"><i class="mdi mdi-eye font-22 text-danger"></i></span>
+                    <span style="cursor: pointer;" data-placement="left" title="Ver Servicio" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalDetalleServicio" data-backdrop="static" data-keyboard="false" onClick="VerServicioAsignado(' . $row->id_rel_industria_servicio . ')"><i class="mdi mdi-eye font-22 text-danger"></i></span>
 
-                    <span style="cursor: pointer;" data-placement="left" title="Actualizar Servicio" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalUpdateServicioBasico" data-backdrop="static" data-keyboard="false" onClick="UpdateServicioBasicoAsignado('. $row->id_rel_industria_servicio .')"><i class="mdi mdi-table-edit font-22 text-danger"></i></span>
+                    <span style="cursor: pointer;" data-placement="left" title="Actualizar Servicio" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalUpdateServicioBasico" data-backdrop="static" data-keyboard="false" onClick="UpdateServicioBasicoAsignado(' . $row->id_rel_industria_servicio . ')"><i class="mdi mdi-table-edit font-22 text-danger"></i></span>
 
                         ';
                     return $actionBtn;

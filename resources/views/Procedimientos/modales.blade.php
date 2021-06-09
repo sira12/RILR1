@@ -725,11 +725,11 @@
                     <div class="table-responsive">
                         <table id="ser_basico" class="table2 display">
                             <thead>
-                                <tr role="row">
+                                
                                     <th>Servicio Básico <span class="symbol required"></span></th>
 
                                     <th>Importe Total Anual <span class="symbol required"></span></th>
-                                </tr>
+                                
                             </thead>
                             <tbody>
 
@@ -1167,7 +1167,7 @@
                                 <input type="hidden" name="industria_devengados" id="industria_devengados">
                                 <input type="hidden" name="anio_devengado" id="anio_devengado">
                                 <input type="hidden" name="zona_devengado" id="zona_devengado">
-                                <label class="control-label">Descripción de Industria: <span class="symbol required"></span></label>
+                                
                                 <br /><abbr title="Descripción de Industria"><label id="nombre_de_fantasia"></label></abbr>
                             </div>
                         </div>
@@ -1195,12 +1195,8 @@
                 <div class="modal-footer">
                     <button type="submit" name="btn-devengados" id="btn-devengados" class="btn btn-danger"><span class="fa fa-save"></span> Guardar</button>
                     <button class="btn btn-dark" type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="
-                document.getElementById('devengados').value = 'savedevengados',
-                document.getElementById('industria_devengados').value = '',
-                document.getElementById('anio_devengado').value = '',
-                document.getElementById('zona_devengado').value = '',
-                document.getElementById('cantidad_devengado').value = '1',
-                document.getElementById('costo_devengado').value = ''
+                document.getElementById('devengados').value = 'savedevengados';
+                
                 "><span class="fa fa-trash-o"></span> Cancelar</button>
                 </div>
             </form>
@@ -1231,30 +1227,24 @@
                                 <input type="hidden" name="id_rel_industria_devengados_update" id="id_rel_industria_devengados_update">
                                 <input type="hidden" name="industria_devengados_update" id="industria_devengados_update">
                                 <input type="hidden" name="anio_devengado_update" id="anio_devengado_update">
-                                <label class="control-label">Descripción de Industria: <span class="symbol required"></span></label>
+                                
                                 <br /><abbr title="Descripción de Industria"><label id="nombre_de_fantasia"></label></abbr>
                             </div>
                         </div>
                     </div>
 
                     <div class="table-responsive">
-                        <table id="default_order" class="table2 display">
+                        <table id="updatedevengado" class="table2 display">
                             <thead>
                                 <tr role="row">
                                     <th>Servicio <span class="symbol required"></span></th>
-                                    <th>Total Consumo Anual <span class="symbol required"></span></th>
+                                  
                                     <th>Importe Total Anual <span class="symbol required"></span></th>
                                 </tr>
                             </thead>
                             <tbody>
 
-                                <tr role="row" class="odd">
-                                    <td><label id="nombre_egreso"></label></td>
-
-                                    <td class="text-center"><input type="te" class="form-control" name="cantidad_egreso" id="cantidad_egreso" value="1" placeholder="Ingrese Total Consumo Anual" autocomplete="off" style="width:100%;height:40px;background:#f0f9fc;border-radius:5px 5px 5px 5px;" disabled="disabled"></td>
-
-                                    <td class="text-center"><input type="text" class="form-control" name="costo_egreso" id="costo_egreso" placeholder="Ingrese Importe Total Anual" autocomplete="off" onKeyPress="EvaluateText('%f', this);" onBlur="this.value = Number_Format(this.value, '2', ',', '.')" style="width:100%;height:40px;background:#f0f9fc;border-radius:5px 5px 5px 5px;"></td>
-                                </tr>
+                                
                             </tbody>
                         </table>
                     </div>
@@ -1264,10 +1254,9 @@
                 <div class="modal-footer">
                     <button type="submit" name="btn-egresosupdate" id="btn-egresosupdate" class="btn btn-danger"><span class="fa fa-edit"></span> Actualizar</button>
                     <button class="btn btn-dark" type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="
-                document.getElementById('id_rel_industria_devengados_update').value = '',
-                document.getElementById('anio_devengado_update').value = '',
-                document.getElementById('cantidad_egreso').value = '1',
-                document.getElementById('costo_egreso').value = ''
+                document.getElementById('id_rel_industria_devengados_update').value = '';
+                
+               
                 "><span class="fa fa-trash-o"></span> Cancelar</button>
                 </div>
             </form>

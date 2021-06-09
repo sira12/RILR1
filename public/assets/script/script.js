@@ -2976,13 +2976,14 @@ function muestraForm(ref) {
 			getMotivo();
 			getServicios("sb",1);
 			getServicios("com",2);
-
+			getFrecuencia();
 			getGastos();
 
 			cargar_tabla_insumos();
 			cargar_tabla_basicos();
 			cargar_tabla_combustible();
 			cargar_tabla_otros();
+			cargar_tabla_gastos();
 			
 		}
 
@@ -4442,25 +4443,29 @@ $('document').ready(function () {
 	$("#savedevengados").validate({
 		rules:
 		{
-			cantidad_devengado: { required: false, },
+			
 			costo_devengado: { required: false, number: false },
 		},
 		messages:
 		{
-			cantidad_devengado: { required: "Ingrese Cantidad Consumida" },
+			
 			costo_devengado: { required: "Ingrese Costo Asociado", number: "Ingrese solo digitos" },
 		},
 		submitHandler: function (form) {
 
 			var data = $("#savedevengados").serialize();
 			var seccion = $("#secciondevengados").val();
-			var industria = $("#industria_devengados").val();
+			var industria = $("#id_industria_modal").val();
 
 			$.ajax({
 				type: 'POST',
-				url: 'procedimientos.php',
+				url: '/saveDevengados',
 				async: false,
-				data: data,
+				data: {
+					_token: $('meta[name="csrf-token"]').attr('content'),
+					data:data,
+					id_industria: industria
+				},
 				beforeSend: function () {
 					$("#save").fadeOut();
 					$("#btn-devengados").html('<i class="fa fa-refresh"></i> Verificando...');
@@ -4511,25 +4516,26 @@ $('document').ready(function () {
 
 						});
 					}
-					else {
+					else if(data.status==200){
 
 						$("#save").fadeIn(1000, function () {
 
 							var n = noty({
-								text: '<center> ' + data + ' </center>',
+								text: '<center> ' + data.msg + ' </center>',
 								theme: 'defaultTheme',
-								layout: 'center',
+								layout: 'topCenter',
 								type: 'information',
 								timeout: 5000,
 							});
 							$('#MyModalDevengados').modal('hide');
-							$('#secciones').load("formularios.php?BuscaFormularioProcedimiento=si&seccion=" + seccion + "&in=" + industria);
+							
 							$("#savedevengados")[0].reset();
 							$("#savedevengados #nombre_de_fantasia").text("");
-							$("#savedevengados #industria_devengados").val("");
-							$("#savedevengados #anio_devengado").val("");
-							$("#savedevengados #zona_devengado").val("");
+							
+							
+							
 							$("#btn-devengados").html('<span class="fa fa-save"></span> Agregar y Guardar');
+							cargar_tabla_gastos();
 						});
 					}
 				}
@@ -4549,25 +4555,29 @@ $('document').ready(function () {
 	$("#updatedevengados").validate({
 		rules:
 		{
-			cantidad_egreso: { required: false, },
+		
 			costo_egreso: { required: false, number: false },
 		},
 		messages:
 		{
-			cantidad_egreso: { required: "Ingrese Cantidad Consumida" },
+			
 			costo_egreso: { required: "Ingrese Costo Asociado", number: "Ingrese solo digitos" },
 		},
 		submitHandler: function (form) {
 
 			var data = $("#updatedevengados").serialize();
 			var seccion = $("#secciondevengadosupdate").val();
-			var industria = $("#industria_devengados_update").val();
+			var industria = $("#id_industria_modal").val();
 
 			$.ajax({
 				type: 'POST',
-				url: 'procedimientos.php',
+				url: '/updateDevengados',
 				async: false,
-				data: data,
+				data: {
+					_token: $('meta[name="csrf-token"]').attr('content'),
+					data:data,
+					id_industria: industria
+				},
 				beforeSend: function () {
 					$("#save").fadeOut();
 					$("#btn-egresosupdate").html('<i class="fa fa-edit"></i> Verificando...');
@@ -4603,25 +4613,27 @@ $('document').ready(function () {
 
 						});
 					}
-					else {
+					else if(data.status == 200) {
 
 						$("#save").fadeIn(1000, function () {
 
 							var n = noty({
-								text: '<center> ' + data + ' </center>',
+								text: '<center> ' + data.msg + ' </center>',
 								theme: 'defaultTheme',
-								layout: 'center',
+								layout: 'topCenter',
 								type: 'information',
 								timeout: 5000,
 							});
 							$('#MyModalUpdateDevengado').modal('hide');
-							$('#secciones').load("formularios.php?BuscaFormularioProcedimiento=si&seccion=" + seccion + "&in=" + industria);
+							
 							$("#updatedevengados")[0].reset();
-							$("#updatedevengados #nombre_de_fantasia").text("");
+							
 							$("#updatedevengados #id_rel_industria_devengados_update").val("");
-							$("#updatedevengados #industria_devengados_update").val("");
-							$("#updatedevengados #anio_devengado_update").val("");
+							
+						
 							$("#btn-egresosupdate").html('<span class="fa fa-edit"></span> Actualizar');
+
+							cargar_tabla_gastos();
 						});
 					}
 				}

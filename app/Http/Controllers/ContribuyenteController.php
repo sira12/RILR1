@@ -123,15 +123,15 @@ class ContribuyenteController extends Controller
         $rel = DB::table('rel_persona_contribuyente')->where('id_rel_persona_contribuyente', $user->id_rel_persona_contribuyente)->select('id_contribuyente', 'id_persona')->first();
 
         $contribuyente = DB::table('contribuyente')
-            ->join('regimen_ib', 'contribuyente.id_regimen_ib', '=', 'regimen_ib.id_regimen_ib')
-            ->join('condicion_iva', 'contribuyente.id_condicion_iva', '=', 'condicion_iva.id_condicion_iva')
-            ->join('naturaleza_juridica', 'contribuyente.id_naturaleza_juridica', '=', 'naturaleza_juridica.id_naturaleza_juridica')
-            ->join('localidad', 'contribuyente.id_localidad', '=', 'localidad.id_localidad')
-            ->join('provincia', 'localidad.id_provincia', '=', 'provincia.id_provincia')
-            ->join('barrio', 'contribuyente.id_barrio', '=', 'barrio.id_barrio')
-            ->join('calle', 'contribuyente.id_calle', '=', 'calle.id_calle')
-            ->join('punto_cardinal', 'contribuyente.id_punto_cardinal', '=', 'punto_cardinal.id_punto_cardinal')
-            ->join('persona_juridica', 'contribuyente.id_persona_juridica', '=', 'persona_juridica.id_persona_juridica')
+            ->leftjoin('regimen_ib', 'contribuyente.id_regimen_ib', '=', 'regimen_ib.id_regimen_ib')
+            ->leftjoin('condicion_iva', 'contribuyente.id_condicion_iva', '=', 'condicion_iva.id_condicion_iva')
+            ->leftjoin('naturaleza_juridica', 'contribuyente.id_naturaleza_juridica', '=', 'naturaleza_juridica.id_naturaleza_juridica')
+            ->leftjoin('localidad', 'contribuyente.id_localidad', '=', 'localidad.id_localidad')
+            ->leftjoin('provincia', 'localidad.id_provincia', '=', 'provincia.id_provincia')
+            ->leftjoin('barrio', 'contribuyente.id_barrio', '=', 'barrio.id_barrio')
+            ->leftjoin('calle', 'contribuyente.id_calle', '=', 'calle.id_calle')
+            ->leftjoin('punto_cardinal', 'contribuyente.id_punto_cardinal', '=', 'punto_cardinal.id_punto_cardinal')
+            ->leftjoin('persona_juridica', 'contribuyente.id_persona_juridica', '=', 'persona_juridica.id_persona_juridica')
             ->select(
                 'contribuyente.*',
                 'regimen_ib.regimen_ib as regimen',
@@ -150,6 +150,7 @@ class ContribuyenteController extends Controller
 
         $zona = PuntoCardinal::all();
 
+      
 
         return view('Contribuyente.edit', [
             'id_contribuyente' => $id,

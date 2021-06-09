@@ -2481,6 +2481,12 @@ function VerInsumoAsignado(id_rel_industria_insumos) {
       id_rel_insumo:id_rel_industria_insumos
     },
     success: function (response) {
+
+
+      var motivo= response[0].motivo_importacion ?  response[0].motivo_importacion : "***"
+      var detalle= response[0].detalles == "" || response[0].detalles == null ? "***" : response[0].detalles == ""
+
+      var propia = response[0].es_propio =="P" ? "Propio" : "Adquirido"
       $('#muestradetalleinsumomodal').empty();
       $('#muestradetalleinsumomodal').append(
 
@@ -2490,13 +2496,13 @@ function VerInsumoAsignado(id_rel_industria_insumos) {
         '<td><strong>Insumo utilizado:</strong>' + response[0].insumo + '</td>' +
         '</tr>' +
         ' <tr>' +
-        ' <td><strong>Unidad de medida:</strong>' + response[0].insumo + '</td>' +
+        ' <td><strong>Unidad de medida:</strong>' + response[0].unidad_de_medida + '</td>' +
         ' </tr>' +
         ' <tr>' +
         ' <td><strong>cantidad:</strong>' + response[0].cantidad + '</td>' +
         ' </tr>' +
         ' <tr>' +
-        ' <td><strong>Propia o adquirida:</strong>' + response[0].es_propio+ '</td>' +
+        ' <td><strong>Propia o adquirida:</strong>' + propia+ '</td>' +
         ' </tr>' +
         ' <tr>' +
         ' <td><strong>Pais: </strong>' + response[0].pais + '</td>' +
@@ -2508,10 +2514,10 @@ function VerInsumoAsignado(id_rel_industria_insumos) {
         ' <td><strong>Localidad: </strong> ' + response[0].localidad+ '</td>' +
         '</tr>' +
         ' <tr>' +
-        ' <td><strong>Motivo de importacion: </strong>' + response[0].detalles + '</td>' +
+        ' <td><strong>Motivo de importacion: </strong>' + motivo + '</td>' +
         '</tr>' +
         ' <tr>' +
-        ' <td><strong>Detalles: </strong>' + response[0].detalles + '</td>' +
+        ' <td><strong>Detalles: </strong>' + detalle + '</td>' +
         '</tr>' +
         ' <tr>' +
         ' <td><strong>Año: </strong>' + response[0].anio + '</td>' +
@@ -2677,7 +2683,7 @@ function getGastos() {
             '<td><input type="hidden" name="id_gasto[]"  value="'+v.id_egreso+'" /><label>'+v.egreso+'</label></td>'+
 
                                               
-            '<td class="text-center"><input type="text" class="form-control" name="costo_gasto[]"  placeholder="Ingrese Importe Total Anual" autocomplete="off" onKeyPress="EvaluateText(\'' + flot + '\',this);" onBlur="this.value=Number_Format(this.value, 2,\'' + coma + '\',\'' + punto + '\')" style="width:100%;height:40px;background:#f0f9fc;border-radius:5px 5px 5px 5px;"></td>'
+            '<td class="text-center"><input type="text" class="form-control" name="costo_gasto[]" value="0,00"  placeholder="Ingrese Importe Total Anual" autocomplete="off" onKeyPress="EvaluateText(\'' + flot + '\',this);" onBlur="this.value=Number_Format(this.value, 2,\'' + coma + '\',\'' + punto + '\')" style="width:100%;height:40px;background:#f0f9fc;border-radius:5px 5px 5px 5px;"></td>'
             +'</tr>'
 
           );
@@ -2735,7 +2741,7 @@ function getServicios( ref,id_clasif) {
             '<td><input type="hidden" name="id_servicio_basico[]"  value="'+v.id_servicio+'" /><label>'+v.servicio+'</label></td>'+
 
                                               
-            '<td class="text-center"><input type="text" class="form-control" name="costo_basico[]"  placeholder="Ingrese Importe Total Anual" autocomplete="off" onKeyPress="EvaluateText(\'' + flot + '\',this);" onBlur="this.value=Number_Format(this.value, 2,\'' + coma + '\',\'' + punto + '\')" style="width:100%;height:40px;background:#f0f9fc;border-radius:5px 5px 5px 5px;"></td>'
+            '<td class="text-center"><input type="text" class="form-control" name="costo_basico[]" value="0,00" placeholder="Ingrese Importe Total Anual" autocomplete="off" onKeyPress="EvaluateText(\'' + flot + '\',this);" onBlur="this.value=Number_Format(this.value, 2,\'' + coma + '\',\'' + punto + '\')" style="width:100%;height:40px;background:#f0f9fc;border-radius:5px 5px 5px 5px;"></td>'
             +'</tr>'
 
           );
@@ -2991,6 +2997,8 @@ function UpdateOtrosAsignado(id_rel_industria_servicios) {
       $("#updateotros #search_servicio_otros").val(response[0].servicio);
 
       $("#updateotros #costo_otros").val(response[0].costo);
+      $("#updateotros #frecuencia_otros").val(response[0].id_frecuencia_de_contratacion);
+      $("#updateotros #cantidad_otros").val(response[0].cantidad_consumida);
       //$("#updateotros #servicio_contratado").val(servicio_contratado);
       $("#updateotros #id_pais_otros").val(response[0].id_pais);
       $("#updateotros #search_pais_otros").val(response[0].pais);
@@ -3027,62 +3035,129 @@ function AddIdActividadDevengadosModal(id_industria, nombre_de_fantasia, zona, a
 }
 
 // FUNCION PARA ACTUALIZAR EGRESO DEVENGADO
-function UpdateDevengadoAsignado(id_rel_industria_servicios, id_industria, nombre_de_fantasia, nomservicio, costo, anio) {
-              // aqui asigno cada valor a los campos correspondientes
-              $("#updatedevengados #id_rel_industria_devengados_update").val(id_rel_industria_servicios);
-  $("#updatedevengados #industria_devengados_update").val(id_industria);
-  $("#updatedevengados #nombre_de_fantasia").text(nombre_de_fantasia);
-  $("#updatedevengados #nombre_egreso").val(nomservicio);
-  $("#updatedevengados #costo_egreso").val(costo);
-  $("#updatedevengados #anio_devengado_update").val(anio);
-}
-
-// FUNCION PARA MOSTRAR SERVICIO ASIGNADO EN VENTANA MODAL
-function VerServicioAsignado(id_rel_industria_servicios) {
-
-              $('#muestradetalleserviciomodal').html('<center><i class="fa fa-spin fa-spinner"></i> Cargando información, por favor espere....</center>');
-
- 
+function UpdateDevengadoAsignado(id_rel_industria_servicios) {
 
   $.ajax({
               type: "POST",
-    url: "/getServicio",
+    url: "/getDevengados",
+    data: {
+      _token: $('meta[name="csrf-token"]').attr('content'),
+      id:id_rel_industria_servicios
+    },
+    success: function (response) {
+
+
+      $("#updatedevengado").find("tr").remove(); 
+        var coma =",";
+        var punto="."
+
+        var flot="%f"
+       
+        $(response).each(function (i, v) {
+        
+          $('#updatedevengado').append(
+
+            '<tr role="row" class="odd">'+
+            '<td><input type="hidden" name="id_egreso[]"  value="'+v.id_egreso+'" /><label>'+v.egreso+'</label></td>'+
+
+                                              
+            '<td class="text-center"><input type="text" class="form-control" name="costo_egreso[]" value="'+v.importe+'"  placeholder="Ingrese Importe Total Anual" autocomplete="off" onKeyPress="EvaluateText(\'' + flot + '\',this);" onBlur="this.value=Number_Format(this.value, 2,\'' + coma + '\',\'' + punto + '\')" style="width:100%;height:40px;background:#f0f9fc;border-radius:5px 5px 5px 5px;"></td>'
+            +'</tr>'
+
+          );
+
+
+        
+          })
+
+
+        // aqui asigno cada valor a los campos correspondientes
+            $("#updatedevengados #id_rel_industria_devengados_update").val(response[0].id_rel_industria_egreso);
+           
+  
+            $("#updatedevengados #nombre_egreso").val(response[0].egreso);
+          
+
+
+    }
+  })
+
+
+
+
+            
+}
+
+// FUNCION PARA MOSTRAR SERVICIO ASIGNADO EN VENTANA MODAL
+function VerServicioAsignado(id_rel_industria_servicios, ref="servicios") {
+
+    $('#muestradetalleserviciomodal').html('<center><i class="fa fa-spin fa-spinner"></i> Cargando información, por favor espere....</center>');
+
+    var url= ref=="servicios"? "/getServicio" : "/getDevengados"
+
+  $.ajax({
+              type: "POST",
+    url: url,
     data: {
       _token: $('meta[name="csrf-token"]').attr('content'),
       id:id_rel_industria_servicios
     },
     success: function (response) {
               $('#muestradetalleserviciomodal').empty();
-      $('#muestradetalleserviciomodal').append(
 
-        '<table class="table-responsive" border="0" align="center">' +
-        '<tr>' +
-        '<td><strong>Nombre de Servicio:</strong>' + response[0].servicio + '</td>' +
-        '</tr>' +
-        ' <tr>' +
-        ' <td><strong>Costo:</strong>' + response[0].costo + '</td>' +
-        ' </tr>' +
-        ' <tr>' +
-        ' <td><strong>Pais:</strong>' +  response[0].pais + '</td>' +
-        ' </tr>' +
-        ' <tr>' +
-        ' <td><strong>Provincia:</strong>' +  response[0].provincia + '</td>' +
-        ' </tr>' +
-        ' <tr>' +
-        ' <td><strong>Localidad: </strong>' +  response[0].localidad + '</td>' +
-        '</tr>' +
-        ' <tr>' +
-        ' <td><strong>Motivo de Importacion: </strong>' + "" + '</td>' +
-        ' </tr>' +
-        '<tr>' +
-        ' <td><strong>Detalles: </strong> ' +  response[0].detalles + '</td>' +
-        '</tr>' +
-        ' <tr>' +
-        ' <td><strong>Año: </strong>' +  response[0].anio + '</td>' +
-        '</tr>' +
-        '</table >'
+      if(ref == "servicios"){
+        var detalle= response[0].detalles == null || response[0].detalles == "" ? "***" : response[0].detalles 
+        var motivo= response[0].motivo_importacion == null ? "***" :  response[0].motivo_importacion 
+        $('#muestradetalleserviciomodal').append(
 
-      ).fadeIn("slow");
+          '<table class="table-responsive" border="0" align="center">' +
+          '<tr>' +
+          '<td><strong>Nombre de Servicio:</strong>' + response[0].servicio + '</td>' +
+          '</tr>' +
+          ' <tr>' +
+          ' <td><strong>Costo:</strong> $' + response[0].costo + '</td>' +
+          ' </tr>' +
+          ' <tr>' +
+          ' <td><strong>Pais:</strong>' +  response[0].pais + '</td>' +
+          ' </tr>' +
+          ' <tr>' +
+          ' <td><strong>Provincia:</strong>' +  response[0].provincia + '</td>' +
+          ' </tr>' +
+          ' <tr>' +
+          ' <td><strong>Localidad: </strong>' +  response[0].localidad + '</td>' +
+          '</tr>' +
+          ' <tr>' +
+          ' <td><strong>Motivo de Importacion: </strong>' + motivo + '</td>' +
+          ' </tr>' +
+          '<tr>' +
+          ' <td><strong>Detalles: </strong> ' +  detalle + '</td>' +
+          '</tr>' +
+          ' <tr>' +
+          ' <td><strong>Año: </strong>' +  response[0].anio + '</td>' +
+          '</tr>' +
+          '</table >'
+
+        ).fadeIn("slow");
+      }else{
+
+
+        $('#muestradetalleserviciomodal').append(
+
+          '<table class="table-responsive" border="0" align="center">' +
+          '<tr>' +
+          '<td><strong>Nombre de Servicio:</strong>' + response[0].egreso + '</td>' +
+          '</tr>' +
+          ' <tr>' +
+          ' <td><strong>Importe:</strong> $' + response[0].importe + '</td>' +
+          ' </tr>' +
+         
+          '</table >'
+
+        ).fadeIn("slow");
+
+
+      }
+      
 
     }
   });

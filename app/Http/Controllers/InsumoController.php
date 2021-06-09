@@ -145,16 +145,21 @@ class InsumoController extends Controller
 
         $insumo=DB::table('rel_industria_insumo')->where('id_rel_industria_insumo',$request->id_rel_insumo)
         ->join('insumo', 'rel_industria_insumo.id_insumo','insumo.id_insumo')
+        ->join('unidad_de_medida', 'rel_industria_insumo.id_unidad_de_medida','unidad_de_medida.id_unidad_de_medida')
         ->join('pais','rel_industria_insumo.id_pais','pais.id_pais')
         ->join('localidad','rel_industria_insumo.id_localidad','localidad.id_localidad')
         ->join('provincia','localidad.id_provincia','provincia.id_provincia')
+        ->leftjoin('motivo_importacion','rel_industria_insumo.id_motivo_importacion','motivo_importacion.id_motivo_importacion')
         ->select(
           'rel_industria_insumo.*',
           'insumo.insumo',
           'pais.pais',
           'localidad.localidad',
           'provincia.provincia',
-          'provincia.id_provincia'
+          'provincia.id_provincia',
+          'unidad_de_medida.unidad_de_medida',
+          'motivo_importacion.motivo_importacion'
+
 
 
         )

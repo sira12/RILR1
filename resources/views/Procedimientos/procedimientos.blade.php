@@ -819,7 +819,7 @@
 
 
                                     <div class="text-right">
-                                        <button type="button" class="btn btn-info" data-placement="left" title="Agregar Nuevo Servicio" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalServiciosBasicos" data-backdrop="static" data-keyboard="false" ><i class="fa fa-plus-square"></i> Agregar Servicios Básicos</button>
+                                        <button id="boton_servicio_basico" type="button" class="btn btn-info" data-placement="left" title="Agregar Nuevo Servicio" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalServiciosBasicos" data-backdrop="static" data-keyboard="false" ><i class="fa fa-plus-square"></i> Agregar Servicios Básicos</button>
                                     </div>
 
 
@@ -946,20 +946,19 @@
 
                                     <div class="text-right">
 
-                                        <button type="button" class="btn btn-info" data-placement="left" title="Agregar Nuevo Egreso" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalDevengados" data-backdrop="static" data-keyboard="false" onClick="AddIdActividadDevengadosModal('')"><i class="fa fa-plus-square"></i> Agregar Gasto Generado</button>
+                                        <button id="agregar_egreso" type="button" class="btn btn-info" data-placement="left" title="Agregar Nuevo Egreso" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalDevengados" data-backdrop="static" data-keyboard="false" onClick="AddIdActividadDevengadosModal('')"><i class="fa fa-plus-square"></i> Agregar Gasto Generado</button>
                                     </div>
 
 
                                     <div class="row mt-3"><span class="card-subtitle">Gastos Generados (Sueldos, Contribuciones, Pagos, Costo y Alquileres.)</span>
 
                                         <div class="table-responsive">
-                                            <table id="default_order" class="table table-deredbor border display">
+                                            <table  class="table table-deredbor border display yajra-table-gastos">
 
                                                 <thead>
                                                     <tr bgcolor="#808080" class="text-white" role="row">
+                                                        <th>N°</th>
                                                         <th>Servicio Utilizado</th>
-                                                        <th>Frecuencia</th>
-                                                        <th>Cantidad</th>
                                                         <th>Costo</th>
                                                         <th>Año</th>
                                                         <th width="12%">Acciones</th>
@@ -968,18 +967,7 @@
                                                 <tbody class="BusquedaRapida">
 
 
-                                                    <tr role="row" class="odd">
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td>
-                                                            <span style="cursor: pointer;" data-placement="left" title="Ver Servicio" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalDetalleServicio" data-backdrop="static" data-keyboard="false" onClick="VerServicioAsignado('')"><i class="mdi mdi-eye font-22 text-danger"></i></span>
-
-                                                            <span style="cursor: pointer;" data-placement="left" title="Actualizar Egreso" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalUpdateDevengado" data-backdrop="static" data-keyboard="false" onClick="UpdateDevengadoAsignado('')"><i class="mdi mdi-table-edit font-22 text-danger"></i></span>
-                                                        </td>
-                                                    </tr>
+                                                   
 
                                                 </tbody>
                                             </table>

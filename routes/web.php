@@ -116,6 +116,8 @@ Route::get('/procedimientos',[ProcedimientosController::class,'index'] )->middle
     Route::post('/deleteServicio', [ServicioController::class, 'deleteRelServicio'])->middleware(['auth']);
     Route::post('/listRelbasico', [ServicioController::class, 'listRelbasico'])->middleware(['auth']);
 
+    Route::post('/getFrecuencia', [ServicioController::class, 'frecuencia'])->middleware(['auth']);
+
     //combustible
 
       Route::post('/listRelcombustible', [ServicioController::class, 'listRelcombustible'])->middleware(['auth']);
@@ -124,10 +126,15 @@ Route::get('/procedimientos',[ProcedimientosController::class,'index'] )->middle
 
       Route::post('/listRelotros', [ServicioController::class, 'listRelotros'])->middleware(['auth']);
 
-      //gastos
+      //gastos 
 
     Route::post('/getGastos', [GastosController::class, 'getGastos'])->middleware(['auth']);
-
+    Route::post('/saveDevengados', [GastosController::class, 'saveDevengados'])->middleware(['auth']);
+    Route::post('/listRelGastos', [GastosController::class, 'listRelGastos'])->middleware(['auth']);
+    Route::post('/getDevengados', [GastosController::class, 'getDevengados'])->middleware(['auth']);
+    Route::post('/updateDevengados', [GastosController::class, 'updateDevengados'])->middleware(['auth']);
+    
+    
 
 
 
