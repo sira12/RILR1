@@ -1381,7 +1381,7 @@ function VerActividad(id_rel_industria_actividad) {
         ' <tr>' +
         ' <td><strong>Observación: </strong>' + response.observacion + '</td>' +
         '</tr>' +
-        ' </table >').fadeIn("slow");
+        '</table >').fadeIn("slow");
 
     }
   });
@@ -2471,15 +2471,56 @@ function VerInsumoAsignado(id_rel_industria_insumos) {
 
   $('#muestradetalleinsumomodal').html('<center><i class="fa fa-spin fa-spinner"></i> Cargando información, por favor espere....</center>');
 
-  var dataString = 'BuscaDetalleInsumoModal=si&id_rel_industria_insumos=' + id_rel_industria_insumos;
+  
 
   $.ajax({
-    type: "GET",
-    url: "funciones.php",
-    data: dataString,
+    type: "POST",
+    url: "/getInsumo",
+    data: {
+      _token: $('meta[name="csrf-token"]').attr('content'),
+      id_rel_insumo:id_rel_industria_insumos
+    },
     success: function (response) {
       $('#muestradetalleinsumomodal').empty();
-      $('#muestradetalleinsumomodal').append('' + response + '').fadeIn("slow");
+      $('#muestradetalleinsumomodal').append(
+
+        '<table class="table-responsive" border="0" align="center">' +
+        '<tbody>'+
+        '<tr>' +
+        '<td><strong>Insumo utilizado:</strong>' + response[0].insumo + '</td>' +
+        '</tr>' +
+        ' <tr>' +
+        ' <td><strong>Unidad de medida:</strong>' + response[0].insumo + '</td>' +
+        ' </tr>' +
+        ' <tr>' +
+        ' <td><strong>cantidad:</strong>' + response[0].cantidad + '</td>' +
+        ' </tr>' +
+        ' <tr>' +
+        ' <td><strong>Propia o adquirida:</strong>' + response[0].es_propio+ '</td>' +
+        ' </tr>' +
+        ' <tr>' +
+        ' <td><strong>Pais: </strong>' + response[0].pais + '</td>' +
+        '</tr>' +
+        ' <tr>' +
+        ' <td><strong>Provincia: </strong>' + response[0].provincia + '</td>' +
+        ' </tr>' +
+        '<tr>' +
+        ' <td><strong>Localidad: </strong> ' + response[0].localidad+ '</td>' +
+        '</tr>' +
+        ' <tr>' +
+        ' <td><strong>Motivo de importacion: </strong>' + response[0].detalles + '</td>' +
+        '</tr>' +
+        ' <tr>' +
+        ' <td><strong>Detalles: </strong>' + response[0].detalles + '</td>' +
+        '</tr>' +
+        ' <tr>' +
+        ' <td><strong>Año: </strong>' + response[0].anio + '</td>' +
+        '</tr>' +
+        '</tbody>'+
+        '</table >'
+
+
+      ).fadeIn("slow");
 
     }
   });
@@ -2610,7 +2651,46 @@ function EliminarInsumoAsignado(id_rel_industria_insumos) {
 
 
 
+function getGastos() {
+ 
+  $.ajax({
+    type: "post",
+    url: "/getGastos",
+    data: {
+      _token: $('meta[name="csrf-token"]').attr('content'),
+    },
+    success: function (response) {
 
+
+      
+        $("#gastos_generados").find("tr").remove(); 
+        var coma =",";
+        var punto="."
+
+        var flot="%f"
+       
+        $(response).each(function (i, v) {
+        
+          $('#gastos_generados').append(
+
+            '<tr role="row" class="odd">'+
+            '<td><input type="hidden" name="id_gasto[]"  value="'+v.id_egreso+'" /><label>'+v.egreso+'</label></td>'+
+
+                                              
+            '<td class="text-center"><input type="text" class="form-control" name="costo_gasto[]"  placeholder="Ingrese Importe Total Anual" autocomplete="off" onKeyPress="EvaluateText(\'' + flot + '\',this);" onBlur="this.value=Number_Format(this.value, 2,\'' + coma + '\',\'' + punto + '\')" style="width:100%;height:40px;background:#f0f9fc;border-radius:5px 5px 5px 5px;"></td>'
+            +'</tr>'
+
+          );
+
+
+        
+          })
+      
+
+      
+    }
+});
+}
 
 
 
@@ -2680,14 +2760,52 @@ function getServicios( ref,id_clasif) {
 }
 
 // FUNCION PARA ACTUALIZAR SERVICIOS BASICOS
-function UpdateServicioBasicoAsignado(id_rel_industria_servicios, id_industria, nombre_de_fantasia, nomservicio, costo, anio) {
+function UpdateServicioBasicoAsignado(id_rel_industria_servicios) {
+
+  $.ajax({
+    type: "post",
+    url: "/getServicio",
+    data: {
+      _token: $('meta[name="csrf-token"]').attr('content'),
+      id:id_rel_industria_servicios
+    },
+    success: function (response) {
+
+     
+
+      $("#ser_basico_2").find("tr").remove(); 
+        var coma =",";
+        var punto="."
+
+        var flot="%f"
+       
+        $(response).each(function (i, v) {
+        console.log(v)
+          $('#ser_basico_2').append(
+
+            '<tr role="row" class="odd">'+
+            '<td><input type="hidden" name="id_servicio_basico[]"  value="'+v.id_servicio+'" /><label>'+v.servicio+'</label></td>'+
+
+                                              
+            '<td class="text-center"><input type="text" class="form-control" name="costo_basico[]" value="'+v.costo+'"  placeholder="Ingrese Importe Total Anual" autocomplete="off" onKeyPress="EvaluateText(\'' + flot + '\',this);" onBlur="this.value=Number_Format(this.value, 2,\'' + coma + '\',\'' + punto + '\')" style="width:100%;height:40px;background:#f0f9fc;border-radius:5px 5px 5px 5px;"></td>'
+            +'</tr>'
+
+          );
+
+          })
+
+        $("#updateserviciobasico #id_rel_industria_servicios_basicos").val(id_rel_industria_servicios);
+        //$("#updateserviciobasico #industria_servicio_basico_update").val(id_industria);
+        //$("#updateserviciobasico #nombre_de_fantasia").text(nombre_de_fantasia);
+        //$("#updateserviciobasico #nombre_servicio").val(nomservicio);
+        //$("#updateserviciobasico #costo_servicio").val(costo);
+        //$("#updateserviciobasico #anio_basico_update").val(anio);
+
+
+    }
+  })
               // aqui asigno cada valor a los campos correspondientes
-              $("#updateserviciobasico #id_rel_industria_servicios_basicos").val(id_rel_industria_servicios);
-  $("#updateserviciobasico #industria_servicio_basico_update").val(id_industria);
-  $("#updateserviciobasico #nombre_de_fantasia").text(nombre_de_fantasia);
-  $("#updateserviciobasico #nombre_servicio").val(nomservicio);
-  $("#updateserviciobasico #costo_servicio").val(costo);
-  $("#updateserviciobasico #anio_basico_update").val(anio);
+ 
 }
 
 
@@ -2924,15 +3042,47 @@ function VerServicioAsignado(id_rel_industria_servicios) {
 
               $('#muestradetalleserviciomodal').html('<center><i class="fa fa-spin fa-spinner"></i> Cargando información, por favor espere....</center>');
 
-  var dataString = 'BuscaDetalleServicioModal=si&id_rel_industria_servicios=' + id_rel_industria_servicios;
+ 
 
   $.ajax({
-              type: "GET",
-    url: "funciones.php",
-    data: dataString,
+              type: "POST",
+    url: "/getServicio",
+    data: {
+      _token: $('meta[name="csrf-token"]').attr('content'),
+      id:id_rel_industria_servicios
+    },
     success: function (response) {
               $('#muestradetalleserviciomodal').empty();
-      $('#muestradetalleserviciomodal').append('' + response + '').fadeIn("slow");
+      $('#muestradetalleserviciomodal').append(
+
+        '<table class="table-responsive" border="0" align="center">' +
+        '<tr>' +
+        '<td><strong>Nombre de Servicio:</strong>' + response[0].servicio + '</td>' +
+        '</tr>' +
+        ' <tr>' +
+        ' <td><strong>Costo:</strong>' + response[0].costo + '</td>' +
+        ' </tr>' +
+        ' <tr>' +
+        ' <td><strong>Pais:</strong>' +  response[0].pais + '</td>' +
+        ' </tr>' +
+        ' <tr>' +
+        ' <td><strong>Provincia:</strong>' +  response[0].provincia + '</td>' +
+        ' </tr>' +
+        ' <tr>' +
+        ' <td><strong>Localidad: </strong>' +  response[0].localidad + '</td>' +
+        '</tr>' +
+        ' <tr>' +
+        ' <td><strong>Motivo de Importacion: </strong>' + "" + '</td>' +
+        ' </tr>' +
+        '<tr>' +
+        ' <td><strong>Detalles: </strong> ' +  response[0].detalles + '</td>' +
+        '</tr>' +
+        ' <tr>' +
+        ' <td><strong>Año: </strong>' +  response[0].anio + '</td>' +
+        '</tr>' +
+        '</table >'
+
+      ).fadeIn("slow");
 
     }
   });

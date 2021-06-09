@@ -15,6 +15,7 @@ use App\Http\Controllers\MateriaPrimaController;
 use App\Http\Controllers\PaisController;
 use App\Http\Controllers\InsumoController;
 use App\Http\Controllers\ServicioController;
+use App\Http\Controllers\GastosController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -104,6 +105,7 @@ Route::get('/procedimientos',[ProcedimientosController::class,'index'] )->middle
     Route::post('/updateInsumo', [InsumoController::class, 'updateRelInsumo'])->middleware(['auth']);
     Route::post('/deleteRelInsumo', [InsumoController::class, 'deleteRel'])->middleware(['auth']);
 
+
     //servicios basicos
 
     Route::post('/ser_basicos', [ServicioController::class, 'listar_servicios_basicos'])->middleware(['auth']);
@@ -112,6 +114,7 @@ Route::get('/procedimientos',[ProcedimientosController::class,'index'] )->middle
     Route::post('/getServicio', [ServicioController::class, 'getServicio'])->middleware(['auth']);
     Route::post('/updateServicio', [ServicioController::class, 'updateRelServicio'])->middleware(['auth']);
     Route::post('/deleteServicio', [ServicioController::class, 'deleteRelServicio'])->middleware(['auth']);
+    Route::post('/listRelbasico', [ServicioController::class, 'listRelbasico'])->middleware(['auth']);
 
     //combustible
 
@@ -120,6 +123,10 @@ Route::get('/procedimientos',[ProcedimientosController::class,'index'] )->middle
       Route::post('/search_servicio_otros', [ServicioController::class, 'search_servicio_otros'])->middleware(['auth']);
 
       Route::post('/listRelotros', [ServicioController::class, 'listRelotros'])->middleware(['auth']);
+
+      //gastos
+
+    Route::post('/getGastos', [GastosController::class, 'getGastos'])->middleware(['auth']);
 
 
 
@@ -130,6 +137,7 @@ Route::get('/procedimientos',[ProcedimientosController::class,'index'] )->middle
 //datos generales Contribuyente
 Route::get('/datos/{id}',[ContribuyenteController::class,'edit'] )->middleware(['auth'])->name('datosGenerales');
 Route::post('/updateContribuyente',[ContribuyenteController::class,'updateContribuyente'])->middleware(['auth']);
+
 
 
 // industria

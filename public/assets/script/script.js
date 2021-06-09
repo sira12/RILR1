@@ -2977,9 +2977,13 @@ function muestraForm(ref) {
 			getServicios("sb",1);
 			getServicios("com",2);
 
+			getGastos();
+
 			cargar_tabla_insumos();
+			cargar_tabla_basicos();
 			cargar_tabla_combustible();
 			cargar_tabla_otros();
+			
 		}
 
 
@@ -3668,7 +3672,7 @@ $('document').ready(function () {
 							var n = noty({
 								text: '<center> ' + data.msg + ' </center>',
 								theme: 'defaultTheme',
-								layout: 'center',
+								layout: 'topCenter',
 								type: 'information',
 								timeout: 5000,
 							});
@@ -3678,8 +3682,9 @@ $('document').ready(function () {
 							$("#saveserviciobasico #nombre_de_fantasia").text("");
 							$("#saveserviciobasico #industria_servicio_basico").val("");
 							$("#saveserviciobasico #anio_basico").val("");
-							$("#saveserviciobasico #zona_local").val("");
+							
 							$("#btn-serviciobasico").html('<span class="fa fa-save"></span> Agregar y Guardar');
+							cargar_tabla_basicos();
 						});
 					}
 				}
@@ -3711,13 +3716,17 @@ $('document').ready(function () {
 
 			var data = $("#updateserviciobasico").serialize();
 			var seccion = $("#seccionserviciobasicoupdate").val();
-			var industria = $("#industria_servicio_basico_update").val();
+			var industria = $("#id_industria_modal").val();
 
 			$.ajax({
 				type: 'POST',
-				url: 'procedimientos.php',
+				url: '/updateServicio',
 				async: false,
-				data: data,
+				data: {
+					_token: $('meta[name="csrf-token"]').attr('content'),
+					data:data,
+					id_industria:industria
+				},
 				beforeSend: function () {
 					$("#save").fadeOut();
 					$("#btn-serviciobasicoupdate").html('<i class="fa fa-refresh"></i> Verificando...');
@@ -3753,25 +3762,26 @@ $('document').ready(function () {
 
 						});
 					}
-					else {
+					else if(data.status == 200) {
 
 						$("#save").fadeIn(1000, function () {
 
 							var n = noty({
-								text: '<center> ' + data + ' </center>',
+								text: '<center> ' + data.msg + ' </center>',
 								theme: 'defaultTheme',
 								layout: 'center',
 								type: 'information',
 								timeout: 5000,
 							});
 							$('#MyModalUpdateServicioBasico').modal('hide');
-							$('#secciones').load("formularios.php?BuscaFormularioProcedimiento=si&seccion=" + seccion + "&in=" + industria);
+							
 							$("#updateserviciobasico")[0].reset();
 							$("#updateserviciobasico #nombre_de_fantasia").text("");
 							$("#updateserviciobasico #id_rel_industria_servicios_basicos").val("");
 							$("#updateserviciobasico #industria_servicio_basico_update").val("");
 							$("#updateserviciobasico #anio_basico_update").val("");
 							$("#btn-serviciobasicoupdate").html('<span class="fa fa-edit"></span> Actualizar');
+							cargar_tabla_basicos();
 						});
 					}
 				}
@@ -4214,6 +4224,7 @@ $('document').ready(function () {
 							$("#saveotros #id_servicio").val("");
 							$("#saveotros #detalles_otros").attr('disabled', true);
 							$("#btn-otros").html('<span class="fa fa-save"></span> Agregar y Guardar');
+							
 							cargar_tabla_otros();
 						});
 					}

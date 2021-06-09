@@ -162,10 +162,6 @@ class InsumoController extends Controller
 
         return response()->json($insumo);
 
-
-
-
-
     }
 
     public function updateRelInsumo (Request $request) {

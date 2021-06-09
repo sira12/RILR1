@@ -823,44 +823,32 @@
                                     </div>
 
 
-                                    <div class="row mt-3"><span class="card-subtitle">Servicios Básicos (Agua, Energia Electrica, Gas-oil, Gas, Telefonia, Internet.)</span>
+                                    <div class="row mt-3"><span class="card-subtitle">Servicios Básicos (Agua, Energia Electrica, Gas-oil, Gas, Telefonia, Internet.)</span></div>
+                                    <div class="table-responsive">
+                                        <table  class="table table-deredbor border display yajra-table-basicos">
+
+                                            <thead>
+                                                <tr bgcolor="#808080" class="text-white" role="row">
+                                                <th>N°</th>
+                                                    <th>Servicio Utilizado</th>
+                                                    <th>Frecuencia</th>
+                                                    
+                                                    <th>Costo</th>
+                                                    <th>Año</th>
+                                                    <th width="12%">Acciones</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="BusquedaRapida">
+
+
+                            
+
+                                            </tbody>
+                                        </table>
+                                        <span class="card-subtitle">Nota:
+                                            <i class="mdi mdi-eye text-danger font-16"></i>(Ver Servicio) - <i class="mdi mdi-table-edit text-danger font-16"></i>(Editar Servicio)
+                                        </span>
                                     </div>
-                                        <div class="table-responsive">
-                                            <table id="default_order" class="table table-deredbor border display">
-
-                                                <thead>
-                                                    <tr bgcolor="#808080" class="text-white" role="row">
-                                                        <th>Servicio Utilizado</th>
-                                                        <th>Frecuencia</th>
-                                                        <th>Cantidad</th>
-                                                        <th>Costo</th>
-                                                        <th>Año</th>
-                                                        <th width="12%">Acciones</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody class="BusquedaRapida">
-
-
-                                                    <tr role="row" class="odd">
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-
-                                                        <td>
-                                                            <span style="cursor: pointer;" data-placement="left" title="Ver Servicio" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalDetalleServicio" data-backdrop="static" data-keyboard="false" onClick="VerServicioAsignado('')"><i class="mdi mdi-eye font-22 text-danger"></i></span>
-
-                                                            <span style="cursor: pointer;" data-placement="left" title="Actualizar Servicio" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalUpdateServicioBasico" data-backdrop="static" data-keyboard="false" onClick="UpdateServicioBasicoAsignado('')"><i class="mdi mdi-table-edit font-22 text-danger"></i></span>
-                                                        </td>
-                                                    </tr>
-
-                                                </tbody>
-                                            </table>
-                                            <span class="card-subtitle">Nota:
-                                                <i class="mdi mdi-eye text-danger font-16"></i>(Ver Servicio) - <i class="mdi mdi-table-edit text-danger font-16"></i>(Editar Servicio)
-                                            </span>
-                                        </div>
 
                                    
 
@@ -879,7 +867,7 @@
                                     <div class="row mt-3"><span class="card-subtitle">Tipo de Combustible utilizado (Diesel, Leña, GNC, Nafta, Fuel Oil, Carbón, BLP, Biocombustible, Otro.)</span>
                                     </div>
                                         <div class="table-responsive">
-                                            <table id="default_order" class="table table-deredbor border display yajra-datatable-combustible">
+                                            <table  class="table table-deredbor border display yajra-datatable-combustible">
 
                                                 <thead>
                                                     <tr bgcolor="#808080" class="text-white" role="row">
@@ -923,7 +911,7 @@
                                     <div class="row mt-3"><span class="card-subtitle">Otros Servicios Utilizados por la Planta (Servicios tercerizados, mano de obra indirecta, etc.)</span>
                                     </div>                                
                                         <div class="table-responsive">
-                                            <table id="default_order" class="table table-deredbor border display yajra-table-otros">
+                                            <table  class="table table-deredbor border display yajra-table-otros">
 
                                                 <thead>
                                                     <tr bgcolor="#808080" class="text-white" role="row">

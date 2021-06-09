@@ -1316,6 +1316,50 @@ function cargar_tabla_otros() {
     })
 
 }
+function cargar_tabla_basicos() {
+
+    var table = $('.yajra-table-basicos').DataTable();
+
+
+    table.destroy();
+    //$('.yajra-datatable').empty();
+
+    var id_industria = $("#id_industria_modal").val();
+    table = $('.yajra-table-basicos').DataTable({
+        processing: false,
+        serverSide: true,
+        searching: false,
+        "ajax": {
+            "url": "/listRelbasico",
+            "type": "POST",
+            "data": {
+                _token: $('meta[name="csrf-token"]').attr('content'),
+                id_industria: id_industria
+            },
+            
+        },
+
+        columns: [
+            { data: 'DT_RowIndex', name: 'DT_RowIndex' },
+            { data: 'servicio_utilizado', name: 'servicio_utilizado' },
+            { data: 'frecuencia', name: 'frecuencia' },
+            { data: 'costo', name: 'costo' },
+            { data: 'anio', name: 'anio' },
+            {
+                data: 'action',
+                name: 'action',
+                orderable: true,
+                searchable: true
+            },
+        ],
+        columnDefs: [
+
+
+     
+        ]
+    })
+
+}
 function cargar_tabla_insumos() {
 
     $('.yajra-table-insumos').DataTable().destroy();
