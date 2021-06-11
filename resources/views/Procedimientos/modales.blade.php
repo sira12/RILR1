@@ -1392,18 +1392,18 @@
                             </div>
                         </div>
 
-                        <div class="col-md-3">
+                        <div class="col-md-3 inversion_i" style="display:none">
                             <div class="form-group has-feedback">
                                 <label class="control-label">Importe de Inversión: <span class="symbol required"></span></label>
-                                <input type="text" class="form-control" name="inversion_anual" id="inversion_anual" placeholder="Ingrese Importe de Inversión" onKeyPress="EvaluateText('%f', this);" onBlur="this.value = NumberFormat(this.value, '2', '.', '')" autocomplete="off" disabled="" required="" aria-required="true">
+                                <input type="text" class="form-control" name="inversion_anual" id="inversion_anual" placeholder="Ingrese Importe de Inversión" onKeyPress="EvaluateText('%f', this);" onBlur="this.value = NumberFormat(this.value, '2', '.', '')" autocomplete="off" required="" aria-required="true">
                                 <i class="fa fa-pencil form-control-feedback"></i>
                             </div>
                         </div>
 
-                        <div class="col-md-3">
+                        <div class="col-md-3 inversion_i" style="display:none">
                             <div class="form-group has-feedback">
                                 <label class="control-label">Inversión Activo Fijo: <span class="symbol required"></span></label>
-                                <input type="text" class="form-control" name="inversion_activo_fijo" id="inversion_activo_fijo" placeholder="Ingrese Inversión Activo Fijo" onKeyPress="EvaluateText('%f', this);" onBlur="this.value = NumberFormat(this.value, '2', '.', '')" autocomplete="off" disabled="" required="" aria-required="true">
+                                <input type="text" class="form-control" name="inversion_activo_fijo" id="inversion_activo_fijo" placeholder="Ingrese Inversión Activo Fijo" onKeyPress="EvaluateText('%f', this);" onBlur="this.value = NumberFormat(this.value, '2', '.', '')" autocomplete="off"  required="" aria-required="true">
                                 <i class="fa fa-pencil form-control-feedback"></i>
                             </div>
                         </div>
@@ -1434,21 +1434,22 @@
 
                 <div class="modal-footer">
                     <button type="submit" name="btn-situacion" id="btn-situacion" class="btn btn-danger"><span class="fa fa-save"></span> Guardar</button>
+                    <button type="button" name="btn-situacion-update" id="btn-situacion-update" style="display:none;" class="btn btn-danger"><span class="fa fa-save"></span>Actualizar</button>
                     <button class="btn btn-dark" type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="
-                document.getElementById('situacion').value = 'savesituacion',
-                document.getElementById('id_situacion_de_planta').value = '',
-                document.getElementById('industria_situacion').value = '',
-                document.getElementById('anio_situacion').value = '',
-                document.getElementById('produccion_sobre_capacidad').value = '',
-                document.getElementById('superficie_lote').value = '',
-                document.getElementById('superficie_planta').value = '',
-                document.getElementById('es_zona_industrial').value = '1',
-                document.getElementById('declara_inversion').value = '0',
-                document.getElementById('inversion_anual').value = '',
-                document.getElementById('inversion_activo_fijo').value = '',
-                document.getElementById('capacidad_instalada').value = '',
-                document.getElementById('capacidad_ociosa').value = ''
-                "><span class="fa fa-trash-o"></span> Cancelar</button>
+                        document.getElementById('situacion').value = 'savesituacion',
+                        document.getElementById('id_situacion_de_planta').value = '',
+                        document.getElementById('industria_situacion').value = '',
+                        document.getElementById('anio_situacion').value = '',
+                        document.getElementById('produccion_sobre_capacidad').value = '',
+                        document.getElementById('superficie_lote').value = '',
+                        document.getElementById('superficie_planta').value = '',
+                        document.getElementById('es_zona_industrial').value = '1',
+                        document.getElementById('declara_inversion').value = '0',
+                        document.getElementById('inversion_anual').value = '',
+                        document.getElementById('inversion_activo_fijo').value = '',
+                        document.getElementById('capacidad_instalada').value = '',
+                        document.getElementById('capacidad_ociosa').value = ''
+                        "><span class="fa fa-trash-o"></span> Cancelar</button>
                 </div>
             </form>
 

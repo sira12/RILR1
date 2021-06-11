@@ -61,7 +61,7 @@
                                 <span class="categories selectedGat" href="#datosGenerales"><i class="fa fa-tasks"></i> Datos Generales</span>
                                 <span class="categories" href="#act" onclick="muestraForm('actividades')"><i class="fa fa-tasks"></i> Actividad</span>
                                 <span class="categories" href="#insumos" onclick="muestraForm('insumos');"><i class="fa fa-tasks"></i> Insumos y Servicios</span>
-                                <span class="categories" id="seccion#4" onclick="CargaFormulario('','');"><i class="fa fa-tasks"></i> Situación de la Planta</span>
+                                <span class="categories" href="#splanta" onclick="muestraForm('splanta');"><i class="fa fa-tasks"></i> Situación de la Planta</span>
                                 <span class="categories" id="seccion#5" onclick="CargaFormulario('','');"><i class="fa fa-tasks"></i> Ventas y Facturación</span>
                                 <span class="categories" id="seccion#6" onclick="CargaFormulario('','');"><i class="fa fa-tasks"></i> Prevención y Control Ambiental</span>
                                 <span class="categories" id="seccion#7" onclick="CargaFormulario('','');"><i class="fa fa-tasks"></i> Sistemas de Calidad</span>
@@ -663,7 +663,6 @@
                                         </div>
 
                                     </form>
-
                                 </section>
 
 
@@ -977,8 +976,153 @@
                                         </div>
 
                                     </div>
+                                </section>
 
 
+                                <section id="splanta">
+                                    
+                                    <!-- ###################################### CONSULTA DE SITUACION DE PLANA ###################################### -->
+
+                                    <h3 class="card-subtitle mt-3"> Situación de Planta</h3>
+
+                                    
+                                        <div class='alert alert-danger'>
+                                        <center><span class='fa fa-info-circle'></span> POR FAVOR REALICE LA CARGA DE DATOS GENERALES PARA ASIGNAR SITUACIÓN DE PLANTA</center>
+                                        </div>
+                                   
+                                        <div class="text-right">
+                                            <button type="button" class="btn btn-info" data-placement="left" title="Agregar Nueva Situación de Planta" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalSituacion" data-backdrop="static" data-keyboard="false" onClick="AddIdSituacionModal('')"><i class="fa fa-plus-square"></i> Agregar Situación</button>
+                                        </div>
+
+
+                                        <div class="table-responsive mt-3">
+                                            <table  class="table table-deredbor border display tabla_splanta">
+
+                                                <thead>
+                                                    <tr bgcolor="#808080" class="text-white" role="row">
+                                                        <th>N°</th>
+                                                        <th>Porc. de Producción</th>
+                                                        <th>Sup. de Lote Industrial</th>
+                                                        <th>Sup. Ocupada por Planta</th>
+                                                        <th>Porc. de Capacidad Instalada</th>
+                                                        <th>Porc. de Capacidad Ociosa</th>
+                                                        <th>Año</th>
+                                                        <th width="12%">Acciones</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="BusquedaRapida">
+
+                                                    
+                                                </tbody>
+                                            </table>
+                                            <span class="card-subtitle">Nota:
+                                                <i class="mdi mdi-eye text-danger font-16"></i>(Ver Situación) - <i class="mdi mdi-table-edit text-danger font-16"></i>(Editar Situación) - <i class="mdi mdi-delete text-danger font-16"></i>(Eliminar Situación)
+                                            </span>
+                                        </div>
+
+                                        
+
+                                        <hr>
+
+
+                                        <!-- ###################################### CONSULTA DE OCIOSIDAD ###################################### -->
+
+                                        <h3 class="card-subtitle mt-3"> Motivo Ociosidad</h3>
+
+
+                                       
+                                            <div class="text-right">
+                                                <button type="button" class="btn btn-info" data-placement="left" title="Agregar Nuevo Motivo Ociosidad" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalMotivo" data-backdrop="static" data-keyboard="false" onClick="AddIdMotivoModal('')"><i class="fa fa-plus-square"></i> Agregar Motivo Ociosidad</button>
+                                            </div>
+                                        
+
+                                        <div class="row mt-3"><span class="card-subtitle">Motivo Ociosidad (Ej: Falta de Maquinarias, Falta de Personal, Alta Carga Impositiva, Costo Energía Eléctrica, otros)</span>
+
+                                            <div class="table-responsive">
+                                                <table  class="table table-deredbor border display">
+
+                                                    <thead>
+                                                        <tr bgcolor="#808080" class="text-white" role="row">
+                                                            <th>Descripción de Motivo Ociosidad</th>
+                                                            <th>Año</th>
+                                                            <th width="12%">Acciones</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="BusquedaRapida">
+
+                                                        
+                                                                <tr role="row" class="odd">
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td>
+                                                                        <span style="cursor: pointer;" data-placement="left" title="Ver Motivo Ociosidad" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalDetalleMotivo" data-backdrop="static" data-keyboard="false" onClick="VerMotivo('')"><i class="mdi mdi-eye font-22 text-danger"></i></span>
+
+                                                                        <span style="cursor: pointer;" data-placement="left" title="Actualizar Motivo Ociosidad" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalMotivo" data-backdrop="static" data-keyboard="false" onClick="UpdateMotivo('')"><i class="mdi mdi-table-edit font-22 text-danger"></i></span>
+
+                                                                        <span style="cursor: pointer;" title="Eliminar Motivo Ociosidad" onClick="EliminarMotivo('')"><i class="mdi mdi-delete font-22 text-danger"></i></span>
+                                                                    </td>
+                                                                </tr>
+                                                        
+                                                    </tbody>
+                                                </table>
+                                                <span class="card-subtitle">Nota:
+                                                    <i class="mdi mdi-eye text-danger font-16"></i>(Ver Motivo Ociosidad) - <i class="mdi mdi-table-edit text-danger font-16"></i>(Editar Motivo Ociosidad) - <i class="mdi mdi-delete text-danger font-16"></i>(Eliminar Motivo Ociosidad)
+                                                </span>
+                                            </div>
+
+                                        </div>
+
+                                        <hr>
+
+                                        <!-- ###################################### CONSULTA DE PERSONAL ###################################### -->
+
+                                        <h3 class="card-subtitle mt-3"> Personal Ocupado</h3>
+
+                                       
+                                            <div class="text-right">
+                                                <button type="button" class="btn btn-info" data-placement="left" title="Agregar Personal Ocupado" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalPersonal" data-backdrop="static" data-keyboard="false" onClick="AddIdPersonalModal('')"><i class="fa fa-plus-square"></i> Agregar Personal Ocupado</button>
+                                            </div>
+                                       
+
+                                        <div class="table-responsive mt-3">
+                                            <table  class="table table-deredbor border display">
+
+                                                <thead>
+                                                    <tr bgcolor="#808080" class="text-white" role="row">
+                                                        <th>Rol de Trabajador</th>
+                                                        <th>Condición Laboral</th>
+                                                        <th>Femenino</th>
+                                                        <th>Masculino</th>
+                                                        <th>Año</th>
+                                                        <th width="12%">Acciones</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="BusquedaRapida">
+
+                                                    
+                                                            <tr role="row" class="odd">
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td>
+                                                                    <span style="cursor: pointer;" data-placement="left" title="Ver Personal Ocupado" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalDetallePersonal" data-backdrop="static" data-keyboard="false" onClick="VerPersonal('')"><i class="mdi mdi-eye font-22 text-danger"></i></span>
+
+                                                                    <span style="cursor: pointer;" data-placement="left" title="Actualizar Personal Ocupado" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalUpdatePersonal" data-backdrop="static" data-keyboard="false" onClick="UpdatePersonal('')"><i class="mdi mdi-table-edit font-22 text-danger"></i></span>
+                                                                </td>
+                                                            </tr>
+                                                    
+                                                </tbody>
+                                            </table>
+                                            <span class="card-subtitle">Nota:
+                                                <i class="mdi mdi-eye text-danger font-16"></i>(Ver Personal) - <i class="mdi mdi-table-edit text-danger font-16"></i>(Editar Personal)
+                                            </span>
+                                        </div>
+
+                                        
+
+                                        <hr>
                                 </section>
                             </div><!-- Div secciones -->
 

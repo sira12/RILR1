@@ -1664,6 +1664,54 @@ function cargar_tabla_gastos() {
 }
 
 
+function cargar_tabla_splanta() {
+
+
+    var table = $('.tabla_splanta').DataTable();
+
+
+    table.destroy();
+    //$('.yajra-datatable').empty();
+
+    var id_industria = $("#id_industria_modal").val();
+    table = $('.tabla_splanta').DataTable({
+        processing: false,
+        serverSide: true,
+        searching: false,
+        "ajax": {
+            "url": "/listRelPlanta",
+            "type": "POST",
+            "data": {
+                _token: $('meta[name="csrf-token"]').attr('content'),
+                id_industria: id_industria
+            },
+        },
+        
+        columns: [
+            { data: 'DT_RowIndex', name: 'DT_RowIndex' },
+            { data: 'produccion_sobre_capacidad', name: 'produccion_sobre_capacidad' },
+            { data: 'superficie_lote', name: 'superficie_lote' },
+            { data: 'superficie_planta', name: 'superficie_planta' },
+            { data: 'capacidad_instalada', name: 'capacidad_instalada' },
+            { data: 'capacidad_ociosa', name: 'capacidad_ociosa' },
+            { data: 'anio', name: 'anio' },
+            
+            {
+                data: 'action',
+                name: 'action',
+                orderable: true,
+                searchable: true
+            },
+        ],
+        columnDefs: [
+
+           
+
+        ]
+    })
+
+}
+
 
 
 //moostrar forms

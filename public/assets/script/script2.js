@@ -3241,14 +3241,14 @@ function DeclaroInversion() {
   if (valor === '1' || valor === true) {
 
               //deshabilitamos
-              $("#inversion_anual").attr('disabled', false);
-    $("#inversion_activo_fijo").attr('disabled', false);
+      $(".inversion_i").show();
+   
 
   } else {
 
               // habilitamos
-              $("#inversion_anual").attr('disabled', true);
-    $("#inversion_activo_fijo").attr('disabled', true);
+              $(".inversion_i").hide();
+    
 
   }
 }
@@ -3291,23 +3291,50 @@ function ActivaDeclaraInversion(valor) {
 }
 
 // FUNCION PARA ACTUALIZAR SITUACION DE PLANTA ASIGNADO
-function UpdateSituacion(id_situacion_de_planta, id_industria, nombre_de_fantasia, produccion_sobre_capacidad, superficie_lote,
-  superficie_planta, es_zona_industrial, declara_inversion, inversion_anual, inversion_activo_fijo, capacidad_instalada, capacidad_ociosa, anio, proceso) {
-              // aqui asigno cada valor a los campos correspondientes
-              $("#savesituacion #id_situacion_de_planta").val(id_situacion_de_planta);
-  $("#savesituacion #industria_situacion").val(id_industria);
-  $("#savesituacion #nombre_de_fantasia").text(nombre_de_fantasia);
-  $("#savesituacion #produccion_sobre_capacidad").val(produccion_sobre_capacidad);
-  $("#savesituacion #superficie_lote").val(superficie_lote);
-  $("#savesituacion #superficie_planta").val(superficie_planta);
-  $("#savesituacion #es_zona_industrial").val((es_zona_industrial == '1') ? $("#savesituacion #name1").attr('checked', true) : $("#savesituacion #name2").attr('checked', true));
-  $("#savesituacion #declara_inversion").val((declara_inversion == '1') ? $("#savesituacion #name3").attr('checked', true) : $("#savesituacion #name4").attr('checked', true));
-  $("#savesituacion #inversion_anual").val(inversion_anual);
-  $("#savesituacion #inversion_activo_fijo").val(inversion_activo_fijo);
-  $("#savesituacion #capacidad_instalada").val(capacidad_instalada);
-  $("#savesituacion #capacidad_ociosa").val(capacidad_ociosa);
-  $("#savesituacion #anio_situacion").val(anio);
-  $("#savesituacion #situacion").val(proceso);
+function UpdateSituacion(id_situacion_de_planta) {
+
+   $.ajax({
+    type: "POST",
+    url: "/getSituacion",
+    data: {
+      _token: $('meta[name="csrf-token"]').attr('content'),
+      id:id_situacion_de_planta
+    },
+    success: function (response) {
+
+              $("#btn-situacion-update").show();
+              $("#btn-situacion").hide();
+
+              $("#savesituacion").prop('id', 'updatesituacion');
+              $("#updatesituacion").prop('name', 'updatesituacion');
+            
+            // aqui asigno cada valor a los campos correspondientes
+              $("#updatesituacion #id_situacion_de_planta").val(response[0].id_situacion_de_planta);
+              //$("#updatesituacion #industria_situacion").val(id_industria);
+              //$("#updatesituacion #nombre_de_fantasia").text(nombre_de_fantasia);
+              $("#updatesituacion #produccion_sobre_capacidad").val(response[0].produccion_sobre_capacidad);
+              $("#updatesituacion #superficie_lote").val(response[0].superficie_lote);
+              $("#updatesituacion #superficie_planta").val(response[0].superficie_planta);
+              $("#updatesituacion #es_zona_industrial").val((response[0].es_zona_industrial == '1') ? $("#updatesituacion #name1").attr('checked', true) : $("#updatesituacion #name2").attr('checked', true));
+              $("#updatesituacion #declara_inversion").val((response[0].inversion_activo_fijo != "" || response[0].inversion_anual != ""  ) ? $("#updatesituacion #name3").attr('checked', true) : $("#updatesituacion #name4").attr('checked', true));
+              $("#updatesituacion #inversion_anual").val(response[0].inversion_anual);
+              $("#updatesituacion #inversion_activo_fijo").val(response[0].inversion_activo_fijo);
+              $("#updatesituacion #capacidad_instalada").val(response[0].capacidad_instalada);
+              $("#updatesituacion #capacidad_ociosa").val(response[0].capacidad_ociosa);
+              /*$("#updatesituacion #anio_situacion").val(anio);
+              $("#updatesituacion #situacion").val(proceso);*/
+
+              
+
+              (response[0].inversion_activo_fijo != "" || response[0].inversion_anual != "" )? $(".inversion_i").show() : $(".inversion_i").hide()
+
+    }
+  });
+
+
+
+
+              
 }
 
 

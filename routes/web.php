@@ -16,6 +16,7 @@ use App\Http\Controllers\PaisController;
 use App\Http\Controllers\InsumoController;
 use App\Http\Controllers\ServicioController;
 use App\Http\Controllers\GastosController;
+use App\Http\Controllers\SituacionPlantaController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -134,6 +135,11 @@ Route::get('/procedimientos',[ProcedimientosController::class,'index'] )->middle
     Route::post('/getDevengados', [GastosController::class, 'getDevengados'])->middleware(['auth']);
     Route::post('/updateDevengados', [GastosController::class, 'updateDevengados'])->middleware(['auth']);
     
+    //situacion de planta 
+    
+    Route::post('/savesituacion', [SituacionPlantaController::class, 'savesituacion'])->middleware(['auth']);
+    Route::post('/listRelPlanta', [SituacionPlantaController::class, 'listRelPlanta'])->middleware(['auth']);
+    Route::post('/getSituacion', [SituacionPlantaController::class, 'getSituacion'])->middleware(['auth']);
     
 
 

@@ -2985,6 +2985,10 @@ function muestraForm(ref) {
 			cargar_tabla_otros();
 			cargar_tabla_gastos();
 			
+		}else if(ref == "splanta"){
+
+			
+			cargar_tabla_splanta(); 
 		}
 
 
@@ -4583,14 +4587,14 @@ $('document').ready(function () {
 					$("#btn-egresosupdate").html('<i class="fa fa-edit"></i> Verificando...');
 				},
 				success: function (data) {
-					if (data == 1) {
+					if (data.status == 1) {
 
 						$("#save").fadeIn(1000, function () {
 
 							var n = noty({
-								text: "<span class='fa fa-warning'></span> POR FAVOR DEBE DE COMPLETAR LOS CAMPOS REQUERIDOS, VERIFIQUE NUEVAMENTE POR FAVOR...!",
+								text: "<span class='fa fa-warning'></span>"+data.msg,
 								theme: 'defaultTheme',
-								layout: 'center',
+								layout: 'topCenter',
 								type: 'warning',
 								timeout: 5000,
 							});
@@ -4695,26 +4699,31 @@ $('document').ready(function () {
 
 			var data = $("#savesituacion").serialize();
 			var seccion = $("#seccionsituacion").val();
-			var industria = $("#industria_situacion").val();
+			var industria = $("#id_industria_modal").val();
 
 			$.ajax({
 				type: 'POST',
-				url: 'procedimientos.php',
+				url: '/savesituacion',
 				async: false,
-				data: data,
+				data: {
+
+					_token: $('meta[name="csrf-token"]').attr('content'),
+					data:data,
+					id_industria:industria
+				},
 				beforeSend: function () {
 					$("#save").fadeOut();
 					$("#btn-situacion").html('<i class="fa fa-refresh"></i> Verificando...');
 				},
 				success: function (data) {
-					if (data == 1) {
+					if (data.msg == 1) {
 
 						$("#save").fadeIn(1000, function () {
 
 							var n = noty({
-								text: "<span class='fa fa-warning'></span> POR FAVOR DEBE DE COMPLETAR LOS CAMPOS REQUERIDOS, VERIFIQUE NUEVAMENTE POR FAVOR...!",
+								text: "<span class='fa fa-warning'></span>"+data.msg,
 								theme: 'defaultTheme',
-								layout: 'center',
+								layout: 'topCenter',
 								type: 'warning',
 								timeout: 5000,
 							});
@@ -4752,19 +4761,19 @@ $('document').ready(function () {
 
 						});
 					}
-					else {
+					else if(data.status == 200) {
 
 						$("#save").fadeIn(1000, function () {
 
 							var n = noty({
-								text: '<center> ' + data + ' </center>',
+								text: '<center> ' + data.msg + ' </center>',
 								theme: 'defaultTheme',
-								layout: 'center',
+								layout: 'topCenter',
 								type: 'information',
 								timeout: 5000,
 							});
 							$('#MyModalSituacion').modal('hide');
-							$('#secciones').load("formularios.php?BuscaFormularioProcedimiento=si&seccion=" + seccion + "&in=" + industria);
+							//$('#secciones').load("formularios.php?BuscaFormularioProcedimiento=si&seccion=" + seccion + "&in=" + industria);
 							$("#savesituacion")[0].reset();
 							$("#savesituacion #situacion").val("savesituacion");
 							$("#savesituacion #nombre_de_fantasia").text("");
