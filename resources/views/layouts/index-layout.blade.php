@@ -48,7 +48,7 @@
     <script src="{{asset('assets/venobox/venobox/venobox.min.js')}}"></script>
 </head>
 
-<body onLoad="muestraReloj()" class="fix-header">
+<body onLoad="lanzador()" class="fix-header">
 
 
 

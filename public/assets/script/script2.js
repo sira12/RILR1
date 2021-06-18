@@ -1317,7 +1317,8 @@ function UpdateTramite(id_industria, id_contribuyente) {
   }, function (isConfirm) {
     if (isConfirm) {
       console.log(id_industria);
-      location.href = "/edit/tramite/" + id_industria;
+      
+     location.href = "/edit/tramite/" + id_industria;
       // handle confirm
     } else {
       // handle all other cases
@@ -3256,21 +3257,70 @@ function DeclaroInversion() {
 
 // FUNCION PARA MOSTRAR SITUACION DE PLANTA ASIGNADO EN VENTANA MODAL
 function VerSituacion(id_situacion_de_planta) {
+/*
 
-              $('#muestradetallesituacionmodal').html('<center><i class="fa fa-spin fa-spinner"></i> Cargando información, por favor espere....</center>');
 
-  var dataString = 'BuscaDetalleSituacionModal=si&id_situacion_de_planta=' + id_situacion_de_planta;
 
-  $.ajax({
-              type: "GET",
-    url: "funciones.php",
-    data: dataString,
+
+
+*/
+$.ajax({
+    type: "POST",
+    url: "/getSituacion",
+    data: {
+      _token: $('meta[name="csrf-token"]').attr('content'),
+      id:id_situacion_de_planta
+    },
     success: function (response) {
-              $('#muestradetallesituacionmodal').empty();
-      $('#muestradetallesituacionmodal').append('' + response + '').fadeIn("slow");
+
+            $('#muestradetallesituacionmodal').empty();
+
+            var z_i= response[0].es_zona_industrial == "1" ? "Si" :"No"
+
+            var inv= response[0].inversion_activo_fijo == "0.00" ? "No" :"Si"
+
+      $('#muestradetallesituacionmodal').append(
+
+          '<table class="table-responsive" border="0" align="center">'+
+           ' <tbody>'+
+             
+           ' <tr>'+
+              '<td><strong>Porcentaje de Producción según Capacidad Instalada:</strong> '+response[0].capacidad_instalada+'%</td>'+
+            '</tr>'+
+            '<tr>'+
+            '  <td><strong>Superficie de Lote Industrial Ocupado (m2):</strong>'+response[0].superficie_lote+'(m2)</td>'+
+           ' </tr>'+
+            '<tr>'+
+             ' <td><strong>Superficie Ocupada por la Planta (m2):</strong> '+response[0].superficie_planta+'(m2)</td>'+
+           ' </tr>'+
+           ' <tr>'+
+             ' <td><strong>Radiación en Parques o Áreas Industriales: </strong> '+z_i+'</td>'+
+           ' </tr>'+
+          '  <tr>'+
+              '<td><strong>En el Año Declarado realizó Inversiones en la Planta:</strong> '+inv+'</td>'+
+           ' </tr>'+
+            '<tr>'+
+             ' <td><strong>Importe de Inversión:</strong> '+response[0].inversion_anual+'</td>'+
+           ' </tr>'+
+           '<tr>'+
+            '<td><strong>Inversión Activo Fijo:</strong> '+response[0].inversion_activo_fijo+'</td>'+
+         ' </tr>'+
+         ' <tr>'+
+           ' <td><strong>Porcentaje de Capacidad Ociosa de la Planta:</strong> '+response[0].capacidad_ociosa+'%</td>'+
+         ' </tr>'+
+          '<tr>'+
+            '<td><strong>Porcentaje de Capacidad Instalada en Uso de la Planta:</strong>'+response[0].capacidad_instalada+' %</td>'+
+          '</tr>'+
+          '<tr>'+
+           ' <td><strong>Año:</strong> '+response[0].anio+'</td>'+
+          '</tr>'+
+        '</tbody></table>'
+        ).fadeIn("slow");
 
     }
   });
+             
+  
 }
 
 //ACTIVA INPUT DETALLES IMPORTACION EN SITUACION DE PLANTA
@@ -3339,7 +3389,7 @@ function UpdateSituacion(id_situacion_de_planta) {
 
 
 /////FUNCION PARA ELIMINAR SITUACION DE PLANTA ASIGNADO
-function EliminarSituacion(id_situacion_de_planta, id_industria, seccion, tipo) {
+function EliminarSituacion(id_situacion_de_planta) {
               swal({
                 title: "¿Estás seguro?",
                 text: "¿Estás seguro de Eliminar esta Situación de Planta?",
@@ -3352,15 +3402,19 @@ function EliminarSituacion(id_situacion_de_planta, id_industria, seccion, tipo) 
                 confirmButtonColor: "#808080"
               }, function () {
                 $.ajax({
-                  type: "GET",
-                  url: "eliminar.php",
-                  data: "id_situacion_de_planta=" + id_situacion_de_planta + "&tipo=" + tipo,
+                  type: "POST",
+                  url: "/deleteSituacion",
+                  data: {
+                       _token: $('meta[name="csrf-token"]').attr('content'),
+                        id:id_situacion_de_planta
+                  },
                   success: function (data) {
 
-                    if (data == 1) {
+                    if (data.status == 200) {
 
                       swal("Eliminado!", "Datos eliminados con éxito!", "success");
-                      $('#secciones').load("formularios.php?BuscaFormularioProcedimiento=si&seccion=" + seccion + "&in=" + id_industria);
+                      cargar_tabla_splanta();
+                      //$('#secciones').load("formularios.php?BuscaFormularioProcedimiento=si&seccion=" + seccion + "&in=" + id_industria);
 
                     } else {
 
@@ -3401,37 +3455,74 @@ function AddIdMotivoModal(id_industria, nombre_de_fantasia, anio) {
 // FUNCION PARA MOSTRAR MOTIVO OCIOSIDAD EN VENTANA MODAL
 function VerMotivo(id_rel_industria_motivo_ociosidad) {
 
-              $('#muestradetallemotivomodal').html('<center><i class="fa fa-spin fa-spinner"></i> Cargando información, por favor espere....</center>');
+          /*   */
 
-  var dataString = 'BuscaDetalleMotivoModal=si&id_rel_industria_motivo_ociosidad=' + id_rel_industria_motivo_ociosidad;
+    $.ajax({
+        type: "POST",
+        url: "/getMotivo",
+        data: {
+             _token: $('meta[name="csrf-token"]').attr('content'),
+              id:id_rel_industria_motivo_ociosidad
+        },
+        success: function (response) {
 
-  $.ajax({
-              type: "GET",
-    url: "funciones.php",
-    data: dataString,
-    success: function (response) {
-              $('#muestradetallemotivomodal').empty();
-      $('#muestradetallemotivomodal').append('' + response + '').fadeIn("slow");
+           $('#muestradetallemotivomodal').empty();
+          $('#muestradetallemotivomodal').append(
 
-    }
-  });
+
+           ' <table class="table-responsive" border="0" align="center">'+
+           '   <tbody>'+
+              '<tr>'+
+                '<td><strong>Descripción de Motivo Ociosidad:</strong> '+response[0].motivo_ociosidad+'</td>'+
+             ' </tr>'+
+             ' <tr>'+
+                '<td><strong>Año:</strong> '+response[0].anio+'</td>'+
+             ' </tr>'+
+           ' </tbody></table>'
+
+
+
+            ).fadeIn("slow");
+       
+        }
+      })
+
+ 
 }
 
 // FUNCION PARA ACTUALIZAR MOTIVO OCIOSIDAD
-function UpdateMotivo(id_rel_industria_motivo_ociosidad, id_industria, nombre_de_fantasia, id_motivo_ociosidad, nommotivo, anio, proceso) {
-              // aqui asigno cada valor a los campos correspondientes
-              $("#savemotivoasignado #id_rel_industria_motivo_ociosidad").val(id_rel_industria_motivo_ociosidad);
-  $("#savemotivoasignado #industria_motivo").val(id_industria);
-  $("#savemotivoasignado #nombre_de_fantasia").text(nombre_de_fantasia);
-  $("#savemotivoasignado #id_motivo_ociosidad").val(id_motivo_ociosidad);
-  $("#savemotivoasignado #search_motivo").val(nommotivo);
-  $("#savemotivoasignado #anio_motivo").val(anio);
-  $("#savemotivoasignado #motivo").val(proceso);
+function UpdateMotivo(id_rel_industria_motivo_ociosidad) {
+
+
+              $.ajax({
+                  type: "POST",
+                  url: "/getMotivo",
+                  data: {
+                       _token: $('meta[name="csrf-token"]').attr('content'),
+                        id:id_rel_industria_motivo_ociosidad
+                  },
+                  success: function (data) {
+
+                    $("#btn-motivo-update").show();
+                    $("#btn-motivo").hide();
+
+                    $("#savemotivoasignado").prop('id', 'updatemotivoasignado');
+                    $("#updatemotivoasignado").prop('name', 'updatemotivoasignado');
+
+                    // aqui asigno cada valor a los campos correspondientes
+                  $("#updatemotivoasignado #id_rel_industria_motivo_ociosidad").val(data[0].id_rel_industria_motivo_ociosidad);
+                  
+                 
+                  $("#updatemotivoasignado #id_motivo_ociosidad").val(data[0].id_motivo_ociosidad);
+                 
+                  }
+                })
+              
 }
 
 
 /////FUNCION PARA ELIMINAR MOTIVO OCIOSIDAD ASIGNADO
-function EliminarMotivo(id_rel_industria_motivo_ociosidad, id_industria, seccion, tipo) {
+function EliminarMotivo(id_rel_industria_motivo_ociosidad) {
               swal({
                 title: "¿Estás seguro?",
                 text: "¿Estás seguro de Eliminar este Motivo de Ociosidad?",
@@ -3444,15 +3535,18 @@ function EliminarMotivo(id_rel_industria_motivo_ociosidad, id_industria, seccion
                 confirmButtonColor: "#808080"
               }, function () {
                 $.ajax({
-                  type: "GET",
-                  url: "eliminar.php",
-                  data: "id_rel_industria_motivo_ociosidad=" + id_rel_industria_motivo_ociosidad + "&tipo=" + tipo,
+                  type: "POST",
+                  url: "/deleteRelMotivo",
+                  data: {
+                     _token: $('meta[name="csrf-token"]').attr('content'),
+                      id:id_rel_industria_motivo_ociosidad
+                  },
                   success: function (data) {
 
-                    if (data == 1) {
+                    if (data.status == 200) {
 
                       swal("Eliminado!", "Datos eliminados con éxito!", "success");
-                      $('#secciones').load("formularios.php?BuscaFormularioProcedimiento=si&seccion=" + seccion + "&in=" + id_industria);
+                      cargar_tabla_motivo_ociosidad();
 
                     } else {
 
@@ -3492,44 +3586,113 @@ function AddIdPersonalModal(id_industria, nombre_de_fantasia, anio) {
 
 
 // FUNCION PARA MOSTRAR PERSONAL OCUPADO EN VENTANA MODAL
-function VerPersonal(industria, rol_trabajador, anio) {
+function VerPersonal(id) {
 
               $('#muestradetallepersonalmodal').html('<center><i class="fa fa-spin fa-spinner"></i> Cargando información, por favor espere....</center>');
 
-  var dataString = 'BuscaDetallePersonalModal=si&industria=' + industria + "&rol_trabajador=" + rol_trabajador + "&anio=" + anio;
-
-  $.ajax({
-              type: "GET",
-    url: "funciones.php",
-    data: dataString,
+   $.ajax({
+    type: "POST",
+    url: "getRelPersonal",
+    data: {
+       _token: $('meta[name="csrf-token"]').attr('content'),
+       id:id
+    },
     success: function (response) {
-              $('#muestradetallepersonalmodal').empty();
-      $('#muestradetallepersonalmodal').append('' + response + '').fadeIn("slow");
+
+           $('#muestradetallepersonalmodal').empty();
+
+          var sexo= response[0].sexo =="M" ? "Masculino" : "Femenino"
+
+          $('#muestradetallepersonalmodal').append(
+
+
+           '<table class="table-responsive" border="0" align="center">'+
+             ' <tbody><tr>'+
+                '<td><strong>Rol de Trabajador:</strong> '+response[0].rol_trabajador+'</td>'+
+             ' </tr>'+
+             ' <tr>'+
+                '<td><strong>Condicion Laboral:</strong> '+response[0].condicion_laboral+'</td>'+
+              '</tr>'+
+               ' <tr>'+
+                '<td><strong>Sexo:</strong> '+sexo+'</td>'+
+              '</tr>'+
+               ' <tr>'+
+                '<td><strong>Cantidad de Trabajadores:</strong> '+response[0].numero_de_trabajadores+'</td>'+
+              '</tr>'+
+             ' <tr>'+
+               ' <td><strong>Año:</strong> '+response[0].anio+'</td>'+
+             ' </tr>'+
+            '</tbody></table>'
+
+            ).fadeIn("slow");
+
+
+              
+
+
+
+
+             
 
     }
   });
+
 }
 
 // FUNCION PARA ACTUALIZAR PERSONAL OCUPADO
-function UpdatePersonal(id_industria, nombre_de_fantasia, rol_trabajador, nomrol, anio) {
+function UpdatePersonal(id) {
 
               // aqui asigno cada valor a los campos correspondientes
-              $("#updatepersonal #industria_personal_update").val(id_industria);
-  $("#updatepersonal #nombre_de_fantasia").text(nombre_de_fantasia);
-  $("#updatepersonal #rol_trabajador").text(nomrol);
-  $("#updatepersonal #anio_personal_update").val(anio);
+             
 
   $('#detallespersonal').html('<center><i class="fa fa-spin fa-spinner"></i> Cargando información, por favor espere....</center>');
 
-  var dataString = 'BuscaDetallesPersonalUpdate=si&industria=' + id_industria + "&rol_trabajador=" + rol_trabajador + "&anio=" + anio;
-
   $.ajax({
-              type: "GET",
-    url: "funciones.php",
-    data: dataString,
+    type: "POST",
+    url: "getRelPersonal",
+    data: {
+       _token: $('meta[name="csrf-token"]').attr('content'),
+       id:id
+    },
     success: function (response) {
-              $('#detallespersonal').empty();
-      $('#detallespersonal').append('' + response + '').fadeIn("slow");
+
+              $("#updatepersonal #id_rel_industria_personal_update").val(response[0].id_rel_industria_trabajadores);
+             
+              $("#updatepersonal #rol_trabajador").text(response[0].rol_trabajador);
+              //$("#updatepersonal #anio_personal_update").val(anio);
+              
+
+              $("#p_o_update").find("tr").remove();
+
+
+              var sexo= response[0].sexo == "M" ? "masculino" : "femenino"
+
+
+
+            $('#thead_p_o_update').append(
+
+                '<tr role="row">'+
+                    '<th>Condición Laboral <span class="symbol required"></span></th>'+
+                    '<th>'+sexo+'<span class="symbol required"></span></th>'+  
+                '</tr>'
+
+            )
+            
+       
+            $(response).each(function (i, v) {
+            
+                $('#p_o_update').append(
+
+                    '<tr role="row" class="odd">'+
+                        '<td><input type="hidden" name="id_condicion_laboral[]" value="'+v.id_condicion_laboral+'" />'+v.condicion_laboral+'</label></td>'+
+
+                        '<td class="text-center"><input type="number" min="0" value="'+v.numero_de_trabajadores+'" class="form-control" name="'+sexo+'[]"  placeholder="Ingrese Cantidad '+sexo+'" autocomplete="off" style="width:100%;height:40px;background:#f0f9fc;border-radius:5px 5px 5px 5px;"></td>'+
+                    '</tr>'
+
+
+
+                );
+            })      
 
     }
   });

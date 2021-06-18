@@ -707,7 +707,7 @@
                                         </div>
 
                                     </div>
-                                    <div class="row mt-3">
+                                    <!--<div class="row mt-3">
 
                                         <div class="table-responsive">
                                             <table class="yajra-datatable-productos-actividad">
@@ -732,9 +732,8 @@
 
 
                                         </div>
-
-                                    </div>
-                                    <div id="rowActividad" class="row mt-3">
+                                    </div>-->
+                                    <!--<div id="rowActividad" class="row mt-3">
 
                                         <div class="table-responsive">
                                             <table class="yajra-datatable-materia-actividad">
@@ -757,8 +756,7 @@
 
 
                                         </div>
-
-                                    </div>
+                                    </div>-->
                                 </section>
 
 
@@ -783,29 +781,29 @@
 
                                     <div class="row mt-3"><span class="card-subtitle">Detalle los 5 principales Insumos utilizados en el proceso de Industrialización</span>
                                     </div>
-                                        <div class="table-responsive">
-                                            <table  class="table table-deredbor border display  yajra-table-insumos">
+                                    <div class="table-responsive">
+                                        <table class="table table-deredbor border display  yajra-table-insumos">
 
-                                                <thead>
-                                                    <tr bgcolor="#808080" class="text-white" role="row">
-                                                        <th>N°</th>
-                                                        <th>Insumo Utilizado</th>
-                                                        <th>Cantidad</th>
-                                                        <th>Unidad de Medida</th>
-                                                        <th>Año</th>
-                                                        <th width="12%">Acciones</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody class="BusquedaRapida">
+                                            <thead>
+                                                <tr bgcolor="#808080" class="text-white" role="row">
+                                                    <th>N°</th>
+                                                    <th>Insumo Utilizado</th>
+                                                    <th>Cantidad</th>
+                                                    <th>Unidad de Medida</th>
+                                                    <th>Año</th>
+                                                    <th width="12%">Acciones</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="BusquedaRapida">
 
-                                                </tbody>
-                                            </table>
-                                            <span class="card-subtitle">Nota:
-                                                <i class="mdi mdi-eye text-danger font-16"></i>(Ver Insumo) - <i class="mdi mdi-table-edit text-danger font-16"></i>(Editar Insumo) - <i class="mdi mdi-delete text-danger font-16"></i>(Eliminar Insumo)
-                                            </span>
-                                        </div>
+                                            </tbody>
+                                        </table>
+                                        <span class="card-subtitle">Nota:
+                                            <i class="mdi mdi-eye text-danger font-16"></i>(Ver Insumo) - <i class="mdi mdi-table-edit text-danger font-16"></i>(Editar Insumo) - <i class="mdi mdi-delete text-danger font-16"></i>(Eliminar Insumo)
+                                        </span>
+                                    </div>
 
-                                    
+
 
                                     <hr>
 
@@ -818,20 +816,20 @@
 
 
                                     <div class="text-right">
-                                        <button id="boton_servicio_basico" type="button" class="btn btn-info" data-placement="left" title="Agregar Nuevo Servicio" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalServiciosBasicos" data-backdrop="static" data-keyboard="false" ><i class="fa fa-plus-square"></i> Agregar Servicios Básicos</button>
+                                        <button id="boton_servicio_basico" type="button" class="btn btn-info" data-placement="left" title="Agregar Nuevo Servicio" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalServiciosBasicos" data-backdrop="static" data-keyboard="false"><i class="fa fa-plus-square"></i> Agregar Servicios Básicos</button>
                                     </div>
 
 
                                     <div class="row mt-3"><span class="card-subtitle">Servicios Básicos (Agua, Energia Electrica, Gas-oil, Gas, Telefonia, Internet.)</span></div>
                                     <div class="table-responsive">
-                                        <table  class="table table-deredbor border display yajra-table-basicos">
+                                        <table class="table table-deredbor border display yajra-table-basicos">
 
                                             <thead>
                                                 <tr bgcolor="#808080" class="text-white" role="row">
-                                                <th>N°</th>
+                                                    <th>N°</th>
                                                     <th>Servicio Utilizado</th>
                                                     <th>Frecuencia</th>
-                                                    
+
                                                     <th>Costo</th>
                                                     <th>Año</th>
                                                     <th width="12%">Acciones</th>
@@ -840,7 +838,7 @@
                                             <tbody class="BusquedaRapida">
 
 
-                            
+
 
                                             </tbody>
                                         </table>
@@ -849,7 +847,7 @@
                                         </span>
                                     </div>
 
-                                   
+
 
                                     <hr>
 
@@ -865,33 +863,33 @@
 
                                     <div class="row mt-3"><span class="card-subtitle">Tipo de Combustible utilizado (Diesel, Leña, GNC, Nafta, Fuel Oil, Carbón, BLP, Biocombustible, Otro.)</span>
                                     </div>
-                                        <div class="table-responsive">
-                                            <table  class="table table-deredbor border display yajra-datatable-combustible">
+                                    <div class="table-responsive">
+                                        <table class="table table-deredbor border display yajra-datatable-combustible">
 
-                                                <thead>
-                                                    <tr bgcolor="#808080" class="text-white" role="row">
-                                                        <th>N°</th>
-                                                        <th>Tipo</th>
-                                                        <th>Frecuencia</th>
-                                                        <th>Unidad Medida</th>
-                                                        <th>Costo</th>
-                                                        <th>Año</th>
-                                                        <th width="12%">Acciones</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody class="BusquedaRapida">
+                                            <thead>
+                                                <tr bgcolor="#808080" class="text-white" role="row">
+                                                    <th>N°</th>
+                                                    <th>Tipo</th>
+                                                    <th>Frecuencia</th>
+                                                    <th>Unidad Medida</th>
+                                                    <th>Costo</th>
+                                                    <th>Año</th>
+                                                    <th width="12%">Acciones</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="BusquedaRapida">
 
 
-                                                    
 
-                                                </tbody>
-                                            </table>
-                                            <span class="card-subtitle">Nota:
-                                                <i class="mdi mdi-eye text-danger font-16"></i>(Ver Servicio) - <i class="mdi mdi-table-edit text-danger font-16"></i>(Editar Servicio) - <i class="mdi mdi-delete text-danger font-16"></i>(Eliminar Servicio)
-                                            </span>
-                                        </div>
 
-                                   
+                                            </tbody>
+                                        </table>
+                                        <span class="card-subtitle">Nota:
+                                            <i class="mdi mdi-eye text-danger font-16"></i>(Ver Servicio) - <i class="mdi mdi-table-edit text-danger font-16"></i>(Editar Servicio) - <i class="mdi mdi-delete text-danger font-16"></i>(Eliminar Servicio)
+                                        </span>
+                                    </div>
+
+
 
                                     <hr>
 
@@ -908,32 +906,32 @@
 
 
                                     <div class="row mt-3"><span class="card-subtitle">Otros Servicios Utilizados por la Planta (Servicios tercerizados, mano de obra indirecta, etc.)</span>
-                                    </div>                                
-                                        <div class="table-responsive">
-                                            <table  class="table table-deredbor border display yajra-table-otros">
+                                    </div>
+                                    <div class="table-responsive">
+                                        <table class="table table-deredbor border display yajra-table-otros">
 
-                                                <thead>
-                                                    <tr bgcolor="#808080" class="text-white" role="row">
-                                                        <th>N°</th>
-                                                        <th>Servicio Utilizado</th>
-                                                        <th>Frecuencia</th>
-                                                        <th>Costo</th>
-                                                        <th>Año</th>
-                                                        <th width="12%">Acciones</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody class="BusquedaRapida">
+                                            <thead>
+                                                <tr bgcolor="#808080" class="text-white" role="row">
+                                                    <th>N°</th>
+                                                    <th>Servicio Utilizado</th>
+                                                    <th>Frecuencia</th>
+                                                    <th>Costo</th>
+                                                    <th>Año</th>
+                                                    <th width="12%">Acciones</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="BusquedaRapida">
 
-                                                    
 
-                                                </tbody>
-                                            </table>
-                                            <span class="card-subtitle">Nota:
-                                                <i class="mdi mdi-eye text-danger font-16"></i>(Ver Servicio) - <i class="mdi mdi-table-edit text-danger font-16"></i>(Editar Servicio) - <i class="mdi mdi-delete text-danger font-16"></i>(Eliminar Servicio)
-                                            </span>
-                                        </div>
 
-                                    
+                                            </tbody>
+                                        </table>
+                                        <span class="card-subtitle">Nota:
+                                            <i class="mdi mdi-eye text-danger font-16"></i>(Ver Servicio) - <i class="mdi mdi-table-edit text-danger font-16"></i>(Editar Servicio) - <i class="mdi mdi-delete text-danger font-16"></i>(Eliminar Servicio)
+                                        </span>
+                                    </div>
+
+
 
                                     <hr>
 
@@ -952,7 +950,7 @@
                                     <div class="row mt-3"><span class="card-subtitle">Gastos Generados (Sueldos, Contribuciones, Pagos, Costo y Alquileres.)</span>
 
                                         <div class="table-responsive">
-                                            <table  class="table table-deredbor border display yajra-table-gastos">
+                                            <table class="table table-deredbor border display yajra-table-gastos">
 
                                                 <thead>
                                                     <tr bgcolor="#808080" class="text-white" role="row">
@@ -966,7 +964,7 @@
                                                 <tbody class="BusquedaRapida">
 
 
-                                                   
+
 
                                                 </tbody>
                                             </table>
@@ -980,139 +978,123 @@
 
 
                                 <section id="splanta">
-                                    
+
                                     <!-- ###################################### CONSULTA DE SITUACION DE PLANA ###################################### -->
 
                                     <h3 class="card-subtitle mt-3"> Situación de Planta</h3>
 
-                                    
-                                        <div class='alert alert-danger'>
+
+                                    <div class='alert alert-danger' style="display:none">
                                         <center><span class='fa fa-info-circle'></span> POR FAVOR REALICE LA CARGA DE DATOS GENERALES PARA ASIGNAR SITUACIÓN DE PLANTA</center>
-                                        </div>
-                                   
-                                        <div class="text-right">
-                                            <button type="button" class="btn btn-info" data-placement="left" title="Agregar Nueva Situación de Planta" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalSituacion" data-backdrop="static" data-keyboard="false" onClick="AddIdSituacionModal('')"><i class="fa fa-plus-square"></i> Agregar Situación</button>
-                                        </div>
+                                    </div>
+
+                                    <div class="text-right">
+                                        <button type="button" class="btn btn-info" data-placement="left" title="Agregar Nueva Situación de Planta" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalSituacion" data-backdrop="static" data-keyboard="false" onClick="AddIdSituacionModal('')"><i class="fa fa-plus-square"></i> Agregar Situación</button>
+                                    </div>
 
 
-                                        <div class="table-responsive mt-3">
-                                            <table  class="table table-deredbor border display tabla_splanta">
+                                    <div class="table-responsive mt-3 ">
+                                        <table class="table table-deredbor border display tabla_splanta">
+
+                                            <thead>
+                                                <tr bgcolor="#808080" class="text-white" role="row">
+                                                    <th>N°</th>
+                                                    <th>Porc. de Producción</th>
+                                                    <th>Sup. de Lote Industrial</th>
+                                                    <th>Sup. Ocupada por Planta</th>
+                                                    <th>Porc. de Capacidad Instalada</th>
+                                                    <th>Porc. de Capacidad Ociosa</th>
+                                                    <th>Año</th>
+                                                    <th width="12%">Acciones</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="BusquedaRapida">
+
+
+                                            </tbody>
+                                        </table>
+                                        <span class="card-subtitle">Nota:
+                                            <i class="mdi mdi-eye text-danger font-16"></i>(Ver Situación) - <i class="mdi mdi-table-edit text-danger font-16"></i>(Editar Situación) - <i class="mdi mdi-delete text-danger font-16"></i>(Eliminar Situación)
+                                        </span>
+                                    </div>
+
+
+
+                                    <hr>
+
+
+                                    <!-- ###################################### CONSULTA DE OCIOSIDAD ###################################### -->
+
+                                    <h3 class="card-subtitle mt-3"> Motivo Ociosidad</h3>
+
+
+
+                                    <div class="text-right">
+                                        <button type="button" class="btn btn-info" data-placement="left" title="Agregar Nuevo Motivo Ociosidad" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalMotivo" data-backdrop="static" data-keyboard="false" onClick="AddIdMotivoModal('')"><i class="fa fa-plus-square"></i> Agregar Motivo Ociosidad</button>
+                                    </div>
+
+
+                                    <div class="row mt-3"><span class="card-subtitle">Motivo Ociosidad (Ej: Falta de Maquinarias, Falta de Personal, Alta Carga Impositiva, Costo Energía Eléctrica, otros)</span>
+
+                                        <div class="table-responsive">
+                                            <table class="table table-deredbor border display tabla_mo">
 
                                                 <thead>
                                                     <tr bgcolor="#808080" class="text-white" role="row">
                                                         <th>N°</th>
-                                                        <th>Porc. de Producción</th>
-                                                        <th>Sup. de Lote Industrial</th>
-                                                        <th>Sup. Ocupada por Planta</th>
-                                                        <th>Porc. de Capacidad Instalada</th>
-                                                        <th>Porc. de Capacidad Ociosa</th>
+                                                        <th>Descripción de Motivo Ociosidad</th>
                                                         <th>Año</th>
                                                         <th width="12%">Acciones</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody class="BusquedaRapida">
 
-                                                    
+
+
+
                                                 </tbody>
                                             </table>
                                             <span class="card-subtitle">Nota:
-                                                <i class="mdi mdi-eye text-danger font-16"></i>(Ver Situación) - <i class="mdi mdi-table-edit text-danger font-16"></i>(Editar Situación) - <i class="mdi mdi-delete text-danger font-16"></i>(Eliminar Situación)
+                                                <i class="mdi mdi-eye text-danger font-16"></i>(Ver Motivo Ociosidad) - <i class="mdi mdi-table-edit text-danger font-16"></i>(Editar Motivo Ociosidad) - <i class="mdi mdi-delete text-danger font-16"></i>(Eliminar Motivo Ociosidad)
                                             </span>
                                         </div>
 
-                                        
+                                    </div>
 
-                                        <hr>
+                                    <hr>
+
+                                    <!-- ###################################### CONSULTA DE PERSONAL ###################################### -->
+
+                                    <h3 class="card-subtitle mt-3"> Personal Ocupado</h3>
 
 
-                                        <!-- ###################################### CONSULTA DE OCIOSIDAD ###################################### -->
+                                    <div class="text-right">
+                                        <button type="button" class="btn btn-info" data-placement="left" title="Agregar Personal Ocupado" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalPersonal" data-backdrop="static" data-keyboard="false" onClick="AddIdPersonalModal('')"><i class="fa fa-plus-square"></i> Agregar Personal Ocupado</button>
+                                    </div>
 
-                                        <h3 class="card-subtitle mt-3"> Motivo Ociosidad</h3>
+                                    <div class="row">
 
+                                        <div class=" col-sm">
+                                            <h3> <span class="badge badge-success">Masculino</span></h3>
 
-                                       
-                                            <div class="text-right">
-                                                <button type="button" class="btn btn-info" data-placement="left" title="Agregar Nuevo Motivo Ociosidad" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalMotivo" data-backdrop="static" data-keyboard="false" onClick="AddIdMotivoModal('')"><i class="fa fa-plus-square"></i> Agregar Motivo Ociosidad</button>
-                                            </div>
-                                        
-
-                                        <div class="row mt-3"><span class="card-subtitle">Motivo Ociosidad (Ej: Falta de Maquinarias, Falta de Personal, Alta Carga Impositiva, Costo Energía Eléctrica, otros)</span>
-
-                                            <div class="table-responsive">
-                                                <table  class="table table-deredbor border display">
-
-                                                    <thead>
-                                                        <tr bgcolor="#808080" class="text-white" role="row">
-                                                            <th>Descripción de Motivo Ociosidad</th>
-                                                            <th>Año</th>
-                                                            <th width="12%">Acciones</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody class="BusquedaRapida">
-
-                                                        
-                                                                <tr role="row" class="odd">
-                                                                    <td></td>
-                                                                    <td></td>
-                                                                    <td>
-                                                                        <span style="cursor: pointer;" data-placement="left" title="Ver Motivo Ociosidad" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalDetalleMotivo" data-backdrop="static" data-keyboard="false" onClick="VerMotivo('')"><i class="mdi mdi-eye font-22 text-danger"></i></span>
-
-                                                                        <span style="cursor: pointer;" data-placement="left" title="Actualizar Motivo Ociosidad" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalMotivo" data-backdrop="static" data-keyboard="false" onClick="UpdateMotivo('')"><i class="mdi mdi-table-edit font-22 text-danger"></i></span>
-
-                                                                        <span style="cursor: pointer;" title="Eliminar Motivo Ociosidad" onClick="EliminarMotivo('')"><i class="mdi mdi-delete font-22 text-danger"></i></span>
-                                                                    </td>
-                                                                </tr>
-                                                        
-                                                    </tbody>
-                                                </table>
-                                                <span class="card-subtitle">Nota:
-                                                    <i class="mdi mdi-eye text-danger font-16"></i>(Ver Motivo Ociosidad) - <i class="mdi mdi-table-edit text-danger font-16"></i>(Editar Motivo Ociosidad) - <i class="mdi mdi-delete text-danger font-16"></i>(Eliminar Motivo Ociosidad)
-                                                </span>
-                                            </div>
-
-                                        </div>
-
-                                        <hr>
-
-                                        <!-- ###################################### CONSULTA DE PERSONAL ###################################### -->
-
-                                        <h3 class="card-subtitle mt-3"> Personal Ocupado</h3>
-
-                                       
-                                            <div class="text-right">
-                                                <button type="button" class="btn btn-info" data-placement="left" title="Agregar Personal Ocupado" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalPersonal" data-backdrop="static" data-keyboard="false" onClick="AddIdPersonalModal('')"><i class="fa fa-plus-square"></i> Agregar Personal Ocupado</button>
-                                            </div>
-                                       
-
-                                        <div class="table-responsive mt-3">
-                                            <table  class="table table-deredbor border display">
+                                            <table class="table table-deredbor border display tabla_po_m" style="width: 100%; margin:0px !important">
 
                                                 <thead>
                                                     <tr bgcolor="#808080" class="text-white" role="row">
+                                                        <th>N°</th>
                                                         <th>Rol de Trabajador</th>
-                                                        <th>Condición Laboral</th>
-                                                        <th>Femenino</th>
-                                                        <th>Masculino</th>
+                                                        <th>Cantidad</th>
+                                                        <th>Condicion Laboral</th>
+                                                        
                                                         <th>Año</th>
                                                         <th width="12%">Acciones</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody class="BusquedaRapida">
 
-                                                    
-                                                            <tr role="row" class="odd">
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td>
-                                                                    <span style="cursor: pointer;" data-placement="left" title="Ver Personal Ocupado" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalDetallePersonal" data-backdrop="static" data-keyboard="false" onClick="VerPersonal('')"><i class="mdi mdi-eye font-22 text-danger"></i></span>
 
-                                                                    <span style="cursor: pointer;" data-placement="left" title="Actualizar Personal Ocupado" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalUpdatePersonal" data-backdrop="static" data-keyboard="false" onClick="UpdatePersonal('')"><i class="mdi mdi-table-edit font-22 text-danger"></i></span>
-                                                                </td>
-                                                            </tr>
-                                                    
+                                                   
+
                                                 </tbody>
                                             </table>
                                             <span class="card-subtitle">Nota:
@@ -1120,9 +1102,96 @@
                                             </span>
                                         </div>
 
-                                        
+                                        <div class=" col-sm">
+                                            <h3> <span class="badge badge-success">Femenino</span></h3>
+                                            <table class="table table-deredbor border display tabla_po_f" style="width: 100%; margin:0px !important">
 
-                                        <hr>
+                                                <thead>
+                                                    <tr bgcolor="#808080" class="text-white" role="row">
+                                                        <th>N°</th>
+                                                        <th>Rol de Trabajador</th>
+                                                        <th>Cantidad</th>
+                                                        <th>Condicion Laboral</th>
+                                                        
+                                                        <th>Año</th>
+                                                        <th width="12%">Acciones</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="BusquedaRapida">
+
+
+                                                    
+
+                                                </tbody>
+                                            </table>
+                                            <span class="card-subtitle">Nota:
+                                                <i class="mdi mdi-eye text-danger font-16"></i>(Ver Personal) - <i class="mdi mdi-table-edit text-danger font-16"></i>(Editar Personal)
+                                            </span>
+                                        </div>
+
+                                    </div>
+
+                                    <hr>
+
+                                    <!--<div class="row">
+
+                                        <div class=" col-sm">
+                                            <h3>Femenino <span class="badge badge-success">Permanente</span></h3>
+
+                                            <table class="table table-deredbor border display tabla_po">
+
+                                                <thead>
+                                                    <tr bgcolor="#808080" class="text-white" role="row">
+                                                        <th>N°</th>
+                                                        <th>Rol de Trabajador</th>
+                                                        <th>Cantidad</th>
+                                                        <th>Condicion Laboral</th>
+                                                        
+                                                        <th>Año</th>
+                                                        <th width="12%">Acciones</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="BusquedaRapida">
+
+
+                                                   
+                                                </tbody>
+                                            </table>
+                                            <span class="card-subtitle">Nota:
+                                                <i class="mdi mdi-eye text-danger font-16"></i>(Ver Personal) - <i class="mdi mdi-table-edit text-danger font-16"></i>(Editar Personal)
+                                            </span>
+                                        </div>
+
+                                        <div class=" col-sm">
+                                            <h3>Femenino <span class="badge badge-success">Temporal</span></h3>
+                                            <table class="table table-deredbor border display tabla_po">
+
+                                                <thead>
+                                                    <tr bgcolor="#808080" class="text-white" role="row">
+                                                        <th>N°</th>
+                                                        <th>Rol de Trabajador</th>
+                                                        <th>Cantidad</th>
+                                                        <th>Condicion Laboral</th>
+                                                        
+                                                        <th>Año</th>
+                                                        <th width="12%">Acciones</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="BusquedaRapida">
+
+
+                                                   
+
+                                                </tbody>
+                                            </table>
+                                            <span class="card-subtitle">Nota:
+                                                <i class="mdi mdi-eye text-danger font-16"></i>(Ver Personal) - <i class="mdi mdi-table-edit text-danger font-16"></i>(Editar Personal)
+                                            </span>
+                                        </div>
+
+                                    </div>-->
+
+                                    <hr>
                                 </section>
                             </div><!-- Div secciones -->
 
@@ -1153,4 +1222,6 @@
     <!-- End Page wrapper  -->
     <!-- ============================================================== -->
 </div>
+
+
 @endsection

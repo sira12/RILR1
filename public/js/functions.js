@@ -1712,6 +1712,186 @@ function cargar_tabla_splanta() {
 
 }
 
+function cargar_tabla_motivo_ociosidad() {
+
+
+    var table = $('.tabla_mo').DataTable();
+
+
+    table.destroy();
+    //$('.yajra-datatable').empty();
+
+    var id_industria = $("#id_industria_modal").val();
+    table = $('.tabla_mo').DataTable({
+        processing: false,
+        serverSide: true,
+        searching: false,
+        "ajax": {
+            "url": "/listRelMO",
+            "type": "POST",
+            "data": {
+                _token: $('meta[name="csrf-token"]').attr('content'),
+                id_industria: id_industria
+            },
+        },
+        
+        columns: [
+            { data: 'DT_RowIndex', name: 'DT_RowIndex' },
+            { data: 'motivo_ociosidad', name: 'motivo_ociosidad' },
+            
+            { data: 'anio', name: 'anio' },
+            
+            {
+                data: 'action',
+                name: 'action',
+                orderable: true,
+                searchable: true
+            },
+        ],
+        columnDefs: [
+
+           
+
+        ]
+    })
+
+}
+
+function cargar_tabla_p_o_m() {
+
+
+    var table = $('.tabla_po_m').DataTable();
+
+
+    table.destroy();
+    //$('.yajra-datatable').empty();
+
+    var id_industria = $("#id_industria_modal").val();
+    table = $('.tabla_po_m').DataTable({
+        processing: false,
+        serverSide: true,
+        searching: false,
+        order: [[ 1,'asc']],
+        "ajax": {
+            "url": "/listRelTrabajador",
+            "type": "POST",
+            "data": {
+                _token: $('meta[name="csrf-token"]').attr('content'),
+                id_industria: id_industria
+            },
+        },
+        
+        columns: [
+            { data: 'DT_RowIndex', name: 'DT_RowIndex' },
+            { data: 'rol_trabajador', name: 'rol_trabajador' },
+            { data: 'numero_de_trabajadores', name: 'numero_de_trabajadores' },
+            { data: 'condicion_laboral', name: 'condicion_laboral' },
+            { data: 'anio', name: 'anio' },            
+            {
+                data: 'action',
+                name: 'action',
+                orderable: true,
+                searchable: true
+            }, 
+        ],
+        columnDefs: [
+
+            {
+
+                targets: 3,
+                "data": "condicion_laboral",
+                "render": function (data, type, row, meta) {
+                    /* DEFINICION DE LAS VARIABLES: 
+                     * data: es el origen de dato... lo que segun el columns obtiene.
+                     * type: display (no se para que es).
+                     * row: todo el object con los valores de toda la fila
+                     * meta: el id de fila y columna en DT más las settings de DT */
+                     if(row.condicion_laboral == "Temporal"){
+                        var a='<span class="badge badge-primary">'+row.condicion_laboral+'</span>'
+                     }else{
+                         var a='<span class="badge badge-success">'+row.condicion_laboral+'</span>'
+                     }
+                     
+                    
+                    
+                    return a; 
+                }
+
+            },
+
+        ]
+    })
+
+}
+
+
+function cargar_tabla_p_o_f() {
+
+
+    var table = $('.tabla_po_f').DataTable();
+
+
+    table.destroy();
+    //$('.yajra-datatable').empty();
+
+    var id_industria = $("#id_industria_modal").val();
+    table = $('.tabla_po_f').DataTable({
+        processing: false,
+        serverSide: true,
+        searching: false,
+        order: [[ 1,'asc']],
+        "ajax": {
+            "url": "/listRelTrabajadorF",
+            "type": "POST",
+            "data": {
+                _token: $('meta[name="csrf-token"]').attr('content'),
+                id_industria: id_industria
+            },
+        },
+        
+        columns: [
+            { data: 'DT_RowIndex', name: 'DT_RowIndex' },
+            { data: 'rol_trabajador', name: 'rol_trabajador' },
+            { data: 'numero_de_trabajadores', name: 'numero_de_trabajadores' },
+            { data: 'condicion_laboral', name: 'condicion_laboral' },
+            { data: 'anio', name: 'anio' },            
+            {
+                data: 'action',
+                name: 'action',
+                orderable: true,
+                searchable: true
+            }, 
+        ],
+        columnDefs: [
+
+            {
+
+                targets: 3,
+                "data": "condicion_laboral",
+                "render": function (data, type, row, meta) {
+                    /* DEFINICION DE LAS VARIABLES: 
+                     * data: es el origen de dato... lo que segun el columns obtiene.
+                     * type: display (no se para que es).
+                     * row: todo el object con los valores de toda la fila
+                     * meta: el id de fila y columna en DT más las settings de DT */
+                     if(row.condicion_laboral == "Temporal"){
+                        var a='<span class="badge badge-primary">'+row.condicion_laboral+'</span>'
+                     }else{
+                         var a='<span class="badge badge-success">'+row.condicion_laboral+'</span>'
+                     }
+                     
+                    
+                    
+                    return a; 
+                }
+
+            },
+
+        ]
+    })
+
+}
+
 
 
 //moostrar forms
@@ -1741,6 +1921,149 @@ $(document).ready(function () {
 });
 
 
+
+
+$(document).ready(function() {
+    //set initial state.
+    
+
+    $("#check_otro").change(function(){
+
+    $('#check_otro').val(this.checked);
+
+  
+
+    if($('#check_otro').val() == "true"){
+       
+         $(".selectMotivo").hide("slow");
+         $("#id_motivo_ociosidad").val("");
+         $(".motivoNuevo").show( "fast");
+    }else{
+        $(".selectMotivo").show("fast");
+        $(".motivoNuevo").hide("slow");
+    }
+
+
+});
+
+});
+function getTramite(){
+
+     
+
+    if($("#id_industria_modal").val() != undefined && $("#id_industria_modal").val() !="" ){
+        console.log("modal",$("#id_industria_modal").val())
+
+
+        $.ajax({
+            type: "get",
+            url: "/tramite/"+$("#id_industria_modal").val(),
+            success: function (response) {
+                
+                
+            }
+        });
+
+
+
+    }
+}
+
+function lanzador(){
+    muestraReloj(); 
+
+    getTramite();
+   
+}
+
+
+function getCondicionLaboral() {
+    $.ajax({
+        type: "post",
+        url: "/getCondicionLaboral",
+        data: {
+            _token: $('meta[name="csrf-token"]').attr('content'),
+        },
+        success: function (response) {
+
+
+            $("#p_o").find("tr").remove();
+
+
+            $('#thead_p_o').append(
+
+                '<tr role="row">'+
+                    '<th>Condición Laboral <span class="symbol required"></span></th>'+
+                    '<th>Masculino <span class="symbol required"></span></th>'+
+                    '<th>Femenino <span class="symbol required"></span></th>'+
+                '</tr>'
+
+            )
+            
+       
+            $(response).each(function (i, v) {
+            
+                $('#p_o').append(
+
+                    '<tr role="row" class="odd">'+
+                        '<td><input type="hidden" name="id_condicion_laboral[]" value="'+v.id_condicion_laboral+'" />'+v.condicion_laboral+'</label></td>'+
+
+                        '<td class="text-center"><input type="number" min="0" value="0" class="form-control" name="masculino[]"  placeholder="Ingrese Cantidad Masculino" autocomplete="off" style="width:100%;height:40px;background:#f0f9fc;border-radius:5px 5px 5px 5px;"></td>'+
+
+                        '<td class="text-center"><input type="number" min="0" value="0" class="form-control" name="femenino[]"  placeholder="Ingrese Cantidad Femenino" autocomplete="off" style="width:100%;height:40px;background:#f0f9fc;border-radius:5px 5px 5px 5px;"></td>'+
+                    '</tr>'
+
+
+
+                );
+            })           
+            
+        }
+    });
+}
+
+function getRolTrabajadores() {
+    $.ajax({
+        type: "post",
+        url: "/getRolTrabajadores",
+        data: {
+            _token: $('meta[name="csrf-token"]').attr('content'),
+        },
+        success: function (response) {
+
+            $("#rol_trabajador option").remove();
+                $("#rol_trabajador").append('<option value="">' + "--SELECCIONE--" + '</option>');
+            $(response).each(function (i, v) { // indice, valor
+
+                 
+               
+                $("#rol_trabajador").append('<option value="' + v.id_rol_trabajador+ '">' + v.rol_trabajador + '</option>');
+            })
+        }
+    });
+}
+
+
+function trae_motivo_ociosidad(){
+     $.ajax({
+        type: "post",
+        url: "/traeMotivos_ociosidad",
+        data: {
+            _token: $('meta[name="csrf-token"]').attr('content'),
+        },
+        success: function (response) {
+
+            $("#id_motivo_ociosidad option").remove();
+            $("#id_motivo_ociosidad").append('<option value="">' + "--SELECCIONE--" + '</option>');
+
+
+            $(response).each(function (i, v) { // indice, valor
+                $("#id_motivo_ociosidad").append('<option value="' + v.id_motivo_ociosidad + '">' + v.motivo_ociosidad + '</option>');
+             
+            })
+        }
+    });
+}
 function getunidades() {
     $.ajax({
         type: "post",
@@ -1749,6 +2072,14 @@ function getunidades() {
             _token: $('meta[name="csrf-token"]').attr('content'),
         },
         success: function (response) {
+            $("#medida_combustible option").remove();
+            $("#medida_combustible").append('<option value="">' + "--SELECCIONE--" + '</option>');
+
+
+            $("#medida_insumo option").remove();
+            $("#medida_insumo").append('<option value="">' + "--SELECCIONE--" + '</option>');
+
+
             $(response).each(function (i, v) { // indice, valor
                 $("#medida_insumo").append('<option value="' + v.value + '">' + v.label + '</option>');
                 $("#medida_combustible").append('<option value="' + v.value + '">' + v.label + '</option>');
@@ -1765,6 +2096,11 @@ function getFrecuencia() {
             _token: $('meta[name="csrf-token"]').attr('content'),
         },
         success: function (response) {
+
+             $("#frecuencia_otros option").remove();
+            $("#frecuencia_otros").append('<option value="">' + "--SELECCIONE--" + '</option>');
+
+
             $(response).each(function (i, v) { // indice, valor
                 $("#frecuencia_otros").append('<option value="' + v.value + '">' + v.label + '</option>');
              
@@ -1782,6 +2118,17 @@ function getMotivo() {
             _token: $('meta[name="csrf-token"]').attr('content'),
         },
         success: function (response) {
+
+               $("#motivo_importacion_insumo option").remove();
+            $("#motivo_importacion_insumo").append('<option value="">' + "--SELECCIONE--" + '</option>');
+
+               $("#motivo_importacion_combustible option").remove();
+            $("#motivo_importacion_combustible").append('<option value="">' + "--SELECCIONE--" + '</option>');
+
+               $("#motivo_importacion_otros option").remove();
+            $("#motivo_importacion_otros").append('<option value="">' + "--SELECCIONE--" + '</option>');
+
+
             $(response).each(function (i, v) {
                 $("#motivo_importacion_insumo").append('<option value="' + v.value + '">' + v.label + '</option>');
                 $("#motivo_importacion_combustible").append('<option value="' + v.value + '">' + v.label + '</option>');

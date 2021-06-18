@@ -2987,8 +2987,13 @@ function muestraForm(ref) {
 			
 		}else if(ref == "splanta"){
 
-			
-			cargar_tabla_splanta(); 
+			getRolTrabajadores();
+			getCondicionLaboral()
+			cargar_tabla_splanta();
+			trae_motivo_ociosidad(); 
+			cargar_tabla_motivo_ociosidad()
+			cargar_tabla_p_o_m()
+			cargar_tabla_p_o_f()
 		}
 
 
@@ -4779,10 +4784,12 @@ $('document').ready(function () {
 							$("#savesituacion #nombre_de_fantasia").text("");
 							$("#savesituacion #id_situacion_de_planta").val("");
 							$("#savesituacion #industria_situacion").val("");
-							$("#savesituacion #anio_situacion").val("");
-							$("#savesituacion #inversion_anual").attr('disabled', true);
-							$("#savesituacion #inversion_activo_fijo").attr('disabled', true);
+							//$("#savesituacion #anio_situacion").val("");
+							//$("#savesituacion #inversion_anual").attr('disabled', true);
+							//$("#savesituacion #inversion_activo_fijo").attr('disabled', true);
 							$("#btn-situacion").html('<span class="fa fa-save"></span> Agregar y Guardar');
+
+							cargar_tabla_splanta();
 						});
 					}
 				}
@@ -4794,7 +4801,181 @@ $('document').ready(function () {
 });
 /* FUNCION JQUERY PARA VALIDAR ASIGNACION DE SITUACION DE PLANTA */
 
+// update situacion
 
+
+$("#btn-situacion-update").on('click',function(){
+
+	if($("#produccion_sobre_capacidad").val().length < 1){
+
+		var n = noty({
+			text: "<span class='fa fa-warning'></span>Ingrese Porcentaje de producción",
+			theme: 'defaultTheme',
+			layout: 'topCenter',
+			type: 'warning',
+			timeout: 5000,
+		});
+
+	}else if($("#superficie_lote").val().length < 1){
+		var n = noty({
+			text: "<span class='fa fa-warning'></span>Ingrese Superficie de lote",
+			theme: 'defaultTheme',
+			layout: 'topCenter',
+			type: 'warning',
+			timeout: 5000,
+		});
+	}else if($("#superficie_planta").val().length < 1){
+		var n = noty({
+			text: "<span class='fa fa-warning'></span>Ingrese Superficie de planta",
+			theme: 'defaultTheme',
+			layout: 'topCenter',
+			type: 'warning',
+			timeout: 5000,
+		});
+	}else if($("#declara_inversion").val() == 1){
+
+		if($("#inversion_anual").val().length < 1){
+				var n = noty({
+				text: "<span class='fa fa-warning'></span>Ingrese Importe de inversion",
+				theme: 'defaultTheme',
+				layout: 'topCenter',
+				type: 'warning',
+				timeout: 5000,
+			});
+		}
+
+		if($("#inversion_activo_fijo").val().length < 1){
+				var n = noty({
+				text: "<span class='fa fa-warning'></span>Ingrese inversion activo fijo",
+				theme: 'defaultTheme',
+				layout: 'topCenter',
+				type: 'warning',
+				timeout: 5000,
+			});
+		}
+
+
+	}else if($("#capacidad_instalada").val().length < 1){
+		var n = noty({
+				text: "<span class='fa fa-warning'></span>Ingrese porcentaje de capacidad instalada",
+				theme: 'defaultTheme',
+				layout: 'topCenter',
+				type: 'warning',
+				timeout: 5000,
+			});
+	}else if($("#capacidad_ociosa").val().length < 1){
+		var n = noty({
+				text: "<span class='fa fa-warning'></span>Ingrese porcentaje de capacidad ociosa",
+				theme: 'defaultTheme',
+				layout: 'topCenter',
+				type: 'warning',
+				timeout: 5000,
+			});
+	}else{
+
+
+
+
+			var data = $("#updatesituacion").serialize();
+			var seccion = $("#seccionsituacion").val();
+			var industria = $("#id_industria_modal").val();
+
+			$.ajax({
+				type: 'POST',
+				url: '/updatesituacion',
+				async: false,
+				data: {
+
+					_token: $('meta[name="csrf-token"]').attr('content'),
+					data:data,
+					id_industria:industria
+				},
+				beforeSend: function () {
+					$("#save").fadeOut();
+					$("#btn-situacion-update").html('<i class="fa fa-refresh"></i> Verificando...');
+				},
+				success: function (data) {
+					if (data.msg == 1) {
+
+						$("#save").fadeIn(1000, function () {
+
+							var n = noty({
+								text: "<span class='fa fa-warning'></span>"+data.msg,
+								theme: 'defaultTheme',
+								layout: 'topCenter',
+								type: 'warning',
+								timeout: 5000,
+							});
+							$("#btn-situacion").html('<span class="fa fa-save"></span> Agregar y Guardar');
+
+						});
+					}
+					else if (data == 2) {
+
+						$("#save").fadeIn(1000, function () {
+
+							var n = noty({
+								text: "<span class='fa fa-warning'></span> POR FAVOR INGRESE UN VALOR VALIDO EN IMPORTE E INVERSIÓN, VERIFIQUE NUEVAMENTE POR FAVOR ...!",
+								theme: 'defaultTheme',
+								layout: 'center',
+								type: 'warning',
+								timeout: 5000,
+							});
+							$("#btn-situacion").html('<span class="fa fa-save"></span> Agregar y Guardar');
+
+						});
+					}
+					else if (data == 3) {
+
+						$("#save").fadeIn(1000, function () {
+
+							var n = noty({
+								text: "<span class='fa fa-warning'></span> ESTA SITUACION DE PLANTA YA SE ENCUENTRA REGISTRADA, VERIFIQUE NUEVAMENTE POR FAVOR ...!",
+								theme: 'defaultTheme',
+								layout: 'center',
+								type: 'warning',
+								timeout: 5000,
+							});
+							$("#btn-situacion").html('<span class="fa fa-save"></span> Agregar y Guardar');
+
+						});
+					}
+					else if(data.status == 200) {
+
+						$("#save").fadeIn(1000, function () {
+
+							var n = noty({
+								text: '<center> ' + data.msg + ' </center>',
+								theme: 'defaultTheme',
+								layout: 'topCenter',
+								type: 'information',
+								timeout: 5000,
+							});
+							$('#MyModalSituacion').modal('hide');
+							//$('#secciones').load("formularios.php?BuscaFormularioProcedimiento=si&seccion=" + seccion + "&in=" + industria);
+							$("#updatesituacion")[0].reset();
+							$("#updatesituacion #situacion").val("savesituacion");
+							//$("#updatesituacion #nombre_de_fantasia").text("");
+							$("#updatesituacion #id_situacion_de_planta").val("");
+							$("#updatesituacion #industria_situacion").val("");
+							//$("#updatesituacion #anio_situacion").val("");
+							//$("#updatesituacion #inversion_anual").attr('disabled', true);
+							//$("#updatesituacion #inversion_activo_fijo").attr('disabled', true);
+							$("#btn-situacion").html('<span class="fa fa-save"></span> Agregar y Guardar');
+							cargar_tabla_splanta();
+						});
+					}
+				}
+			});
+			return false;
+
+
+
+
+	}
+
+
+})
 
 
 
@@ -4828,26 +5009,30 @@ $('document').ready(function () {
 
 			var data = $("#savemotivoasignado").serialize();
 			var seccion = $("#seccionmotivo").val();
-			var industria = $("#industria_motivo").val();
+			var industria = $("#id_industria_modal").val();
 
 			$.ajax({
 				type: 'POST',
-				url: 'procedimientos.php',
+				url: '/saveMotivo',
 				async: false,
-				data: data,
+				data: {
+					_token: $('meta[name="csrf-token"]').attr('content'),
+					data:data,
+					id_industria:industria
+				},
 				beforeSend: function () {
 					$("#save").fadeOut();
 					$("#btn-motivo").html('<i class="fa fa-refresh"></i> Verificando...');
 				},
 				success: function (data) {
-					if (data == 1) {
+					if (data.status == 1) {
 
 						$("#save").fadeIn(1000, function () {
 
 							var n = noty({
-								text: "<span class='fa fa-warning'></span> POR FAVOR DEBE DE COMPLETAR LOS CAMPOS REQUERIDOS, VERIFIQUE NUEVAMENTE POR FAVOR...!",
+								text: "<span class='fa fa-warning'></span>"+data.msg,
 								theme: 'defaultTheme',
-								layout: 'center',
+								layout: 'topCenter',
 								type: 'warning',
 								timeout: 5000,
 							});
@@ -4870,19 +5055,19 @@ $('document').ready(function () {
 
 						});
 					}
-					else {
+					else if(data.status ==200) {
 
 						$("#save").fadeIn(1000, function () {
 
 							var n = noty({
-								text: '<center> ' + data + ' </center>',
+								text: '<center> ' + data.msg + ' </center>',
 								theme: 'defaultTheme',
-								layout: 'center',
+								layout: 'topCenter',
 								type: 'information',
 								timeout: 5000,
 							});
 							$('#MyModalMotivo').modal('hide');
-							$('#secciones').load("formularios.php?BuscaFormularioProcedimiento=si&seccion=" + seccion + "&in=" + industria);
+							//$('#secciones').load("formularios.php?BuscaFormularioProcedimiento=si&seccion=" + seccion + "&in=" + industria);
 							$("#savemotivoasignado")[0].reset();
 							$("#savemotivoasignado #motivo").val("savemotivo");
 							$("#savemotivoasignado #nombre_de_fantasia").text("");
@@ -4891,6 +5076,13 @@ $('document').ready(function () {
 							$("#savemotivoasignado #anio_motivo").val("");
 							$("#savemotivoasignado #id_motivo_ociosidad").val("");
 							$("#btn-motivo").html('<span class="fa fa-save"></span> Agregar y Guardar');
+							cargar_tabla_motivo_ociosidad();
+							trae_motivo_ociosidad(); 
+
+
+
+							$(".selectMotivo").show();
+        					$(".motivoNuevo").hide();
 						});
 					}
 				}
@@ -4902,7 +5094,133 @@ $('document').ready(function () {
 });
 /* FUNCION JQUERY PARA VALIDAR ASIGNACION DE MOTIVO OCIOSIDAD */
 
+//update motivo
 
+$("#btn-motivo-update").on('click',function(){
+var guardar =1
+	if($('#check_otro').val() == "true"){
+
+		if($("#motivo_nuevo").val().length < 1){
+			guardar=0;
+			var n = noty({
+				text: "<span class='fa fa-warning'></span>Ingrese el nombre del motivo",
+				theme: 'defaultTheme',
+				layout: 'topCenter',
+				type: 'warning',
+				timeout: 5000,
+			});
+
+		}
+
+	}else if($("#id_motivo_ociosidad").val() == ""){
+		guardar=0;
+		var n = noty({
+				text: "<span class='fa fa-warning'></span>Seleccione motivo de ociosidad",
+				theme: 'defaultTheme',
+				layout: 'topCenter',
+				type: 'warning',
+				timeout: 5000,
+			});
+	}
+
+
+
+	if(guardar == 1){
+
+
+		var data = $("#updatemotivoasignado").serialize();
+			var seccion = $("#seccionmotivo").val();
+			var industria = $("#id_industria_modal").val();
+
+			$.ajax({
+				type: 'POST',
+				url: '/updateMotivo',
+				async: false,
+				data: {
+					_token: $('meta[name="csrf-token"]').attr('content'),
+					data:data,
+					id_industria:industria
+				},
+				beforeSend: function () {
+					$("#save").fadeOut();
+					$("#btn-motivo-update").html('<i class="fa fa-refresh"></i> Verificando...');
+				},
+				success: function (data) {
+					if (data.status == 1) {
+
+						$("#save").fadeIn(1000, function () {
+
+							var n = noty({
+								text: "<span class='fa fa-warning'></span>"+data.msg,
+								theme: 'defaultTheme',
+								layout: 'topCenter',
+								type: 'warning',
+								timeout: 5000,
+							});
+							$("#btn-motivo-update").html('<span class="fa fa-save"></span> Actualizar');
+
+						});
+					}
+					else if (data == 2) {
+
+						$("#save").fadeIn(1000, function () {
+
+							var n = noty({
+								text: "<span class='fa fa-warning'></span> ESTE MOTIVO DE OCIOSIDAD YA SE ENCUENTRA REGISTRADO, VERIFIQUE NUEVAMENTE POR FAVOR ...!",
+								theme: 'defaultTheme',
+								layout: 'center',
+								type: 'warning',
+								timeout: 5000,
+							});
+							$("#btn-motivo").html('<span class="fa fa-save"></span> Agregar y Guardar');
+
+						});
+					}
+					else if(data.status == 200){
+
+						$("#save").fadeIn(1000, function () {
+
+							var n = noty({
+								text: '<center> ' + data.msg + ' </center>',
+								theme: 'defaultTheme',
+								layout: 'topCenter',
+								type: 'information',
+								timeout: 5000,
+							});
+							$('#MyModalMotivo').modal('hide');
+							//$('#secciones').load("formularios.php?BuscaFormularioProcedimiento=si&seccion=" + seccion + "&in=" + industria);
+							$("#updatemotivoasignado")[0].reset();
+							$("#updatemotivoasignado #motivo").val("savemotivo");
+							$("#updatemotivoasignado #nombre_de_fantasia").text("");
+							$("#updatemotivoasignado #id_rel_industria_motivo_ociosidad").val("");
+							$("#updatemotivoasignado #industria_motivo").val("");
+							$("#updatemotivoasignado #anio_motivo").val("");
+							$("#updatemotivoasignado #id_motivo_ociosidad").val("");
+							$("#btn-motivo-update").html('<span class="fa fa-save"></span> Actualizar');
+							cargar_tabla_motivo_ociosidad();
+							trae_motivo_ociosidad(); 
+
+							$("#btn-motivo-update").hide();
+		                    $("#btn-motivo").show();
+
+		                    $("#updatemotivoasignado").prop('id', 'savemotivoasignado');
+		                    $("#savemotivoasignado").prop('name', 'savemotivoasignado');
+
+
+
+							$(".selectMotivo").show();
+        					$(".motivoNuevo").hide();
+						});
+					}
+				}
+			});
+			return false;
+
+
+	}
+
+
+})
 
 
 
@@ -4936,26 +5254,32 @@ $('document').ready(function () {
 
 			var data = $("#savepersonal").serialize();
 			var seccion = $("#seccionpersonal").val();
-			var industria = $("#industria_personal").val();
+			var industria = $("#id_industria_modal").val();
 
 			$.ajax({
 				type: 'POST',
-				url: 'procedimientos.php',
+				url: '/savePersonalOcupado',
 				async: false,
-				data: data,
+				data: {
+
+					_token: $('meta[name="csrf-token"]').attr('content'),
+					data:data,
+					id_industria:industria
+
+				},
 				beforeSend: function () {
 					$("#save").fadeOut();
 					$("#btn-personal").html('<i class="fa fa-refresh"></i> Verificando...');
 				},
 				success: function (data) {
-					if (data == 1) {
+					if (data.status == 1) {
 
 						$("#save").fadeIn(1000, function () {
 
 							var n = noty({
-								text: "<span class='fa fa-warning'></span> POR FAVOR DEBE DE COMPLETAR LOS CAMPOS REQUERIDOS, VERIFIQUE NUEVAMENTE POR FAVOR...!",
+								text: "<span class='fa fa-warning'></span>"+data.msg,
 								theme: 'defaultTheme',
-								layout: 'center',
+								layout: 'topCenter',
 								type: 'warning',
 								timeout: 5000,
 							});
@@ -4993,24 +5317,26 @@ $('document').ready(function () {
 
 						});
 					}
-					else {
+					else if(data.status==200){
 
 						$("#save").fadeIn(1000, function () {
 
 							var n = noty({
-								text: '<center> ' + data + ' </center>',
+								text: '<center> ' + data.msg + ' </center>',
 								theme: 'defaultTheme',
-								layout: 'center',
+								layout: 'topCenter',
 								type: 'information',
 								timeout: 5000,
 							});
 							$('#MyModalPersonal').modal('hide');
-							$('#secciones').load("formularios.php?BuscaFormularioProcedimiento=si&seccion=" + seccion + "&in=" + industria);
+							//$('#secciones').load("formularios.php?BuscaFormularioProcedimiento=si&seccion=" + seccion + "&in=" + industria);
 							$("#savepersonal")[0].reset();
-							$("#savepersonal #nombre_de_fantasia").text("");
+							
 							$("#savepersonal #industria_personal").val("");
 							$("#savepersonal #anio_personal").val("");
 							$("#btn-personal").html('<span class="fa fa-save"></span> Agregar y Guardar');
+							cargar_tabla_p_o_m()
+							cargar_tabla_p_o_f()
 						});
 					}
 				}
@@ -5040,83 +5366,57 @@ $('document').ready(function () {
 
 			var data = $("#updatepersonal").serialize();
 			var seccion = $("#seccionpersonalupdate").val();
-			var industria = $("#industria_personal_update").val();
+			var industria = $("#id_industria_modal").val();
 
 			$.ajax({
 				type: 'POST',
-				url: 'procedimientos.php',
+				url: '/updateRelPersonal',
 				async: false,
-				data: data,
+				data: {
+
+					_token: $('meta[name="csrf-token"]').attr('content'),
+					data:data,
+					id_industria:industria
+				},
 				beforeSend: function () {
 					$("#save").fadeOut();
 					$("#btn-personalupdate").html('<i class="fa fa-refresh"></i> Verificando...');
 				},
 				success: function (data) {
-					if (data == 1) {
+					if (data.status == 1) {
 
 						$("#save").fadeIn(1000, function () {
 
 							var n = noty({
-								text: "<span class='fa fa-warning'></span> POR FAVOR DEBE DE COMPLETAR LOS CAMPOS REQUERIDOS, VERIFIQUE NUEVAMENTE POR FAVOR...!",
+								text: "<span class='fa fa-warning'></span>"+data.msg,
 								theme: 'defaultTheme',
-								layout: 'center',
+								layout: 'topCenter',
 								type: 'warning',
 								timeout: 5000,
 							});
 							$("#btn-personalupdate").html('<span class="fa fa-edit"></span> Actualizar');
 
 						});
-					}
-					else if (data == 2) {
+					}else if(data.status == 200 ){
 
 						$("#save").fadeIn(1000, function () {
 
 							var n = noty({
-								text: "<span class='fa fa-warning'></span> NO PUEDEN EXISTIR CAMPOS VACIOS, VERIFIQUE NUEVAMENTE POR FAVOR ...!",
+								text: '<center> ' + data.msg + ' </center>',
 								theme: 'defaultTheme',
-								layout: 'center',
-								type: 'warning',
-								timeout: 5000,
-							});
-							$("#btn-personalupdate").html('<span class="fa fa-edit"></span> Actualizar');
-
-						});
-					}
-					else if (data == 3) {
-
-						$("#save").fadeIn(1000, function () {
-
-							var n = noty({
-								text: "<span class='fa fa-warning'></span> ESTAS CONDICIONES LABORALES DEL PERSONAL YA SE ENCUENTRA REGISTRADO, VERIFIQUE NUEVAMENTE POR FAVOR ...!",
-								theme: 'defaultTheme',
-								layout: 'center',
-								type: 'warning',
-								timeout: 5000,
-							});
-							$("#btn-personalupdate").html('<span class="fa fa-edit"></span> Actualizar');
-
-						});
-					}
-					else {
-
-						$("#save").fadeIn(1000, function () {
-
-							var n = noty({
-								text: '<center> ' + data + ' </center>',
-								theme: 'defaultTheme',
-								layout: 'center',
+								layout: 'topCenter',
 								type: 'information',
 								timeout: 5000,
 							});
 							$('#MyModalUpdatePersonal').modal('hide');
-							$('#secciones').load("formularios.php?BuscaFormularioProcedimiento=si&seccion=" + seccion + "&in=" + industria);
 							$("#updatepersonal")[0].reset();
-							$("#updatepersonal #nombre_de_fantasia").text("");
-							$("#updatepersonal #industria_personal_update").val("");
+							$("#updatepersonal #id_rel_industria_personal_update").val("");
 							$("#updatepersonal #anio_personal_update").val("");
 							$("#updatepersonal #rol_trabajador").text("");
-							$("#updatepersonal #detallespersonal").html("");
+							
 							$("#btn-personalupdate").html('<span class="fa fa-edit"></span> Actualizar');
+							cargar_tabla_p_o_m()
+							cargar_tabla_p_o_f()
 						});
 					}
 				}

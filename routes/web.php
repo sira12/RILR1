@@ -66,6 +66,7 @@ Route::get('/procedimientos',[ProcedimientosController::class,'index'] )->middle
     //generales industria
     Route::post('/saveGenerales',[ProcedimientosController::class,'storeGenerales']);
     Route::get('/edit/tramite/{id}',[ProcedimientosController::class,'edit']);
+    Route::get('/tramite/{id}',[ProcedimientosController::class,'getTramite']);
     Route::post('/updateGenerales',[ProcedimientosController::class,'updateGeneral']);
 
     //actividad
@@ -139,11 +140,31 @@ Route::get('/procedimientos',[ProcedimientosController::class,'index'] )->middle
     
     Route::post('/savesituacion', [SituacionPlantaController::class, 'savesituacion'])->middleware(['auth']);
     Route::post('/listRelPlanta', [SituacionPlantaController::class, 'listRelPlanta'])->middleware(['auth']);
-    Route::post('/getSituacion', [SituacionPlantaController::class, 'getSituacion'])->middleware(['auth']);
+    Route::post('/getSituacion', [SituacionPlantaController::class, 'getSituacion'])->middleware(['auth']); 
+    Route::post('/updatesituacion', [SituacionPlantaController::class, 'updatesituacion'])->middleware(['auth']);
+    Route::post('/deleteSituacion', [SituacionPlantaController::class, 'deleteSituacion'])->middleware(['auth']);
     
+    //motivo osiocidad
+    Route::post('/traeMotivos_ociosidad', [SituacionPlantaController::class, 'traeMotivos'])->middleware(['auth']);
+    Route::post('/saveMotivo', [SituacionPlantaController::class, 'saveMotivo'])->middleware(['auth']); 
+    Route::post('/listRelMO', [SituacionPlantaController::class, 'listRelMotivo'])->middleware(['auth']);
+    Route::post('/getMotivo', [SituacionPlantaController::class, 'getMotivo'])->middleware(['auth']); 
+    Route::post('/updateMotivo', [SituacionPlantaController::class, 'updateMotivo'])->middleware(['auth']);
+    Route::post('/deleteRelMotivo', [SituacionPlantaController::class, 'deleteRelMotivo'])->middleware(['auth']);
 
+    //personal ocupado
 
+    Route::post('/getRolTrabajadores', [SituacionPlantaController::class, 'getRolTrabajadores'])->middleware(['auth']);
+    Route::post('/getCondicionLaboral', [SituacionPlantaController::class, 'getCondicionLaboral'])->middleware(['auth']);
+    Route::post('/savePersonalOcupado', [SituacionPlantaController::class, 'savePersonalOcupado'])->middleware(['auth']);
+    Route::post('/listRelTrabajador', [SituacionPlantaController::class, 'listRelTrabajador'])->middleware(['auth']);
+    Route::post('/listRelTrabajadorF', [SituacionPlantaController::class, 'listRelTrabajadorF'])->middleware(['auth']);
+    Route::post('/getRelPersonal', [SituacionPlantaController::class, 'getRelPersonal'])->middleware(['auth']);
 
+    Route::post('/updateRelPersonal', [SituacionPlantaController::class, 'updateRelPersonal'])->middleware(['auth']);
+
+    
+    
 //fin guardar Procedimientos
 
 

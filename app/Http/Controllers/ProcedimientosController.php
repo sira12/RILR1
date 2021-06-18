@@ -353,6 +353,39 @@ class ProcedimientosController extends Controller
      */
     public function edit($id)
     {
+
+
+        $regimen = RegimenIB::where('activo', "S")->get();
+        $iva = CondicionIva::where('activo', "S")->get();
+        $naturaleza_juridica = NaturalezaJuridica::where('activo', "S")->get();
+
+        $per_fiscal = DB::table('periodo_fiscal')->where('anio', Carbon::now()->format('Y'))->first();
+
+        $user = auth()->user();
+        $rel = DB::table('rel_persona_contribuyente')->where('id_rel_persona_contribuyente', $user->id_rel_persona_contribuyente)->select('id_contribuyente', 'id_persona')->first();
+        $contribuyente = DB::table('contribuyente')->where('id_contribuyente', $rel->id_contribuyente)->first();
+        $zona = PuntoCardinal::all();
+
+
+        return view('Procedimientos.procedimientos', [
+            'id_industria'=>$id,
+            'id_persona' => $rel->id_persona,
+            'id_contribuyente' => $rel->id_contribuyente,
+            'contribuyente' => $contribuyente,
+            'per_fiscal' => $per_fiscal,
+            'regimen' => $regimen,
+            'condicion_iva' => $iva,
+            'naturaleza_juridica' => $naturaleza_juridica,
+            'zona' => $zona
+        ]);
+
+
+        
+           
+    }
+
+
+    public function getTramite($id){
         $regimen = RegimenIB::where('activo', "S")->get();
         $iva = CondicionIva::where('activo', "S")->get();
         $naturaleza_juridica = NaturalezaJuridica::where('activo', "S")->get();
@@ -371,6 +404,9 @@ class ProcedimientosController extends Controller
             ->where('id_rel_persona_contribuyente', $user->id_rel_persona_contribuyente)
             ->first();
 
+        
+        
+        $contribuyente = DB::table('contribuyente')->where('id_contribuyente', $rel->id_contribuyente)->first();
         $cuit = DB::table('contribuyente')->where('id_contribuyente', $rel->id_contribuyente)->select('cuit')->first();
         $zona = PuntoCardinal::all();
 
@@ -432,21 +468,18 @@ class ProcedimientosController extends Controller
             )
             ->where('industria.id_industria', $id)
             ->get();
+            
 
+            $response=[];
 
-        return view('Procedimientos.edit_procedimientos', [
-            'id_persona' => $rel->id_persona,
-            'id_contribuyente' => $rel->id_contribuyente,
-            'tel_fijo_legal' => $rel->fijo_legal,
-            'tel_celular_legal' => $rel->celular_legal,
-            'cuit' => $cuit,
-            'per_fiscal' => $per_fiscal,
-            'regimen' => $regimen,
-            'condicion_iva' => $iva,
-            'naturaleza_juridica' => $naturaleza_juridica,
-            'zona' => $zona,
-            'mi_industria' => $mi_industria
-        ]);
+            $response['industria']= $mi_industria[0]; 
+            $response['tel_fijo_legal']=$rel->fijo_legal;
+            $response['tel_celular_legal']=$rel->celular_legal;
+            $response['cuit']=$cuit->cuit;
+
+           return response()->json($response);
+
+            
     }
 
 

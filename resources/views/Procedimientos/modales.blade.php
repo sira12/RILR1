@@ -55,7 +55,17 @@
                                 <input type="hidden" name="seccionactividad" id="seccionactividad" value="">
                                 <input type="hidden" name="proceso" id="actividad" value="saveactividades" />
                                 <input type="hidden" name="id_rel_industria_actividad" id="id_rel_industria_actividad">
-                                <input type="hidden" name="id_industria_modal" id="id_industria_modal" value="1">
+                                <input type="hidden" name="id_industria_modal" id="id_industria_modal"
+
+                                 
+                                        @if(isset($id_industria))
+                                            value="{{$id_industria}}"
+                                        @else 
+                                         value=""
+
+                                        @endif     
+                                   
+                                 >
                                 <input type="hidden" name="id_actividad" id="id_actividad" />
                                 <input type="text" class="form-control" name="search_codigo" id="search_codigo" placeholder="Realice la búsqueda de Actividad por Código" autocomplete="off" required="" aria-required="true" />
                                 <i class="fa fa-search form-control-feedback"></i>
@@ -1439,12 +1449,11 @@
                         document.getElementById('situacion').value = 'savesituacion',
                         document.getElementById('id_situacion_de_planta').value = '',
                         document.getElementById('industria_situacion').value = '',
-                        document.getElementById('anio_situacion').value = '',
+                        
                         document.getElementById('produccion_sobre_capacidad').value = '',
                         document.getElementById('superficie_lote').value = '',
                         document.getElementById('superficie_planta').value = '',
-                        document.getElementById('es_zona_industrial').value = '1',
-                        document.getElementById('declara_inversion').value = '0',
+                        
                         document.getElementById('inversion_anual').value = '',
                         document.getElementById('inversion_activo_fijo').value = '',
                         document.getElementById('capacidad_instalada').value = '',
@@ -1505,16 +1514,9 @@
 
                 <div class="modal-body">
 
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group has-feedback">
-                                <label class="control-label">Descripción de Industria: <span class="symbol required"></span></label>
-                                <br /><abbr title="Descripción de Industria"><label id="nombre_de_fantasia"></label></abbr>
-                            </div>
-                        </div>
-                    </div>
+                   
 
-                    <div class="row">
+                    <div class="row selectMotivo">
                         <div class="col-md-12">
                             <label class="control-label">Motivo Ociosidad: <span style="cursor: pointer;" class="mdi mdi-alert-circle text-danger" data-container="body" title="Notificación: Ingrese Descripción de Motivo Ociosidad y seleccione en el Listado que se mostrará, en caso de no aparecer, escribala y el sistema se encargará de la asignación del mismo."></span><span class="symbol required"></span></label>
                             <div class="form-group has-feedback">
@@ -1523,9 +1525,30 @@
                                 <input type="hidden" name="id_rel_industria_motivo_ociosidad" id="id_rel_industria_motivo_ociosidad">
                                 <input type="hidden" name="industria_motivo" id="industria_motivo">
                                 <input type="hidden" name="anio_motivo" id="anio_motivo">
-                                <input type="hidden" name="id_motivo_ociosidad" id="id_motivo_ociosidad" />
-                                <input type="text" class="form-control" name="search_motivo" id="search_motivo" placeholder="Realice la Búsqueda de Ociosidad o Ingrese Descripción de Motivo" autocomplete="nope" required="" aria-required="true" />
-                                <i class="fa fa-search form-control-feedback"></i>
+                                
+                                <select class="form-control" id="id_motivo_ociosidad" name="id_motivo_ociosidad" required="" aria-required="true">
+                                    <option value=""> -- SELECCIONE -- </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                    <label  for="check_otro">El motivo no existe en el listado anterior:</label>
+                                    <input type="checkbox" id="check_otro" name="check_otro" >
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row motivoNuevo" style="display:none">
+                        <div class="col-md-6">
+                            <div class="form-group has-feedback">
+                                <label class="control-label">Ingrese nombre del motivo<span class="symbol required"></span></label>
+                                <input type="text" class="form-control" name="motivo_nuevo" placeholder="Nombre del motivo" id="motivo_nuevo" autocomplete="off" required="" aria-required="true" />
+                                <i class="mdi mdi-pencil form-control-feedback"></i>
                             </div>
                         </div>
                     </div>
@@ -1534,13 +1557,14 @@
 
                 <div class="modal-footer">
                     <button type="submit" name="btn-motivo" id="btn-motivo" class="btn btn-danger"><span class="fa fa-save"></span> Guardar</button>
+                    <button type="button" style="display:none" name="btn-motivo-update" id="btn-motivo-update" class="btn btn-danger"><span class="fa fa-save"></span> Actualizar</button>
                     <button class="btn btn-dark" type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="
                 document.getElementById('motivo').value = 'savemotivo',
                 document.getElementById('id_rel_industria_motivo_ociosidad').value = '',
                 document.getElementById('industria_motivo').value = '',
                 document.getElementById('anio_motivo').value = '',
-                document.getElementById('id_motivo_ociosidad').value = '',
-                document.getElementById('search_motivo').value = ''
+                document.getElementById('id_motivo_ociosidad').value = ''
+               
                 "><span class="fa fa-trash-o"></span> Cancelar</button>
                 </div>
             </form>
@@ -1601,15 +1625,6 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group has-feedback">
-                                <label class="control-label">Descripción de Industria: <span class="symbol required"></span></label>
-                                <br /><abbr title="Descripción de Industria"><label id="nombre_de_fantasia"></label></abbr>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group has-feedback">
                                 <label class="control-label">Roles de Trabajadores: <span class="symbol required"></span></label>
                                 <i class="fa fa-bars form-control-feedback"></i>
                                 <input type="hidden" name="seccionpersonal" id="seccionpersonal" value="">
@@ -1619,7 +1634,7 @@
                                 <select class="form-control" id="rol_trabajador" name="rol_trabajador" required="" aria-required="true">
                                     <option value=""> -- SELECCIONE -- </option>
 
-                                    <option value=""></option>
+                                   
 
                                 </select>
                             </div>
@@ -1627,24 +1642,14 @@
                     </div>
 
                     <div class="table-responsive">
-                        <table id="default_order" class="table2 display" border="0">
-                            <thead>
-                                <tr role="row">
-                                    <th>Condición Laboral <span class="symbol required"></span></th>
-                                    <th>Masculino <span class="symbol required"></span></th>
-                                    <th>Femenino <span class="symbol required"></span></th>
-                                </tr>
+                        <table id="p_o" class="table2 display" border="0">
+                            <thead id="thead_p_o">
+                                
                             </thead>
                             <tbody>
 
 
-                                <tr role="row" class="odd">
-                                    <td><input type="hidden" name="id_condicion_laboral[]" id="id_condicion_laboral" value="" /></label></td>
-
-                                    <td class="text-center"><input type="number" class="form-control" name="masculino[]" id="masculino" placeholder="Ingrese Cantidad Masculino" autocomplete="off" style="width:100%;height:40px;background:#f0f9fc;border-radius:5px 5px 5px 5px;"></td>
-
-                                    <td class="text-center"><input type="number" class="form-control" name="femenino[]" id="femenino" placeholder="Ingrese Cantidad Femenino" autocomplete="off" style="width:100%;height:40px;background:#f0f9fc;border-radius:5px 5px 5px 5px;"></td>
-                                </tr>
+                                
 
                             </tbody>
                         </table>
@@ -1688,10 +1693,9 @@
                             <div class="form-group has-feedback">
                                 <input type="hidden" name="seccionpersonalupdate" id="seccionpersonalupdate" value="">
                                 <input type="hidden" name="proceso" id="personalupdate" value="updatepersonal" />
-                                <input type="hidden" name="industria_personal_update" id="industria_personal_update">
+                                <input type="hidden" name="id_rel_industria_personal_update" id="id_rel_industria_personal_update">
                                 <input type="hidden" name="anio_personal_update" id="anio_personal_update">
-                                <label class="control-label">Descripción de Industria: <span class="symbol required"></span></label>
-                                <br /><abbr title="Descripción de Industria"><label id="nombre_de_fantasia"></label></abbr>
+                               
                             </div>
                         </div>
                     </div>
@@ -1705,14 +1709,29 @@
                         </div>
                     </div>
 
-                    <div id="detallespersonal"></div>
+
+                    <div class="table-responsive">
+                        <table id="p_o_update" class="table2 display" border="0">
+                            <thead id="thead_p_o_update">
+                                
+                            </thead>
+                            <tbody>
+
+
+                                
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!--<div id="detallespersonal"></div>-->
 
                 </div>
 
                 <div class="modal-footer">
                     <button type="submit" name="btn-personalupdate" id="btn-personalupdate" class="btn btn-danger"><span class="fa fa-edit"></span> Actualizar</button>
                     <button class="btn btn-dark" type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="
-                document.getElementById('industria_personal_update').value = '',
+                document.getElementById('id_rel_industria_personal_update').value = '',
                 document.getElementById('anio_personal_update').value = ''
                 "><span class="fa fa-trash-o"></span> Cancelar</button>
                 </div>
