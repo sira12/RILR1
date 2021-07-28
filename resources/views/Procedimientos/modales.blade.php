@@ -1786,7 +1786,7 @@
         <div class="modal-content">
             <div class="modal-header bg-dark">
                 <h4 class="modal-title text-white" id="myModalLabel"><i class="fa fa-tasks"></i> Ventas Asociada a la Industria</h4>
-                <button type="button" onclick="LimpiarRadio();" class="close" data-dismiss="modal" aria-hidden="true"><img src="{{asset('assets/images/close.png')}}" /></button>
+               
             </div>
 
             <form class="form form-material" name="saveventa" id="saveventa" action="#">
@@ -1796,73 +1796,61 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group has-feedback">
-                                <label class="control-label">Descripción de Industria: <span class="symbol required"></span></label>
+                                
                                 <input type="hidden" name="seccionventa" id="seccionventa" value="">
-                                <input type="hidden" name="proceso" id="ventas" value="saveventas" />
+                                <input type="hidden" name="id_destino_ventas" id="id_destino_ventas"  />
                                 <input type="hidden" name="industria_venta" id="industria_venta">
                                 <input type="hidden" name="anio_venta" id="anio_venta">
-                                <br /><abbr title="Descripción de Industria"><label id="nombre_de_fantasia"></label></abbr>
+                                <abbr title="Descripción de Industria"><label id="nombre_de_fantasia"></label></abbr>
                             </div>
                         </div>
                     </div>
 
-                    <div class="table-responsive">
-                        <table id="default_order" class="table2 display" border="0">
-                            <thead>
-                                <tr role="row">
-                                    <th>Descripción</th>
-                                    <th>No Aplica </th>
-                                    <th>En la Provincia </th>
-                                    <th>Otras Provincias </th>
-                                    <th>Provincias </th>
-                                    <th>Otros Paises </th>
-                                    <th>Paises </th>
-                                </tr>
-                            </thead>
-                            <tbody>
 
-                                <tr role="row" class="odd">
-                                    <td><input type="hidden" name="id_clasificacion_ventas[]" id="id_clasificacion_ventas" value="" /><label></label></td>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group has-feedback">
+                                <label class="control-label">Clasificacion de Venta: <span class="symbol required"></span></label>
+                                <i class="fa fa-bars form-control-feedback"></i>
+                                <select class="form-control" id="clasif_venta" name="clasif_venta" required="true" aria-required="true">
 
-                                    <td class="text-center">
-                                        <div class="custom-control custom-radio custom-control-inline"><input type="radio" name="checkbox[]" id="no_aplica_" value="NO" class="custom-control-input"><label class="custom-control-label" for="no_aplica_" onClick="Limpiar();"></label></div>
-                                    </td>
+                                    <option value=""> -- SELECCIONE -- </option>
 
-                                    <td class="text-center">
-                                        <div class="custom-control custom-radio custom-control-inline"><input type="radio" name="checkbox[]" id="provincia_" value="PROVINCIA" class="custom-control-input"><label class="custom-control-label" for="provincia_" onClick="Limpiar();"></label></div>
-                                    </td>
+                                </select>
+                            </div>
+                        </div>
 
-                                    <td class="text-center">
-                                        <div class="custom-control custom-radio custom-control-inline"><input type="radio" name="checkbox[]" id="otra_provincia_" value="OTRA PROVINCIA" class="custom-control-input"><label class="custom-control-label" for="otra_provincia_" onClick="AsignaContadorProvincia();" data-href="#" data-toggle="modal" data-target="#myModalProvincias" data-backdrop="static" data-keyboard="false"></label></div>
-                                    </td>
 
-                                    <td>
-                                        <div id="provincia2_" class="provincias text-info"></div>
-                                    </td>
+                        <div class="col-md-12">
+                            <div class="form-group has-feedback">
+                                <label class="control-label">Ventas en Provincias: <span class="symbol required"></span></label>
+                              <br>
+                                <select  style="width: 50%" id="ventas_provincias" name="ventas_provincias[]" multiple="multiple" required="true" aria-required="true">
 
-                                    <td class="text-center">
-                                        <div class="custom-control custom-radio custom-control-inline"><input type="radio" name="checkbox[]" id="otro_pais_" value="OTRO PAIS" class="custom-control-input"><label class="custom-control-label" for="otro_pais_" onClick="AsignaContadorPais();" data-href="#" data-toggle="modal" data-target="#myModalPaises" data-backdrop="static" data-keyboard="false"></label></div>
-                                    </td>
+                                
+                                </select>  
+                            </div>   
+                        </div>
 
-                                    <td>
-                                        <div id="pais2_" class="paises text-info"></div>
-                                    </td>
+                        <div class="col-md-12">
+                            <div class="form-group has-feedback">
+                                <label class="control-label">Ventas en Paises Extranjeros: <span class="symbol required"></span></label>
+                                <br>
+                                <select  style="width: 50%" id="ventas_paises" name="ventas_paises[]" multiple="multiple" required="true" aria-required="true">
 
-                                </tr>
+                                
+                                </select>  
+                            </div>   
+                        </div>
 
-                            </tbody>
-                        </table>
                     </div>
-
                 </div>
 
                 <div class="modal-footer">
-                    <button type="submit" name="btn-venta" id="btn-venta" class="btn btn-danger"><span class="fa fa-save"></span> Guardar</button>
-                    <button type="button" onclick="LimpiarRadio();" class="btn btn-dark" class="close" data-dismiss="modal" aria-hidden="true" onclick="
-                document.getElementById('ventas').value = 'saveventa',
-                document.getElementById('industria_venta').value = '',
-                document.getElementById('anio_venta').value = ''
-                "><span class="fa fa-trash-o"></span> Cancelar</button>
+                        <button type="submit" name="btn-venta" id="btn-venta" class="btn btn-danger"><span class="fa fa-save"></span> Guardar</button>
+                        <button type="button" style="display:none; " name="btn-venta-update" id="btn-venta-update" class="btn btn-danger"><span class="fa fa-save"></span> Guardar</button>
+                        <button type="button" class="btn btn-dark" class="close" data-dismiss="modal" aria-hidden="true" id="btn-cancelar-venta" onclick="btn_cancelar_venta()"><span class="fa fa-trash-o"></span> Cancelar</button>
+                         <button id="btn-cerrar-venta" type="button" style="display:none; " class="btn btn-dark" class="close" data-dismiss="modal" aria-hidden="true" onclick="btn_cancelar_venta()"><span class="fa fa-trash-o"></span> Cerrar</button>
                 </div>
             </form>
 
@@ -1871,60 +1859,7 @@
 </div>
 <!-- Modal para Asignar Ventas -->
 
-<!-- Modal para Actualizar Ventas -->
-<div id="MyModalUpdateVenta" class="modal fade" tabindex="-1" role="dialog" style="overflow-y: scroll;" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header bg-dark">
-                <h4 class="modal-title text-white" id="myModalLabel"><i class="fa fa-tasks"></i> Actualizar Ventas Asociada a la Industria</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><img src="{{asset('assets/images/close.png')}}" /></button>
-            </div>
 
-            <form class="form form-material" name="updateventa" id="updateventa" action="#">
-
-                <div class="modal-body">
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group has-feedback">
-                                <input type="hidden" name="seccionventaupdate" id="seccionventaupdate" value="">
-                                <input type="hidden" name="proceso" id="ventaupdate" value="updateventas" />
-                                <input type="hidden" name="id_destino_ventas" id="id_destino_ventas">
-                                <input type="hidden" name="industria_venta_update" id="industria_venta_update">
-                                <input type="hidden" name="anio_venta_update" id="anio_venta_update">
-                                <label class="control-label">Descripción de Industria: <span class="symbol required"></span></label>
-                                <br /><abbr title="Descripción de Industria"><label id="nombre_de_fantasia"></label></abbr>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group has-feedback">
-                                <label class="control-label">Descripción de Venta: <span class="symbol required"></span></label>
-                                <br /><abbr title="Clasificación de Venta"><label id="clasificacion_venta"></label></abbr>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div id="detallesventa"></div>
-
-                </div>
-
-                <div class="modal-footer">
-                    <button type="submit" name="btn-ventaupdate" id="btn-ventaupdate" class="btn btn-danger"><span class="fa fa-edit"></span> Actualizar</button>
-                    <button type="button" class="btn btn-dark" class="close" data-dismiss="modal" aria-hidden="true" onclick="
-                document.getElementById('id_destino_ventas').value = '',
-                document.getElementById('industria_venta_update').value = '',
-                document.getElementById('anio_venta_update').value = ''
-                "><span class="fa fa-trash-o"></span> Cancelar</button>
-                </div>
-            </form>
-
-        </div>
-    </div>
-</div>
-<!-- Modal para Actualizar Ventas -->
 
 <!-- Modal Listado de Provincias -->
 <div id="myModalProvincias" class="modal fade" tabindex="-1" role="dialog" style="overflow-y: scroll;" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -2179,22 +2114,32 @@
                     <div class="row mt-3">
                         <div class="col-md-12">
                             <div class="form-group has-feedback">
-                                <label class="control-label">Descripción de Industria: <span class="symbol required"></span></label>
+                               
                                 <input type="hidden" name="seccionfacturacion" id="seccionfacturacion" value="">
                                 <input type="hidden" name="proceso" id="facturacion" value="savefacturacion" />
                                 <input type="hidden" name="id_facturacion" id="id_facturacion">
                                 <input type="hidden" name="industria_facturacion" id="industria_facturacion">
                                 <input type="hidden" name="anio_facturacion" id="anio_facturacion">
-                                <br /><abbr title="Descripción de Industria"><label id="nombre_de_fantasia"></label></abbr>
+                               
                             </div>
                         </div>
                     </div>
 
                     <h3 class="card-subtitle text-muted"><i class="fa fa-file-text"></i> Clasificación de Ingresos</h3><br>
 
-                    <div class="table-responsive">
-                        <div id="div1"></div>
-                    </div><br>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group has-feedback">
+                                
+                               
+                                <select class="form-control" id="clasif_ingreso" name="clasif_ingreso" required="" aria-required="true">
+                                    <option value=""> -- SELECCIONE -- </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <br>
 
                     <h3 class="card-subtitle text-muted"><i class="fa fa-file-text"></i> Información Impositiva y Niveles de Facturación</h3>
                     <hr>
@@ -2239,6 +2184,7 @@
 
                 <div class="modal-footer">
                     <button type="submit" name="btn-facturacion" id="btn-facturacion" class="btn btn-danger"><span class="fa fa-save"></span> Guardar</button>
+                    <button type="button" style="display: none; " name="btn-facturacion-update" id="btn-facturacion-update" class="btn btn-danger"><span class="fa fa-save"></span> Guardar</button>
                     <button class="btn btn-dark" type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="
                 document.getElementById('facturacion').value = 'savefacturacion',
                 document.getElementById('id_facturacion').value = '',

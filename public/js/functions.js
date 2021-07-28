@@ -1892,7 +1892,152 @@ function cargar_tabla_p_o_f() {
 
 }
 
+function cargar_tabla_ventas() {
 
+
+    var table = $('.table_ventas').DataTable();
+
+
+    table.destroy();
+    //$('.yajra-datatable').empty();
+
+    var id_industria = $("#id_industria_modal").val();
+    table = $('.table_ventas').DataTable({
+        processing: false,
+        serverSide: true,
+        searching: false,
+        "ajax": {
+            "url": "/listVentas",
+            "type": "POST",
+            "data": {
+                _token: $('meta[name="csrf-token"]').attr('content'),
+                id_industria: id_industria
+            },
+        },
+        
+        columns: [
+            { data: 'DT_RowIndex', name: 'DT_RowIndex' },
+            { data: 'clasificacion_ventas', name: 'clasificacion_ventas' },
+           
+            { data: 'anio', name: 'anio' },
+            
+            {
+                data: 'action',
+                name: 'action',
+                orderable: true,
+                searchable: true
+            },
+        ],
+        columnDefs: [
+
+           
+
+        ]
+    })}
+
+function cargar_tabla_fact() {
+
+
+    var table = $('.table_facturacion').DataTable();
+    table.destroy();
+    //$('.yajra-datatable').empty();
+
+    var id_industria = $("#id_industria_modal").val();
+    table = $('.table_facturacion').DataTable({
+        processing: false,
+        serverSide: true,
+        searching: false,
+        "ajax": {
+            "url": "/listFact",
+            "type": "POST",
+            "data": {
+                _token: $('meta[name="csrf-token"]').attr('content'),
+                id_industria: id_industria
+            },
+        },
+        
+        columns: [
+            { data: 'DT_RowIndex', name: 'DT_RowIndex' },
+            { data: 'prevision_ingresos_anio_corriente', name: 'prevision_ingresos_anio_corriente' },
+            { data: 'prevision_ingresos_anio_corriente_dolares', name: 'prevision_ingresos_anio_corriente_dolares' },
+            { data: 'porcentaje_prevision_mercado_interno', name: 'porcentaje_prevision_mercado_interno' },
+            { data: 'porcentaje_prevision_mercado_externo', name: 'porcentaje_prevision_mercado_externo' },
+            { data: 'categoria', name: 'categoria' },
+            { data: 'anio', name: 'anio' },
+            
+            {
+                data: 'action',
+                name: 'action',
+                orderable: true,
+                searchable: true
+            },
+        ],
+        columnDefs: [
+
+           
+
+        ]
+    })}
+
+function cargar_clasif_ingresos(){
+
+    $.ajax({
+        type: "post",
+        url: "/ClasifIngresos",
+        data: {
+            _token: $('meta[name="csrf-token"]').attr('content'),
+        },
+        success: function (response) {
+
+
+            $("#clasif_ingreso").find("option").remove();
+
+
+             $('#clasif_ingreso').append('<option value="">-- SELECCIONE --</option>');
+       
+            $(response).each(function (i, v) {
+      
+            
+                $('#clasif_ingreso').append('<option value="' + v.id_categoria_ingreso + '">' + v.categoria +" | Desde: $"+ v.monto_minimo+"   | Hasta: $"+v.monto_maximo +'</option>');
+            })           
+            
+        }
+    }); 
+
+}
+
+function btn_cancelar_venta(){
+        $("#updateventa #id_destino_ventas").val("");
+        $("#updateventa #industria_venta_update").val("");
+
+        $("#btn-venta-update").hide();
+        $("#btn-venta").show(); 
+
+        $("#btn-cancelar-venta").show();
+         $("#btn-cerrar-venta").hide();
+
+        $("#updateventa").prop('id', 'saveventa');
+        $("#saveventa").prop('name', 'saveventa');
+
+        $("#clasif_venta").val("")
+        $("#updateventa #id_destino_ventas").val("");
+
+        $('#ventas_provincias').val("");
+        $('#ventas_provincias').select2();
+        $('#ventas_provincias').trigger('change');
+
+         $("#clasif_venta").prop('disabled',false)
+
+      
+         $('#ventas_provincias').prop('disabled',false)
+         $('#ventas_paises').prop('disabled',false)
+
+        $('#ventas_paises').val("");
+        $('#ventas_paises').select2();
+        $('#ventas_paises').trigger('change');
+
+
+}
 
 //moostrar forms
 $(document).ready(function () {
@@ -1975,6 +2120,99 @@ function lanzador(){
     getTramite();
    
 }
+
+
+
+
+function getClasificacionVentas(){
+   $.ajax({
+        type: "post",
+        url: "/getCVentas",
+        data: {
+            _token: $('meta[name="csrf-token"]').attr('content'),
+        },
+        success: function (response) {
+
+
+            $("#clasif_venta").find("option").remove();
+
+
+             $('#clasif_venta').append('<option value="">-- SELECCIONE --</option>');
+       
+            $(response).each(function (i, v) {
+      
+            
+                $('#clasif_venta').append('<option value="' + v.id_clasificacion_ventas + '">' + v.clasificacion_ventas + '</option>');
+            })           
+            
+        }
+    }); 
+}
+
+
+
+function getProvinciasVentas(){
+   $.ajax({
+        type: "post",
+        url: "/getPVentas",
+        data: {
+            _token: $('meta[name="csrf-token"]').attr('content'),
+        },
+        success: function (response) {
+
+            $("#ventas_provincias").find("option").remove();
+            $('#ventas_provincias').select2({
+
+                width: 'resolve',
+                theme: "classic"
+            });
+
+            
+
+
+             //$('#ventas_provincias').append('<option value="">-- SELECCIONE --</option>');
+       
+            $(response).each(function (i, v) {
+      
+            
+                $('#ventas_provincias').append('<option value="' + v.id_provincia + '">' + v.provincia + '</option>');
+            })           
+            
+        }
+    }); 
+}
+
+function getPaisesVentas(){
+   $.ajax({
+        type: "post",
+        url: "/getPaisesVentas",
+        data: {
+            _token: $('meta[name="csrf-token"]').attr('content'),
+        },
+        success: function (response) {
+
+            $("#ventas_paises").find("option").remove();
+            $('#ventas_paises').select2({
+
+                width: 'resolve',
+                theme: "classic"
+            });
+
+            
+
+
+             //$('#ventas_provincias').append('<option value="">-- SELECCIONE --</option>');
+       
+            $(response).each(function (i, v) {
+      
+            
+                $('#ventas_paises').append('<option value="' + v.id_pais + '">' + v.pais + '</option>');
+            })           
+            
+        }
+    }); 
+}
+
 
 
 function getCondicionLaboral() {

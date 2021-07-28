@@ -2994,6 +2994,14 @@ function muestraForm(ref) {
 			cargar_tabla_motivo_ociosidad()
 			cargar_tabla_p_o_m()
 			cargar_tabla_p_o_f()
+		}else if(ref== "vyf"){
+
+			getClasificacionVentas();
+			getProvinciasVentas();
+			getPaisesVentas();
+			cargar_tabla_ventas();
+			cargar_clasif_ingresos();
+			cargar_tabla_fact()
 		}
 
 
@@ -5450,36 +5458,42 @@ $('document').ready(function () {
 	$("#saveventa").validate({
 		rules:
 		{
-			id_clasificacion_ventas: { required: true, },
+			clasif_venta: { required: true, },
+			ventas_provincias: { required: true, },
 		},
 		messages:
 		{
-			id_clasificacion_ventas: { required: "Seleccione Clasificación" },
+			clasif_venta: { required: "Seleccione Clasificación" },
+			ventas_provincias: { required: "Seleccione una provincia" },
 		},
 		submitHandler: function (form) {
 
 			var data = $("#saveventa").serialize();
 			var seccion = $("#seccionventa").val();
-			var industria = $("#industria_venta").val();
+			var industria = $("#id_industria_modal").val();
 
 			$.ajax({
 				type: 'POST',
-				url: 'procedimientos.php',
+				url: '/saveVenta',
 				async: false,
-				data: data,
+				data: {
+					_token: $('meta[name="csrf-token"]').attr('content'),
+					data:data,
+					id_industria:industria
+				},
 				beforeSend: function () {
 					$("#save").fadeOut();
 					$("#btn-venta").html('<i class="fa fa-refresh"></i> Verificando...');
 				},
 				success: function (data) {
-					if (data == 1) {
+					if (data.status == 1) {
 
 						$("#save").fadeIn(1000, function () {
 
 							var n = noty({
-								text: "<span class='fa fa-warning'></span> POR FAVOR DEBE DE COMPLETAR LOS CAMPOS REQUERIDOS, VERIFIQUE NUEVAMENTE POR FAVOR...!",
+								text: "<span class='fa fa-warning'></span>"+data.msg,
 								theme: 'defaultTheme',
-								layout: 'center',
+								layout: 'topCenter',
 								type: 'warning',
 								timeout: 5000,
 							});
@@ -5547,27 +5561,24 @@ $('document').ready(function () {
 
 						});
 					}
-					else {
+					else if(data.status == 200) {
 
 						$("#save").fadeIn(1000, function () {
 
 							var n = noty({
-								text: '<center> ' + data + ' </center>',
+								text: '<center> ' + data.msg + ' </center>',
 								theme: 'defaultTheme',
-								layout: 'center',
+								layout: 'topCenter',
 								type: 'information',
 								timeout: 5000,
 							});
 							$('#MyModalVenta').modal('hide');
-							$('#secciones').load("formularios.php?BuscaFormularioProcedimiento=si&seccion=" + seccion + "&in=" + industria);
+							//$('#secciones').load("formularios.php?BuscaFormularioProcedimiento=si&seccion=" + seccion + "&in=" + industria);
 							$("#saveventa")[0].reset();
-							$("#saveventa #nombre_de_fantasia").text("");
+							
 							$("#saveventa #industria_venta").val("");
 							$("#saveventa #anio_venta").val("");
-							$("input[type='checkbox']:checked:enabled").attr('checked', false);
-							$("input[type='radio']:checked:enabled").attr('checked', false);
-							$(".provincias").html("");
-							$(".paises").html("");
+							
 							$("#btn-venta").html('<span class="fa fa-save"></span> Agregar y Guardar');
 						});
 					}
@@ -5581,28 +5592,27 @@ $('document').ready(function () {
 /* FUNCION JQUERY PARA VALIDAR ASIGNACION DE VENTAS */
 
 /* FUNCION JQUERY PARA VALIDAR ACTUALIZAR VENTAS */
-$('document').ready(function () {
+
+$("#btn-venta-update").on('click',function(){
+
+	
 	/* validation */
-	$("#updateventa").validate({
-		rules:
-		{
-			id_clasificacion_ventas: { required: true, },
-		},
-		messages:
-		{
-			id_clasificacion_ventas: { required: "Seleccione Clasificación" },
-		},
-		submitHandler: function (form) {
+
+	if($("#clasif_venta").val().length != 0 && $("#ventas_provincias").val().length != 0 ){
 
 			var data = $("#updateventa").serialize();
 			var seccion = $("#seccionventaupdate").val();
-			var industria = $("#industria_venta_update").val();
+			var industria = $("#id_industria_modal").val();
 
 			$.ajax({
 				type: 'POST',
-				url: 'procedimientos.php',
+				url: '/updateVenta',
 				async: false,
-				data: data,
+				data: {
+					_token: $('meta[name="csrf-token"]').attr('content'),
+					data:data,
+					id_industria:industria
+				},
 				beforeSend: function () {
 					$("#save").fadeOut();
 					$("#btn-ventaupdate").html('<i class="fa fa-refresh"></i> Verificando...');
@@ -5668,7 +5678,7 @@ $('document').ready(function () {
 
 						});
 					}
-					else {
+					else if(data.status == 200) {
 
 						$("#save").fadeIn(1000, function () {
 
@@ -5679,27 +5689,54 @@ $('document').ready(function () {
 								type: 'information',
 								timeout: 5000,
 							});
-							$('#MyModalUpdateVenta').modal('hide');
-							$('#secciones').load("formularios.php?BuscaFormularioProcedimiento=si&seccion=" + seccion + "&in=" + industria);
+							$('#MyModalVenta').modal('hide');
+							//$('#secciones').load("formularios.php?BuscaFormularioProcedimiento=si&seccion=" + seccion + "&in=" + industria);
 							$("#updateventa")[0].reset();
-							$("#updateventa #nombre_de_fantasia").text("");
+							
 							$("#updateventa #id_destino_ventas").val("");
 							$("#updateventa #industria_venta_update").val("");
-							$("#updateventa #anio_venta_update").val("");
-							$("input[type='checkbox']:checked:enabled").attr('checked', false);
-							$("input[type='radio']:checked:enabled").attr('checked', false);
-							$(".provincias").html("");
-							$(".paises").html("");
-							$("#btn-ventaupdate").html('<span class="fa fa-edit"></span> Actualizar');
+
+							$("#btn-venta-update").hide();
+					        $("#btn-venta").show();
+
+					        $("#updateventa").prop('id', 'saveventa');
+					        $("#saveventa").prop('name', 'saveventa');
+
+					        $("#clasif_venta").val("")
+         					$("#updateventa #id_destino_ventas").val("");
+
+         					$('#ventas_provincias').val("");
+					        $('#ventas_provincias').select2();
+					        $('#ventas_provincias').trigger('change');
+
+					        $('#ventas_paises').val("");
+					        $('#ventas_paises').select2();
+					        $('#ventas_paises').trigger('change');
+							
+							
+							
+							$("#btn-venta-update").html('<span class="fa fa-edit"></span> Guardar');
 						});
 					}
 				}
 			});
 			return false;
-		}
-		/* form submit */
-	});
-});
+
+	}else{
+		var n = noty({
+			text: "<span class='fa fa-warning'></span> POR FAVOR DEBE DE COMPLETAR LOS CAMPOS REQUERIDOS, VERIFIQUE NUEVAMENTE POR FAVOR...!",
+			theme: 'defaultTheme',
+			layout: 'topCenter',
+			type: 'warning',
+			timeout: 5000,
+		});
+	}
+
+			
+		
+
+})
+
 /* FUNCION JQUERY PARA VALIDAR ACTUALIZAR VENTAS */
 
 
@@ -5723,6 +5760,7 @@ $('document').ready(function () {
 	$("#savefacturacion").validate({
 		rules:
 		{
+			clasif_ingreso: { required: true},
 			prevision_ingresos_anio_corriente: { required: true, number: true },
 			prevision_ingresos_anio_corriente_dolares: { required: true, number: true },
 			porcentaje_prevision_mercado_interno: { required: true, number: true },
@@ -5730,6 +5768,7 @@ $('document').ready(function () {
 		},
 		messages:
 		{
+			clasif_ingreso: { required: "Seleccione una clasificacion"},
 			prevision_ingresos_anio_corriente: { required: "Ingrese Facturación Anual en Año Corriente (Pesos)", number: "Ingrese solo digitos" },
 			prevision_ingresos_anio_corriente_dolares: { required: "Ingrese Facturación Anual en Año Corriente (USD)", number: "Ingrese solo digitos" },
 			porcentaje_prevision_mercado_interno: { required: "Ingrese Facturación Mercado Interno (%)", number: "Ingrese solo digitos" },
@@ -5739,26 +5778,30 @@ $('document').ready(function () {
 
 			var data = $("#savefacturacion").serialize();
 			var seccion = $("#seccionfacturacion").val();
-			var industria = $("#industria_facturacion").val();
+			var industria = $("#id_industria_modal").val();
 
 			$.ajax({
 				type: 'POST',
-				url: 'procedimientos.php',
+				url: '/saveFacturacion',
 				async: false,
-				data: data,
+				data: {
+					_token: $('meta[name="csrf-token"]').attr('content'),
+					data:data,
+					id_industria:industria
+				},
 				beforeSend: function () {
 					$("#save").fadeOut();
 					$("#btn-facturacion").html('<i class="fa fa-refresh"></i> Verificando...');
 				},
 				success: function (data) {
-					if (data == 1) {
+					if (data.status == 1) {
 
 						$("#save").fadeIn(1000, function () {
 
 							var n = noty({
-								text: "<span class='fa fa-warning'></span> POR FAVOR DEBE DE COMPLETAR LOS CAMPOS REQUERIDOS, VERIFIQUE NUEVAMENTE POR FAVOR...!",
+								text: "<span class='fa fa-warning'></span>"+data.msg,
 								theme: 'defaultTheme',
-								layout: 'center',
+								layout: 'topCenter',
 								type: 'warning',
 								timeout: 5000,
 							});
@@ -5781,19 +5824,19 @@ $('document').ready(function () {
 
 						});
 					}
-					else {
+					else if(data.status ==200){
 
 						$("#save").fadeIn(1000, function () {
 
 							var n = noty({
-								text: '<center> ' + data + ' </center>',
+								text: '<center> ' + data.msg + ' </center>',
 								theme: 'defaultTheme',
-								layout: 'center',
+								layout: 'topCenter',
 								type: 'information',
 								timeout: 5000,
 							});
 							$('#MyModalFacturacion').modal('hide');
-							$('#secciones').load("formularios.php?BuscaFormularioProcedimiento=si&seccion=" + seccion + "&in=" + industria);
+							//$('#secciones').load("formularios.php?BuscaFormularioProcedimiento=si&seccion=" + seccion + "&in=" + industria);
 							$("#savefacturacion")[0].reset();
 							$("#muestraingresos").html("");
 							$("#savefacturacion #facturacion").val("savefacturacion");
@@ -5814,6 +5857,149 @@ $('document').ready(function () {
 /* FUNCION JQUERY PARA VALIDAR ASIGNACION DE FACTURACION */
 
 
+$("#btn-facturacion-update").on("click",function(){
+
+
+	if($("#updatefacturacion #clasif_ingreso").val().length < 1){
+
+		var n = noty({
+					text: "<span class='fa fa-warning'></span> Seleccione una clasificacion",
+					theme: 'defaultTheme',
+					layout: 'topCenter',
+					type: 'warning',
+					timeout: 5000,
+				});
+
+	}else if ($("#updatefacturacion #prevision_ingresos_anio_corriente").val().length < 1){
+
+		var n = noty({
+				text: "<span class='fa fa-warning'></span> Ingrese Facturacion anual año corriente",
+				theme: 'defaultTheme',
+				layout: 'topCenter',
+				type: 'warning',
+				timeout: 5000,
+			});
+	}else if( $("#updatefacturacion #prevision_ingresos_anio_corriente_dolares").val().length < 1){
+
+		var n = noty({
+				text: "<span class='fa fa-warning'></span> Ingrese Facturacion anual año corriente (USD)",
+				theme: 'defaultTheme',
+				layout: 'topCenter',
+				type: 'warning',
+				timeout: 5000,
+			});
+
+	}else if($("#updatefacturacion #porcentaje_prevision_mercado_interno").val().length < 1){
+
+		var n = noty({
+				text: "<span class='fa fa-warning'></span> Ingrese Facturacion mercado Interno",
+				theme: 'defaultTheme',
+				layout: 'topCenter',
+				type: 'warning',
+				timeout: 5000,
+			});
+
+	}else if($("#updatefacturacion #porcentaje_prevision_mercado_externo").val().length < 1){
+
+		var n = noty({
+				text: "<span class='fa fa-warning'></span> Ingrese Facturacion mercado Externo",
+				theme: 'defaultTheme',
+				layout: 'topCenter',
+				type: 'warning',
+				timeout: 5000,
+			});
+
+	}else{
+
+	var data = $("#updatefacturacion").serialize();
+	var seccion = $("#seccionfacturacion").val();
+	var industria = $("#id_industria_modal").val();
+
+	$.ajax({
+		type: 'POST',
+		url: '/updateFacturacion',
+		async: false,
+		data: {
+			_token: $('meta[name="csrf-token"]').attr('content'),
+			data:data,
+			id_industria:industria
+		},
+		beforeSend: function () {
+			$("#save").fadeOut();
+			$("#btn-facturacion").html('<i class="fa fa-refresh"></i> Verificando...');
+		},
+		success: function (data) {
+			if (data.status == 1) {
+
+				$("#save").fadeIn(1000, function () {
+
+					var n = noty({
+						text: "<span class='fa fa-warning'></span>"+data.msg,
+						theme: 'defaultTheme',
+						layout: 'topCenter',
+						type: 'warning',
+						timeout: 5000,
+					});
+					$("#btn-facturacion").html('<span class="fa fa-save"></span> Agregar y Guardar');
+
+				});
+			}
+			else if (data == 2) {
+
+				$("#save").fadeIn(1000, function () {
+
+					var n = noty({
+						text: "<span class='fa fa-warning'></span> ESTA FACTURACIÓN YA SE ENCUENTRA REGISTRADA, VERIFIQUE NUEVAMENTE POR FAVOR ...!",
+						theme: 'defaultTheme',
+						layout: 'center',
+						type: 'warning',
+						timeout: 5000,
+					});
+					$("#btn-facturacion").html('<span class="fa fa-save"></span> Agregar y Guardar');
+
+				});
+			}
+			else if(data.status ==200){
+
+				$("#save").fadeIn(1000, function () {
+
+					 $("#updatefacturacion").prop('id', 'savefacturacion');
+				      $("#savefacturacion").prop('name', 'savefacturacion');
+				       $("#btn-facturacion-update").hide()
+				      $("#btn-facturacion").show()
+				     
+
+					var n = noty({
+						text: '<center> ' + data.msg + ' </center>',
+						theme: 'defaultTheme',
+						layout: 'topCenter',
+						type: 'information',
+						timeout: 5000,
+					});
+
+					cargar_tabla_fact();
+					$('#MyModalFacturacion').modal('hide');
+					//$('#secciones').load("formularios.php?BuscaFormularioProcedimiento=si&seccion=" + seccion + "&in=" + industria);
+					$("#savefacturacion")[0].reset();
+					$("#muestraingresos").html("");
+					$("#savefacturacion #facturacion").val("savefacturacion");
+					$("#savefacturacion #nombre_de_fantasia").text("");
+					$("#savefacturacion #id_facturacion").val("");
+					$("#savefacturacion #industria_facturacion").val("");
+					$("#savefacturacion #anio_facturacion").val("");
+					$("#btn-facturacion").html('<span class="fa fa-save"></span> Agregar y Guardar');
+				});
+			}
+		}
+	});
+	return false;
+
+	}
+
+	
+
+
+})
 
 
 

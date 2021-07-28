@@ -3592,7 +3592,7 @@ function VerPersonal(id) {
 
    $.ajax({
     type: "POST",
-    url: "getRelPersonal",
+    url: "/getRelPersonal",
     data: {
        _token: $('meta[name="csrf-token"]').attr('content'),
        id:id
@@ -3649,7 +3649,7 @@ function UpdatePersonal(id) {
 
   $.ajax({
     type: "POST",
-    url: "getRelPersonal",
+    url: "/getRelPersonal",
     data: {
        _token: $('meta[name="csrf-token"]').attr('content'),
        id:id
@@ -3780,43 +3780,117 @@ function Limpiar(i) {
 // FUNCION PARA MOSTRAR VENTA ASIGNADA EN VENTANA MODAL
 function VerVenta(id_destino_ventas) {
 
-              $('#muestradetalleventamodal').html('<center><i class="fa fa-spin fa-spinner"></i> Cargando información, por favor espere....</center>');
-
-  var dataString = 'BuscaDetalleVentaModal=si&id_destino_ventas=' + id_destino_ventas;
-
-  $.ajax({
-              type: "GET",
-    url: "funciones.php",
-    data: dataString,
+            $.ajax({
+    type: "POST",
+    url: "/getVenta",
+    data: {
+       _token: $('meta[name="csrf-token"]').attr('content'),
+      id:id_destino_ventas
+    },
     success: function (response) {
-              $('#muestradetalleventamodal').empty();
-      $('#muestradetalleventamodal').append('' + response + '').fadeIn("slow");
+
+      var val =[]; 
+      var val_p=[]
+      $(response.destino_pais).each(function (i, v) { // indice, valor
+
+          val[i]=""+ v.id_pais+""
+        
+      })
+
+       $(response.destino_provincia).each(function (i, v) { // indice, valor
+
+          val_p[i]=""+ v.id_provincia+""
+        
+      })
+
+       $("#btn-venta-update").hide();
+      $("#btn-venta").hide();
+      $("#btn-cancelar-venta").hide();
+       $("#btn-cerrar-venta").show();
+
+
+        //$("#saveventa").prop('id', 'updateventa'); btn-cerrar-venta
+        //$("#updateventa").prop('name', 'updateventa');
+
+
+         $("#clasif_venta").val(response.id_clasificacion_ventas)
+         $("#updateventa #id_destino_ventas").val(response.id_destino_ventas);
+
+         $("#clasif_venta").prop('disabled',true)
+
+      
+    $('#ventas_provincias').prop('disabled',true)
+         $('#ventas_paises').prop('disabled',true)
+        $('#ventas_provincias').val(val_p);
+        $('#ventas_provincias').select2();
+        $('#ventas_provincias').trigger('change');
+
+        $('#ventas_paises').val(val);
+        $('#ventas_paises').select2();
+        $('#ventas_paises').trigger('change');
+
+
 
     }
-  });
+  });   
 }
 
 // FUNCION PARA ACTUALIZAR VENTA ASIGNADA
-function UpdateVenta(id_destino_ventas, id_industria, nombre_de_fantasia, clasificacion_venta, provincia, otro_pais, anio) {
+function UpdateVenta(id_destino_ventas) {
 
               // aqui asigno cada valor a los campos correspondientes
-              $("#updateventa #id_destino_ventas").val(id_destino_ventas);
-  $("#updateventa #industria_venta_update").val(id_industria);
-  $("#updateventa #nombre_de_fantasia").text(nombre_de_fantasia);
-  $("#updateventa #clasificacion_venta").text(clasificacion_venta);
-  $("#updateventa #anio_venta_update").val(anio);
+  //
+  //$("#updateventa #industria_venta_update").val(id_industria);
+  //$("#updateventa #nombre_de_fantasia").text(nombre_de_fantasia);
+  //$("#updateventa #clasificacion_venta").text(clasificacion_venta);
+  //$("#updateventa #anio_venta_update").val(anio);
 
   $('#detalles_venta').html('<center><i class="fa fa-spin fa-spinner"></i> Cargando información, por favor espere....</center>');
 
-  var dataString = 'BuscaDetallesVentaUpdate=si&id_destino_ventas=' + id_destino_ventas;
+  //var dataString = 'BuscaDetallesVentaUpdate=si&id_destino_ventas=' + id_destino_ventas;
 
   $.ajax({
-              type: "GET",
-    url: "funciones.php",
-    data: dataString,
+    type: "POST",
+    url: "/getVenta",
+    data: {
+       _token: $('meta[name="csrf-token"]').attr('content'),
+      id:id_destino_ventas
+    },
     success: function (response) {
-              $('#detalles_venta').empty();
-      $('#detalles_venta').append('' + response + '').fadeIn("slow");
+
+      var val =[]; 
+      var val_p=[]
+      $(response.destino_pais).each(function (i, v) { // indice, valor
+
+          val[i]=""+ v.id_pais+""
+        
+      })
+
+       $(response.destino_provincia).each(function (i, v) { // indice, valor
+
+          val_p[i]=""+ v.id_provincia+""
+        
+      })
+
+       $("#btn-venta-update").show();
+        $("#btn-venta").hide();
+
+        $("#saveventa").prop('id', 'updateventa');
+        $("#updateventa").prop('name', 'updateventa');
+
+
+         $("#clasif_venta").val(response.id_clasificacion_ventas)
+         $("#updateventa #id_destino_ventas").val(response.id_destino_ventas);
+
+      
+    
+        $('#ventas_provincias').val(val_p);
+        $('#ventas_provincias').select2();
+        $('#ventas_provincias').trigger('change');
+
+        $('#ventas_paises').val(val);
+        $('#ventas_paises').select2();
+        $('#ventas_paises').trigger('change');
 
     }
   });
@@ -3982,21 +4056,48 @@ function VerificaIngreso(id_facturacion) {
 }
 
 // FUNCION PARA ACTUALIZAR FACTURACION ASIGNADO
-function UpdateFacturacion(id_facturacion, id_industria, nombre_de_fantasia, prevision_ingresos_anio_corriente, prevision_ingresos_anio_corriente_dolares, porcentaje_prevision_mercado_interno, porcentaje_prevision_mercado_externo, anio, proceso) {
+function UpdateFacturacion(id_facturacion) {
               // aqui asigno cada valor a los campos correspondientes
-              $("#savefacturacion #id_facturacion").val(id_facturacion);
-  $("#savefacturacion #industria_facturacion").val(id_industria);
-  $("#savefacturacion #nombre_de_fantasia").text(nombre_de_fantasia);
-  $("#savefacturacion #prevision_ingresos_anio_corriente").val(prevision_ingresos_anio_corriente);
-  $("#savefacturacion #prevision_ingresos_anio_corriente_dolares").val(prevision_ingresos_anio_corriente_dolares);
-  $("#savefacturacion #porcentaje_prevision_mercado_interno").val(porcentaje_prevision_mercado_interno);
-  $("#savefacturacion #porcentaje_prevision_mercado_externo").val(porcentaje_prevision_mercado_externo);
-  $("#savefacturacion #anio_facturacion").val(anio);
-  $("#savefacturacion #facturacion").val(proceso);
+  /**/
+
+  $.ajax({
+    type: "POST",
+    url: "/getFac",
+    data: {
+       _token: $('meta[name="csrf-token"]').attr('content'),
+      id:id_facturacion
+    },
+    success: function (response) {
+
+      $("#savefacturacion").prop('id', 'updatefacturacion');
+      $("#updatefacturacion").prop('name', 'updatefacturacion');
+
+      $("#btn-facturacion").hide()
+      $("#btn-facturacion-update").show()
+
+      $("#updatefacturacion #id_facturacion").val(response[0].id_facturacion);
+      //$("#savefacturacion #industria_facturacion").val(id_industria);
+      //$("#savefacturacion #nombre_de_fantasia").text(nombre_de_fantasia);
+      $("#updatefacturacion #prevision_ingresos_anio_corriente").val(response[0].prevision_ingresos_anio_corriente);
+      $("#updatefacturacion #prevision_ingresos_anio_corriente_dolares").val(response[0].prevision_ingresos_anio_corriente_dolares);
+      $("#updatefacturacion #porcentaje_prevision_mercado_interno").val(response[0].porcentaje_prevision_mercado_interno);
+      $("#updatefacturacion #porcentaje_prevision_mercado_externo").val(response[0].porcentaje_prevision_mercado_externo);
+      $("#updatefacturacion #anio_facturacion").val(response[0].anio);
+      $("#updatefacturacion #clasif_ingreso").val(response[0].id_categoria_ingresos);
+    
+              
+
+    }
+  });
+
+
+
+
+
 }
 
 /////FUNCION PARA ELIMINAR FACTURACION ASIGNADO
-function EliminarFacturacion(id_facturacion, id_industria, seccion, tipo) {
+function EliminarFacturacion(id_facturacion) {
               swal({
                 title: "¿Estás seguro?",
                 text: "¿Estás seguro de Eliminar esta Facturación de la Industria?",
@@ -4009,16 +4110,19 @@ function EliminarFacturacion(id_facturacion, id_industria, seccion, tipo) {
                 confirmButtonColor: "#808080"
               }, function () {
                 $.ajax({
-                  type: "GET",
-                  url: "eliminar.php",
-                  data: "id_facturacion=" + id_facturacion + "&tipo=" + tipo,
-                  success: function (data) {
+                  type: "POST",
+                  url: "/deleteFac",
+                  data: {
+                     _token: $('meta[name="csrf-token"]').attr('content'),
+                    id:id_facturacion
+                  },
+                success: function (data) {
 
-                    if (data == 1) {
+                    if (data.status == 200) {
 
                       swal("Eliminado!", "Datos eliminados con éxito!", "success");
-                      $('#secciones').load("formularios.php?BuscaFormularioProcedimiento=si&seccion=" + seccion + "&in=" + id_industria);
-
+                      //$('#secciones').load("formularios.php?BuscaFormularioProcedimiento=si&seccion=" + seccion + "&in=" + id_industria);
+                      cargar_tabla_fact();
                     } else {
 
                       swal("Oops", "Usted no tiene Acceso para Eliminar Facturaciones, no tienes Privilegios para este Proceso!", "error");

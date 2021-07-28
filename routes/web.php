@@ -17,6 +17,7 @@ use App\Http\Controllers\InsumoController;
 use App\Http\Controllers\ServicioController;
 use App\Http\Controllers\GastosController;
 use App\Http\Controllers\SituacionPlantaController;
+use App\Http\Controllers\VentasyFacturacionController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -163,7 +164,25 @@ Route::get('/procedimientos',[ProcedimientosController::class,'index'] )->middle
 
     Route::post('/updateRelPersonal', [SituacionPlantaController::class, 'updateRelPersonal'])->middleware(['auth']);
 
+    //Ventas y Facturacion 
+
+    Route::post('/getCVentas', [VentasyFacturacionController::class, 'getCVentas'])->middleware(['auth']);
+    Route::post('/getPVentas', [VentasyFacturacionController::class, 'getProvinciasVentas'])->middleware(['auth']);
+    Route::post('/getPaisesVentas', [VentasyFacturacionController::class, 'getPaisesVentas'])->middleware(['auth']);
+    Route::post('/saveVenta', [VentasyFacturacionController::class, 'saveVenta'])->middleware(['auth']);
+    Route::post('/listVentas', [VentasyFacturacionController::class, 'listVentas'])->middleware(['auth']);
+    Route::post('/ClasifIngresos', [VentasyFacturacionController::class, 'ClasifIngresos'])->middleware(['auth']);
+    Route::post('/getVenta', [VentasyFacturacionController::class, 'getVenta'])->middleware(['auth']);
+    Route::post('/updateVenta', [VentasyFacturacionController::class, 'updateVenta'])->middleware(['auth']);
     
+    //facturacion
+    Route::post('/saveFacturacion', [VentasyFacturacionController::class, 'saveFacturacion'])->middleware(['auth']);
+    Route::post('/listFact', [VentasyFacturacionController::class, 'listFact'])->middleware(['auth']);
+    Route::post('/getFac', [VentasyFacturacionController::class, 'getFac'])->middleware(['auth']);
+    Route::post('/updateFacturacion', [VentasyFacturacionController::class, 'updateFacturacion'])->middleware(['auth']);
+    Route::post('/deleteFac', [VentasyFacturacionController::class, 'deleteFac'])->middleware(['auth']);
+
+
     
 //fin guardar Procedimientos
 

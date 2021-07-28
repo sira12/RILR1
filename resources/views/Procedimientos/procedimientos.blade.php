@@ -62,7 +62,7 @@
                                 <span class="categories" href="#act" onclick="muestraForm('actividades')"><i class="fa fa-tasks"></i> Actividad</span>
                                 <span class="categories" href="#insumos" onclick="muestraForm('insumos');"><i class="fa fa-tasks"></i> Insumos y Servicios</span>
                                 <span class="categories" href="#splanta" onclick="muestraForm('splanta');"><i class="fa fa-tasks"></i> Situación de la Planta</span>
-                                <span class="categories" id="seccion#5" onclick="CargaFormulario('','');"><i class="fa fa-tasks"></i> Ventas y Facturación</span>
+                                <span class="categories" href="#vyf" onclick="muestraForm('vyf');"><i class="fa fa-tasks"></i> Ventas y Facturación</span>
                                 <span class="categories" id="seccion#6" onclick="CargaFormulario('','');"><i class="fa fa-tasks"></i> Prevención y Control Ambiental</span>
                                 <span class="categories" id="seccion#7" onclick="CargaFormulario('','');"><i class="fa fa-tasks"></i> Sistemas de Calidad</span>
                                 <span class="categories" id="seccion#8" onclick="CargaFormulario('','');"><i class="fa fa-tasks"></i> Economía del Conocimiento</span>
@@ -1190,6 +1190,92 @@
                                         </div>
 
                                     </div>-->
+
+                                    <hr>
+                                </section>
+
+
+                                <section id="vyf">
+                                    
+                                    
+                                    <!-- ###################################### CONSULTA DE VENTAS ###################################### -->
+
+                                    <h3 class="card-subtitle mt-3"> Ventas</h3>
+
+                                    <div class='alert alert-danger' style="display:none;">
+                                        <center><span class='fa fa-info-circle'></span> POR FAVOR REALICE LA CARGA DE DATOS GENERALES PARA ASIGNAR VENTAS</center>
+                                    </div>
+                               
+                                    <div class="text-right">
+                                        <button type="button" class="btn btn-info" data-placement="left" title="Agregar Nueva Venta" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalVenta" data-backdrop="static" data-keyboard="false" onClick="AddIdVentaModal('')"><i class="fa fa-plus-square"></i> Agregar Venta</button>
+                                    </div>
+                                   
+
+                                    <div class="table-responsive mt-3">
+                                        <table  class="table table-deredbor border display table_ventas">
+
+                                            <thead>
+                                                <tr bgcolor="#808080" class="text-white" role="row">
+                                                    <th>N°</th>
+                                                    <th>Clasificación de Venta</th>
+                                                   
+                                                    <th>Año</th>
+                                                    <th width="12%">Acciones</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="BusquedaRapida">
+
+                                                
+                                               
+                                            </tbody>
+                                        </table>
+                                        <span class="card-subtitle">Nota:
+                                            <i class="mdi mdi-eye text-danger font-16"></i>(Ver Venta) - <i class="mdi mdi-table-edit text-danger font-16"></i>(Editar Venta)
+                                        </span>
+                                    </div>
+
+                                  
+
+                                    <hr>
+
+                                    <!-- ###################################### CONSULTA DE FACTURACION ###################################### -->
+
+                                    <h3 class="card-subtitle mt-3"> Facturación </h3>
+
+                                   
+                                        <div class="text-right">
+                                            <button type="button" class="btn btn-info" data-placement="left" title="Agregar Facturación" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalFacturacion" data-backdrop="static" data-keyboard="false" onClick="AddIdFacturacionModal('');"><i class="fa fa-plus-square"></i> Agregar Facturación</button>
+                                        </div>
+                                  
+
+                                    <div class="table-responsive mt-3">
+                                        <table  class="table table-deredbor border display table_facturacion">
+
+                                            <thead>
+                                                <tr bgcolor="#808080" class="text-white" role="row">
+                                                    <th>N°</th>
+                                                    <th>Facturación Anual en Pesos Arg.</th>
+                                                    <th>Facturación Anual en USD</th>
+                                                    <th>Porc. Mercado Interno</th>
+                                                    <th>Porc. Mercado Externo</th>
+                                                    <th>Nivel de Ingresos</th>
+                                                    <th>Año</th>
+                                                    <th width="12%">Acciones</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="BusquedaRapida">
+
+                                               
+                                                       
+                                                
+                                            </tbody>
+                                        </table>
+                                        <span class="card-subtitle">Nota:
+                                            <i class="mdi mdi-eye text-danger font-16"></i>(Ver Facturación) - <i class="mdi mdi-table-edit text-danger font-16"></i>(Editar Facturación) - <i class="mdi mdi-delete text-danger font-16"></i>(Eliminar Facturación)
+                                        </span>
+                                    </div>
+
+                                    
 
                                     <hr>
                                 </section>
