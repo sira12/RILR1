@@ -84,11 +84,7 @@
                                             <div class="col-md-12">
                                                 <div class="form-group has-feedback">
                                                     <label class="control-label">Año: <span class="symbol required"></span></label>
-                                                    (Si bien el certificado será emitido a fecha del año corriente,
-                                                    la
-                                                    información volcada en el formulario debe corresponder al
-                                                    ejercicio
-                                                    inmediato anterior)
+                                                    (El año que se declara de la Industria es del año que paso...)
                                                     <i class="fa fa-bars form-control-feedback"></i>
                                                     <select class="form-control" id="periodofiscal" name="periodo_fiscal" required="" aria-required="true">
 
@@ -1218,7 +1214,8 @@
                                                 <tr bgcolor="#808080" class="text-white" role="row">
                                                     <th>N°</th>
                                                     <th>Clasificación de Venta</th>
-                                                   
+                                                   <th>Provincias</th>
+                                                   <th>Paises</th>
                                                     <th>Año</th>
                                                     <th width="12%">Acciones</th>
                                                 </tr>

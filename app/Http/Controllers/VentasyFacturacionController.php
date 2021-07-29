@@ -169,15 +169,46 @@ class VentasyFacturacionController extends Controller
 
 
         if ($request->ajax()) {
+
+            //traer dependiendo el periodo fiscal , queda pendiente
+
+        
+            
             $data = DB::table('destino_ventas')
                 ->join('clasificacion_ventas', 'destino_ventas.id_clasificacion_ventas', 'clasificacion_ventas.id_clasificacion_ventas')
                 ->where('id_industria', $request->id_industria)
                 ->select([
                     'destino_ventas.*',
                     'clasificacion_ventas.clasificacion_ventas'
+                ])
+                ->get();
+
+                
+            foreach($data as $d){
+               
+                $provincias=DB::table('rel_destino_ventas_provincia')
+                ->join('provincia', 'rel_destino_ventas_provincia.id_provincia', 'provincia.id_provincia')
+                ->where('id_destino_ventas', $d->id_destino_ventas)
+                ->select([
+                    'rel_destino_ventas_provincia.*',
+                    'provincia.provincia'
 
                 ])
                 ->get();
+
+                $paises=DB::table('rel_destino_ventas_pais')
+                ->join('pais', 'rel_destino_ventas_pais.id_pais', 'pais.id_pais')
+                ->where('id_destino_ventas', $d->id_destino_ventas)
+                ->select([
+                    'rel_destino_ventas_pais.*',
+                    'pais.pais'
+
+                ])
+                ->get();
+                $d->paises=$paises; 
+                $d->provincias=$provincias; 
+            }
+            
 
             return Datatables::of($data)
                 ->addIndexColumn()

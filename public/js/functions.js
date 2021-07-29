@@ -1918,7 +1918,8 @@ function cargar_tabla_ventas() {
         columns: [
             { data: 'DT_RowIndex', name: 'DT_RowIndex' },
             { data: 'clasificacion_ventas', name: 'clasificacion_ventas' },
-           
+            { data: 'provincias', name: 'provincias' },
+            { data: 'paises', name: 'paises' },
             { data: 'anio', name: 'anio' },
             
             {
@@ -1930,10 +1931,69 @@ function cargar_tabla_ventas() {
         ],
         columnDefs: [
 
-           
+           {
+
+                targets: 2,
+                "data": "provincias",
+                "render": function (data, type, row, meta) {
+                    /* DEFINICION DE LAS VARIABLES: 
+                     * data: es el origen de dato... lo que segun el columns obtiene.
+                     * type: display (no se para que es).
+                     * row: todo el object con los valores de toda la fila
+                     * meta: el id de fila y columna en DT más las settings de DT */
+                    
+                        var provincias="";
+                        var cont =row.provincias.length;
+                        var cnt=0;
+                        row.provincias.forEach( function(element, index) {
+                            cnt+=1;
+                            provincias+=element.provincia
+
+
+                            if(cnt < cont){
+                                provincias+=","
+                            }
+                        });
+                    
+                    
+                    return provincias; 
+                }
+
+            },
+            {
+
+                targets: 3,
+                "data": "paises",
+                "render": function (data, type, row, meta) {
+                    /* DEFINICION DE LAS VARIABLES: 
+                     * data: es el origen de dato... lo que segun el columns obtiene.
+                     * type: display (no se para que es).
+                     * row: todo el object con los valores de toda la fila
+                     * meta: el id de fila y columna en DT más las settings de DT */
+                    
+                    var paises="";
+                        var cont =row.paises.length;
+                        var cnt=0;
+                        row.paises.forEach( function(element, index) {
+                            cnt+=1;
+                            paises+=element.pais
+
+
+                            if(cnt < cont){
+                                paises+=","
+                            }
+                        });
+                    
+                    
+                    return paises; 
+                }
+
+            },
+
 
         ]
-    })}
+    })
+}
 
 function cargar_tabla_fact() {
 
