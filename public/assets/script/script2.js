@@ -2051,12 +2051,12 @@ function MotivoImportacionMateria() {
   if (valor === '4' || valor === true) {
 
     //habilitamos
-    $("#detalles_materia").attr('disabled', false);
+    $("#detalle_materia_div").show();
 
   } else {
 
     // deshabilitamos
-    $("#detalles_materia").attr('disabled', true);
+     $("#detalle_materia_div").hide();
 
   }
 }
@@ -2456,12 +2456,12 @@ function MotivoImportacionInsumo() {
   if (valor === '4' || valor === true) {
 
     //deshabilitamos
-    $("#detalles_insumo").attr('disabled', false);
+    $("#origen_insumo_div").show();
 
   } else {
 
     // habilitamos
-    $("#detalles_insumo").attr('disabled', true);
+    $("#origen_insumo_div").hide();
 
   }
 }
@@ -2834,12 +2834,12 @@ function MotivoImportacionCombustible() {
   if (valor === '4' || valor === true) {
 
               //deshabilitamos
-              $("#detalles_combustible").attr('disabled', false);
+              $("#motivo_servicio_div").show();
 
   } else {
 
               // habilitamos
-              $("#detalles_combustible").attr('disabled', true);
+              $("#motivo_servicio_div").hide();
 
   }
 }
@@ -2943,12 +2943,12 @@ function MotivoImportacionOtros() {
   if (valor === '4' || valor === true) {
 
               //deshabilitamos
-              $("#detalles_otros").attr('disabled', false);
+              $("#motivo_otros").show();
 
   } else {
 
               // habilitamos
-              $("#detalles_otros").attr('disabled', true);
+              $("#motivo_otros").hide();
 
   }
 }

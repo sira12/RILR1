@@ -433,7 +433,7 @@
                         </div>
                     </div>
 
-                    <div class="row origen">
+                    <div class="row origen" id="detalle_materia_div" style="display:none;">
                         <div class="col-md-12">
                             <div class="form-group has-feedback2">
                                 <label class="control-label">Detalle el Motivo por el cual Importa la materia Prima: </label>
@@ -599,11 +599,11 @@
                         </div>
                     </div>
 
-                    <h3 class="card-subtitle text-muted origen_insumo"><i class="fa fa-file-text"></i> Origen del Insumo</h3>
-                    <span class="card-subtitle text-muted origen_insumo">En caso de que la Provincia sea diferente a La Rioja, deberá de seleccionar el Motivo y Detalles de la Importación</span>
+                    <h3 class="card-subtitle text-muted origen_insumo" style="display:none"><i class="fa fa-file-text"></i> Origen del Insumo</h3>
+                    <span class="card-subtitle text-muted origen_insumo" style="display:none">En caso de que la Provincia sea diferente a La Rioja, deberá de seleccionar el Motivo y Detalles de la Importación</span>
                     <hr>
 
-                    <div class="row origen_insumo">
+                    <div class="row origen_insumo" style="display:none">
                         <div class="col-md-6">
                             <div class="form-group has-feedback">
                                 <label class="control-label">Nombre de Pais: <span style="cursor: pointer;" class="mdi mdi-alert-circle text-danger" data-container="body" title="Notificación: Ingrese Nombre de Pais y seleccione en el Listado que se mostrará, en caso de no aparecer, escribala y el sistema se encargará de la asignación del mismo."></span><span class="symbol required"></span></label>
@@ -623,7 +623,7 @@
                         </div>
                     </div>
 
-                    <div class="row origen_insumo">
+                    <div class="row origen_insumo" style="display:none">
                         <div class="col-md-6">
                             <div class="form-group has-feedback">
                                 <label class="control-label">Nombre de Localidad: <span style="cursor: pointer;" class="mdi mdi-alert-circle text-danger" data-container="body" title="Notificación: Ingrese Nombre de Localidad y seleccione en el Listado que se mostrará, en caso de no aparecer, escribala y el sistema se encargará de la asignación del mismo."></span><span class="symbol required"></span></label>
@@ -645,7 +645,7 @@
                         </div>
                     </div>
 
-                    <div class="row origen_insumo">
+                    <div class="row origen_insumo" id="origen_insumo_div" style="display:none">
                         <div class="col-md-12">
                             <div class="form-group has-feedback2">
                                 <label class="control-label">Detalle el Motivo por el cual Importa el Insumo: </label>
@@ -953,7 +953,7 @@
                         </div>
                     </div>
 
-                    <div class="row">
+                    <div class="row" id="motivo_servicio_div" style="display:none; ">
                         <div class="col-md-12">
                             <div class="form-group has-feedback2">
                                 <label class="control-label">Detalle el Motivo por el cual Importa el Servicio: </label>
@@ -1117,7 +1117,7 @@
                         </div>
                     </div>
 
-                    <div class="row">
+                    <div class="row" id="motivo_otros" style="display:none">
                         <div class="col-md-12">
                             <div class="form-group has-feedback2">
                                 <label class="control-label">Detalle el Motivo por el cual Importa el Servicio: </label>
