@@ -294,20 +294,22 @@ class VentasyFacturacionController extends Controller
         $date = Carbon::now()->format('Y'); //2021
         $status = 200;
 
+     
+
         $existente = DB::table('facturacion')
             ->where('id_industria', $id_industria)
-            ->where('id_categoria_ingresos', intval($params['clasif_ingreso']))
+            ->where('anio', $date)
             ->get();
 
         if (count($existente) > 0) {
-            $msg = "Ya existe esta clasificacion para la industria";
+            $msg = "La industria ya tiene cargada una clasificacion ";
             $status = 1;
         } else {
 
 
             DB::table('facturacion')->insertGetId([
                 'id_industria' => $id_industria,
-                'id_categoria_ingresos' => intval($params['clasif_ingreso']),
+                'id_categoria_ingresos' => intval($params['categoria_ingresos']),
                 'prevision_ingresos_anio_corriente' => intval($params['prevision_ingresos_anio_corriente']),
                 'prevision_ingresos_anio_corriente_dolares' => intval($params['prevision_ingresos_anio_corriente_dolares']),
                 'porcentaje_prevision_mercado_interno' => intval($params['porcentaje_prevision_mercado_interno']),
@@ -330,35 +332,30 @@ class VentasyFacturacionController extends Controller
 
         parse_str($request->data, $params);
         $id_industria = intval($request->id_industria);
-        $date = Carbon::now()->format('Y'); //2021
+     
         $status = 200;
 
-        $existente = DB::table('facturacion')
-            ->where('id_industria', $id_industria)
-            ->where('id_categoria_ingresos', intval($params['clasif_ingreso']))
-            ->where('id_facturacion', '!=', intval($params['id_facturacion']))
-            ->get();
-
-        if (count($existente) > 0) {
-            $msg = "Ya existe esta clasificacion para la industria";
-            $status = 1;
-        } else {
+      
 
 
-            DB::table('facturacion')->where('id_facturacion', intval($params['id_facturacion']))->Update([
-                'id_industria' => $id_industria,
-                'id_categoria_ingresos' => intval($params['clasif_ingreso']),
-                'prevision_ingresos_anio_corriente' => intval($params['prevision_ingresos_anio_corriente']),
-                'prevision_ingresos_anio_corriente_dolares' => intval($params['prevision_ingresos_anio_corriente_dolares']),
-                'porcentaje_prevision_mercado_interno' => intval($params['porcentaje_prevision_mercado_interno']),
-                'porcentaje_prevision_mercado_externo' => intval($params['porcentaje_prevision_mercado_externo']),
-                /* 'anio'=>$date, */
-                'fecha_de_actualizacion' => Carbon::now(),
+       if( DB::table('facturacion')->where('id_facturacion', intval($params['id_facturacion']))->Update([
+            'id_industria' => $id_industria,
+            'id_categoria_ingresos' => intval($params['categoria_ingresos']),
+            'prevision_ingresos_anio_corriente' => intval($params['prevision_ingresos_anio_corriente']),
+            'prevision_ingresos_anio_corriente_dolares' => intval($params['prevision_ingresos_anio_corriente_dolares']),
+            'porcentaje_prevision_mercado_interno' => intval($params['porcentaje_prevision_mercado_interno']),
+            'porcentaje_prevision_mercado_externo' => intval($params['porcentaje_prevision_mercado_externo']),
+            /* 'anio'=>$date, */
+            'fecha_de_actualizacion' => Carbon::now(),
 
-            ]);
-
+        ])){
             $msg = "Guardado Exitosamente!";
+        }else{
+            $msg = "Error";
         }
+
+      
+    
 
 
         return response()->json(array('status' => $status, 'msg' => $msg), 200);

@@ -63,7 +63,7 @@
                                 <span class="categories" href="#insumos" onclick="muestraForm('insumos');"><i class="fa fa-tasks"></i> Insumos y Servicios</span>
                                 <span class="categories" href="#splanta" onclick="muestraForm('splanta');"><i class="fa fa-tasks"></i> Situación de la Planta</span>
                                 <span class="categories" href="#vyf" onclick="muestraForm('vyf');"><i class="fa fa-tasks"></i> Ventas y Facturación</span>
-                                <span class="categories" id="seccion#6" onclick="CargaFormulario('','');"><i class="fa fa-tasks"></i> Prevención y Control Ambiental</span>
+                                <span class="categories" href="#pyca" onclick="muestraForm('pyca');"><i class="fa fa-tasks"></i> Prevención y Control Ambiental</span>
                                 <span class="categories" id="seccion#7" onclick="CargaFormulario('','');"><i class="fa fa-tasks"></i> Sistemas de Calidad</span>
                                 <span class="categories" id="seccion#8" onclick="CargaFormulario('','');"><i class="fa fa-tasks"></i> Economía del Conocimiento</span>
                                 <span class="categories" id="seccion#9" onclick="CargaFormulario('','');"><i class="fa fa-tasks"></i> Revisión y Confirmación DDJJ</span>
@@ -1255,7 +1255,7 @@
                                                     <th>Facturación Anual en USD</th>
                                                     <th>Porc. Mercado Interno</th>
                                                     <th>Porc. Mercado Externo</th>
-                                                    <th>Nivel de Ingresos</th>
+                                                    <th>Clasificacion</th>
                                                     <th>Año</th>
                                                     <th width="12%">Acciones</th>
                                                 </tr>
@@ -1275,6 +1275,122 @@
                                     
 
                                     <hr>
+                                </section>
+
+                                <section id="pyca">
+
+                                     <!-- ###################################### CONSULTA DE EFLUENTES ###################################### -->
+
+                                    <h3 class="card-subtitle mt-3"> Efluentes</h3>
+
+                                  
+                                    <div class='alert alert-danger' style="display:none">
+                                       <center><span class='fa fa-info-circle'></span> POR FAVOR REALICE LA CARGA DE DATOS GENERALES PARA ASIGNAR EFLUENTES</center>
+                                    </div>
+                                   
+                                        <div class="text-right">
+                                            <button type="button" class="btn btn-info" data-placement="left" title="Agregar Nuevo Efluente" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalEfluente" data-backdrop="static" data-keyboard="false" onClick="AddIdEfluenteModal('')"><i class="fa fa-plus-square"></i> Agregar Efluente</button>
+                                        </div>
+                                    
+
+                                    <div class="row mt-3"><span class="card-subtitle">Indique los efluentes industriales involucrados en la actividad declarada</span>
+
+                                        <div class="table-responsive">
+                                            <table id="default_order" class="table table-deredbor border display">
+
+                                                <thead>
+                                                    <tr bgcolor="#808080" class="text-white" role="row">
+                                                        <th>Efluente</th>
+                                                        <th>Tratamiento Residuo</th>
+                                                        <th>Destino Final</th>
+                                                        <th>Año</th>
+                                                        <th width="12%">Acciones</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="BusquedaRapida">
+
+                                                 
+                                                            <tr role="row" class="odd">
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td>
+                                                                    <span style="cursor: pointer;" data-placement="left" title="Ver Efluente" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalDetalleEfluente" data-backdrop="static" data-keyboard="false" onClick="VerEfluente('')"><i class="mdi mdi-eye font-22 text-danger"></i></span>
+
+                                                                    <span style="cursor: pointer;" data-placement="left" title="Actualizar Efluente" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalEfluente" data-backdrop="static" data-keyboard="false" onClick="UpdateEfluente('')"><i class="mdi mdi-table-edit font-22 text-danger"></i></span>
+
+                                                                    <span style="cursor: pointer;" title="Eliminar Efluente" onClick="EliminarEfluente('')"><i class="mdi mdi-delete font-22 text-danger"></i></span>
+                                                                </td>
+                                                            </tr>
+                                                  
+                                                </tbody>
+                                            </table>
+                                            <span class="card-subtitle">Nota:
+                                                <i class="mdi mdi-eye text-danger font-16"></i>(Ver Efluente) - <i class="mdi mdi-table-edit text-danger font-16"></i>(Editar Efluente) - <i class="mdi mdi-delete text-danger font-16"></i>(Eliminar Efluente)
+                                            </span>
+                                        </div>
+
+                                    </div>
+
+                                    <hr>
+
+                                    <!-- ###################################### CONSULTA DE CERTIFICADOS ###################################### -->
+
+                                    <h3 class="card-subtitle mt-3"> Certificados </h3>
+
+                                   
+                                      <div class='alert alert-danger' style="display:none">
+                                       <center><span class='fa fa-info-circle'></span> POR FAVOR REALICE LA CARGA DE DATOS GENERALES PARA ASIGNAR CERTIFICADOS</center>
+                                       </div>
+                                  
+                                        <div class="text-right">
+                                            <button type="button" class="btn btn-info" data-placement="left" title="Agregar Certificados" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalCertificado" data-backdrop="static" data-keyboard="false" onClick="AddIdCertificadoModal('')"><i class="fa fa-plus-square"></i> Agregar Certificado</button>
+                                        </div>
+                                   
+
+                                    <div class="table-responsive mt-3">
+                                        <table id="default_order" class="table table-deredbor border display">
+
+                                            <thead>
+                                                <tr bgcolor="#808080" class="text-white" role="row">
+                                                    <th>Documentación</th>
+                                                    <th>Estado</th>
+                                                    <th>Fecha Inicial</th>
+                                                    <th>Fecha Final</th>
+                                                    <th>Año</th>
+                                                    <th width="12%">Acciones</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="BusquedaRapida">
+
+                                              
+                                                        <tr role="row" class="odd">
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td>
+                                                                <span style="cursor: pointer;" data-placement="left" title="Ver Certificado" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalDetalleCertificado" data-backdrop="static" data-keyboard="false" onClick="VerCertificado('')"><i class="mdi mdi-eye font-22 text-danger"></i></span>
+
+                                                                <span style="cursor: pointer;" data-placement="left" title="Actualizar Certificado" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalUpdateCertificado" data-backdrop="static" data-keyboard="false" onClick="UpdateCertificado('');"><i class="mdi mdi-table-edit font-22 text-danger"></i></span>
+
+                                                                <span style="cursor: pointer;" title="Eliminar Certificado" onClick="EliminarCertificado('')"><i class="mdi mdi-delete font-22 text-danger"></i></span>
+                                                            </td>
+                                                        </tr>
+                                                
+                                            </tbody>
+                                        </table>
+                                        <span class="card-subtitle">Nota:
+                                            <i class="mdi mdi-eye text-danger font-16"></i>(Ver Certificado) - <i class="mdi mdi-table-edit text-danger font-16"></i>(Editar Certificado) - <i class="mdi mdi-delete text-danger font-16"></i>(Eliminar Certificado)
+                                        </span>
+                                    </div>
+
+                                    </div>
+
+                                    <hr>
+                                    
                                 </section>
                             </div><!-- Div secciones -->
 

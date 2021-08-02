@@ -2050,19 +2050,50 @@ function cargar_clasif_ingresos(){
         success: function (response) {
 
 
-            $("#clasif_ingreso").find("option").remove();
-
-
-             $('#clasif_ingreso').append('<option value="">-- SELECCIONE --</option>');
+             $('#clasif_ingreso').find("tr").remove();
+             
+             $('#clasif_ingreso_2').append('<tr role="row" class="text-left"><th>Categoria</th><th>Nivel de Ingresos</th><th>Corresponde</th></tr></thead>');
        
             $(response).each(function (i, v) {
-      
+
+                $('#clasif_ingreso').append(
+                '<tr role="row" class="text-left">'+
+               ' <td>'+ v.categoria +'</td>'+
+               ' <td>Desde $'+ v.monto_minimo+' - Hasta$'+v.monto_maximo+'</td>'+
+              '  <td>'+
+                '  <div class="custom-control custom-radio custom-control-inline">'+
+                 '   <input type="radio" id="categoria_ingresos_'+  v.id_categoria_ingreso + '" name="categoria_ingresos" value="' + v.id_categoria_ingreso + '" class="custom-control-input c_fac">'+
+                   ' <label class="custom-control-label" for="categoria_ingresos_'+  v.id_categoria_ingreso + '"></label>'+
+                  '</div>'+
+               ' </td>'+
+             ' </tr>'
+            );
             
-                $('#clasif_ingreso').append('<option value="' + v.id_categoria_ingreso + '">' + v.categoria +" | Desde: $"+ v.monto_minimo+"   | Hasta: $"+v.monto_maximo +'</option>');
+                
             })           
             
         }
     }); 
+}
+
+function btn_cancelar_fac(){
+
+     $("#updatefacturacion").prop('id', 'savefacturacion');
+      $("#savefacturacion").prop('name', 'savefacturacion');
+
+      $("#btn-facturacion").show()
+      $("#btn-facturacion-update").hide()
+
+      $("#savefacturacion #id_facturacion").val('');
+      //$("#savefacturacion #industria_facturacion").val(id_industria);
+      //$("#savefacturacion #nombre_de_fantasia").text(nombre_de_fantasia);
+      $("#savefacturacion #prevision_ingresos_anio_corriente").val('');
+      $("#savefacturacion #prevision_ingresos_anio_corriente_dolares").val('');
+      $("#savefacturacion #porcentaje_prevision_mercado_interno").val('');
+      $("#savefacturacion #porcentaje_prevision_mercado_externo").val('');
+      $("#savefacturacion #anio_facturacion").val();
+      $("#savefacturacion .c_fac").prop('checked',false);
+      
 
 }
 

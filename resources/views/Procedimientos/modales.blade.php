@@ -11,8 +11,8 @@
                 <div id="muestradetalleactividadmodal">
 
 
-
                 </div>
+
 
             </div>
             <div class="modal-footer">
@@ -39,14 +39,7 @@
 
                     <h4 class="card-subtitle text-muted"> Código de Actividad debe de coincidir con la actividad declarada en AFIP y DGIP</h4>
 
-                    <div class="row mt-3">
-                        <div class="col-md-12">
-                            <div class="form-group has-feedback">
-                                <label class="control-label">Descripción de Industria: <span class="symbol required"></span></label>
-                                <br /><abbr title="Descripción de Industria"><label id="nombre_de_fantasia"></label></abbr>
-                            </div>
-                        </div>
-                    </div>
+                
 
                     <div class="row">
                         <div class="col-md-6">
@@ -539,15 +532,7 @@
                     <h3 class="card-subtitle text-muted"><i class="fa fa-cube"></i> Asignar Insumo</h3>
                     <hr>
 
-                    <div class="row mt-3">
-                        <div class="col-md-12">
-                            <div class="form-group has-feedback">
-                                <label class="control-label">Descripción de Industria: <span class="symbol required"></span></label>
-                                <br /><abbr title="Descripción de Industria"><label id="nombre_de_fantasia"></label></abbr>
-                            </div>
-                        </div>
-                    </div>
-
+                   
                     <div class="row">
                         <div class="col-md-12">
                             <label class="control-label">Insumo Utilizado: <span style="cursor: pointer;" class="mdi mdi-alert-circle text-danger" data-container="body" title="Notificación: Ingrese Nombre de Insumo y seleccione en el Listado que se mostrará, en caso de no aparecer, escribala y el sistema se encargará de la asignación del mismo."></span><span class="symbol required"></span></label>
@@ -726,8 +711,8 @@
                                 <input type="hidden" name="industria_servicio_basico" id="industria_servicio_basico">
                                 <input type="hidden" name="anio_basico" id="anio_basico">
                                 <input type="hidden" name="zona_local" id="zona_local">
-                                <label class="control-label">Descripción de Industria: <span class="symbol required"></span></label>
-                                <br /><abbr title="Descripción de Industria"><label id="nombre_de_fantasia"></label></abbr>
+                                
+                                <br />
                             </div>
                         </div>
                     </div>
@@ -791,8 +776,8 @@
                                 <input type="hidden" name="id_rel_industria_servicios_basicos" id="id_rel_industria_servicios_basicos">
                                 <input type="hidden" name="industria_servicio_basico_update" id="industria_servicio_basico_update">
                                 <input type="hidden" name="anio_basico_update" id="anio_basico_update">
-                                <label class="control-label">Descripción de Industria: <span class="symbol required"></span></label>
-                                <br /><abbr title="Descripción de Industria"><label id="nombre_de_fantasia"></label></abbr>
+                                
+                                <br />
                             </div>
                         </div>
                     </div>
@@ -857,14 +842,7 @@
                     <h3 class="card-subtitle text-muted"><i class="fa fa-cube"></i> Asignar Combustible</h3>
                     <hr>
 
-                    <div class="row mt-3">
-                        <div class="col-md-12">
-                            <div class="form-group has-feedback">
-                                <label class="control-label">Descripción de Industria: <span class="symbol required"></span></label>
-                                <br /><abbr title="Descripción de Industria"><label id="nombre_de_fantasia"></label></abbr>
-                            </div>
-                        </div>
-                    </div>
+                
 
                     <div class="row">
                         <div class="col-md-6">
@@ -1007,14 +985,7 @@
                     <h3 class="card-subtitle text-muted"><i class="fa fa-cube"></i> Asignar Otros Servicios</h3>
                     <hr>
 
-                    <div class="row mt-3">
-                        <div class="col-md-12">
-                            <div class="form-group has-feedback">
-                                <label class="control-label">Descripción de Industria: <span class="symbol required"></span></label>
-                                <br /><abbr title="Descripción de Industria"><label id="nombre_de_fantasia"></label></abbr>
-                            </div>
-                        </div>
-                    </div>
+                
 
                     <div class="row">
                         <div class="col-md-6">
@@ -1178,7 +1149,7 @@
                                 <input type="hidden" name="anio_devengado" id="anio_devengado">
                                 <input type="hidden" name="zona_devengado" id="zona_devengado">
                                 
-                                <br /><abbr title="Descripción de Industria"><label id="nombre_de_fantasia"></label></abbr>
+                                <br />
                             </div>
                         </div>
                     </div>
@@ -1238,7 +1209,7 @@
                                 <input type="hidden" name="industria_devengados_update" id="industria_devengados_update">
                                 <input type="hidden" name="anio_devengado_update" id="anio_devengado_update">
                                 
-                                <br /><abbr title="Descripción de Industria"><label id="nombre_de_fantasia"></label></abbr>
+                               
                             </div>
                         </div>
                     </div>
@@ -1328,14 +1299,7 @@
                     <h3 class="card-subtitle text-muted"><i class="fa fa-cube"></i> Situación de Planta</h3>
                     <hr>
 
-                    <div class="row mt-3">
-                        <div class="col-md-12">
-                            <div class="form-group has-feedback">
-                                <label class="control-label">Descripción de Industria: <span class="symbol required"></span></label>
-                                <br /><abbr title="Descripción de Industria"><label id="nombre_de_fantasia"></label></abbr>
-                            </div>
-                        </div>
-                    </div>
+                
 
                     <div class="row">
                         <div class="col-md-6">
@@ -1801,7 +1765,7 @@
                                 <input type="hidden" name="id_destino_ventas" id="id_destino_ventas"  />
                                 <input type="hidden" name="industria_venta" id="industria_venta">
                                 <input type="hidden" name="anio_venta" id="anio_venta">
-                                <abbr title="Descripción de Industria"><label id="nombre_de_fantasia"></label></abbr>
+                                
                             </div>
                         </div>
                     </div>
@@ -2127,17 +2091,15 @@
 
                     <h3 class="card-subtitle text-muted"><i class="fa fa-file-text"></i> Clasificación de Ingresos</h3><br>
 
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group has-feedback">
-                                
-                               
-                                <select class="form-control" id="clasif_ingreso" name="clasif_ingreso" required="" aria-required="true">
-                                    <option value=""> -- SELECCIONE -- </option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
+                    <table id="clasif_ingreso" class="table2 display">
+                        <thead id="clasif_ingreso_2">
+                        </thead>
+                      
+                        <tbody>
+                        </tbody>
+                    </table>
+
+                    
 
                     <br>
 
@@ -2185,16 +2147,7 @@
                 <div class="modal-footer">
                     <button type="submit" name="btn-facturacion" id="btn-facturacion" class="btn btn-danger"><span class="fa fa-save"></span> Guardar</button>
                     <button type="button" style="display: none; " name="btn-facturacion-update" id="btn-facturacion-update" class="btn btn-danger"><span class="fa fa-save"></span> Guardar</button>
-                    <button class="btn btn-dark" type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="
-                document.getElementById('facturacion').value = 'savefacturacion',
-                document.getElementById('id_facturacion').value = '',
-                document.getElementById('industria_facturacion').value = '',
-                document.getElementById('anio_facturacion').value = '',
-                document.getElementById('prevision_ingresos_anio_corriente').value = '',
-                document.getElementById('prevision_ingresos_anio_corriente_dolares').value = '',
-                document.getElementById('porcentaje_prevision_mercado_interno').value = '',
-                document.getElementById('porcentaje_prevision_mercado_externo').value = ''
-                "><span class="fa fa-trash-o"></span> Cancelar</button>
+                    <button class="btn btn-dark" type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="btn_cancelar_fac()"><span class="fa fa-trash-o"></span> Cancelar</button>
                 </div>
             </form>
 
@@ -2255,8 +2208,8 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group has-feedback">
-                                <label class="control-label">Descripción de Industria: <span class="symbol required"></span></label>
-                                <br /><abbr title="Descripción de Industria"><label id="nombre_de_fantasia"></label></abbr>
+                                
+                                <br />
                             </div>
                         </div>
                     </div>
@@ -2369,8 +2322,8 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group has-feedback">
-                                <label class="control-label">Descripción de Industria: <span class="symbol required"></span></label>
-                                <br /><abbr title="Descripción de Industria"><label id="nombre_de_fantasia"></label></abbr>
+                                
+                                <br />
                                 <input type="hidden" name="seccioncertificado" id="seccioncertificado" value="">
                                 <input type="hidden" name="proceso" id="certificado" value="savecertificado" />
                                 <input type="hidden" name="industria_certificado" id="industria_certificado">
@@ -2465,8 +2418,8 @@
                                 <input type="hidden" name="id_rel_industria_certificado" id="id_rel_industria_certificado">
                                 <input type="hidden" name="industria_certificado_update" id="industria_certificado_update">
                                 <input type="hidden" name="anio_certificado_update" id="anio_certificado_update">
-                                <label class="control-label">Descripción de Industria: <span class="symbol required"></span></label>
-                                <br /><abbr title="Descripción de Industria"><label id="nombre_de_fantasia"></label></abbr>
+                                
+                                <br />
                             </div>
                         </div>
                     </div>
@@ -2590,8 +2543,8 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group has-feedback">
-                                <label class="control-label">Descripción de Industria: <span class="symbol required"></span></label>
-                                <br /><abbr title="Descripción de Industria"><label id="nombre_de_fantasia"></label></abbr>
+                                
+                                <br />
                                 <input type="hidden" name="seccionsistema" id="seccionsistema" value="">
                                 <input type="hidden" name="proceso" id="sistema" value="savesistema" />
                                 <input type="hidden" name="industria_sistema" id="industria_sistema">
@@ -2688,8 +2641,8 @@
                                 <input type="hidden" name="id_rel_industria_sistema" id="id_rel_industria_sistema">
                                 <input type="hidden" name="industria_sistema_update" id="industria_sistema_update">
                                 <input type="hidden" name="anio_sistema_update" id="anio_sistema_update">
-                                <label class="control-label">Descripción de Industria: <span class="symbol required"></span></label>
-                                <br /><abbr title="Descripción de Industria"><label id="nombre_de_fantasia"></label></abbr>
+                                
+                                <br />
                             </div>
                         </div>
                     </div>
@@ -2812,8 +2765,8 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group has-feedback">
-                                <label class="control-label">Descripción de Industria: <span class="symbol required"></span></label>
-                                <br /><abbr title="Descripción de Industria"><label id="nombre_de_fantasia"></label></abbr>
+                                
+                                <br />
                                 <input type="hidden" name="seccionpromocion" id="seccionpromocion" value="">
                                 <input type="hidden" name="proceso" id="promocion" value="savepromocion" />
                                 <input type="hidden" name="industria_promocion" id="industria_promocion">
@@ -2908,8 +2861,8 @@
                                 <input type="hidden" name="id_rel_industria_promocion_industrial" id="id_rel_industria_promocion_industrial">
                                 <input type="hidden" name="industria_promocion_update" id="industria_promocion_update">
                                 <input type="hidden" name="anio_promocion_update" id="anio_promocion_update">
-                                <label class="control-label">Descripción de Industria: <span class="symbol required"></span></label>
-                                <br /><abbr title="Descripción de Industria"><label id="nombre_de_fantasia"></label></abbr>
+                                
+                                <br />
                             </div>
                         </div>
                     </div>
@@ -3031,13 +2984,13 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group has-feedback">
-                                <label class="control-label">Descripción de Industria: <span class="symbol required"></span></label>
+                                
                                 <input type="hidden" name="seccioneconomia" id="seccioneconomia" value="">
                                 <input type="hidden" name="proceso" id="economia" value="saveeconomia" />
                                 <input type="hidden" name="id_economia" id="id_economia">
                                 <input type="hidden" name="industria_economia" id="industria_economia">
                                 <input type="hidden" name="anio_economia" id="anio_economia">
-                                <br /><abbr title="Descripción de Industria"><label id="nombre_de_fantasia"></label></abbr>
+                                <br />
                             </div>
                         </div>
                     </div>

@@ -4083,7 +4083,7 @@ function UpdateFacturacion(id_facturacion) {
       $("#updatefacturacion #porcentaje_prevision_mercado_interno").val(response[0].porcentaje_prevision_mercado_interno);
       $("#updatefacturacion #porcentaje_prevision_mercado_externo").val(response[0].porcentaje_prevision_mercado_externo);
       $("#updatefacturacion #anio_facturacion").val(response[0].anio);
-      $("#updatefacturacion #clasif_ingreso").val(response[0].id_categoria_ingresos);
+      $("#updatefacturacion #categoria_ingresos_"+response[0].id_categoria_ingresos+"").prop('checked',true);
     
               
 
