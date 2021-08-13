@@ -3002,6 +3002,23 @@ function muestraForm(ref) {
 			cargar_tabla_ventas();
 			cargar_clasif_ingresos();
 			cargar_tabla_fact()
+		}else if(ref == "pyca"){
+			cargar_tabla_efluentes()
+			cargar_tabla_cert();
+
+
+			getCertificados()
+		}else if(ref == "sc"){
+			getSc();
+			cargar_tabla_sc();
+			getPromocion()
+			cargar_tabla_promo()
+		}else if(ref=="ec"){
+			
+			cargar_tabla_economia()
+			cargar_tabla_perfil()
+			getSP()
+			getPerfil();
 		}
 
 
@@ -6024,13 +6041,13 @@ $('document').ready(function () {
 	$("#saveefluente").validate({
 		rules:
 		{
-			search_efluente: { required: true, },
+			search_efluente_e: { required: true, },
 			tratamiento_residuo: { required: true, },
 			destino: { required: true, },
 		},
 		messages:
 		{
-			search_efluente: { required: "Ingrese Nombre o Descripción de Residuo" },
+			search_efluente_e: { required: "Ingrese Nombre o Descripción de Residuo" },
 			tratamiento_residuo: { required: "Ingrese Tratamiento Residuo" },
 			destino: { required: "Ingrese Destino Final " },
 		},
@@ -6038,26 +6055,30 @@ $('document').ready(function () {
 
 			var data = $("#saveefluente").serialize();
 			var seccion = $("#seccionefluente").val();
-			var industria = $("#industria_efluente").val();
+			var industria = $("#id_industria_modal").val();
 
 			$.ajax({
 				type: 'POST',
-				url: 'procedimientos.php',
+				url: '/saveRelEfluenteIndustria',
 				async: false,
-				data: data,
+				data: {
+					_token: $('meta[name="csrf-token"]').attr('content'),
+					data:data,
+					id_industria:industria
+				},
 				beforeSend: function () {
 					$("#save").fadeOut();
 					$("#btn-efluente").html('<i class="fa fa-refresh"></i> Verificando...');
 				},
 				success: function (data) {
-					if (data == 1) {
+					if (data.status == 1) {
 
 						$("#save").fadeIn(1000, function () {
 
 							var n = noty({
-								text: "<span class='fa fa-warning'></span> POR FAVOR DEBE DE COMPLETAR LOS CAMPOS REQUERIDOS, VERIFIQUE NUEVAMENTE POR FAVOR...!",
+								text: "<span class='fa fa-warning'></span>"+data.msg,
 								theme: 'defaultTheme',
-								layout: 'center',
+								layout: 'topCenter',
 								type: 'warning',
 								timeout: 5000,
 							});
@@ -6065,7 +6086,7 @@ $('document').ready(function () {
 
 						});
 					}
-					else if (data == 2) {
+					else if (data.status == 2) {
 
 						$("#save").fadeIn(1000, function () {
 
@@ -6080,25 +6101,23 @@ $('document').ready(function () {
 
 						});
 					}
-					else {
+					else if (data.status == 200){
 
 						$("#save").fadeIn(1000, function () {
 
 							var n = noty({
-								text: '<center> ' + data + ' </center>',
+								text: '<center> ' + data.msg + ' </center>',
 								theme: 'defaultTheme',
-								layout: 'center',
+								layout: 'topCenter',
 								type: 'information',
 								timeout: 5000,
 							});
 							$('#MyModalEfluente').modal('hide');
-							$('#secciones').load("formularios.php?BuscaFormularioProcedimiento=si&seccion=" + seccion + "&in=" + industria);
+							
 							$("#saveefluente")[0].reset();
-							$("#saveefluente #efluente").val("saveefluente");
-							$("#saveefluente #nombre_de_fantasia").text("");
-							$("#saveefluente #id_rel_industria_efluente").val("");
-							$("#saveefluente #industria_efluente").val("");
-							$("#saveefluente #anio_efluente").val("");
+							
+						
+							cargar_tabla_efluentes()
 							$("#saveefluente #id_efluente").val("");
 							$("#btn-efluente").html('<span class="fa fa-save"></span> Agregar y Guardar');
 						});
@@ -6113,7 +6132,131 @@ $('document').ready(function () {
 /* FUNCION JQUERY PARA VALIDAR ASIGNACION DE EFLUENTES */
 
 
+$("#btn-efluente-update").on("click",function(){
 
+	if($("#updateefluente #search_efluente_e").val().length < 1){
+
+		var n = noty({
+					text: "<span class='fa fa-warning'></span> Seleccione un efluente",
+					theme: 'defaultTheme',
+					layout: 'topCenter',
+					type: 'warning',
+					timeout: 5000,
+				});
+
+	}else if($("#updateefluente #tratamiento_residuo").val().length < 1){
+
+		var n = noty({
+					text: "<span class='fa fa-warning'></span> Ingrese descripcion de tratamiento",
+					theme: 'defaultTheme',
+					layout: 'topCenter',
+					type: 'warning',
+					timeout: 5000,
+				});
+	}else if($("#updateefluente #destino").val().length < 1){
+
+		var n = noty({
+					text: "<span class='fa fa-warning'></span> Ingrese destino final del efluente",
+					theme: 'defaultTheme',
+					layout: 'topCenter',
+					type: 'warning',
+					timeout: 5000,
+				});
+	}else{
+
+
+		var data = $("#updateefluente").serialize();
+	var seccion = $("#seccionefluente").val();
+	var industria = $("#id_industria_modal").val();
+
+			$.ajax({
+				type: 'POST',
+				url: '/updateRelEfluenteIndustria',
+				async: false,
+				data: {
+					_token: $('meta[name="csrf-token"]').attr('content'),
+					data:data,
+					id_industria:industria
+				},
+				beforeSend: function () {
+					$("#save").fadeOut();
+					$("#btn-efluente").html('<i class="fa fa-refresh"></i> Verificando...');
+				},
+				success: function (data) {
+					if (data.status == 1) {
+
+						$("#save").fadeIn(1000, function () {
+
+							var n = noty({
+								text: "<span class='fa fa-warning'></span>"+data.msg,
+								theme: 'defaultTheme',
+								layout: 'topCenter',
+								type: 'warning',
+								timeout: 5000,
+							});
+							$("#btn-efluente").html('<span class="fa fa-save"></span> Agregar y Guardar');
+
+						});
+					}
+					else if (data.status == 2) {
+
+						$("#save").fadeIn(1000, function () {
+
+							var n = noty({
+								text: "<span class='fa fa-warning'></span> ESTE RESIDUO YA SE ENCUENTRA REGISTRADO, VERIFIQUE NUEVAMENTE POR FAVOR ...!",
+								theme: 'defaultTheme',
+								layout: 'center',
+								type: 'warning',
+								timeout: 5000,
+							});
+							$("#btn-efluente").html('<span class="fa fa-save"></span> Agregar y Guardar');
+
+						});
+					}
+					else if (data.status == 200){
+
+						$("#save").fadeIn(1000, function () {
+
+							var n = noty({
+								text: '<center> ' + data.msg + ' </center>',
+								theme: 'defaultTheme',
+								layout: 'topCenter',
+								type: 'information',
+								timeout: 5000,
+							});
+							$('#MyModalEfluente').modal('hide');
+							
+							$("#updateefluente")[0].reset();
+							
+						
+							cargar_tabla_efluentes()
+							$("#updateefluente #id_efluente_e").val("");
+
+							 $("#updateefluente").prop('id', 'saveefluente');
+           					 $("#saveefluente").prop('name', 'saveefluente');
+
+           					  $("#btn-efluente").show()
+           					 $("#btn-efluente-update").hide()
+
+
+
+
+							$("#btn-efluente").html('<span class="fa fa-save"></span> Agregar y Guardar');
+						});
+					}
+				}
+			});
+			return false;
+
+	}
+
+
+	
+
+
+
+
+})
 
 
 
@@ -6146,106 +6289,49 @@ $('document').ready(function () {
 
 			var data = $("#savecertificado").serialize();
 			var seccion = $("#seccioncertificado").val();
-			var industria = $("#industria_certificado").val();
+			var industria = $("#id_industria_modal").val();
 
 			$.ajax({
 				type: 'POST',
-				url: 'procedimientos.php',
+				url: '/saveRelCert',
 				async: false,
-				data: data,
+				data: {
+					_token: $('meta[name="csrf-token"]').attr('content'),
+					data:data,
+					id_industria:industria
+				},
 				beforeSend: function () {
 					$("#save").fadeOut();
 					$("#btn-certificado").html('<i class="fa fa-refresh"></i> Verificando...');
 				},
 				success: function (data) {
-					if (data == 1) {
+					if (data.status == 1) {
 
 						$("#save").fadeIn(1000, function () {
 
 							var n = noty({
-								text: "<span class='fa fa-warning'></span> POR FAVOR DEBE DE COMPLETAR LOS CAMPOS REQUERIDOS, VERIFIQUE NUEVAMENTE POR FAVOR...!",
+								text: "<span class='fa fa-warning'></span>"+data.msg,
 								theme: 'defaultTheme',
-								layout: 'center',
+								layout: 'topCenter',
 								type: 'warning',
 								timeout: 5000,
 							});
 							$("#btn-certificado").html('<span class="fa fa-save"></span> Agregar y Guardar');
 
 						});
-					}
-					else if (data == 2) {
+					}else if(data.status == 200 ) {
 
 						$("#save").fadeIn(1000, function () {
 
 							var n = noty({
-								text: "<span class='fa fa-warning'></span> SELECCIONE UN ESTADO PARA CADA CERTIFICADO, VERIFIQUE NUEVAMENTE POR FAVOR ...!",
+								text: '<center> ' + data.msg + ' </center>',
 								theme: 'defaultTheme',
-								layout: 'center',
-								type: 'warning',
-								timeout: 5000,
-							});
-							$("#btn-certificado").html('<span class="fa fa-save"></span> Agregar y Guardar');
-
-						});
-					}
-					else if (data == 3) {
-
-						$("#save").fadeIn(1000, function () {
-
-							var n = noty({
-								text: "<span class='fa fa-warning'></span> LA FECHA DE CERTIFICADO INICIAL NO PUEDE SER MENOR QUE LA FECHA INICIO DE CONTRIBUYENTE, VERIFIQUE NUEVAMENTE POR FAVOR ...!",
-								theme: 'defaultTheme',
-								layout: 'center',
-								type: 'warning',
-								timeout: 5000,
-							});
-							$("#btn-certificado").html('<span class="fa fa-save"></span> Agregar y Guardar');
-
-						});
-					}
-					else if (data == 4) {
-
-						$("#save").fadeIn(1000, function () {
-
-							var n = noty({
-								text: "<span class='fa fa-warning'></span> EL CERTIFICADO INICIAL NO PUEDE SER MAYOR AL CERTIFICADO FINAL, VERIFIQUE NUEVAMENTE POR FAVOR ...!",
-								theme: 'defaultTheme',
-								layout: 'center',
-								type: 'warning',
-								timeout: 5000,
-							});
-							$("#btn-certificado").html('<span class="fa fa-save"></span> Agregar y Guardar');
-
-						});
-					}
-					else if (data == 5) {
-
-						$("#save").fadeIn(1000, function () {
-
-							var n = noty({
-								text: "<span class='fa fa-warning'></span> ESTE CERTIFICADO YA SE ENCUENTRA REGISTRADO, VERIFIQUE NUEVAMENTE POR FAVOR ...!",
-								theme: 'defaultTheme',
-								layout: 'center',
-								type: 'warning',
-								timeout: 5000,
-							});
-							$("#btn-certificado").html('<span class="fa fa-save"></span> Agregar y Guardar');
-
-						});
-					}
-					else {
-
-						$("#save").fadeIn(1000, function () {
-
-							var n = noty({
-								text: '<center> ' + data + ' </center>',
-								theme: 'defaultTheme',
-								layout: 'center',
+								layout: 'topCenter',
 								type: 'information',
 								timeout: 5000,
 							});
 							$('#MyModalCertificado').modal('hide');
-							$('#secciones').load("formularios.php?BuscaFormularioProcedimiento=si&seccion=" + seccion + "&in=" + industria);
+						cargar_tabla_cert();
 							$("#savecertificado")[0].reset();
 							$("#savecertificado #nombre_de_fantasia").text("");
 							$("#savecertificado #industria_certificado").val("");
@@ -6281,106 +6367,53 @@ $('document').ready(function () {
 
 			var data = $("#updatecertificado").serialize();
 			var seccion = $("#seccioncertificadoupdate").val();
-			var industria = $("#industria_certificado_update").val();
+			var industria = $("#id_industria_modal").val();
 
 			$.ajax({
 				type: 'POST',
-				url: 'procedimientos.php',
+				url: '/updateRelCert',
 				async: false,
-				data: data,
+				data: {
+
+					_token: $('meta[name="csrf-token"]').attr('content'),
+					data:data,
+					id_industria:industria
+
+				},
 				beforeSend: function () {
 					$("#save").fadeOut();
 					$("#btn-certificadoupdate").html('<i class="fa fa-refresh"></i> Verificando...');
 				},
 				success: function (data) {
-					if (data == 1) {
+					if (data.status == 1) {
 
 						$("#save").fadeIn(1000, function () {
 
 							var n = noty({
-								text: "<span class='fa fa-warning'></span> POR FAVOR DEBE DE COMPLETAR LOS CAMPOS REQUERIDOS, VERIFIQUE NUEVAMENTE POR FAVOR...!",
+								text: "<span class='fa fa-warning'></span>"+data.msg,
 								theme: 'defaultTheme',
-								layout: 'center',
+								layout: 'topCenter',
 								type: 'warning',
 								timeout: 5000,
 							});
 							$("#btn-certificadoupdate").html('<span class="fa fa-edit"></span> Actualizar');
 
 						});
-					}
-					else if (data == 2) {
+					}else if(data.status == 200){
 
 						$("#save").fadeIn(1000, function () {
 
 							var n = noty({
-								text: "<span class='fa fa-warning'></span> INGRESE FECHA INICIAL, VERIFIQUE NUEVAMENTE POR FAVOR ...!",
+								text: '<center> ' + data.msg + ' </center>',
 								theme: 'defaultTheme',
-								layout: 'center',
-								type: 'warning',
-								timeout: 5000,
-							});
-							$("#btn-certificadoupdate").html('<span class="fa fa-edit"></span> Actualizar');
-
-						});
-					}
-					else if (data == 3) {
-
-						$("#save").fadeIn(1000, function () {
-
-							var n = noty({
-								text: "<span class='fa fa-warning'></span> INGRESE FECHA FINAL, VERIFIQUE NUEVAMENTE POR FAVOR ...!",
-								theme: 'defaultTheme',
-								layout: 'center',
-								type: 'warning',
-								timeout: 5000,
-							});
-							$("#btn-certificadoupdate").html('<span class="fa fa-edit"></span> Actualizar');
-
-						});
-					}
-					else if (data == 4) {
-
-						$("#save").fadeIn(1000, function () {
-
-							var n = noty({
-								text: "<span class='fa fa-warning'></span> LA FECHA DE CERTIFICADO INICIAL NO PUEDE SER MENOR QUE LA FECHA INICIO DE CONTRIBUYENTE, VERIFIQUE NUEVAMENTE POR FAVOR ...!",
-								theme: 'defaultTheme',
-								layout: 'center',
-								type: 'warning',
-								timeout: 5000,
-							});
-							$("#btn-certificadoupdate").html('<span class="fa fa-edit"></span> Actualizar');
-
-						});
-					}
-					else if (data == 5) {
-
-						$("#save").fadeIn(1000, function () {
-
-							var n = noty({
-								text: "<span class='fa fa-warning'></span> EL CERTIFICADO INICIAL NO PUEDE SER MAYOR AL CERTIFICADO FINAL, VERIFIQUE NUEVAMENTE POR FAVOR ...!",
-								theme: 'defaultTheme',
-								layout: 'center',
-								type: 'warning',
-								timeout: 5000,
-							});
-							$("#btn-certificadoupdate").html('<span class="fa fa-edit"></span> Actualizar');
-
-						});
-					}
-					else {
-
-						$("#save").fadeIn(1000, function () {
-
-							var n = noty({
-								text: '<center> ' + data + ' </center>',
-								theme: 'defaultTheme',
-								layout: 'center',
+								layout: 'topCenter',
 								type: 'information',
 								timeout: 5000,
 							});
+
+							cargar_tabla_cert();
 							$('#MyModalUpdateCertificado').modal('hide');
-							$('#secciones').load("formularios.php?BuscaFormularioProcedimiento=si&seccion=" + seccion + "&in=" + industria);
+							//$('#secciones').load("formularios.php?BuscaFormularioProcedimiento=si&seccion=" + seccion + "&in=" + industria);
 							$("#updatecertificado")[0].reset();
 							$("#updatecertificado #nombre_de_fantasia").text("");
 							$("#updatecertificado #nombre_certificado").text("");
@@ -6436,91 +6469,52 @@ $('document').ready(function () {
 
 			var data = $("#savesistema").serialize();
 			var seccion = $("#seccionsistema").val();
-			var industria = $("#industria_sistema").val();
+			var industria = $("#id_industria_modal").val();
 
 			$.ajax({
 				type: 'POST',
-				url: 'procedimientos.php',
+				url: '/saveSc',
 				async: false,
-				data: data,
+				data: {
+
+					_token: $('meta[name="csrf-token"]').attr('content'),
+					data:data,
+					id_industria:industria
+
+				},
 				beforeSend: function () {
 					$("#save").fadeOut();
 					$("#btn-sistema").html('<i class="fa fa-refresh"></i> Verificando...');
 				},
 				success: function (data) {
-					if (data == 1) {
+					if (data.status == 1) {
 
 						$("#save").fadeIn(1000, function () {
 
 							var n = noty({
-								text: "<span class='fa fa-warning'></span> POR FAVOR DEBE DE COMPLETAR LOS CAMPOS REQUERIDOS, VERIFIQUE NUEVAMENTE POR FAVOR...!",
+								text: "<span class='fa fa-warning'></span>"+data.msg,
 								theme: 'defaultTheme',
-								layout: 'center',
+								layout: 'topCenter',
 								type: 'warning',
 								timeout: 5000,
 							});
 							$("#btn-sistema").html('<span class="fa fa-save"></span> Agregar y Guardar');
 
 						});
-					}
-					else if (data == 2) {
+					}else if(data.status == 200) {
 
 						$("#save").fadeIn(1000, function () {
 
 							var n = noty({
-								text: "<span class='fa fa-warning'></span> SELECCIONE UN ESTADO PARA CADA NORMA DE CALIDAD, VERIFIQUE NUEVAMENTE POR FAVOR ...!",
+								text: '<center> ' + data.msg + ' </center>',
 								theme: 'defaultTheme',
-								layout: 'center',
-								type: 'warning',
-								timeout: 5000,
-							});
-							$("#btn-sistema").html('<span class="fa fa-save"></span> Agregar y Guardar');
-
-						});
-					}
-					else if (data == 3) {
-
-						$("#save").fadeIn(1000, function () {
-
-							var n = noty({
-								text: "<span class='fa fa-warning'></span> LA NORMA DE CALIDAD INICIAL NO PUEDE SER MAYOR A LA NORMA DE CALIDAD FINAL, VERIFIQUE NUEVAMENTE POR FAVOR ...!",
-								theme: 'defaultTheme',
-								layout: 'center',
-								type: 'warning',
-								timeout: 5000,
-							});
-							$("#btn-certificado").html('<span class="fa fa-save"></span> Agregar y Guardar');
-
-						});
-					}
-					else if (data == 4) {
-
-						$("#save").fadeIn(1000, function () {
-
-							var n = noty({
-								text: "<span class='fa fa-warning'></span> ESTA NORMA YA SE ENCUENTRA REGISTRADA, VERIFIQUE NUEVAMENTE POR FAVOR ...!",
-								theme: 'defaultTheme',
-								layout: 'center',
-								type: 'warning',
-								timeout: 5000,
-							});
-							$("#btn-sistema").html('<span class="fa fa-save"></span> Agregar y Guardar');
-
-						});
-					}
-					else {
-
-						$("#save").fadeIn(1000, function () {
-
-							var n = noty({
-								text: '<center> ' + data + ' </center>',
-								theme: 'defaultTheme',
-								layout: 'center',
+								layout: 'topCenter',
 								type: 'information',
 								timeout: 5000,
 							});
 							$('#MyModalSistema').modal('hide');
-							$('#secciones').load("formularios.php?BuscaFormularioProcedimiento=si&seccion=" + seccion + "&in=" + industria);
+							cargar_tabla_sc() 
+							
 							$("#savesistema")[0].reset();
 							$("#savesistema #sistema").val("savesistema");
 							$("#savesistema #nombre_de_fantasia").text("");
@@ -6556,76 +6550,52 @@ $('document').ready(function () {
 
 			var data = $("#updatesistema").serialize();
 			var seccion = $("#seccionsistemaupdate").val();
-			var industria = $("#industria_sistema_update").val();
+			var industria = $("#id_industria_modal").val();
 
 			$.ajax({
 				type: 'POST',
-				url: 'procedimientos.php',
+				url: '/updateSc',
 				async: false,
-				data: data,
+				data:  {
+
+					_token: $('meta[name="csrf-token"]').attr('content'),
+					data:data,
+					id_industria:industria
+
+				},
 				beforeSend: function () {
 					$("#save").fadeOut();
 					$("#btn-sistemaupdate").html('<i class="fa fa-refresh"></i> Verificando...');
 				},
 				success: function (data) {
-					if (data == 1) {
+					if (data.status == 1) {
 
 						$("#save").fadeIn(1000, function () {
 
 							var n = noty({
-								text: "<span class='fa fa-warning'></span> POR FAVOR DEBE DE COMPLETAR LOS CAMPOS REQUERIDOS, VERIFIQUE NUEVAMENTE POR FAVOR...!",
+								text: "<span class='fa fa-warning'></span>"+data.msg,
 								theme: 'defaultTheme',
-								layout: 'center',
+								layout: 'topCenter',
 								type: 'warning',
 								timeout: 5000,
 							});
 							$("#btn-sistemaupdate").html('<span class="fa fa-edit"></span> Actualizar');
 
 						});
-					}
-					else if (data == 2) {
+					}else if(data.status== 200) {
 
 						$("#save").fadeIn(1000, function () {
 
 							var n = noty({
-								text: "<span class='fa fa-warning'></span> INGRESE FECHA INICIAL, VERIFIQUE NUEVAMENTE POR FAVOR ...!",
-								theme: 'defaultTheme',
-								layout: 'center',
-								type: 'warning',
-								timeout: 5000,
-							});
-							$("#btn-sistemaupdate").html('<span class="fa fa-edit"></span> Actualizar');
-
-						});
-					}
-					else if (data == 3) {
-
-						$("#save").fadeIn(1000, function () {
-
-							var n = noty({
-								text: "<span class='fa fa-warning'></span> INGRESE FECHA FINAL, VERIFIQUE NUEVAMENTE POR FAVOR ...!",
-								theme: 'defaultTheme',
-								layout: 'center',
-								type: 'warning',
-								timeout: 5000,
-							});
-							$("#btn-sistemaupdate").html('<span class="fa fa-edit"></span> Actualizar');
-
-						});
-					}
-					else {
-
-						$("#save").fadeIn(1000, function () {
-
-							var n = noty({
-								text: '<center> ' + data + ' </center>',
+								text: '<center> ' + data.msg + ' </center>',
 								theme: 'defaultTheme',
 								layout: 'center',
 								type: 'information',
 								timeout: 5000,
 							});
 							$('#MyModalUpdateSistema').modal('hide');
-							$('#secciones').load("formularios.php?BuscaFormularioProcedimiento=si&seccion=" + seccion + "&in=" + industria);
+							cargar_tabla_sc() 
+						
 							$("#updatesistema")[0].reset();
 							$("#updatesistema #nombre_de_fantasia").text("");
 							$("#updatesistema #nombre_sistema").text("");
@@ -6683,76 +6653,51 @@ $('document').ready(function () {
 
 			var data = $("#savepromocion").serialize();
 			var seccion = $("#seccionpromocion").val();
-			var industria = $("#industria_promocion").val();
+			var industria = $("#id_industria_modal").val();
 
 			$.ajax({
 				type: 'POST',
-				url: 'procedimientos.php',
+				url: '/savePromo',
 				async: false,
-				data: data,
+				data: {
+
+					_token: $('meta[name="csrf-token"]').attr('content'),
+					data:data,
+					id_industria:industria
+
+				},
 				beforeSend: function () {
 					$("#save").fadeOut();
 					$("#btn-promocion").html('<i class="fa fa-refresh"></i> Verificando...');
 				},
 				success: function (data) {
-					if (data == 1) {
+					if (data.status == 1) {
 
 						$("#save").fadeIn(1000, function () {
 
 							var n = noty({
-								text: "<span class='fa fa-warning'></span> POR FAVOR DEBE DE COMPLETAR LOS CAMPOS REQUERIDOS, VERIFIQUE NUEVAMENTE POR FAVOR...!",
+								text: "<span class='fa fa-warning'></span>"+data.msg,
 								theme: 'defaultTheme',
-								layout: 'center',
+								layout: 'topCenter',
 								type: 'warning',
 								timeout: 5000,
 							});
 							$("#btn-promocion").html('<span class="fa fa-save"></span> Agregar y Guardar');
 
 						});
-					}
-					else if (data == 2) {
+					}else if(data.status == 200) {
 
 						$("#save").fadeIn(1000, function () {
 
 							var n = noty({
-								text: "<span class='fa fa-warning'></span> SELECCIONE UN ESTADO PARA CADA PROMOCION, VERIFIQUE NUEVAMENTE POR FAVOR ...!",
+								text: '<center> ' + data.msg + ' </center>',
 								theme: 'defaultTheme',
-								layout: 'center',
-								type: 'warning',
-								timeout: 5000,
-							});
-							$("#btn-promocion").html('<span class="fa fa-save"></span> Agregar y Guardar');
-
-						});
-					}
-					else if (data == 3) {
-
-						$("#save").fadeIn(1000, function () {
-
-							var n = noty({
-								text: "<span class='fa fa-warning'></span> ESTA PROMOCION YA SE ENCUENTRA REGISTRADA, VERIFIQUE NUEVAMENTE POR FAVOR ...!",
-								theme: 'defaultTheme',
-								layout: 'center',
-								type: 'warning',
-								timeout: 5000,
-							});
-							$("#btn-certificado").html('<span class="fa fa-save"></span> Agregar y Guardar');
-
-						});
-					}
-					else {
-
-						$("#save").fadeIn(1000, function () {
-
-							var n = noty({
-								text: '<center> ' + data + ' </center>',
-								theme: 'defaultTheme',
-								layout: 'center',
+								layout: 'topCenter',
 								type: 'information',
 								timeout: 5000,
 							});
 							$('#MyModalPromocion').modal('hide');
-							$('#secciones').load("formularios.php?BuscaFormularioProcedimiento=si&seccion=" + seccion + "&in=" + industria);
+							cargar_tabla_promo()
 							$("#savepromocion")[0].reset();
 							$("#savepromocion #promocion").val("savepromocion");
 							$("#savepromocion #nombre_de_fantasia").text("");
@@ -6788,76 +6733,51 @@ $('document').ready(function () {
 
 			var data = $("#updatepromocion").serialize();
 			var seccion = $("#seccionpromocionupdate").val();
-			var industria = $("#industria_promocion_update").val();
+			var industria = $("#id_industria_modal").val();
 
 			$.ajax({
 				type: 'POST',
-				url: 'procedimientos.php',
+				url: '/updateRelPromo',
 				async: false,
-				data: data,
+				data:{
+
+					_token: $('meta[name="csrf-token"]').attr('content'),
+					data:data,
+					id_industria:industria
+
+				},
 				beforeSend: function () {
 					$("#save").fadeOut();
 					$("#btn-promocionupdate").html('<i class="fa fa-refresh"></i> Verificando...');
 				},
 				success: function (data) {
-					if (data == 1) {
+					if (data.status == 1) {
 
 						$("#save").fadeIn(1000, function () {
 
 							var n = noty({
-								text: "<span class='fa fa-warning'></span> POR FAVOR DEBE DE COMPLETAR LOS CAMPOS REQUERIDOS, VERIFIQUE NUEVAMENTE POR FAVOR...!",
+								text: "<span class='fa fa-warning'></span>"+data.msg,
 								theme: 'defaultTheme',
-								layout: 'center',
+								layout: 'topCenter',
 								type: 'warning',
 								timeout: 5000,
 							});
 							$("#btn-promocionupdate").html('<span class="fa fa-edit"></span> Actualizar');
 
 						});
-					}
-					else if (data == 2) {
+					}else if(data.status == 200) {
 
 						$("#save").fadeIn(1000, function () {
 
 							var n = noty({
-								text: "<span class='fa fa-warning'></span> INGRESE FECHA INICIAL, VERIFIQUE NUEVAMENTE POR FAVOR ...!",
+								text: '<center> ' + data.msg + ' </center>',
 								theme: 'defaultTheme',
-								layout: 'center',
-								type: 'warning',
-								timeout: 5000,
-							});
-							$("#btn-promocionupdate").html('<span class="fa fa-edit"></span> Actualizar');
-
-						});
-					}
-					else if (data == 3) {
-
-						$("#save").fadeIn(1000, function () {
-
-							var n = noty({
-								text: "<span class='fa fa-warning'></span> INGRESE FECHA FINAL, VERIFIQUE NUEVAMENTE POR FAVOR ...!",
-								theme: 'defaultTheme',
-								layout: 'center',
-								type: 'warning',
-								timeout: 5000,
-							});
-							$("#btn-promocionupdate").html('<span class="fa fa-edit"></span> Actualizar');
-
-						});
-					}
-					else {
-
-						$("#save").fadeIn(1000, function () {
-
-							var n = noty({
-								text: '<center> ' + data + ' </center>',
-								theme: 'defaultTheme',
-								layout: 'center',
+								layout: 'topCenter',
 								type: 'information',
 								timeout: 5000,
 							});
 							$('#MyModalUpdatePromocion').modal('hide');
-							$('#secciones').load("formularios.php?BuscaFormularioProcedimiento=si&seccion=" + seccion + "&in=" + industria);
+						cargar_tabla_promo()
 							$("#updatepromocion")[0].reset();
 							$("#updatepromocion #nombre_de_fantasia").text("");
 							$("#updatepromocion #nombre_promocion").text("");
@@ -6911,91 +6831,57 @@ $('document').ready(function () {
 
 			var data = $("#saveeconomia").serialize();
 			var seccion = $("#seccioneconomia").val();
-			var industria = $("#industria_economia").val();
+			var industria = $("#id_industria_modal").val();
 
 			$.ajax({
 				type: 'POST',
-				url: 'procedimientos.php',
+				url: '/saveEc',
 				async: false,
-				data: data,
+				data: {
+
+					_token: $('meta[name="csrf-token"]').attr('content'),
+					data:data,
+					id_industria:industria
+
+				},
 				beforeSend: function () {
 					$("#save").fadeOut();
 					$("#btn-economia").html('<i class="fa fa-refresh"></i> Verificando...');
 				},
 				success: function (data) {
-					if (data == 1) {
+					if (data.status  == 1) {
 
 						$("#save").fadeIn(1000, function () {
 
 							var n = noty({
-								text: "<span class='fa fa-warning'></span> POR FAVOR DEBE DE COMPLETAR LOS CAMPOS REQUERIDOS, VERIFIQUE NUEVAMENTE POR FAVOR...!",
+								text: "<span class='fa fa-warning'></span>"+data.msg,
 								theme: 'defaultTheme',
-								layout: 'center',
+								layout: 'topCenter',
 								type: 'warning',
 								timeout: 5000,
 							});
 							$("#btn-economia").html('<span class="fa fa-save"></span> Agregar y Guardar');
 
 						});
-					}
-					else if (data == 2) {
+					}else if(data.status == 200) {
 
 						$("#save").fadeIn(1000, function () {
 
 							var n = noty({
-								text: "<span class='fa fa-warning'></span> POR FAVOR DEBE DE SELECCIONAR AL MENOS UN (SI) EN SECTORES A INVERTIR, VERIFIQUE NUEVAMENTE POR FAVOR ...!",
+								text: '<center> ' + data.msg + ' </center>',
 								theme: 'defaultTheme',
-								layout: 'center',
-								type: 'warning',
-								timeout: 5000,
-							});
-							$("#btn-economia").html('<span class="fa fa-save"></span> Agregar y Guardar');
-
-						});
-					}
-					else if (data == 3) {
-
-						$("#save").fadeIn(1000, function () {
-
-							var n = noty({
-								text: "<span class='fa fa-warning'></span> POR FAVOR DEBE DE SELECCIONAR AL MENOS UN (SI) EN PERSONAL VINCULADO, VERIFIQUE NUEVAMENTE POR FAVOR ...!",
-								theme: 'defaultTheme',
-								layout: 'center',
-								type: 'warning',
-								timeout: 5000,
-							});
-							$("#btn-economia").html('<span class="fa fa-save"></span> Agregar y Guardar');
-
-						});
-					}
-					else if (data == 4) {
-
-						$("#save").fadeIn(1000, function () {
-
-							var n = noty({
-								text: "<span class='fa fa-warning'></span> ESTA ECONOMIA DEL CONOCIMIENTO YA SE ENCUENTRA REGISTRADA, VERIFIQUE NUEVAMENTE POR FAVOR ...!",
-								theme: 'defaultTheme',
-								layout: 'center',
-								type: 'warning',
-								timeout: 5000,
-							});
-							$("#btn-economia").html('<span class="fa fa-save"></span> Agregar y Guardar');
-
-						});
-					}
-					else {
-
-						$("#save").fadeIn(1000, function () {
-
-							var n = noty({
-								text: '<center> ' + data + ' </center>',
-								theme: 'defaultTheme',
-								layout: 'center',
+								layout: 'topCenter',
 								type: 'information',
 								timeout: 5000,
 							});
 							$('#MyModalEconomia').modal('hide');
-							$('#secciones').load("formularios.php?BuscaFormularioProcedimiento=si&seccion=" + seccion + "&in=" + industria);
+
+							$("#_sect").show( "fast");
+					        $("#div_otro_sector").hide("slow");
+					        $("#otro_sector").val("");
+
+					        cargar_tabla_economia();
+							
 							$("#saveeconomia")[0].reset();
 							$("#saveeconomia #economia").val("saveeconomia");
 							$("#saveeconomia #nombre_de_fantasia").text("");
@@ -7003,6 +6889,91 @@ $('document').ready(function () {
 							$("#saveeconomia #industria_economia").val("");
 							$("#saveeconomia #anio_economia").val("");
 							$("#btn-economia").html('<span class="fa fa-save"></span> Agregar y Guardar');
+						});
+					}
+				}
+			});
+			return false;
+		}
+		/* form submit */
+	});
+});
+/* FUNCION JQUERY PARA VALIDAR ASIGNACION DE ECONOMIA DEL CONOCIMIENTO */
+
+
+
+
+/* FUNCION JQUERY PARA VALIDAR ASIGNACION DE perfil DEL CONOCIMIENTO */
+$('document').ready(function () {
+	/* validation */
+	$("#saveperfil").validate({
+		rules:
+		{
+			otro_perfil: { required: true, },
+			otro_personal: { required: true, },
+		},
+		messages:
+		{
+			otro_perfil: { required: "Ingrese Otros Sectores" },
+			otro_personal: { required: "Ingrese Otros Personal" },
+		},
+		submitHandler: function (form) {
+
+			var data = $("#saveperfil").serialize();
+			//var seccion = $("#seccioneconomia").val();
+			var industria = $("#id_industria_modal").val();
+
+			$.ajax({
+				type: 'POST',
+				url: '/savePerfil',
+				async: false,
+				data: {
+
+					_token: $('meta[name="csrf-token"]').attr('content'),
+					data:data,
+					id_industria:industria
+
+				},
+				beforeSend: function () {
+					$("#save").fadeOut();
+					$("#btn-perfil").html('<i class="fa fa-refresh"></i> Verificando...');
+				},
+				success: function (data) {
+					if (data.status  == 1) {
+
+						$("#save").fadeIn(1000, function () {
+
+							var n = noty({
+								text: "<span class='fa fa-warning'></span>"+data.msg,
+								theme: 'defaultTheme',
+								layout: 'topCenter',
+								type: 'warning',
+								timeout: 5000,
+							});
+							$("#perfil").html('<span class="fa fa-save"></span> Agregar y Guardar');
+
+						});
+					}else if(data.status == 200) {
+
+						$("#save").fadeIn(1000, function () {
+
+							var n = noty({
+								text: '<center> ' + data.msg + ' </center>',
+								theme: 'defaultTheme',
+								layout: 'topCenter',
+								type: 'information',
+								timeout: 5000,
+							});
+							$('#MyModalPerfil').modal('hide');
+							cargar_tabla_perfil()
+
+							$("#_perfil").show( "fast");
+					        $("#div_otro_perfil").hide("slow");
+					        $("#otro_perfil").val("");
+							
+							$("#saveperfil")[0].reset();
+							
+							$("#btn-perfil").html('<span class="fa fa-save"></span> Agregar y Guardar');
 						});
 					}
 				}

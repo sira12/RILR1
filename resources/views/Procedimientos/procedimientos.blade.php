@@ -64,8 +64,8 @@
                                 <span class="categories" href="#splanta" onclick="muestraForm('splanta');"><i class="fa fa-tasks"></i> Situación de la Planta</span>
                                 <span class="categories" href="#vyf" onclick="muestraForm('vyf');"><i class="fa fa-tasks"></i> Ventas y Facturación</span>
                                 <span class="categories" href="#pyca" onclick="muestraForm('pyca');"><i class="fa fa-tasks"></i> Prevención y Control Ambiental</span>
-                                <span class="categories" id="seccion#7" onclick="CargaFormulario('','');"><i class="fa fa-tasks"></i> Sistemas de Calidad</span>
-                                <span class="categories" id="seccion#8" onclick="CargaFormulario('','');"><i class="fa fa-tasks"></i> Economía del Conocimiento</span>
+                                <span class="categories" href="#sc" onclick="muestraForm('sc');"><i class="fa fa-tasks"></i> Sistemas de Calidad</span>
+                                <span class="categories" href="#ec" onclick="muestraForm('ec');"><i class="fa fa-tasks"></i> Economía del Conocimiento</span>
                                 <span class="categories" id="seccion#9" onclick="CargaFormulario('','');"><i class="fa fa-tasks"></i> Revisión y Confirmación DDJJ</span>
                             </div>
 
@@ -1081,7 +1081,7 @@
                                                         <th>Rol de Trabajador</th>
                                                         <th>Cantidad</th>
                                                         <th>Condicion Laboral</th>
-                                                        
+
                                                         <th>Año</th>
                                                         <th width="12%">Acciones</th>
                                                     </tr>
@@ -1089,7 +1089,7 @@
                                                 <tbody class="BusquedaRapida">
 
 
-                                                   
+
 
                                                 </tbody>
                                             </table>
@@ -1108,7 +1108,7 @@
                                                         <th>Rol de Trabajador</th>
                                                         <th>Cantidad</th>
                                                         <th>Condicion Laboral</th>
-                                                        
+
                                                         <th>Año</th>
                                                         <th width="12%">Acciones</th>
                                                     </tr>
@@ -1116,7 +1116,7 @@
                                                 <tbody class="BusquedaRapida">
 
 
-                                                    
+
 
                                                 </tbody>
                                             </table>
@@ -1192,8 +1192,8 @@
 
 
                                 <section id="vyf">
-                                    
-                                    
+
+
                                     <!-- ###################################### CONSULTA DE VENTAS ###################################### -->
 
                                     <h3 class="card-subtitle mt-3"> Ventas</h3>
@@ -1201,29 +1201,29 @@
                                     <div class='alert alert-danger' style="display:none;">
                                         <center><span class='fa fa-info-circle'></span> POR FAVOR REALICE LA CARGA DE DATOS GENERALES PARA ASIGNAR VENTAS</center>
                                     </div>
-                               
+
                                     <div class="text-right">
                                         <button type="button" class="btn btn-info" data-placement="left" title="Agregar Nueva Venta" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalVenta" data-backdrop="static" data-keyboard="false" onClick="AddIdVentaModal('')"><i class="fa fa-plus-square"></i> Agregar Venta</button>
                                     </div>
-                                   
+
 
                                     <div class="table-responsive mt-3">
-                                        <table  class="table table-deredbor border display table_ventas">
+                                        <table class="table table-deredbor border display table_ventas">
 
                                             <thead>
                                                 <tr bgcolor="#808080" class="text-white" role="row">
                                                     <th>N°</th>
                                                     <th>Clasificación de Venta</th>
-                                                   <th>Provincias</th>
-                                                   <th>Paises</th>
+                                                    <th>Provincias</th>
+                                                    <th>Paises</th>
                                                     <th>Año</th>
                                                     <th width="12%">Acciones</th>
                                                 </tr>
                                             </thead>
                                             <tbody class="BusquedaRapida">
 
-                                                
-                                               
+
+
                                             </tbody>
                                         </table>
                                         <span class="card-subtitle">Nota:
@@ -1231,7 +1231,7 @@
                                         </span>
                                     </div>
 
-                                  
+
 
                                     <hr>
 
@@ -1239,14 +1239,14 @@
 
                                     <h3 class="card-subtitle mt-3"> Facturación </h3>
 
-                                   
-                                        <div class="text-right">
-                                            <button type="button" class="btn btn-info" data-placement="left" title="Agregar Facturación" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalFacturacion" data-backdrop="static" data-keyboard="false" onClick="AddIdFacturacionModal('');"><i class="fa fa-plus-square"></i> Agregar Facturación</button>
-                                        </div>
-                                  
+
+                                    <div class="text-right">
+                                        <button type="button" class="btn btn-info" data-placement="left" title="Agregar Facturación" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalFacturacion" data-backdrop="static" data-keyboard="false" onClick="AddIdFacturacionModal('');"><i class="fa fa-plus-square"></i> Agregar Facturación</button>
+                                    </div>
+
 
                                     <div class="table-responsive mt-3">
-                                        <table  class="table table-deredbor border display table_facturacion">
+                                        <table class="table table-deredbor border display table_facturacion">
 
                                             <thead>
                                                 <tr bgcolor="#808080" class="text-white" role="row">
@@ -1262,9 +1262,9 @@
                                             </thead>
                                             <tbody class="BusquedaRapida">
 
-                                               
-                                                       
-                                                
+
+
+
                                             </tbody>
                                         </table>
                                         <span class="card-subtitle">Nota:
@@ -1272,34 +1272,35 @@
                                         </span>
                                     </div>
 
-                                    
+
 
                                     <hr>
                                 </section>
 
                                 <section id="pyca">
 
-                                     <!-- ###################################### CONSULTA DE EFLUENTES ###################################### -->
+                                    <!-- ###################################### CONSULTA DE EFLUENTES ###################################### -->
 
                                     <h3 class="card-subtitle mt-3"> Efluentes</h3>
 
-                                  
+
                                     <div class='alert alert-danger' style="display:none">
-                                       <center><span class='fa fa-info-circle'></span> POR FAVOR REALICE LA CARGA DE DATOS GENERALES PARA ASIGNAR EFLUENTES</center>
+                                        <center><span class='fa fa-info-circle'></span> POR FAVOR REALICE LA CARGA DE DATOS GENERALES PARA ASIGNAR EFLUENTES</center>
                                     </div>
-                                   
-                                        <div class="text-right">
-                                            <button type="button" class="btn btn-info" data-placement="left" title="Agregar Nuevo Efluente" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalEfluente" data-backdrop="static" data-keyboard="false" onClick="AddIdEfluenteModal('')"><i class="fa fa-plus-square"></i> Agregar Efluente</button>
-                                        </div>
-                                    
+
+                                    <div class="text-right">
+                                        <button type="button" class="btn btn-info" data-placement="left" title="Agregar Nuevo Efluente" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalEfluente" data-backdrop="static" data-keyboard="false" onClick="AddIdEfluenteModal('')"><i class="fa fa-plus-square"></i> Agregar Efluente</button>
+                                    </div>
+
 
                                     <div class="row mt-3"><span class="card-subtitle">Indique los efluentes industriales involucrados en la actividad declarada</span>
 
                                         <div class="table-responsive">
-                                            <table id="default_order" class="table table-deredbor border display">
+                                            <table class="table table-deredbor border display table_efluente">
 
                                                 <thead>
                                                     <tr bgcolor="#808080" class="text-white" role="row">
+                                                        <th>N°</th>
                                                         <th>Efluente</th>
                                                         <th>Tratamiento Residuo</th>
                                                         <th>Destino Final</th>
@@ -1309,21 +1310,9 @@
                                                 </thead>
                                                 <tbody class="BusquedaRapida">
 
-                                                 
-                                                            <tr role="row" class="odd">
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td>
-                                                                    <span style="cursor: pointer;" data-placement="left" title="Ver Efluente" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalDetalleEfluente" data-backdrop="static" data-keyboard="false" onClick="VerEfluente('')"><i class="mdi mdi-eye font-22 text-danger"></i></span>
 
-                                                                    <span style="cursor: pointer;" data-placement="left" title="Actualizar Efluente" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalEfluente" data-backdrop="static" data-keyboard="false" onClick="UpdateEfluente('')"><i class="mdi mdi-table-edit font-22 text-danger"></i></span>
 
-                                                                    <span style="cursor: pointer;" title="Eliminar Efluente" onClick="EliminarEfluente('')"><i class="mdi mdi-delete font-22 text-danger"></i></span>
-                                                                </td>
-                                                            </tr>
-                                                  
+
                                                 </tbody>
                                             </table>
                                             <span class="card-subtitle">Nota:
@@ -1339,22 +1328,23 @@
 
                                     <h3 class="card-subtitle mt-3"> Certificados </h3>
 
-                                   
-                                      <div class='alert alert-danger' style="display:none">
-                                       <center><span class='fa fa-info-circle'></span> POR FAVOR REALICE LA CARGA DE DATOS GENERALES PARA ASIGNAR CERTIFICADOS</center>
-                                       </div>
-                                  
-                                        <div class="text-right">
-                                            <button type="button" class="btn btn-info" data-placement="left" title="Agregar Certificados" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalCertificado" data-backdrop="static" data-keyboard="false" onClick="AddIdCertificadoModal('')"><i class="fa fa-plus-square"></i> Agregar Certificado</button>
-                                        </div>
-                                   
+
+                                    <div class='alert alert-danger' style="display:none">
+                                        <center><span class='fa fa-info-circle'></span> POR FAVOR REALICE LA CARGA DE DATOS GENERALES PARA ASIGNAR CERTIFICADOS</center>
+                                    </div>
+
+                                    <div class="text-right">
+                                        <button type="button" class="btn btn-info" data-placement="left" title="Agregar Certificados" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalCertificado" data-backdrop="static" data-keyboard="false" onClick="AddIdCertificadoModal('')"><i class="fa fa-plus-square"></i> Agregar Certificado</button>
+                                    </div>
+
 
                                     <div class="table-responsive mt-3">
-                                        <table id="default_order" class="table table-deredbor border display">
+                                        <table class="table table-deredbor border display table_certificados_list">
 
                                             <thead>
                                                 <tr bgcolor="#808080" class="text-white" role="row">
-                                                    <th>Documentación</th>
+                                                    <th>N°</th>
+                                                    <th>Certificado</th>
                                                     <th>Estado</th>
                                                     <th>Fecha Inicial</th>
                                                     <th>Fecha Final</th>
@@ -1364,62 +1354,222 @@
                                             </thead>
                                             <tbody class="BusquedaRapida">
 
-                                              
-                                                        <tr role="row" class="odd">
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td>
-                                                                <span style="cursor: pointer;" data-placement="left" title="Ver Certificado" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalDetalleCertificado" data-backdrop="static" data-keyboard="false" onClick="VerCertificado('')"><i class="mdi mdi-eye font-22 text-danger"></i></span>
 
-                                                                <span style="cursor: pointer;" data-placement="left" title="Actualizar Certificado" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalUpdateCertificado" data-backdrop="static" data-keyboard="false" onClick="UpdateCertificado('');"><i class="mdi mdi-table-edit font-22 text-danger"></i></span>
 
-                                                                <span style="cursor: pointer;" title="Eliminar Certificado" onClick="EliminarCertificado('')"><i class="mdi mdi-delete font-22 text-danger"></i></span>
-                                                            </td>
-                                                        </tr>
-                                                
+
                                             </tbody>
                                         </table>
                                         <span class="card-subtitle">Nota:
                                             <i class="mdi mdi-eye text-danger font-16"></i>(Ver Certificado) - <i class="mdi mdi-table-edit text-danger font-16"></i>(Editar Certificado) - <i class="mdi mdi-delete text-danger font-16"></i>(Eliminar Certificado)
                                         </span>
                                     </div>
+                                </section>
+
+                                <section id="sc">
+
+
+                                    <h3 class="card-subtitle mt-3"> Sistemas de Calidad </h3>
+
+
+                                    <div class='alert alert-danger' style="display:none">
+                                        <center><span class='fa fa-info-circle'></span> POR FAVOR REALICE LA CARGA DE DATOS GENERALES PARA ASIGNAR NORMAS DE CALIDAD</center>
+                                    </div>
+
+                                    <div class="text-right">
+                                        <button type="button" class="btn btn-info" data-placement="left" title="Agregar Norma de Calidad" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalSistema" data-backdrop="static" data-keyboard="false" onClick="AddIdSistemaModal('')"><i class="fa fa-plus-square"></i> Agregar Norma de Calidad</button>
+                                    </div>
+
+
+                                    <div class="row mt-3"><span class="card-subtitle">Identifique, si tuviere, las Normas de Calidad Nacionales y/o Internacionales implementadas</span>
+                                        <div class="table-responsive">
+                                            <table class="table table-deredbor border display table_sc">
+
+                                                <thead>
+                                                    <tr bgcolor="#808080" class="text-white" role="row">
+                                                        <th>Nº</th>
+                                                        <th>Norma de Calidad</th>
+                                                        <th>Estado</th>
+                                                        <th>Fecha Inicial</th>
+                                                        <th>Fecha Final</th>
+                                                        <th>Año</th>
+                                                        <th width="12%">Acciones</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="BusquedaRapida">
+
+
+
+                                                </tbody>
+                                            </table>
+                                            <span class="card-subtitle">Nota:
+                                                <i class="mdi mdi-eye text-danger font-16"></i>(Ver Sistema) - <i class="mdi mdi-table-edit text-danger font-16"></i>(Editar Sistema) - <i class="mdi mdi-delete text-danger font-16"></i>(Eliminar Sistema)
+                                            </span>
+                                        </div>
 
                                     </div>
 
                                     <hr>
-                                    
+
+                                    <!-- ###################################### CONSULTA DE PROMOCIONES ###################################### -->
+
+                                    <h3 class="card-subtitle mt-3"> Promociones </h3>
+
+
+                                    <div class="text-right">
+                                        <button type="button" class="btn btn-info" data-placement="left" title="Agregar Promoción" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalPromocion" data-backdrop="static" data-keyboard="false" onClick="AddIdPromocionModal('')"><i class="fa fa-plus-square"></i> Agregar Promoción</button>
+                                    </div>
+
+
+                                    <div class="table-responsive mt-3">
+                                        <table class="table table-deredbor border display table_promo">
+
+                                            <thead>
+                                                <tr bgcolor="#808080" class="text-white" role="row">
+                                                    <th>Nº</th>
+                                                    <th>Descripción de Promoción</th>
+                                                    <th>Estado</th>
+                                                    <th>Fecha Inicial</th>
+                                                    <th>Fecha Final</th>
+                                                    <th>Año</th>
+                                                    <th width="12%">Acciones</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="BusquedaRapida">
+
+
+
+                                            </tbody>
+                                        </table>
+                                        <span class="card-subtitle">Nota:
+                                            <i class="mdi mdi-eye text-danger font-16"></i>(Ver Promoción) - <i class="mdi mdi-table-edit text-danger font-16"></i>(Editar Promoción) - <i class="mdi mdi-delete text-danger font-16"></i>(Eliminar Promoción)
+                                        </span>
+                                    </div>
+
+
+
+                                    <hr>
                                 </section>
+
+
+                                <section id="ec">
+
+
+                                    <!-- ###################################### CONSULTA DE ECONOMIA DEL CONOCIMIENTO ###################################### -->
+
+                                    <h3 class="card-subtitle mt-3"> Economía del Conocimiento </h3>
+
+
+                                    <div class="alert alert-danger" style="display:none">
+                                        <center><span class="fa fa-info-circle"></span> POR FAVOR REALICE LA CARGA DE DATOS GENERALES PARA ASIGNAR ECONOMIA DEL CONOCIMIENTO</center>
+                                    </div>
+
+                                    <div class="text-right">
+                                        <button type="button" class="btn btn-info" data-placement="left" title="Agregar Norma de Calidad" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalEconomia" data-backdrop="static" data-keyboard="false" onClick="AddIdEconomiaModal('')"><i class=" fa fa-plus-square"></i> Agregar Economía</button>
+                                    </div>
+
+
+                                    <div class="table-responsive mt-3">
+                                        <table  class="table table-deredbor border display table_economia">
+
+                                            <thead>
+                                                <tr bgcolor="#808080" class="text-white" role="row">
+                                                    <th>Nº</th>
+                                                    <th>Inversión en Sector</th>
+                                                    <th>Año</th>
+                                                    <th width="12%">Acciones</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="BusquedaRapida">
+
+
+                                               
+
+                                            </tbody>
+                                        </table>
+                                        <span class="card-subtitle">Nota:
+                                            <i class="mdi mdi-eye text-danger font-16"></i>(Ver Economía) - <i class="mdi mdi-table-edit text-danger font-16"></i>(Editar Economía) - <i class="mdi mdi-delete text-danger font-16"></i>(Eliminar Economía)
+                                        </span>
+                                    </div>
+
+
+
+                                    <hr>
+
+
+
+
+
+                                    <!-- ###################################### Perfil ###################################### -->
+
+                                    <h3 class="card-subtitle mt-3"> Perfil asociado a la industria </h3>
+
+
+
+                                    <div class="text-right">
+                                        <button type="button" class="btn btn-info" data-placement="left" title="Agregar Perfil" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalPerfil" data-backdrop="static" data-keyboard="false" onClick="AddIdEconomiaModal('')"><i class=" fa fa-plus-square"></i> Agregar Perfil</button>
+                                    </div>
+
+
+                                    <div class="table-responsive mt-3">
+                                        <table  class="table table-deredbor border display table_perfil ">
+
+                                            <thead>
+                                                <tr bgcolor="#808080" class="text-white" role="row">
+                                                    <th>Nº</th>
+                                                    <th>Perfil</th>
+                                                    <th>Año</th>
+                                                    <th width="12%">Acciones</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="BusquedaRapida">
+
+
+                                                
+
+                                            </tbody>
+                                        </table>
+                                        <span class="card-subtitle">Nota:
+                                             <i class="mdi mdi-delete text-danger font-16"></i>(Eliminar Perfil)
+                                        </span>
+                                    </div>
+
+
+
+                                    <hr>
+
+
+                                </section>
+
+
                             </div><!-- Div secciones -->
 
 
                         </div><!-- div form body-->
-
-
                     </div>
+
+
                 </div>
             </div>
-
         </div>
-        <!-- End Row -->
 
-
-        <!-- ============================================================== -->
-        <!-- End PAge Content -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
-        <!-- Right sidebar -->
-        <!-- ============================================================== -->
-        <!-- .right-sidebar -->
-        <!-- ============================================================== -->
-        <!-- End Right sidebar -->
-        <!-- ============================================================== -->
     </div>
+    <!-- End Row -->
+
+
     <!-- ============================================================== -->
-    <!-- End Page wrapper  -->
+    <!-- End PAge Content -->
     <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- Right sidebar -->
+    <!-- ============================================================== -->
+    <!-- .right-sidebar -->
+    <!-- ============================================================== -->
+    <!-- End Right sidebar -->
+    <!-- ============================================================== -->
+</div>
+<!-- ============================================================== -->
+<!-- End Page wrapper  -->
+<!-- ============================================================== -->
 </div>
 
 

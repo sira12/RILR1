@@ -39,7 +39,7 @@
 
                     <h4 class="card-subtitle text-muted"> Código de Actividad debe de coincidir con la actividad declarada en AFIP y DGIP</h4>
 
-                
+
 
                     <div class="row">
                         <div class="col-md-6">
@@ -48,17 +48,7 @@
                                 <input type="hidden" name="seccionactividad" id="seccionactividad" value="">
                                 <input type="hidden" name="proceso" id="actividad" value="saveactividades" />
                                 <input type="hidden" name="id_rel_industria_actividad" id="id_rel_industria_actividad">
-                                <input type="hidden" name="id_industria_modal" id="id_industria_modal"
-
-                                 
-                                        @if(isset($id_industria))
-                                            value="{{$id_industria}}"
-                                        @else 
-                                         value=""
-
-                                        @endif     
-                                   
-                                 >
+                                <input type="hidden" name="id_industria_modal" id="id_industria_modal" @if(isset($id_industria)) value="{{$id_industria}}" @else value="" @endif>
                                 <input type="hidden" name="id_actividad" id="id_actividad" />
                                 <input type="text" class="form-control" name="search_codigo" id="search_codigo" placeholder="Realice la búsqueda de Actividad por Código" autocomplete="off" required="" aria-required="true" />
                                 <i class="fa fa-search form-control-feedback"></i>
@@ -532,7 +522,7 @@
                     <h3 class="card-subtitle text-muted"><i class="fa fa-cube"></i> Asignar Insumo</h3>
                     <hr>
 
-                   
+
                     <div class="row">
                         <div class="col-md-12">
                             <label class="control-label">Insumo Utilizado: <span style="cursor: pointer;" class="mdi mdi-alert-circle text-danger" data-container="body" title="Notificación: Ingrese Nombre de Insumo y seleccione en el Listado que se mostrará, en caso de no aparecer, escribala y el sistema se encargará de la asignación del mismo."></span><span class="symbol required"></span></label>
@@ -711,7 +701,7 @@
                                 <input type="hidden" name="industria_servicio_basico" id="industria_servicio_basico">
                                 <input type="hidden" name="anio_basico" id="anio_basico">
                                 <input type="hidden" name="zona_local" id="zona_local">
-                                
+
                                 <br />
                             </div>
                         </div>
@@ -720,11 +710,11 @@
                     <div class="table-responsive">
                         <table id="ser_basico" class="table2 display">
                             <thead>
-                                
-                                    <th>Servicio Básico <span class="symbol required"></span></th>
 
-                                    <th>Importe Total Anual <span class="symbol required"></span></th>
-                                
+                                <th>Servicio Básico <span class="symbol required"></span></th>
+
+                                <th>Importe Total Anual <span class="symbol required"></span></th>
+
                             </thead>
                             <tbody>
 
@@ -776,7 +766,7 @@
                                 <input type="hidden" name="id_rel_industria_servicios_basicos" id="id_rel_industria_servicios_basicos">
                                 <input type="hidden" name="industria_servicio_basico_update" id="industria_servicio_basico_update">
                                 <input type="hidden" name="anio_basico_update" id="anio_basico_update">
-                                
+
                                 <br />
                             </div>
                         </div>
@@ -842,7 +832,7 @@
                     <h3 class="card-subtitle text-muted"><i class="fa fa-cube"></i> Asignar Combustible</h3>
                     <hr>
 
-                
+
 
                     <div class="row">
                         <div class="col-md-6">
@@ -985,7 +975,7 @@
                     <h3 class="card-subtitle text-muted"><i class="fa fa-cube"></i> Asignar Otros Servicios</h3>
                     <hr>
 
-                
+
 
                     <div class="row">
                         <div class="col-md-6">
@@ -1148,7 +1138,7 @@
                                 <input type="hidden" name="industria_devengados" id="industria_devengados">
                                 <input type="hidden" name="anio_devengado" id="anio_devengado">
                                 <input type="hidden" name="zona_devengado" id="zona_devengado">
-                                
+
                                 <br />
                             </div>
                         </div>
@@ -1165,7 +1155,7 @@
                             </thead>
                             <tbody>
 
-                                
+
 
                             </tbody>
                         </table>
@@ -1208,8 +1198,8 @@
                                 <input type="hidden" name="id_rel_industria_devengados_update" id="id_rel_industria_devengados_update">
                                 <input type="hidden" name="industria_devengados_update" id="industria_devengados_update">
                                 <input type="hidden" name="anio_devengado_update" id="anio_devengado_update">
-                                
-                               
+
+
                             </div>
                         </div>
                     </div>
@@ -1219,13 +1209,13 @@
                             <thead>
                                 <tr role="row">
                                     <th>Servicio <span class="symbol required"></span></th>
-                                  
+
                                     <th>Importe Total Anual <span class="symbol required"></span></th>
                                 </tr>
                             </thead>
                             <tbody>
 
-                                
+
                             </tbody>
                         </table>
                     </div>
@@ -1299,7 +1289,7 @@
                     <h3 class="card-subtitle text-muted"><i class="fa fa-cube"></i> Situación de Planta</h3>
                     <hr>
 
-                
+
 
                     <div class="row">
                         <div class="col-md-6">
@@ -1377,7 +1367,7 @@
                         <div class="col-md-3 inversion_i" style="display:none">
                             <div class="form-group has-feedback">
                                 <label class="control-label">Inversión Activo Fijo: <span class="symbol required"></span></label>
-                                <input type="text" class="form-control" name="inversion_activo_fijo" id="inversion_activo_fijo" placeholder="Ingrese Inversión Activo Fijo" onKeyPress="EvaluateText('%f', this);" onBlur="this.value = NumberFormat(this.value, '2', '.', '')" autocomplete="off"  required="" aria-required="true">
+                                <input type="text" class="form-control" name="inversion_activo_fijo" id="inversion_activo_fijo" placeholder="Ingrese Inversión Activo Fijo" onKeyPress="EvaluateText('%f', this);" onBlur="this.value = NumberFormat(this.value, '2', '.', '')" autocomplete="off" required="" aria-required="true">
                                 <i class="fa fa-pencil form-control-feedback"></i>
                             </div>
                         </div>
@@ -1478,7 +1468,7 @@
 
                 <div class="modal-body">
 
-                   
+
 
                     <div class="row selectMotivo">
                         <div class="col-md-12">
@@ -1489,7 +1479,7 @@
                                 <input type="hidden" name="id_rel_industria_motivo_ociosidad" id="id_rel_industria_motivo_ociosidad">
                                 <input type="hidden" name="industria_motivo" id="industria_motivo">
                                 <input type="hidden" name="anio_motivo" id="anio_motivo">
-                                
+
                                 <select class="form-control" id="id_motivo_ociosidad" name="id_motivo_ociosidad" required="" aria-required="true">
                                     <option value=""> -- SELECCIONE -- </option>
                                 </select>
@@ -1501,8 +1491,8 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                    <label  for="check_otro">El motivo no existe en el listado anterior:</label>
-                                    <input type="checkbox" id="check_otro" name="check_otro" >
+                                <label for="check_otro">El motivo no existe en el listado anterior:</label>
+                                <input type="checkbox" id="check_otro" name="check_otro">
                             </div>
                         </div>
                     </div>
@@ -1598,7 +1588,7 @@
                                 <select class="form-control" id="rol_trabajador" name="rol_trabajador" required="" aria-required="true">
                                     <option value=""> -- SELECCIONE -- </option>
 
-                                   
+
 
                                 </select>
                             </div>
@@ -1608,12 +1598,12 @@
                     <div class="table-responsive">
                         <table id="p_o" class="table2 display" border="0">
                             <thead id="thead_p_o">
-                                
+
                             </thead>
                             <tbody>
 
 
-                                
+
 
                             </tbody>
                         </table>
@@ -1659,7 +1649,7 @@
                                 <input type="hidden" name="proceso" id="personalupdate" value="updatepersonal" />
                                 <input type="hidden" name="id_rel_industria_personal_update" id="id_rel_industria_personal_update">
                                 <input type="hidden" name="anio_personal_update" id="anio_personal_update">
-                               
+
                             </div>
                         </div>
                     </div>
@@ -1677,12 +1667,12 @@
                     <div class="table-responsive">
                         <table id="p_o_update" class="table2 display" border="0">
                             <thead id="thead_p_o_update">
-                                
+
                             </thead>
                             <tbody>
 
 
-                                
+
 
                             </tbody>
                         </table>
@@ -1750,7 +1740,7 @@
         <div class="modal-content">
             <div class="modal-header bg-dark">
                 <h4 class="modal-title text-white" id="myModalLabel"><i class="fa fa-tasks"></i> Ventas Asociada a la Industria</h4>
-               
+
             </div>
 
             <form class="form form-material" name="saveventa" id="saveventa" action="#">
@@ -1760,12 +1750,12 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group has-feedback">
-                                
+
                                 <input type="hidden" name="seccionventa" id="seccionventa" value="">
-                                <input type="hidden" name="id_destino_ventas" id="id_destino_ventas"  />
+                                <input type="hidden" name="id_destino_ventas" id="id_destino_ventas" />
                                 <input type="hidden" name="industria_venta" id="industria_venta">
                                 <input type="hidden" name="anio_venta" id="anio_venta">
-                                
+
                             </div>
                         </div>
                     </div>
@@ -1788,33 +1778,33 @@
                         <div class="col-md-12">
                             <div class="form-group has-feedback">
                                 <label class="control-label">Ventas en Provincias: <span class="symbol required"></span></label>
-                              <br>
-                                <select  style="width: 50%" id="ventas_provincias" name="ventas_provincias[]" multiple="multiple" required="true" aria-required="true">
+                                <br>
+                                <select style="width: 50%" id="ventas_provincias" name="ventas_provincias[]" multiple="multiple" required="true" aria-required="true">
 
-                                
-                                </select>  
-                            </div>   
+
+                                </select>
+                            </div>
                         </div>
 
                         <div class="col-md-12">
                             <div class="form-group has-feedback">
                                 <label class="control-label">Ventas en Paises Extranjeros: <span class="symbol required"></span></label>
                                 <br>
-                                <select  style="width: 50%" id="ventas_paises" name="ventas_paises[]" multiple="multiple" required="true" aria-required="true">
+                                <select style="width: 50%" id="ventas_paises" name="ventas_paises[]" multiple="multiple" required="true" aria-required="true">
 
-                                
-                                </select>  
-                            </div>   
+
+                                </select>
+                            </div>
                         </div>
 
                     </div>
                 </div>
 
                 <div class="modal-footer">
-                        <button type="submit" name="btn-venta" id="btn-venta" class="btn btn-danger"><span class="fa fa-save"></span> Guardar</button>
-                        <button type="button" style="display:none; " name="btn-venta-update" id="btn-venta-update" class="btn btn-danger"><span class="fa fa-save"></span> Guardar</button>
-                        <button type="button" class="btn btn-dark" class="close" data-dismiss="modal" aria-hidden="true" id="btn-cancelar-venta" onclick="btn_cancelar_venta()"><span class="fa fa-trash-o"></span> Cancelar</button>
-                         <button id="btn-cerrar-venta" type="button" style="display:none; " class="btn btn-dark" class="close" data-dismiss="modal" aria-hidden="true" onclick="btn_cancelar_venta()"><span class="fa fa-trash-o"></span> Cerrar</button>
+                    <button type="submit" name="btn-venta" id="btn-venta" class="btn btn-danger"><span class="fa fa-save"></span> Guardar</button>
+                    <button type="button" style="display:none; " name="btn-venta-update" id="btn-venta-update" class="btn btn-danger"><span class="fa fa-save"></span> Guardar</button>
+                    <button type="button" class="btn btn-dark" class="close" data-dismiss="modal" aria-hidden="true" id="btn-cancelar-venta" onclick="btn_cancelar_venta()"><span class="fa fa-trash-o"></span> Cancelar</button>
+                    <button id="btn-cerrar-venta" type="button" style="display:none; " class="btn btn-dark" class="close" data-dismiss="modal" aria-hidden="true" onclick="btn_cancelar_venta()"><span class="fa fa-trash-o"></span> Cerrar</button>
                 </div>
             </form>
 
@@ -2078,13 +2068,13 @@
                     <div class="row mt-3">
                         <div class="col-md-12">
                             <div class="form-group has-feedback">
-                               
+
                                 <input type="hidden" name="seccionfacturacion" id="seccionfacturacion" value="">
                                 <input type="hidden" name="proceso" id="facturacion" value="savefacturacion" />
                                 <input type="hidden" name="id_facturacion" id="id_facturacion">
                                 <input type="hidden" name="industria_facturacion" id="industria_facturacion">
                                 <input type="hidden" name="anio_facturacion" id="anio_facturacion">
-                               
+
                             </div>
                         </div>
                     </div>
@@ -2094,12 +2084,12 @@
                     <table id="clasif_ingreso" class="table2 display">
                         <thead id="clasif_ingreso_2">
                         </thead>
-                      
+
                         <tbody>
                         </tbody>
                     </table>
 
-                    
+
 
                     <br>
 
@@ -2205,14 +2195,7 @@
 
                 <div class="modal-body">
 
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group has-feedback">
-                                
-                                <br />
-                            </div>
-                        </div>
-                    </div>
+
 
                     <div class="row">
                         <div class="col-md-12">
@@ -2221,10 +2204,9 @@
                                 <input type="hidden" name="seccionefluente" id="seccionefluente" value="">
                                 <input type="hidden" name="proceso" id="efluente" value="saveefluente" />
                                 <input type="hidden" name="id_rel_industria_efluente" id="id_rel_industria_efluente">
-                                <input type="hidden" name="industria_efluente" id="industria_efluente">
-                                <input type="hidden" name="anio_efluente" id="anio_efluente">
-                                <input type="hidden" name="id_efluente" id="id_efluente" />
-                                <input type="text" class="form-control" name="search_efluente" id="search_efluente" placeholder="Realice la Búsqueda de Efluente o Ingrese Descripción" autocomplete="off" required="" aria-required="true" />
+
+                                <input type="hidden" name="id_efluente_e" id="id_efluente_e" />
+                                <input type="text" class="form-control" name="search_efluente_e" id="search_efluente_e" placeholder="Realice la Búsqueda de Efluente o Ingrese Descripción" autocomplete="off" required="" aria-required="true" />
                                 <i class="fa fa-search form-control-feedback"></i>
                             </div>
                         </div>
@@ -2252,16 +2234,8 @@
 
                 <div class="modal-footer">
                     <button type="submit" name="btn-efluente" id="btn-efluente" class="btn btn-danger"><span class="fa fa-save"></span> Guardar</button>
-                    <button class="btn btn-dark" type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="
-                document.getElementById('efluente').value = 'saveefluente',
-                document.getElementById('id_rel_industria_efluente').value = '',
-                document.getElementById('industria_efluente').value = '',
-                document.getElementById('anio_efluente').value = '',
-                document.getElementById('id_efluente').value = '',
-                document.getElementById('search_efluente').value = '',
-                document.getElementById('tratamiento_residuo').value = '',
-                document.getElementById('destino').value = ''
-                "><span class="fa fa-trash-o"></span> Cancelar</button>
+                    <button type="button" style="display:none" name="btn-efluente-update" id="btn-efluente-update" class="btn btn-danger"><span class="fa fa-save"></span> Guardar</button>
+                    <button class="btn btn-dark" type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="btn_cancelar_ef()"><span class="fa fa-trash-o"></span> Cancelar</button>
                 </div>
             </form>
 
@@ -2322,8 +2296,8 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group has-feedback">
-                                
-                                <br />
+
+
                                 <input type="hidden" name="seccioncertificado" id="seccioncertificado" value="">
                                 <input type="hidden" name="proceso" id="certificado" value="savecertificado" />
                                 <input type="hidden" name="industria_certificado" id="industria_certificado">
@@ -2333,16 +2307,9 @@
                     </div>
 
                     <div class="table-responsive">
-                        <table id="default_order" class="table2 display" border="0">
-                            <thead>
-                                <tr role="row">
-                                    <th>Documentación <span class="symbol required"></span></th>
-                                    <th>No Posee </th>
-                                    <th>En Trámite </th>
-                                    <th>Posee </th>
-                                    <th>Fecha Inicial</th>
-                                    <th>Fecha Final</th>
-                                </tr>
+                        <table class="table2 display table_certificado_modal" border="0">
+                            <thead id="thead_c">
+
                             </thead>
                             <tbody>
 
@@ -2418,7 +2385,7 @@
                                 <input type="hidden" name="id_rel_industria_certificado" id="id_rel_industria_certificado">
                                 <input type="hidden" name="industria_certificado_update" id="industria_certificado_update">
                                 <input type="hidden" name="anio_certificado_update" id="anio_certificado_update">
-                                
+
                                 <br />
                             </div>
                         </div>
@@ -2427,7 +2394,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group has-feedback">
-                                <label class="control-label">Documentación: <span class="symbol required"></span></label>
+                                <label class="control-label">Certificado: <span class="symbol required"></span></label>
                                 <br /><abbr title="Documentación"><label id="nombre_certificado"></label></abbr>
                             </div>
                         </div>
@@ -2452,7 +2419,7 @@
                         <div class="col-md-6">
                             <div class="form-group has-feedback">
                                 <label class="control-label">Fecha Inicial: <span class="symbol required"></span></label>
-                                <input type="text" class="form-control desde" name="inicio_certificado" id="inicio_certificado" placeholder="Ingrese Fecha Inicial" autocomplete="off" disabled="" required="" aria-required="true" />
+                                <input type="text" class="form-control desde" name="inicio_certificado" id="inicio_certificado" placeholder="Ingrese Fecha Inicial" autocomplete="off" required="" aria-required="true" />
                                 <i class="fa fa-calendar form-control-feedback"></i>
                             </div>
                         </div>
@@ -2460,7 +2427,7 @@
                         <div class="col-md-6">
                             <div class="form-group has-feedback">
                                 <label class="control-label">Fecha Final: <span class="symbol required"></span></label>
-                                <input type="text" class="form-control hasta" name="fin_certificado" id="fin_certificado" placeholder="Ingrese Fecha Final" autocomplete="off" disabled="" required="" aria-required="true" />
+                                <input type="text" class="form-control hasta" name="fin_certificado" id="fin_certificado" placeholder="Ingrese Fecha Final" autocomplete="off" required="" aria-required="true" />
                                 <i class="fa fa-calendar form-control-feedback"></i>
                             </div>
                         </div>
@@ -2543,8 +2510,8 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group has-feedback">
-                                
-                                <br />
+
+
                                 <input type="hidden" name="seccionsistema" id="seccionsistema" value="">
                                 <input type="hidden" name="proceso" id="sistema" value="savesistema" />
                                 <input type="hidden" name="industria_sistema" id="industria_sistema">
@@ -2566,36 +2533,9 @@
                                         <th>Fecha Final</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="tbody_sa_modal">
 
-                                    <tr role="row" class="odd">
-                                        <td><input type="hidden" name="id_sistema_de_calidad[]" id="id_sistema_de_calidad" value="" /><label></label></td>
 
-                                        <td class="text-center">
-                                            <div class="custom-control custom-radio custom-control-inline">
-                                                <input type="radio" name="checkbox[]" id="name4_" value="NO POSEE" class="custom-control-input" onClick="ProcesarSistema('NO POSEE',);" checked="checked">
-                                                <label class="custom-control-label" for="name4_"></label>
-                                            </div>
-                                        </td>
-
-                                        <td class="text-center">
-                                            <div class="custom-control custom-radio custom-control-inline">
-                                                <input type="radio" name="checkbox[]" id="name5_" value="EN TRAMITE" class="custom-control-input" onClick="ProcesarSistema('EN TRAMITE',);">
-                                                <label class="custom-control-label" for="name5_"></label>
-                                            </div>
-                                        </td>
-
-                                        <td class="text-center">
-                                            <div class="custom-control custom-radio custom-control-inline">
-                                                <input type="radio" name="checkbox[]" id="name6_" value="POSEE" class="custom-control-input" onClick="ProcesarSistema('POSEE',);">
-                                                <label class="custom-control-label" for="name6_"></label>
-                                            </div>
-                                        </td>
-
-                                        <td class="text-center"><input type="text" class="form-control calidad" name="inicio_sistema[]" id="inicio_sistema_" placeholder="Ingrese Fecha Inicial" autocomplete="off" style="width:100%;height:40px;background:#f0f9fc;border-radius:5px 5px 5px 5px;" disabled="" title="Ingrese Fecha Inicial" required="" aria-required="true"></td>
-
-                                        <td class="text-center"><input type="text" class="form-control calidad" name="fin_sistema[]" id="fin_sistema_" placeholder="Ingrese Fecha Final" autocomplete="off" style="width:100%;height:40px;background:#f0f9fc;border-radius:5px 5px 5px 5px;" disabled="" title="Ingrese Fecha Final" required="" aria-required="true"></td>
-                                    </tr>
 
                                 </tbody>
                             </table>
@@ -2641,8 +2581,8 @@
                                 <input type="hidden" name="id_rel_industria_sistema" id="id_rel_industria_sistema">
                                 <input type="hidden" name="industria_sistema_update" id="industria_sistema_update">
                                 <input type="hidden" name="anio_sistema_update" id="anio_sistema_update">
-                                
-                                <br />
+
+
                             </div>
                         </div>
                     </div>
@@ -2765,7 +2705,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group has-feedback">
-                                
+
                                 <br />
                                 <input type="hidden" name="seccionpromocion" id="seccionpromocion" value="">
                                 <input type="hidden" name="proceso" id="promocion" value="savepromocion" />
@@ -2787,36 +2727,9 @@
                                     <th>Fecha Final</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="tbody_promo">
 
-                                <tr role="row" class="odd">
-                                    <td><input type="hidden" name="id_promocion_industrial[]" id="id_promocion_industrial" value="" /><label></label></td>
 
-                                    <td class="text-center">
-                                        <div class="custom-control custom-radio custom-control-inline">
-                                            <input type="radio" name="checkbox[]" id="name7_" value="NO POSEE" class="custom-control-input">
-                                            <label class="custom-control-label" for="name7_" onClick="ProcesarPromocion('NO POSEE',);"></label>
-                                        </div>
-                                    </td>
-
-                                    <td class="text-center">
-                                        <div class="custom-control custom-radio custom-control-inline">
-                                            <input type="radio" name="checkbox[]" id="name8_" value="EN TRAMITE" class="custom-control-input" onClick="ProcesarPromocion('EN TRAMITE',);">
-                                            <label class="custom-control-label" for="name8_"></label>
-                                        </div>
-                                    </td>
-
-                                    <td class="text-center">
-                                        <div class="custom-control custom-radio custom-control-inline">
-                                            <input type="radio" name="checkbox[]" id="name9_" value="POSEE" class="custom-control-input" onClick="ProcesarPromocion('POSEE',);">
-                                            <label class="custom-control-label" for="name9_"></label>
-                                        </div>
-                                    </td>
-
-                                    <td class="text-center"><input type="text" class="form-control calendario" name="inicio_promocion[]" id="inicio_promocion_" placeholder="Ingrese Fecha Inicial" autocomplete="off" style="width:100%;height:40px;background:#f0f9fc;border-radius:5px 5px 5px 5px;" disabled="" title="Ingrese Fecha Inicial" required="" aria-required="true"></td>
-
-                                    <td class="text-center"><input type="text" class="form-control calendario" name="fin_promocion[]" id="fin_promocion_" placeholder="Ingrese Fecha Final" autocomplete="off" style="width:100%;height:40px;background:#f0f9fc;border-radius:5px 5px 5px 5px;" disabled="" title="Ingrese Fecha Final" required="" aria-required="true"></td>
-                                </tr>
 
                             </tbody>
                         </table>
@@ -2861,7 +2774,7 @@
                                 <input type="hidden" name="id_rel_industria_promocion_industrial" id="id_rel_industria_promocion_industrial">
                                 <input type="hidden" name="industria_promocion_update" id="industria_promocion_update">
                                 <input type="hidden" name="anio_promocion_update" id="anio_promocion_update">
-                                
+
                                 <br />
                             </div>
                         </div>
@@ -2984,7 +2897,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group has-feedback">
-                                
+
                                 <input type="hidden" name="seccioneconomia" id="seccioneconomia" value="">
                                 <input type="hidden" name="proceso" id="economia" value="saveeconomia" />
                                 <input type="hidden" name="id_economia" id="id_economia">
@@ -2995,7 +2908,53 @@
                         </div>
                     </div>
 
-                    <div id="muestraeconomia"></div>
+                    <div id="muestraeconomia">
+
+
+                        <span class="card-subtitle text-muted">Piensa invertir en algún sector previsto de la Economía del Conocimiento</span>
+
+                        <div class="table-responsive" id="_sect">
+                            <table id="default_order" class="table2 display">
+                                <thead>
+                                    <tr role="row" class="text-left">
+                                        <th width="80%">Sectores a Invertir</th>
+                                        <th width="20%">Corresponde</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbody_sector">
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-md-12">
+                               
+                                <div class="form-group has-feedback">
+                                    <div class="custom-control custom-radio custom-control-inline">
+                                        <label  for="otro">Otro Sector </label>
+                                        <input style="margin-left: 10px; margin-top: 4px;" type="checkbox"  name="otro" id="cb_otro_sector" value="otro_sector">
+                                   
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row" id="div_otro_sector" style="display:none">
+                            <div class="col-md-12">
+                                <label class="control-label">Otro Sector: <span class="symbol required"></span></label>
+                                <div class="form-group has-feedback">
+                                    <input type="text" class="form-control" name="otro_sector" id="otro_sector" placeholder="Ingrese Otro Sector" autocomplete="off" required="" aria-required="true" >
+                                    <i class="fa fa-pencil form-control-feedback"></i>
+                                </div>
+                            </div>
+                        </div>
+                       
+
+                       
+
+                    </div>
 
                 </div>
 
@@ -3009,6 +2968,92 @@
                 document.getElementById('otro_sector').value = '',
                 document.getElementById('otro_personal').value = ''
                 "><span class="fa fa-trash-o"></span> Cancelar</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+<!-- Modal para Asignar Economia del Conocimiento -->
+
+
+
+<!-- Modal para Asignar Economia del Conocimiento -->
+<div id="MyModalPerfil" class="modal fade" tabindex="-1" role="dialog" style="overflow-y: scroll;" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-dark">
+                <h4 class="modal-title text-white" id="myModalLabel"><i class="fa fa-tasks"></i> Perfil del Personal Asociado a la Industria</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><img src="{{asset('assets/images/close.png')}}" /></button>
+            </div>
+
+            <form class="form form-material" name="saveperfil" id="saveperfil" action="#">
+
+                <div class="modal-body">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group has-feedback">
+
+                                <!--<input type="hidden" name="seccioneconomia" id="seccioneconomia" value="">
+                                <input type="hidden" name="proceso" id="economia" value="saveperfil" />
+                                <input type="hidden" name="id_economia" id="id_economia">
+                                <input type="hidden" name="industria_economia" id="industria_economia">
+                                <input type="hidden" name="anio_economia" id="anio_economia">
+                                <br /> -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div >
+
+
+                        <span class="card-subtitle text-muted">Perfil necesario para el Personal vinculado al sector de la Economía del Conocimiento</span>
+
+                        <div class="table-responsive" id="_perfil">
+                            <table id="default_order" class="table2 display">
+                                <thead>
+                                    <tr role="row" class="text-left">
+                                        <th width="80%">Perfil Vinculado</th>
+                                        <th width="20%">Corresponde</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbody_perfil">
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                               
+                                <div class="form-group has-feedback">
+                                    <div class="custom-control custom-radio custom-control-inline">
+                                        <label  for="otro">Otro Perfil </label>
+                                        <input style="margin-left: 10px; margin-top: 4px;" type="checkbox"  name="otro" id="cb_otro_perfil" value="otro_perfil">
+                                   
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row" id="div_otro_perfil" style="display:none">
+                            <div class="col-md-12">
+                                <label class="control-label">Otro perfil: <span class="symbol required"></span></label>
+                                <div class="form-group has-feedback">
+                                    <input type="text" class="form-control" name="otro_perfil" id="otro_perfil" placeholder="Ingrese Otro perfil" autocomplete="off" required="" aria-required="true" >
+                                    <i class="fa fa-pencil form-control-feedback"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="submit" name="btn-perfil" id="btn-perfil" class="btn btn-danger"><span class="fa fa-save"></span> Guardar</button>
+                    <button class="btn btn-dark" type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick=""><span class="fa fa-trash-o"></span> Cancelar</button>
                 </div>
             </form>
 

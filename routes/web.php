@@ -9,6 +9,7 @@ use App\Http\Controllers\ProcedimientosController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\ContribuyenteController;
 use App\Http\Controllers\ActividadController;
+use App\Http\Controllers\EconomiaController;
 use App\Http\Controllers\IndustriaController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\MateriaPrimaController;
@@ -18,6 +19,10 @@ use App\Http\Controllers\ServicioController;
 use App\Http\Controllers\GastosController;
 use App\Http\Controllers\SituacionPlantaController;
 use App\Http\Controllers\VentasyFacturacionController;
+use App\Http\Controllers\PrevencionCAController;
+use App\Http\Controllers\SistemasCalidadController;
+use Illuminate\Support\Facades\Artisan;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -46,6 +51,10 @@ Route::get('/', function () {
 
 Route::get('/reggister', function () {
     return view('auth.reggister');
+});
+
+Route::get('/sl', function () {
+  Artisan::call('storage:link');
 });
 
 //########## Rutas Busquedas Autocomplete ################
@@ -183,7 +192,64 @@ Route::get('/procedimientos',[ProcedimientosController::class,'index'] )->middle
     Route::post('/deleteFac', [VentasyFacturacionController::class, 'deleteFac'])->middleware(['auth']);
 
 
+
+    //efluentes
+
+    Route::post('/search_efluente_e', [PrevencionCAController::class, 'search_efluente'])->middleware(['auth']);
+    Route::post('/saveRelEfluenteIndustria', [PrevencionCAController::class, 'saveRelEfluente'])->middleware(['auth']);
     
+    Route::post('/listRelEfluentes', [PrevencionCAController::class, 'listef'])->middleware(['auth']);
+    
+    Route::post('/getEfluente', [PrevencionCAController::class, 'getEfluente'])->middleware(['auth']);
+    Route::post('/updateRelEfluenteIndustria', [PrevencionCAController::class, 'updateRelEfluenteIndustria'])->middleware(['auth']);
+    Route::post('/deleteRelEfluente', [PrevencionCAController::class, 'deleteRelEfluente'])->middleware(['auth']);
+    
+
+
+    //certificados 
+
+    Route::post('/getCertificados', [PrevencionCAController::class, 'getCertificados'])->middleware(['auth']);
+    Route::post('/saveRelCert', [PrevencionCAController::class, 'saveRelCert'])->middleware(['auth']);
+    Route::post('/lisRelCert', [PrevencionCAController::class, 'lisRelCert'])->middleware(['auth']);
+    Route::post('/getRelcert', [PrevencionCAController::class, 'getRelcert'])->middleware(['auth']);
+    Route::post('/updateRelCert', [PrevencionCAController::class, 'updateRelCert'])->middleware(['auth']);
+    Route::post('/deleteRelCert', [PrevencionCAController::class, 'deleteRelCert'])->middleware(['auth']);
+
+    //S. Calidad
+
+    Route::post('/getSc', [SistemasCalidadController::class, 'getSc'])->middleware(['auth']);
+    Route::post('/saveSc', [SistemasCalidadController::class, 'saveSc'])->middleware(['auth']);
+    Route::post('/lisRelSc', [SistemasCalidadController::class, 'lisRelSc'])->middleware(['auth']);
+    Route::post('/getRelSc', [SistemasCalidadController::class, 'getRelSc'])->middleware(['auth']);
+    Route::post('/updateSc', [SistemasCalidadController::class, 'updateSc'])->middleware(['auth']);
+    Route::post('/deleteRelSc', [SistemasCalidadController::class, 'deleteRelSc'])->middleware(['auth']);
+   
+   
+   
+   //promocion
+    Route::post('/getPromo', [SistemasCalidadController::class, 'getPromo'])->middleware(['auth']);
+    Route::post('/savePromo', [SistemasCalidadController::class, 'savePromo'])->middleware(['auth']);
+    Route::post('/lisRelPromo', [SistemasCalidadController::class, 'lisRelPromo'])->middleware(['auth']);
+    Route::post('/getRelPromo', [SistemasCalidadController::class, 'getRelPromo'])->middleware(['auth']);
+    Route::post('/updateRelPromo', [SistemasCalidadController::class, 'updateRelPromo'])->middleware(['auth']);
+    Route::post('/deleteRelPromo', [SistemasCalidadController::class, 'deleteRelPromo'])->middleware(['auth']);
+    
+    
+    //economia
+    Route::post('/getSP', [EconomiaController::class, 'getSP'])->middleware(['auth']);
+    Route::post('/saveEc', [EconomiaController::class, 'saveEc'])->middleware(['auth']);
+    Route::post('/lisReleco', [EconomiaController::class, 'lisReleco'])->middleware(['auth']);
+    Route::post('/deleteRelEconomia', [EconomiaController::class, 'deleteRelEconomia'])->middleware(['auth']);
+
+    //perfil
+    Route::post('/getPerfil', [EconomiaController::class, 'getPerfil'])->middleware(['auth']);
+    Route::post('/savePerfil', [EconomiaController::class, 'savePerfil'])->middleware(['auth']);
+    Route::post('/lisRelPerfil', [EconomiaController::class, 'lisRelPerfil'])->middleware(['auth']);
+    Route::post('/deleteRelPerfil', [EconomiaController::class, 'deleteRelPerfil'])->middleware(['auth']);
+
+
+
+
 //fin guardar Procedimientos
 
 

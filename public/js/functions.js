@@ -1196,7 +1196,86 @@ $(document).ready(function () {
     });
 
 
+    //efluentes
+
+    $("#search_efluente_e").autocomplete({
+        source: function (request, response) {
+            // Fetch data
+            $.ajax({
+                url: "/search_efluente_e",
+                type: 'post',
+                dataType: "json",
+                data: {
+                    _token: $('meta[name="csrf-token"]').attr('content'),
+                    search: request.term,
+
+
+                },
+                success: function (data) {
+                    response(data);
+                }
+            });
+        },
+        select: function (event, ui) {
+            // Set selection
+            $('#search_efluente_e').val(ui.item.label); // display the selected text
+            $('#id_efluente_e').val(ui.item.value); // save selected id to input
+
+            return false;
+        }
+    });
+
+    $("#search_efluente_e").keyup(function () {
+
+        if ($("#search_efluente_e").val().length < 1) {
+            
+            $('#id_efluente_e').val("")
+            
+        }
+    });
+
+
+
 });
+
+function cargar_tabla_efluentes() {
+
+    var table = $('.table_efluente').DataTable();
+
+
+    table.destroy();
+    //$('.yajra-datatable').empty();
+
+    var id_industria = $("#id_industria_modal").val();
+    table = $('.table_efluente').DataTable({
+        processing: false,
+        serverSide: true,
+        searching: false,
+        "ajax": {
+            "url": "/listRelEfluentes",
+            "type": "POST",
+            "data": {
+                _token: $('meta[name="csrf-token"]').attr('content'),
+                id_industria: id_industria
+            },
+        },
+
+        columns: [
+            { data: 'DT_RowIndex', name: 'DT_RowIndex' },
+            { data: 'efluente', name: 'efluente' },
+            { data: 'tratamiento', name: 'tratamiento' },
+            { data: 'destino', name: 'destino' },
+            { data: 'anio', name: 'anio' },
+            {
+                data: 'action',
+                name: 'action',
+                orderable: true,
+                searchable: true
+            },
+        ],
+    })
+
+}
 
 function cargar_tabla_actividades() {
 
@@ -2039,6 +2118,225 @@ function cargar_tabla_fact() {
         ]
     })}
 
+    
+function cargar_tabla_cert() {
+
+
+    var table = $('.table_certificados_list').DataTable();
+    table.destroy();
+    //$('.yajra-datatable').empty();
+
+    var id_industria = $("#id_industria_modal").val();
+    table = $('.table_certificados_list').DataTable({
+        processing: false,
+        serverSide: true,
+        searching: false,
+        "ajax": {
+            "url": "/lisRelCert",
+            "type": "POST",
+            "data": {
+                _token: $('meta[name="csrf-token"]').attr('content'),
+                id_industria: id_industria
+            },
+        },
+        
+        columns: [
+            { data: 'DT_RowIndex', name: 'DT_RowIndex' },
+            { data: 'certificado', name: 'certificado' },
+            { data: 'estado', name: 'estado' },
+            { data: 'fecha_inicio', name: 'fecha_inicio' },
+            { data: 'fecha_fin', name: 'fecha_fin' },
+          
+            { data: 'anio', name: 'anio' },
+            
+            {
+                data: 'action',
+                name: 'action',
+                orderable: true,
+                searchable: true
+            },
+        ],
+        columnDefs: [
+
+           
+
+        ]
+    })}
+
+function cargar_tabla_sc() {
+
+
+    var table = $('.table_sc').DataTable();
+    table.destroy();
+    //$('.yajra-datatable').empty();
+
+    var id_industria = $("#id_industria_modal").val();
+    table = $('.table_sc').DataTable({
+        processing: false,
+        serverSide: true,
+        searching: false,
+        "ajax": {
+            "url": "/lisRelSc",
+            "type": "POST",
+            "data": {
+                _token: $('meta[name="csrf-token"]').attr('content'),
+                id_industria: id_industria
+            },
+        },
+        
+        columns: [
+            { data: 'DT_RowIndex', name: 'DT_RowIndex' },
+            { data: 'sistema_de_calidad', name: 'sistema_de_calidad' },
+            { data: 'estado', name: 'estado' },
+            { data: 'fecha_inicio', name: 'fecha_inicio' },
+            { data: 'fecha_fin', name: 'fecha_fin' },
+          
+            { data: 'anio', name: 'anio' },
+            
+            {
+                data: 'action',
+                name: 'action',
+                orderable: true,
+                searchable: true
+            },
+        ],
+        columnDefs: [
+
+           
+
+        ]
+    })
+}
+
+function cargar_tabla_promo() {
+
+
+    var table = $('.table_promo').DataTable();
+    table.destroy();
+    //$('.yajra-datatable').empty();
+
+    var id_industria = $("#id_industria_modal").val();
+    table = $('.table_promo').DataTable({
+        processing: false,
+        serverSide: true,
+        searching: false,
+        "ajax": {
+            "url": "/lisRelPromo",
+            "type": "POST",
+            "data": {
+                _token: $('meta[name="csrf-token"]').attr('content'),
+                id_industria: id_industria
+            },
+        },
+        
+        columns: [
+            { data: 'DT_RowIndex', name: 'DT_RowIndex' },
+            { data: 'promocion_industrial', name: 'promocion_industrial' },
+            { data: 'estado', name: 'estado' },
+            { data: 'fecha_inicio', name: 'fecha_inicio' },
+            { data: 'fecha_fin', name: 'fecha_fin' },
+          
+            { data: 'anio', name: 'anio' },
+            
+            {
+                data: 'action',
+                name: 'action',
+                orderable: true,
+                searchable: true
+            },
+        ],
+        columnDefs: [
+
+           
+
+        ]
+    })
+}
+
+
+function cargar_tabla_economia() {
+
+
+    var table = $('.table_economia').DataTable();
+    table.destroy();
+    //$('.yajra-datatable').empty();
+
+    var id_industria = $("#id_industria_modal").val();
+    table = $('.table_economia').DataTable({
+        processing: false,
+        serverSide: true,
+        searching: false,
+        "ajax": {
+            "url": "/lisReleco",
+            "type": "POST",
+            "data": {
+                _token: $('meta[name="csrf-token"]').attr('content'),
+                id_industria: id_industria
+            },
+        },
+        
+        columns: [
+            { data: 'DT_RowIndex', name: 'DT_RowIndex' },
+            { data: 'sector', name: 'sector' },          
+            { data: 'anio', name: 'anio' },
+            
+            {
+                data: 'action',
+                name: 'action',
+                orderable: true,
+                searchable: true
+            },
+        ],
+        columnDefs: [
+
+           
+
+        ]
+    })
+}
+
+
+function cargar_tabla_perfil() {
+
+
+    var table = $('.table_perfil').DataTable();
+    table.destroy();
+    //$('.yajra-datatable').empty();
+
+    var id_industria = $("#id_industria_modal").val();
+    table = $('.table_perfil').DataTable({
+        processing: false,
+        serverSide: true,
+        searching: false,
+        "ajax": {
+            "url": "/lisRelPerfil",
+            "type": "POST",
+            "data": {
+                _token: $('meta[name="csrf-token"]').attr('content'),
+                id_industria: id_industria
+            },
+        },
+        
+        columns: [
+            { data: 'DT_RowIndex', name: 'DT_RowIndex' },
+            { data: 'perfil', name: 'perfil' },          
+            { data: 'anio', name: 'anio' },
+            
+            {
+                data: 'action',
+                name: 'action',
+                orderable: true,
+                searchable: true
+            },
+        ],
+        columnDefs: [
+
+           
+
+        ]
+    })
+}
+
 function cargar_clasif_ingresos(){
 
     $.ajax({
@@ -2467,5 +2765,347 @@ function getMotivo() {
     });
 }
 
+
+function btn_cancelar_ef(){
+
+    $("#id_rel_industria_efluente").val("");
+           
+            $("#id_efluente_e").val("");
+            $("#search_efluente_e").val("");
+            $("#tratamiento_residuo").val("");
+            $("#destino").val("");
+
+}
+
+function getCertificados() {
+    $.ajax({
+        type: "post",
+        url: "/getCertificados",
+        data: {
+            _token: $('meta[name="csrf-token"]').attr('content'),
+        },
+        success: function (response) {
+
+
+            $(".table_certificado_modal").find("tr").remove();
+
+
+            $('#thead_c').append(
+
+                '<tr role="row">'+
+                    '<th>Certificado <span class="symbol required"></span></th>'+
+                   ' <th>No Posee </th>'+
+                  '  <th>En Trámite </th>'+
+                   ' <th>Posee </th>'+
+                  '  <th>Fecha Inicial</th>'+
+                   ' <th>Fecha Final</th>'+
+               ' </tr>'
+
+            )
+
+
+            
+       
+            $(response).each(function (i, v) {
+
+
+            
+                $('.table_certificado_modal').append(
+
+                    '<tr role="row" class="odd">'+
+
+                    '<td><input type="hidden" name="id_certificado[]" id="id_certificado_'+v.id_certificado+'" value="'+v.id_certificado+'"><label>'+v.certificado+'</label></td>'+
+
+                   ' <td class="text-center"><div class="custom-control custom-radio custom-control-inline">'+
+                   
+                    '<input type="radio" name="checkbox['+i+']" id="name1_'+v.id_certificado+'" value="NO POSEE" class="custom-control-input" onclick="ProcesarCertificado(\'NO POSEE\','+v.id_certificado+');">'+
+                  
+                    '<label class="custom-control-label" for="name1_'+v.id_certificado+'"></label>'+
+                  
+                    '</div></td>'+
+
+                    '<td class="text-center"><div class="custom-control custom-radio custom-control-inline">'+
+                    '<input type="radio" name="checkbox['+i+']" id="name2_'+v.id_certificado+'" value="EN TRAMITE" class="custom-control-input" onclick="ProcesarCertificado(\'EN TRAMITE\','+v.id_certificado+');">'+
+                    '<label class="custom-control-label" for="name2_'+v.id_certificado+'"></label>'+
+                    '</div></td>'+
+
+                    '<td class="text-center"><div class="custom-control custom-radio custom-control-inline">'+
+                    '<input type="radio" name="checkbox['+i+']" id="name3_'+v.id_certificado+'" value="POSEE" class="custom-control-input" onclick="ProcesarCertificado(\'POSEE\','+v.id_certificado+');">'+
+                    '<label class="custom-control-label" for="name3_'+v.id_certificado+'"></label>'+
+                    '</div></td>'+
+
+                   ' <td class="text-center"><input type="text" class="form-control certificado" name="inicio_certificado['+i+']" id="inicio_certificado_'+v.id_certificado+'" placeholder="Ingrese Fecha Inicial" autocomplete="off" style="width:100%;height:40px;background:#f0f9fc;border-radius:5px 5px 5px 5px;"  disabled="" title="Ingrese Fecha Inicial" required="" aria-required="true"></td>'+
+
+                   ' <td class="text-center"><input type="text" class="form-control certificado" name="fin_certificado['+i+']" id="fin_certificado_'+v.id_certificado+'" placeholder="Ingrese Fecha Final" autocomplete="off" style="width:100%;height:40px;background:#f0f9fc;border-radius:5px 5px 5px 5px;" disabled="" title="Ingrese Fecha Final" required="" aria-required="true"></td>'+
+                   ' </tr>'
+                );
+            })           
+            
+        }
+    });
+}
+
+function getSc(){
+
+    $.ajax({
+        type: "post",
+        url: "/getSc",
+        data: {
+            _token: $('meta[name="csrf-token"]').attr('content'),
+        },
+        success: function (response) {
+
+
+            $("#tbody_sa_modal").find("tr").remove();
+
+
+            
+       
+            $(response).each(function (i, v) {
+
+
+            
+                $('#tbody_sa_modal').append(
+
+                    '<tr>'+
+
+                    '<td><input type="hidden" name="id_sistema_de_calidad[]"  value="'+v.id_sistema_de_calidad+'"><label>'+v.sistema_de_calidad+'</label></td>'+
+
+                    '<td class="text-center"><div class="custom-control custom-radio custom-control-inline">'+
+                    '<input type="radio" name="checkbox['+i+']" id="name4_'+v.id_sistema_de_calidad+'" value="NO POSEE" class="custom-control-input" onclick="ProcesarSistema(\'NO POSEE\','+v.id_sistema_de_calidad+');">'+
+                    '<label class="custom-control-label" for="name4_'+v.id_sistema_de_calidad+'"></label>'+
+                    '</div></td>'+
+
+                    '<td class="text-center"><div class="custom-control custom-radio custom-control-inline">'+
+                   ' <input type="radio" name="checkbox['+i+']" id="name5_'+v.id_sistema_de_calidad+'" value="EN TRAMITE" class="custom-control-input" onclick="ProcesarSistema(\'EN TRAMITE\','+v.id_sistema_de_calidad+');">'+
+                    '<label class="custom-control-label" for="name5_'+v.id_sistema_de_calidad+'"></label>'+
+                   ' </div></td>'+
+
+                   ' <td class="text-center"><div class="custom-control custom-radio custom-control-inline">'+
+                   ' <input type="radio" name="checkbox['+i+']" id="name6_'+v.id_sistema_de_calidad+'" value="POSEE" class="custom-control-input" onclick="ProcesarSistema(\'POSEE\','+v.id_sistema_de_calidad+');">'+
+                    '<label class="custom-control-label" for="name6_'+v.id_sistema_de_calidad+'"></label>'+
+                   ' </div></td>'+
+
+                   ' <td class="text-center"><input type="text" class="form-control calidad" name="inicio_sistema['+i+']" id="inicio_sistema_'+v.id_sistema_de_calidad+'" placeholder="Ingrese Fecha Inicial" autocomplete="off" style="width:100%;height:40px;background:#f0f9fc;border-radius:5px 5px 5px 5px;" title="Ingrese Fecha Inicial" required="" aria-required="true" disabled="disabled"></td>'+
+
+                    '<td class="text-center"><input type="text" class="form-control calidad" name="fin_sistema['+i+']" id="fin_sistema_'+v.id_sistema_de_calidad+'" placeholder="Ingrese Fecha Final" autocomplete="off" style="width:100%;height:40px;background:#f0f9fc;border-radius:5px 5px 5px 5px;" title="Ingrese Fecha Final" required="" aria-required="true" disabled="disabled"></td>'+
+
+                  '</tr>'
+                );
+            })           
+            
+        }
+    });
+}
+
+
+function getPromocion(){
+
+    $.ajax({
+        type: "post",
+        url: "/getPromo",
+        data: {
+            _token: $('meta[name="csrf-token"]').attr('content'),
+        },
+        success: function (response) {
+
+
+            $("#tbody_promo").find("tr").remove();
+
+
+            
+       
+            $(response).each(function (i, v) {
+
+
+            
+                $('#tbody_promo').append(
+
+                    '<tr>'+
+
+                    '<td><input type="hidden" name="id_promocion_industrial[]"  value="'+v.id_promocion_industrial+'"><label>'+v.promocion_industrial+'</label></td>'+
+
+                    '<td class="text-center"><div class="custom-control custom-radio custom-control-inline">'+
+                    '<input type="radio" name="checkbox['+i+']" id="name7_'+v.id_promocion_industrial+'" value="NO POSEE" class="custom-control-input" onclick="ProcesarPromocion(\'NO POSEE\','+v.id_promocion_industrial+');">'+
+                    '<label class="custom-control-label" for="name7_'+v.id_promocion_industrial+'"></label>'+
+                    '</div></td>'+
+
+                    '<td class="text-center"><div class="custom-control custom-radio custom-control-inline">'+
+                   ' <input type="radio" name="checkbox['+i+']" id="name8_'+v.id_promocion_industrial+'" value="EN TRAMITE" class="custom-control-input" onclick="ProcesarPromocion(\'EN TRAMITE\','+v.id_promocion_industrial+');">'+
+                    '<label class="custom-control-label" for="name8_'+v.id_promocion_industrial+'"></label>'+
+                   ' </div></td>'+
+
+                   ' <td class="text-center"><div class="custom-control custom-radio custom-control-inline">'+
+                   ' <input type="radio" name="checkbox['+i+']" id="name9_'+v.id_promocion_industrial+'" value="POSEE" class="custom-control-input" onclick="ProcesarPromocion(\'POSEE\','+v.id_promocion_industrial+');">'+
+                    '<label class="custom-control-label" for="name9_'+v.id_promocion_industrial+'"></label>'+
+                   ' </div></td>'+
+
+                   ' <td class="text-center"><input type="text" class="form-control calendario2" name="inicio_promocion['+i+']" id="inicio_promocion_'+v.id_promocion_industrial+'" placeholder="Ingrese Fecha Inicial" autocomplete="off" style="width:100%;height:40px;background:#f0f9fc;border-radius:5px 5px 5px 5px;" title="Ingrese Fecha Inicial" required="" aria-required="true" disabled="disabled"></td>'+
+
+                    '<td class="text-center"><input type="text" class="form-control calendario2" name="fin_promocion['+i+']" id="fin_promocion_'+v.id_promocion_industrial+'" placeholder="Ingrese Fecha Final" autocomplete="off" style="width:100%;height:40px;background:#f0f9fc;border-radius:5px 5px 5px 5px;" title="Ingrese Fecha Final" required="" aria-required="true" disabled="disabled"></td>'+
+
+                  '</tr>'
+                );
+            })           
+            
+        }
+    });
+}
+
+
+
+
+function getSP(){
+//esta funcion trae sectores y personal
+    $.ajax({
+        type: "post",
+        url: "/getSP",
+        data: {
+            _token: $('meta[name="csrf-token"]').attr('content'),
+        },
+        success: function (response) {
+
+
+            $("#tbody_sector").find("tr").remove();
+            
+            /*$("#tbody_personal").find("tr").remove();*/
+
+
+            $(response).each(function (i, v) {
+            
+                $('#tbody_sector').append(
+
+                   '<tr role="row" class="text-left">'+
+                        '<td>'+v.sector+'</td>'+
+                       ' <td>'+
+                           ' <div class="custom-control custom-radio custom-control-inline">'+
+                                '<input type="checkbox" name="sectores['+i+']" id="s'+v.id_economia_del_conocimiento_sector+'" value="'+v.id_economia_del_conocimiento_sector+'" class="custom-control-input cb_sector">'+
+                              '  <label class="custom-control-label" for="s'+v.id_economia_del_conocimiento_sector+'"></label>'+
+                          '  </div>'+
+                      '  </td>'+
+                   ' </tr>'
+                );
+            })
+
+
+
+
+            /* $(response.personal).each(function (i, v) {
+                $('#tbody_personal').append(
+
+                 ' <tr role="row" class="text-left">'+
+                    '<td>'+v.personal+'</td>'+
+                    '<td>'+
+                       ' <div class="custom-control custom-radio custom-control-inline">'+
+                           ' <input type="checkbox" name="personal['+i+']" id="p'+v.id_personal+'" value="'+v.id_personal+'" class="custom-control-input">'+
+                           ' <label class="custom-control-label" for="p'+v.id_personal+'"></label>'+
+                       ' </div>'+
+                   ' </td>'+
+                '</tr>'
+                );
+            })    */               
+            
+        }
+    });
+}
+
+$(document).ready(function() {
+    //set initial state.
+    
+
+    $("#cb_otro_sector").change(function(){
+
+    $('#cb_otro_sector').val(this.checked);
+
+  
+
+    if($('#cb_otro_sector').val() == "true"){
+       
+         
+        
+         $("#_sect").hide( "slow");
+        $("#div_otro_sector").show( "fast");
+
+        $(".cb_sector").prop("checked",false)
+    }else{
+        $("#_sect").show( "fast");
+        $("#div_otro_sector").hide("slow");
+        $("#otro_sector").val("");
+        
+    }
+
+
+});
+
+});
+
+
+
+function getPerfil(){
+//esta funcion trae perfiles
+    $.ajax({
+        type: "post",
+        url: "/getPerfil",
+        data: {
+            _token: $('meta[name="csrf-token"]').attr('content'),
+        },
+        success: function (response) {
+
+
+            $("#tbody_sector").find("tr").remove();
+            
+            /*$("#tbody_personal").find("tr").remove();*/
+
+
+            $(response).each(function (i, v) {
+            
+                $('#tbody_perfil').append(
+
+                   '<tr role="row" class="text-left">'+
+                        '<td>'+v.perfil+'</td>'+
+                       ' <td>'+
+                           ' <div class="custom-control custom-radio custom-control-inline">'+
+                                '<input type="checkbox" name="perfiles['+i+']" id="p'+v.id_economia_del_conocimiento_perfil+'" value="'+v.id_economia_del_conocimiento_perfil+'" class="custom-control-input cb_perfil">'+
+                              '  <label class="custom-control-label" for="p'+v.id_economia_del_conocimiento_perfil+'"></label>'+
+                          '  </div>'+
+                      '  </td>'+
+                   ' </tr>'
+                );
+            })
+
+        }
+    });
+}
+
+
+$(document).ready(function() {
+    //set initial state.
+    
+
+    $("#cb_otro_perfil").change(function(){
+
+    $('#cb_otro_perfil').val(this.checked);
+
+  
+
+    if($('#cb_otro_perfil').val() == "true"){
+       
+         
+        
+         $("#_perfil").hide( "slow");
+        $("#div_otro_perfil").show( "fast");
+
+        $(".cb_perfil").prop("checked",false)
+    }else{
+        $("#_perfil").show( "fast");
+        $("#div_otro_perfil").hide("slow");
+        $("#otro_perfil").val("");
+        
+    }
+
+
+});
+
+});
 
 

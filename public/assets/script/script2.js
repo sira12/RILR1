@@ -4153,9 +4153,7 @@ function EliminarFacturacion(id_facturacion) {
 // FUNCION PARA AGREGA ID ACTIVIDAD EN EFLUENTES
 function AddIdEfluenteModal(id_industria, nombre_de_fantasia, anio) {
               // aqui asigno cada valor a los campos correspondientes
-              $("#saveefluente #industria_efluente").val(id_industria);
-  $("#saveefluente #nombre_de_fantasia").text(nombre_de_fantasia);
-  $("#saveefluente #anio_efluente").val(anio);
+              
 }
 
 
@@ -4179,21 +4177,42 @@ function VerEfluente(id_rel_industria_efluente) {
 }
 
 // FUNCION PARA ACTUALIZAR EFLUENTES ASIGNADO
-function UpdateEfluente(id_rel_industria_efluente, id_industria, nombre_de_fantasia, efluente, nomefluente, tratamiento_residuo, destino, anio, proceso) {
-              // aqui asigno cada valor a los campos correspondientes
-              $("#saveefluente #id_rel_industria_efluente").val(id_rel_industria_efluente);
-  $("#saveefluente #industria_efluente").val(id_industria);
-  $("#saveefluente #nombre_de_fantasia").text(nombre_de_fantasia);
-  $("#saveefluente #id_efluente").val(efluente);
-  $("#saveefluente #search_efluente").val(nomefluente);
-  $("#saveefluente #tratamiento_residuo").val(tratamiento_residuo);
-  $("#saveefluente #destino").val(destino);
-  $("#saveefluente #anio_efluente").val(anio);
-  $("#saveefluente #efluente").val(proceso);
+function UpdateEfluente(id_rel_industria_efluente) {
+
+  $.ajax({
+          type: "POST",
+          url: "/getEfluente",
+          data: {
+             _token: $('meta[name="csrf-token"]').attr('content'),
+            id:id_rel_industria_efluente
+          },
+        success: function (data) {
+
+        
+
+            $("#saveefluente").prop('id', 'updateefluente');
+            $("#updateefluente").prop('name', 'updateefluente');
+
+            $("#btn-efluente").hide()
+            $("#btn-efluente-update").show()
+
+            // aqui asigno cada valor a los campos correspondientes
+            $("#updateefluente #id_rel_industria_efluente").val(data[0].id_rel_industria_efluente);
+           
+            $("#updateefluente #id_efluente_e").val(data[0].id_efluente);
+            $("#updateefluente #search_efluente_e").val(data[0].efluente);
+            $("#updateefluente #tratamiento_residuo").val(data[0].tratamiento);
+            $("#updateefluente #destino").val(data[0].destino);
+
+           
+          }
+        })
+  
+ 
 }
 
 /////FUNCION PARA ELIMINAR EFLUENTES ASIGNADO
-function EliminarEfluente(id_rel_industria_efluente, id_industria, seccion, tipo) {
+function EliminarEfluente(id_rel_industria_efluente) {
               swal({
                 title: "¿Estás seguro?",
                 text: "¿Estás seguro de Eliminar este Efluente de la Industria?",
@@ -4206,15 +4225,18 @@ function EliminarEfluente(id_rel_industria_efluente, id_industria, seccion, tipo
                 confirmButtonColor: "#808080"
               }, function () {
                 $.ajax({
-                  type: "GET",
-                  url: "eliminar.php",
-                  data: "id_rel_industria_efluente=" + id_rel_industria_efluente + "&tipo=" + tipo,
+                  type: "POST",
+                  url: "/deleteRelEfluente",
+                  data:{
+                    _token: $('meta[name="csrf-token"]').attr('content'),
+                    id:id_rel_industria_efluente
+                  },
                   success: function (data) {
 
-                    if (data == 1) {
+                    if (data.status== 200) {
 
                       swal("Eliminado!", "Datos eliminados con éxito!", "success");
-                      $('#secciones').load("formularios.php?BuscaFormularioProcedimiento=si&seccion=" + seccion + "&in=" + id_industria);
+                      cargar_tabla_efluentes()
 
                     } else {
 
@@ -4255,10 +4277,14 @@ function AddIdCertificadoModal(id_industria, nombre_de_fantasia, actividad_contr
 // FUNCION PARA VERIFICAR RADIO PARA REGISTRAR
 function ProcesarCertificado(estado_certificado, i) {
 
+  var check=0; 
+
+
+  
   if (estado_certificado === 'POSEE' || estado_certificado === true) {
 
               //deshabilitamos
-              $("#inicio_certificado_" + i).attr('disabled', false);
+    $("#inicio_certificado_" + i).attr('disabled', false);
     $("#fin_certificado_" + i).attr('disabled', false);
 
   } else {
@@ -4326,22 +4352,39 @@ function VerCertificado(id_rel_industria_certificado) {
 }
 
 // FUNCION PARA ACTUALIZAR CERTIFICADO ASIGNADO
-function UpdateCertificado(id_rel_industria_certificado, id_industria, nombre_de_fantasia, nombre_certificado, estado_certificado, inicio_certificado
-  , fin_certificado, actividad_contribuyente, anio) {
-              // aqui asigno cada valor a los campos correspondientes
-              $("#updatecertificado #id_rel_industria_certificado").val(id_rel_industria_certificado);
-  $("#updatecertificado #industria_certificado_update").val(id_industria);
-  $("#updatecertificado #nombre_de_fantasia").text(nombre_de_fantasia);
-  $("#updatecertificado #nombre_certificado").text(nombre_certificado);
-  $("#updatecertificado #estado_certificado").val(estado_certificado);
-  $("#updatecertificado #inicio_certificado").val(inicio_certificado);
-  $("#updatecertificado #fin_certificado").val(fin_certificado);
-  $("#updatecertificado #fecha_contribuyente_certificado_update").val(actividad_contribuyente);
-  $("#updatecertificado #anio_certificado_update").val(anio);
+function UpdateCertificado(id_rel_industria_certificado) {
+
+
+
+      $.ajax({
+          type: "POST",
+          url: "/getRelcert",
+          data:{
+            _token: $('meta[name="csrf-token"]').attr('content'),
+            id:id_rel_industria_certificado
+          },
+          success: function (data) {
+
+              console.log(data[0].certificado)
+               // aqui asigno cada valor a los campos correspondientes
+            $("#updatecertificado #id_rel_industria_certificado").val(data[0].id_rel_industria_certificado);
+              //$("#updatecertificado #industria_certificado_update").val(data[0].id_industria);
+              //$("#updatecertificado #nombre_de_fantasia").text(nombre_de_fantasia);
+              $("#updatecertificado #nombre_certificado").text(data[0].certificado);
+            $("#updatecertificado #estado_certificado").val(data[0].estado);
+            $("#updatecertificado #inicio_certificado").val(data[0].fecha_inicio);
+            $("#updatecertificado #fin_certificado").val(data[0].fecha_fin);
+             // $("#updatecertificado #fecha_contribuyente_certificado_update").val(data[0].actividad_contribuyente);
+            //$("#updatecertificado #anio_certificado_update").val(data[0].anio);
+           
+          }
+        })
+
+             
 }
 
 /////FUNCION PARA ELIMINAR CERTIFICADO ASIGNADO
-function EliminarCertificado(id_rel_industria_certificado, id_industria, seccion, tipo) {
+function EliminarCertificado(id_rel_industria_certificado) {
               swal({
                 title: "¿Estás seguro?",
                 text: "¿Estás seguro de Eliminar este Certificado de la Industria?",
@@ -4354,15 +4397,18 @@ function EliminarCertificado(id_rel_industria_certificado, id_industria, seccion
                 confirmButtonColor: "#808080"
               }, function () {
                 $.ajax({
-                  type: "GET",
-                  url: "eliminar.php",
-                  data: "id_rel_industria_certificado=" + id_rel_industria_certificado + "&tipo=" + tipo,
+                  type: "POST",
+                  url: "/deleteRelCert",
+                  data:{
+                      _token: $('meta[name="csrf-token"]').attr('content'),
+                      id:id_rel_industria_certificado
+                  },
                   success: function (data) {
 
-                    if (data == 1) {
+                    if (data.status == 200) {
 
                       swal("Eliminado!", "Datos eliminados con éxito!", "success");
-                      $('#secciones').load("formularios.php?BuscaFormularioProcedimiento=si&seccion=" + seccion + "&in=" + id_industria);
+                      cargar_tabla_cert();
 
                     } else {
 
@@ -4477,20 +4523,48 @@ function VerSistema(id_rel_industria_sistema) {
 }
 
 // FUNCION PARA ACTUALIZAR SISTEMA DE CALIDAD ASIGNADO
-function UpdateSistema(id_rel_industria_sistema, id_industria, nombre_de_fantasia, nomsistema, estado_sistema, inicio_sistema, fin_sistema, anio) {
+function UpdateSistema(id_rel_industria_sistema) {
+
+
+   $.ajax({
+          type: "POST",
+          url: "/getRelSc",
+          data:{
+            _token: $('meta[name="csrf-token"]').attr('content'),
+            id:id_rel_industria_sistema
+          },
+          success: function (data) {
+
               // aqui asigno cada valor a los campos correspondientes
-              $("#updatesistema #id_rel_industria_sistema").val(id_rel_industria_sistema);
-  $("#updatesistema #industria_sistema_update").val(id_industria);
-  $("#updatesistema #nombre_de_fantasia").text(nombre_de_fantasia);
-  $("#updatesistema #nombre_sistema").text(nomsistema);
-  $("#updatesistema #estado_sistema").val(estado_sistema);
-  $("#updatesistema #inicio_sistema").val(inicio_sistema);
-  $("#updatesistema #fin_sistema").val(fin_sistema);
-  $("#updatesistema #anio_sistema_update").val(anio);
+              $("#updatesistema #id_rel_industria_sistema").val(data[0].id_rel_industria_sistema);
+              //$("#updatesistema #industria_sistema_update").val(id_industria);
+              //$("#updatesistema #nombre_de_fantasia").text(nombre_de_fantasia);
+              $("#updatesistema #nombre_sistema").text(data[0].sistema_de_calidad);
+              $("#updatesistema #estado_sistema").val(data[0].estado);
+              $("#updatesistema #inicio_sistema").val(data[0].fecha_inicio);
+              $("#updatesistema #fin_sistema").val(data[0].fecha_fin);
+              //$("#updatesistema #anio_sistema_update").val(anio);
+
+              if(data[0].estado == "POSEE"){
+                $("#updatesistema #inicio_sistema").prop("disabled",false)
+                $("#updatesistema #fin_sistema").prop("disabled",false)
+              }else{
+                $("#updatesistema #inicio_sistema").prop("disabled",true)
+                $("#updatesistema #fin_sistema").prop("disabled",true)
+
+              }
+             
+             
+           
+          }
+        })
+
+
+              
 }
 
 /////FUNCION PARA ELIMINAR SISTEMA DE CALIDAD ASIGNADO
-function EliminarSistema(id_rel_industria_sistema, id_industria, seccion, tipo) {
+function EliminarSistema(id_rel_industria_sistema) {
               swal({
                 title: "¿Estás seguro?",
                 text: "¿Estás seguro de Eliminar esta Norma de Calidad de la Industria?",
@@ -4503,15 +4577,18 @@ function EliminarSistema(id_rel_industria_sistema, id_industria, seccion, tipo) 
                 confirmButtonColor: "#808080"
               }, function () {
                 $.ajax({
-                  type: "GET",
-                  url: "eliminar.php",
-                  data: "id_rel_industria_sistema=" + id_rel_industria_sistema + "&tipo=" + tipo,
+                  type: "post",
+                  url: "/deleteRelSc",
+                  data: {
+                    _token: $('meta[name="csrf-token"]').attr('content'),
+                    id:id_rel_industria_sistema
+                  },
                   success: function (data) {
 
-                    if (data == 1) {
+                    if (data.status == 200) {
 
                       swal("Eliminado!", "Datos eliminados con éxito!", "success");
-                      $('#secciones').load("formularios.php?BuscaFormularioProcedimiento=si&seccion=" + seccion + "&in=" + id_industria);
+                      cargar_tabla_sc() 
 
                     } else {
 
@@ -4626,22 +4703,51 @@ function VerPromocion(id_rel_industria_promocion_industrial) {
 
 
 // FUNCION PARA ACTUALIZAR CERTIFICADO ASIGNADO
-function UpdatePromocion(id_rel_industria_promocion_industrial, id_industria, nombre_de_fantasia, nompromocion, estado_promocion, inicio_promocion
-  , fin_promocion, anio) {
-              // aqui asigno cada valor a los campos correspondientes
-              $("#updatepromocion #id_rel_industria_promocion_industrial").val(id_rel_industria_promocion_industrial);
-  $("#updatepromocion #industria_promocion_update").val(id_industria);
-  $("#updatepromocion #nombre_de_fantasia").text(nombre_de_fantasia);
-  $("#updatepromocion #nombre_promocion").text(nompromocion);
-  $("#updatepromocion #estado_promocion").val(estado_promocion);
-  $("#updatepromocion #inicio_promocion").val(inicio_promocion);
-  $("#updatepromocion #fin_promocion").val(fin_promocion);
-  $("#updatepromocion #anio_promocion_update").val(anio);
+function UpdatePromocion(id_rel_industria_promocion_industrial) {
+
+   $.ajax({
+          type: "POST",
+          url: "/getRelPromo",
+          data:{
+            _token: $('meta[name="csrf-token"]').attr('content'),
+            id:id_rel_industria_promocion_industrial
+          },
+          success: function (data) {
+
+
+     // aqui asigno cada valor a los campos correspondientes
+              $("#updatepromocion #id_rel_industria_promocion_industrial").val(data[0].id_rel_industria_promocion_industrial);
+              //$("#updatepromocion #industria_promocion_update").val(id_industria);
+              //$("#updatepromocion #nombre_de_fantasia").text(nombre_de_fantasia);
+              $("#updatepromocion #nombre_promocion").text(data[0].promocion_industrial);
+              $("#updatepromocion #estado_promocion").val(data[0].estado);
+              $("#updatepromocion #inicio_promocion").val(data[0].fecha_inicio);
+              $("#updatepromocion #fin_promocion").val(data[0].fecha_fin);
+              //$("#updatepromocion #anio_promocion_update").val(anio);
+
+            
+
+              if(data[0].estado == "POSEE"){
+                $("#updatepromocion #inicio_promocion").prop("disabled",false)
+                $("#updatepromocion #fin_promocion").prop("disabled",false)
+              }else{
+                $("#updatepromocion #inicio_promocion").prop("disabled",true)
+                $("#updatepromocion #fin_promocion").prop("disabled",true)
+
+              }
+             
+             
+           
+          }
+        })
+
+
+             
 }
 
 
 /////FUNCION PARA ELIMINAR PROMOCIONES ASIGNADO
-function EliminarPromocion(id_rel_industria_promocion_industrial, id_industria, seccion, tipo) {
+function EliminarPromocion(id_rel_industria_promocion_industrial) {
               swal({
                 title: "¿Estás seguro?",
                 text: "¿Estás seguro de Eliminar esta Promoción Industrial?",
@@ -4654,15 +4760,18 @@ function EliminarPromocion(id_rel_industria_promocion_industrial, id_industria, 
                 confirmButtonColor: "#808080"
               }, function () {
                 $.ajax({
-                  type: "GET",
-                  url: "eliminar.php",
-                  data: "id_rel_industria_promocion_industrial=" + id_rel_industria_promocion_industrial + "&tipo=" + tipo,
+                  type: "post",
+                  url: "/deleteRelPromo",
+                  data:{
+                    _token: $('meta[name="csrf-token"]').attr('content'),
+                    id:id_rel_industria_promocion_industrial
+                  },
                   success: function (data) {
 
-                    if (data == 1) {
+                    if (data.status == 200) {
 
                       swal("Eliminado!", "Datos eliminados con éxito!", "success");
-                      $('#secciones').load("formularios.php?BuscaFormularioProcedimiento=si&seccion=" + seccion + "&in=" + id_industria);
+                     cargar_tabla_promo()
 
                     } else {
 
@@ -4788,7 +4897,7 @@ function UpdateEconomia(id_economia, id_industria, nombre_de_fantasia, anio, pro
 }
 
 /////FUNCION PARA ELIMINAR ECONOMIA DEL CONOCIMIENTO ASIGNADO
-function EliminarEconomia(id_economia, id_industria, seccion, tipo) {
+function EliminarEconomia(id_economia) {
               swal({
                 title: "¿Estás seguro?",
                 text: "¿Estás seguro de Eliminar esta Economia de Conocimiento?",
@@ -4801,15 +4910,56 @@ function EliminarEconomia(id_economia, id_industria, seccion, tipo) {
                 confirmButtonColor: "#808080"
               }, function () {
                 $.ajax({
-                  type: "GET",
-                  url: "eliminar.php",
-                  data: "id_economia=" + id_economia + "&tipo=" + tipo,
+                  type: "post",
+                  url: "/deleteRelEconomia",
+                  data: {
+                    _token: $('meta[name="csrf-token"]').attr('content'),
+                    id:id_economia
+                  },
                   success: function (data) {
 
-                    if (data == 1) {
+                    if (data.status == 200) {
 
                       swal("Eliminado!", "Datos eliminados con éxito!", "success");
-                      $('#secciones').load("formularios.php?BuscaFormularioProcedimiento=si&seccion=" + seccion + "&in=" + id_industria);
+                     cargar_tabla_economia();
+
+                    } else {
+
+                      swal("Oops", "Usted no tiene Acceso para Eliminar Economia de Conocimiento, no tienes Privilegios para este Proceso!", "error");
+
+                    }
+                  }
+                })
+              });
+}
+
+
+
+function EliminarPerfil(id_perfil) {
+              swal({
+                title: "¿Estás seguro?",
+                text: "¿Estás seguro de Eliminar este Perfil de Conocimiento?",
+                type: "warning",
+                showCancelButton: true,
+                cancelButtonText: "Cancelar",
+                cancelButtonColor: '#d33',
+                closeOnConfirm: false,
+                confirmButtonText: "Eliminar",
+                confirmButtonColor: "#808080"
+              }, function () {
+                $.ajax({
+                  type: "post",
+                  url: "/deleteRelPerfil",
+                  data: {
+                    _token: $('meta[name="csrf-token"]').attr('content'),
+                    id:id_perfil
+                  },
+                  success: function (data) {
+
+                    if (data.status == 200) {
+
+                      swal("Eliminado!", "Datos eliminados con éxito!", "success");
+                     cargar_tabla_perfil();
 
                     } else {
 
