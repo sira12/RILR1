@@ -9,6 +9,7 @@ use App\Http\Controllers\ProcedimientosController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\ContribuyenteController;
 use App\Http\Controllers\ActividadController;
+use App\Http\Controllers\DdjjCOntroller;
 use App\Http\Controllers\EconomiaController;
 use App\Http\Controllers\IndustriaController;
 use App\Http\Controllers\ProductoController;
@@ -246,6 +247,9 @@ Route::get('/procedimientos',[ProcedimientosController::class,'index'] )->middle
     Route::post('/savePerfil', [EconomiaController::class, 'savePerfil'])->middleware(['auth']);
     Route::post('/lisRelPerfil', [EconomiaController::class, 'lisRelPerfil'])->middleware(['auth']);
     Route::post('/deleteRelPerfil', [EconomiaController::class, 'deleteRelPerfil'])->middleware(['auth']);
+
+    //ddjj
+    Route::post('/getViewsddjj', [DdjjCOntroller::class, 'getViewsddjj'])->middleware(['auth']);
 
 
 

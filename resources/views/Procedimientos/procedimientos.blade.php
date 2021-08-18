@@ -66,7 +66,7 @@
                                 <span class="categories" href="#pyca" onclick="muestraForm('pyca');"><i class="fa fa-tasks"></i> Prevención y Control Ambiental</span>
                                 <span class="categories" href="#sc" onclick="muestraForm('sc');"><i class="fa fa-tasks"></i> Sistemas de Calidad</span>
                                 <span class="categories" href="#ec" onclick="muestraForm('ec');"><i class="fa fa-tasks"></i> Economía del Conocimiento</span>
-                                <span class="categories" id="seccion#9" onclick="CargaFormulario('','');"><i class="fa fa-tasks"></i> Revisión y Confirmación DDJJ</span>
+                                <span class="categories" href="#ddjj" onclick="muestraForm('ddjj');"><i class="fa fa-tasks"></i> Revisión y Confirmación DDJJ</span>
                             </div>
 
                             <div id="secciones" class="mt-3">
@@ -1469,7 +1469,7 @@
 
 
                                     <div class="table-responsive mt-3">
-                                        <table  class="table table-deredbor border display table_economia">
+                                        <table class="table table-deredbor border display table_economia">
 
                                             <thead>
                                                 <tr bgcolor="#808080" class="text-white" role="row">
@@ -1482,7 +1482,7 @@
                                             <tbody class="BusquedaRapida">
 
 
-                                               
+
 
                                             </tbody>
                                         </table>
@@ -1511,7 +1511,7 @@
 
 
                                     <div class="table-responsive mt-3">
-                                        <table  class="table table-deredbor border display table_perfil ">
+                                        <table class="table table-deredbor border display table_perfil ">
 
                                             <thead>
                                                 <tr bgcolor="#808080" class="text-white" role="row">
@@ -1524,12 +1524,12 @@
                                             <tbody class="BusquedaRapida">
 
 
-                                                
+
 
                                             </tbody>
                                         </table>
                                         <span class="card-subtitle">Nota:
-                                             <i class="mdi mdi-delete text-danger font-16"></i>(Eliminar Perfil)
+                                            <i class="mdi mdi-delete text-danger font-16"></i>(Eliminar Perfil)
                                         </span>
                                     </div>
 
@@ -1537,6 +1537,207 @@
 
                                     <hr>
 
+
+                                </section>
+
+                                <section id="ddjj">
+
+                                    <div class="card">
+                                        <div class="card-header">
+                                            Datos del Contribuyente
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <div class="form-group has-feedback">
+                                                        <label class="control-label">Nº de Cuit:</label>
+                                                        <br><abbr title="Nº de CUIT/CUIL"></abbr><span id="cuit_dj"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group has-feedback">
+                                                        <label class="control-label">Razon social:</label>
+                                                        <br><abbr title="Nº de CUIT/CUIL"></abbr> <span id="rs_dj"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group has-feedback">
+                                                        <label class="control-label">Regimen de Ingresos Brutos:</label>
+                                                        <br><abbr title="Nº de CUIT/CUIL"></abbr><span id="rib_dj"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group has-feedback">
+                                                        <label class="control-label">Nº de Ingresos Brutos:</label>
+                                                        <br><abbr title="Nº de CUIT/CUIL"></abbr><span id="nib_dj"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <div class="form-group has-feedback">
+                                                        <label class="control-label">Condición Frente al Iva:</label>
+                                                        <br><abbr title="Nº de CUIT/CUIL"></abbr><span id="civa_dj"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group has-feedback">
+                                                        <label class="control-label">Naturaleza Juridica:</label>
+                                                        <br><abbr title="Nº de CUIT/CUIL"></abbr> <span id="nj_dj"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group has-feedback">
+                                                        <label class="control-label">Email Fiscal :</label>
+                                                        <br><abbr title="Nº de CUIT/CUIL"></abbr><span id="ef_dj"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group has-feedback">
+                                                        <label class="control-label">Código Postal:</label>
+                                                        <br><abbr title="Nº de CUIT/CUIL"></abbr><span id="cp_dj"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <div class="form-group has-feedback">
+                                                        <label class="control-label">Fecha Inicio Actividad Contribuyente:</label>
+                                                        <br><abbr title="Nº de CUIT/CUIL"></abbr><span id="fiac_dj"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group has-feedback">
+                                                        <label class="control-label">Localidad legal:</label>
+                                                        <br><abbr title="Nº de CUIT/CUIL"></abbr> <span id="ll_dj"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group has-feedback">
+                                                        <label class="control-label">Dni:</label>
+                                                        <br><abbr title="Nº de CUIT/CUIL"></abbr><span id="dni_dj"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group has-feedback">
+                                                        <label class="control-label">Declarante:</label>
+                                                        <br><abbr title="Nº de CUIT/CUIL"></abbr><span id="d_dj"></span>
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+
+                                            <div class="row">
+                                               
+                                                <div class="col-md-3">
+                                                    <div class="form-group has-feedback">
+                                                        <label class="control-label">En calidad de:</label>
+                                                        <br><abbr title="Nº de CUIT/CUIL"></abbr><span id="calidad_dj"></span>
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="card">
+                                        <div class="card-header">
+                                            Datos de la industria
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <div class="form-group has-feedback">
+                                                        <label class="control-label">Nombre de Establecimiento Industrial (Nombre de Fantasia): </label>
+                                                        <br><abbr></abbr><span id="nei_dj"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group has-feedback">
+                                                        <label class="control-label">Fecha de Inicio Actividad en Establecimiento:</label>
+                                                        <br><abbr></abbr><span id="fiae_dj"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group has-feedback">
+                                                        <label class="control-label">Es casa central?:</label>
+                                                        <br><abbr></abbr><span id="ecc_dj"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group has-feedback">
+                                                        <label class="control-label">Es Zona industrial?: </label>
+                                                        <br><abbr></abbr> <span id="ezi_dj"></span>
+                                                    </div>
+                                                </div>
+                                                
+
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <div class="form-group has-feedback">
+                                                        <label class="control-label">Nº de Teléfono Fijo:</label>
+                                                        <br><abbr></abbr><span id="ntf_dj"></span>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="col-md-3">
+                                                    <div class="form-group has-feedback">
+                                                        <label class="control-label">Nº de Celular de Contacto de la Empresa: </label>
+                                                        <br><abbr></abbr><span id="ntc_dj"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group has-feedback">
+                                                        <label class="control-label">Correo Electrónico de la Empresa:</label>
+                                                        <br><abbr></abbr> <span id="cee_dj"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group has-feedback">
+                                                        <label class="control-label">Localidad de Planta:</label>
+                                                        <br><abbr></abbr><span id="lp_dj"></span>
+                                                    </div>
+                                                </div>
+                                                
+
+                                            </div>
+
+                                            <div class="row">
+
+                                                <div class="col-md-3">
+                                                    <div class="form-group has-feedback">
+                                                        <label class="control-label">Pagina Web: </label>
+                                                        <br><abbr></abbr><span id="pw_dj"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group has-feedback">
+                                                        <label class="control-label">Latitud de Ubicación: </label>
+                                                        <br><abbr></abbr><span id="lu_dj"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group has-feedback">
+                                                        <label class="control-label">Longitud de Ubicación: </label>
+                                                        <br><abbr></abbr> <span id="lonu_dj"></span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-3">
+                                                    <div class="form-group has-feedback">
+                                                        <label class="control-label">Código Postal: </label>
+                                                        <br><abbr></abbr> <span id="cpi_dj"></span>
+                                                    </div>
+                                                </div>
+                                                
+
+                                            </div>
+                                        </div>
+                                    </div>
 
                                 </section>
 

@@ -3019,6 +3019,11 @@ function muestraForm(ref) {
 			cargar_tabla_perfil()
 			getSP()
 			getPerfil();
+		}else if(ref=="ddjj"){
+
+			trae_views_ddjj()
+
+
 		}
 
 
