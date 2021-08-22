@@ -127,7 +127,9 @@
     <script src="{{ asset('assets/calendario/jquery-ui.js')}}"></script>
     <script src="{{ asset('assets/script/jscalendario.js')}}"></script>
     
-
+    <script>
+        var base="<?php echo public_path() ?>"
+    </script>
     <!-- Calendario -->
 
 

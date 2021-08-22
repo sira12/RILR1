@@ -1630,7 +1630,7 @@
                                             </div>
 
                                             <div class="row">
-                                               
+
                                                 <div class="col-md-3">
                                                     <div class="form-group has-feedback">
                                                         <label class="control-label">En calidad de:</label>
@@ -1673,7 +1673,7 @@
                                                         <br><abbr></abbr> <span id="ezi_dj"></span>
                                                     </div>
                                                 </div>
-                                                
+
 
                                             </div>
                                             <div class="row">
@@ -1683,7 +1683,7 @@
                                                         <br><abbr></abbr><span id="ntf_dj"></span>
                                                     </div>
                                                 </div>
-                                                
+
                                                 <div class="col-md-3">
                                                     <div class="form-group has-feedback">
                                                         <label class="control-label">Nº de Celular de Contacto de la Empresa: </label>
@@ -1702,7 +1702,7 @@
                                                         <br><abbr></abbr><span id="lp_dj"></span>
                                                     </div>
                                                 </div>
-                                                
+
 
                                             </div>
 
@@ -1733,10 +1733,367 @@
                                                         <br><abbr></abbr> <span id="cpi_dj"></span>
                                                     </div>
                                                 </div>
-                                                
+
 
                                             </div>
                                         </div>
+                                    </div>
+
+                                    <div class="card">
+                                        <div class="card-header">
+                                            Actividades de la industria
+                                        </div>
+
+                                        <div class="card">
+                                            <div class="card-header">
+                                                Actividades y Productos
+                                            </div>
+
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">Actividad</th>
+                                                        <th scope="col">Es Actividad principal?</th>
+                                                        <th scope="col">Obs.</th>
+                                                        <th scope="col">Fecha inicio</th>
+                                                        <th scope="col">Fecha fin</th>
+                                                        <th scope="col">Producto elaborado</th>
+                                                        <th scope="col">Cantidad producida</th>
+                                                        <th scope="col">Porcentaje de producción</th>
+                                                        <th scope="col">Ventas en provincia</th>
+                                                        <th scope="col">Ventas en otras provincias</th>
+                                                        <th scope="col">Ventas en el exterior</th>
+                                                        <th scope="col">Año</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="tbody_act_prod_dj">
+
+                                                </tbody>
+                                            </table>
+
+
+
+                                        </div>
+
+
+                                        <div class="card">
+                                            <div class="card-header">
+                                                Actividades y Materia prima 
+                                            </div>
+
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">Actividad</th>
+                                                        <th scope="col">Es Act. principal?</th>
+                                                        <th scope="col">Obs.</th>
+                                                        <th scope="col">Fecha inicio</th>
+                                                        <th scope="col">Fecha fin</th>
+                                                        <th scope="col">M.P Elaborada</th>
+                                                        <th scope="col">Cantidad de M.P anual utilizada</th>
+                                                        <th scope="col">Propia?</th>
+                                                        <th scope="col">Loc. origen</th>
+                                                        <th scope="col">Pais origen</th>
+                                                        <th scope="col">Motivo Import.</th>
+                                                        <th scope="col">Detalle Motivo</th>
+                                                        <th scope="col">Año</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="tbody_act_mp_dj">
+
+                                                </tbody>
+                                            </table>
+
+
+
+                                        </div>
+
+
+
+
+
+
+                                    </div>
+
+                                    <div class="card">
+                                        <div class="card-header">
+                                            Insumos de la industria
+                                        </div>
+
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">Insumo</th>
+                                                    <th scope="col">Es propio?</th>
+                                                    <th scope="col">Localidad origen del insumo</th>
+                                                    <th scope="col">Pais origen del insumo</th>
+                                                    <th scope="col">Motivo de importacion</th>
+                                                    <th scope="col">Detalle del motivo de importacion</th>
+                                                    <th scope="col">Año</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="tbody_insumos_dj">
+
+                                            </tbody>
+                                        </table>
+
+
+
+                                    </div>
+
+                                    <div class="card">
+                                        <div class="card-header">
+                                            Servicios de la industria
+                                        </div>
+
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">Servicio</th>
+                                                    <th scope="col">Cantidad Consumida</th>
+                                                    <th scope="col">Costo del servicio</th>
+                                                    <th scope="col">Frecuencia de contratacion</th>
+                                                    <th scope="col">Localidad origen del servicio</th>
+                                                    <th scope="col">Pais origen del servicio</th>
+                                                    <th scope="col">Motivo de importacion</th>
+                                                    <th scope="col">Detalle del motivo de importacion</th>
+                                                    <th scope="col">Año</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="tbody_servicios_dj">
+
+                                            </tbody>
+                                        </table>
+
+
+
+                                    </div>
+
+                                    <div class="card">
+                                        <div class="card-header">
+                                            Gastos
+                                        </div>
+
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">Concepto</th>
+                                                    <th scope="col">Importe</th>
+                                                    
+                                                    <th scope="col">Año</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="tbody_gastos_dj">
+
+                                            </tbody>
+                                        </table>
+
+
+
+                                    </div>
+
+                                    <div class="card">
+                                        <div class="card-header">
+                                            Situacion de planta
+                                        </div>
+
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">% de producción</th>
+                                                    <th scope="col">Sup. Lote</th>
+                                                    <th scope="col">Sup. Planta</th>
+                                                    <th scope="col">Z. industrial?</th>
+                                                    <th scope="col">Inv. Anual</th>
+                                                    <th scope="col">Inv Activo Fijo</th>
+                                                    <th scope="col">Cap. Inst.</th>
+                                                    <th scope="col">Cap.Ociosa</th>
+                                                    <th scope="col">Año</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="tbody_situacion_dj">
+
+                                            </tbody>
+                                        </table>
+
+
+
+                                    </div>
+
+                                    <div class="card">
+                                        <div class="card-header">
+                                            Motivo Ociosidad
+                                        </div>
+
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">Motivo</th>
+                                                    
+                                                    <th scope="col">Año</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="tbody_mot_o_dj">
+
+                                            </tbody>
+                                        </table>
+
+
+
+                                    </div>
+
+                                    <div class="card">
+                                        <div class="card-header">
+                                            Personal ocupado
+                                        </div>
+
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">Rol</th>
+                                                    <th scope="col">Condicion Laboral</th>
+                                                    <th scope="col">Sexo</th>
+                                                    <th scope="col">N° de Trabajadores</th>
+                                                   
+                                                    <th scope="col">Año</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="tbody_p_ocupado_dj">
+
+                                            </tbody>
+                                        </table>
+
+
+
+                                    </div>
+                                    <div class="card">
+                                        <div class="card-header">
+                                            Ventas Internacionales
+                                        </div>
+
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">Tipo de venta</th>
+                                                    <th scope="col">Pais</th>
+                                                    <th scope="col">Año</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="tbody_venta_inter_dj">
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="card">
+                                        <div class="card-header">
+                                            Ventas Nacionales
+                                        </div>
+
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">Tipo de venta</th>
+                                                    <th scope="col">Provincia</th>
+                                                    <th scope="col">Año</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="tbody_venta_nacional_dj">
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <div class="card">
+                                        <div class="card-header">
+                                            Facturación
+                                        </div>
+
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">Clasificacion</th>
+                                                    <th scope="col">Facturación Anual (Pesos) </th>
+                                                    <th scope="col">Facturación Anual (USD) </th>
+                                                    <th scope="col">Facturación Mercado Interno (%)</th>
+                                                    <th scope="col">Facturación Mercado Externo (%)</th>
+                                                    <th scope="col">Año</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="tbody_facturacion_dj">
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+
+                                    <div class="card">
+                                        <div class="card-header">
+                                            Efluentes
+                                        </div>
+
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">Efluente</th>
+                                                    <th scope="col">Tratamiento</th>
+                                                    <th scope="col">Destino</th>
+                                                    <th scope="col">Año</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="tbody_efluentes_dj">
+
+                                            </tbody>
+                                        </table>
+
+
+
+                                    </div>
+
+                                    <div class="card">
+                                        <div class="card-header">
+                                            Certificados de la industria
+                                        </div>
+
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">Certificado</th>
+                                                    <th scope="col">Estado</th>
+                                                    <th scope="col">Vigencia del certificado</th>
+                                                    <th scope="col">Año</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="tbody_certificados_dj">
+
+                                            </tbody>
+                                        </table>
+
+
+
+                                    </div>
+
+
+                                    <div class="card">
+                                        <div class="card-header">
+                                            Sistemas de calidad de la industria
+                                        </div>
+
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th width="25%" scope="col">Sistema de calidad</th>
+                                                    <th width="25%" scope="col">Estado</th>
+                                                    <th width="25%" scope="col">Vigencia </th>
+                                                    <th width="25%" scope="col">Año</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="tbody_sistemas_dj">
+
+                                            </tbody>
+                                        </table>
+
+
+
                                     </div>
 
                                 </section>
