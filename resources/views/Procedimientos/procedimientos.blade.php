@@ -1738,9 +1738,7 @@
                                     </div>
 
                                     <div class="card">
-                                        <div class="card-header">
-                                            Actividades de la industria
-                                        </div>
+                                        
 
                                         <div class="card">
                                             <div class="card-header">

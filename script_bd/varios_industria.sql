@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 26-08-2021 a las 19:06:38
+-- Tiempo de generación: 26-08-2021 a las 20:06:44
 -- Versión del servidor: 5.7.31
 -- Versión de PHP: 7.4.9
 
@@ -11756,10 +11756,10 @@ CREATE TABLE IF NOT EXISTS `vw_info_actividad_producto` (
 ,`es_actividad_principal` char(1)
 ,`observacion` varchar(250)
 ,`fecha_inicio` date
-,`IFNULL(ria.fecha_fin, '')` varchar(10)
+,`fecha_fin` varchar(10)
 ,`Productos_Elaborados` varchar(150)
-,`Cantidad_producida` varchar(100)
-,`porcentaje_sobre_produccion` int(11)
+,`Cantidad_producida` varchar(112)
+,`porcentaje_sobre_produccion` varchar(12)
 ,`ventas_en_provincia` int(11)
 ,`ventas_en_otras_provincias` int(11)
 ,`ventas_en_el_exterior` int(11)
@@ -11958,7 +11958,7 @@ CREATE TABLE IF NOT EXISTS `vw_info_promocion_industrial` (
 `id_industria` int(11)
 ,`promocion_industrial` varchar(150)
 ,`Estado_Promocion_industrial` varchar(50)
-,`Vigencia_Promocion_industrial` varchar(35)
+,`Vigencia_Promocion_industrial` varchar(33)
 ,`Anio_Promocion_industrial` smallint(6)
 );
 
@@ -12063,7 +12063,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 DROP TABLE IF EXISTS `vw_info_actividad_producto`;
 
 DROP VIEW IF EXISTS `vw_info_actividad_producto`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_info_actividad_producto`  AS  select `i`.`id_industria` AS `id_industria`,`a`.`id_Actividad` AS `id_Actividad`,`a`.`actividad` AS `actividad`,`ria`.`es_actividad_principal` AS `es_actividad_principal`,`ria`.`observacion` AS `observacion`,`ria`.`fecha_inicio` AS `fecha_inicio`,ifnull(`ria`.`fecha_fin`,'') AS `IFNULL(ria.fecha_fin, '')`,`prod`.`producto` AS `Productos_Elaborados`,concat_ws(cast(`rap`.`cantidad_producida` as char charset utf8mb4),convert((select `umprod`.`unidad_de_medida` from `unidad_de_medida` `umprod` where (`umprod`.`id_unidad_de_medida` = `rap`.`id_unidad_de_medida`)) using utf8mb4)) AS `Cantidad_producida`,`rap`.`porcentaje_sobre_produccion` AS `porcentaje_sobre_produccion`,`rap`.`ventas_en_provincia` AS `ventas_en_provincia`,`rap`.`ventas_en_otras_provincias` AS `ventas_en_otras_provincias`,`rap`.`ventas_internacionales` AS `ventas_en_el_exterior`,`rap`.`anio` AS `anio_productos` from ((((((`industria` `i` join `contribuyente` `c` on((`c`.`id_contribuyente` = `i`.`id_contribuyente`))) left join `rel_industria_actividad` `ria` on((`ria`.`id_industria` = `i`.`id_industria`))) left join `actividad` `a` on((`a`.`id_Actividad` = `ria`.`id_actividad`))) left join `rel_actividad_producto` `rap` on((`rap`.`id_rel_industria_actividad` = `ria`.`id_rel_industria_actividad`))) left join `producto` `prod` on((`prod`.`id_producto` = `rap`.`id_producto`))) left join `unidad_de_medida` `um` on((`um`.`id_unidad_de_medida` = `rap`.`id_unidad_de_medida`))) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_info_actividad_producto`  AS  select `i`.`id_industria` AS `id_industria`,`a`.`id_Actividad` AS `id_Actividad`,`a`.`actividad` AS `actividad`,`ria`.`es_actividad_principal` AS `es_actividad_principal`,`ria`.`observacion` AS `observacion`,`ria`.`fecha_inicio` AS `fecha_inicio`,ifnull(`ria`.`fecha_fin`,'') AS `fecha_fin`,`prod`.`producto` AS `Productos_Elaborados`,concat(cast(`rap`.`cantidad_producida` as char charset utf8mb4),' ',convert(`um`.`unidad_de_medida` using utf8mb4)) AS `Cantidad_producida`,concat(cast(`rap`.`porcentaje_sobre_produccion` as char charset utf8mb4),'%') AS `porcentaje_sobre_produccion`,`rap`.`ventas_en_provincia` AS `ventas_en_provincia`,`rap`.`ventas_en_otras_provincias` AS `ventas_en_otras_provincias`,`rap`.`ventas_internacionales` AS `ventas_en_el_exterior`,`rap`.`anio` AS `anio_productos` from ((((((`industria` `i` join `contribuyente` `c` on((`c`.`id_contribuyente` = `i`.`id_contribuyente`))) join `rel_industria_actividad` `ria` on((`ria`.`id_industria` = `i`.`id_industria`))) join `actividad` `a` on((`a`.`id_Actividad` = `ria`.`id_actividad`))) join `rel_actividad_producto` `rap` on((`rap`.`id_rel_industria_actividad` = `ria`.`id_rel_industria_actividad`))) join `producto` `prod` on((`prod`.`id_producto` = `rap`.`id_producto`))) join `unidad_de_medida` `um` on((`um`.`id_unidad_de_medida` = `rap`.`id_unidad_de_medida`))) ;
 
 -- --------------------------------------------------------
 
@@ -12073,7 +12073,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 DROP TABLE IF EXISTS `vw_info_certificado`;
 
 DROP VIEW IF EXISTS `vw_info_certificado`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_info_certificado`  AS  select distinct `i`.`id_industria` AS `id_industria`,`cer`.`certificado` AS `certificado`,`ed`.`estado` AS `Estado_Certificado`,`ric`.`numero_de_certificado` AS `numero_de_certificado`,concat_ws(' ','Desde:',`ric`.`fecha_inicio`,'Hasta:',`ric`.`fecha_fin`) AS `Vigencia_Certificado`,`ric`.`anio` AS `anio_certificado` from (((`industria` `i` left join `rel_industria_certificado` `ric` on((`ric`.`id_industria` = `i`.`id_industria`))) left join `certificado` `cer` on((`cer`.`id_certificado` = `ric`.`id_certificado`))) left join `estado_documentacion` `ed` on((`ed`.`id_estado_documentacion` = `ric`.`id_estado_documentacion`))) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_info_certificado`  AS  select distinct `i`.`id_industria` AS `id_industria`,`cer`.`certificado` AS `certificado`,`ed`.`estado` AS `Estado_Certificado`,`ric`.`numero_de_certificado` AS `numero_de_certificado`,concat_ws(' ','Desde:',`ric`.`fecha_inicio`,'Hasta:',`ric`.`fecha_fin`) AS `Vigencia_Certificado`,`ric`.`anio` AS `anio_certificado` from (((`industria` `i` join `rel_industria_certificado` `ric` on((`ric`.`id_industria` = `i`.`id_industria`))) join `certificado` `cer` on((`cer`.`id_certificado` = `ric`.`id_certificado`))) join `estado_documentacion` `ed` on((`ed`.`id_estado_documentacion` = `ric`.`id_estado_documentacion`))) ;
 
 -- --------------------------------------------------------
 
@@ -12093,7 +12093,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 DROP TABLE IF EXISTS `vw_info_economia_del_conocimiento_perfil`;
 
 DROP VIEW IF EXISTS `vw_info_economia_del_conocimiento_perfil`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_info_economia_del_conocimiento_perfil`  AS  select distinct `i`.`id_industria` AS `id_industria`,`ecp`.`perfil` AS `perfil`,`riep`.`anio` AS `Anio_Economia_del_conocimiento_perfil` from ((`industria` `i` left join `rel_industria_economia_del_conocimiento_perfil` `riep` on((`riep`.`id_industria` = `i`.`id_industria`))) left join `economia_del_conocimiento_perfil` `ecp` on((`ecp`.`id_economia_del_conocimiento_perfil` = `riep`.`id_economia_del_conocimiento_perfil`))) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_info_economia_del_conocimiento_perfil`  AS  select distinct `i`.`id_industria` AS `id_industria`,`ecp`.`perfil` AS `perfil`,`riep`.`anio` AS `Anio_Economia_del_conocimiento_perfil` from ((`industria` `i` join `rel_industria_economia_del_conocimiento_perfil` `riep` on((`riep`.`id_industria` = `i`.`id_industria`))) join `economia_del_conocimiento_perfil` `ecp` on((`ecp`.`id_economia_del_conocimiento_perfil` = `riep`.`id_economia_del_conocimiento_perfil`))) ;
 
 -- --------------------------------------------------------
 
@@ -12103,7 +12103,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 DROP TABLE IF EXISTS `vw_info_economia_del_conocimiento_sector`;
 
 DROP VIEW IF EXISTS `vw_info_economia_del_conocimiento_sector`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_info_economia_del_conocimiento_sector`  AS  select distinct `i`.`id_industria` AS `id_industria`,`ecs`.`sector` AS `sector`,`ries`.`anio` AS `Anio_Economia_del_conocimiento_sector` from ((`industria` `i` left join `rel_industria_economia_del_conocimiento_sector` `ries` on((`ries`.`id_industria` = `i`.`id_industria`))) left join `economia_del_conocimiento_sector` `ecs` on((`ecs`.`id_economia_del_conocimiento_sector` = `ries`.`id_economia_del_conocimiento_sector`))) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_info_economia_del_conocimiento_sector`  AS  select distinct `i`.`id_industria` AS `id_industria`,`ecs`.`sector` AS `sector`,`ries`.`anio` AS `Anio_Economia_del_conocimiento_sector` from ((`industria` `i` join `rel_industria_economia_del_conocimiento_sector` `ries` on((`ries`.`id_industria` = `i`.`id_industria`))) join `economia_del_conocimiento_sector` `ecs` on((`ecs`.`id_economia_del_conocimiento_sector` = `ries`.`id_economia_del_conocimiento_sector`))) ;
 
 -- --------------------------------------------------------
 
@@ -12113,7 +12113,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 DROP TABLE IF EXISTS `vw_info_efluente`;
 
 DROP VIEW IF EXISTS `vw_info_efluente`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_info_efluente`  AS  select distinct `i`.`id_industria` AS `id_industria`,`ef`.`efluente` AS `efluente`,`rief`.`tratamiento` AS `Tratamiento_del_Efluente`,`rief`.`destino` AS `Destino_Efluente`,`rief`.`anio` AS `anio_efluente` from ((`industria` `i` left join `rel_industria_efluente` `rief` on((`rief`.`id_industria` = `i`.`id_industria`))) left join `efluente` `ef` on((`ef`.`id_efluente` = `rief`.`id_efluente`))) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_info_efluente`  AS  select distinct `i`.`id_industria` AS `id_industria`,`ef`.`efluente` AS `efluente`,`rief`.`tratamiento` AS `Tratamiento_del_Efluente`,`rief`.`destino` AS `Destino_Efluente`,`rief`.`anio` AS `anio_efluente` from ((`industria` `i` join `rel_industria_efluente` `rief` on((`rief`.`id_industria` = `i`.`id_industria`))) join `efluente` `ef` on((`ef`.`id_efluente` = `rief`.`id_efluente`))) ;
 
 -- --------------------------------------------------------
 
@@ -12123,7 +12123,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 DROP TABLE IF EXISTS `vw_info_egreso`;
 
 DROP VIEW IF EXISTS `vw_info_egreso`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_info_egreso`  AS  select distinct `i`.`id_industria` AS `id_industria`,`eg`.`egreso` AS `Concepto_de_egreso`,`rieg`.`importe` AS `importe`,`rieg`.`anio` AS `anio_egresos` from ((`industria` `i` left join `rel_industria_egreso` `rieg` on((`rieg`.`id_industria` = `i`.`id_industria`))) left join `egreso` `eg` on((`eg`.`id_egreso` = `rieg`.`id_egreso`))) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_info_egreso`  AS  select distinct `i`.`id_industria` AS `id_industria`,`eg`.`egreso` AS `Concepto_de_egreso`,`rieg`.`importe` AS `importe`,`rieg`.`anio` AS `anio_egresos` from ((`industria` `i` join `rel_industria_egreso` `rieg` on((`rieg`.`id_industria` = `i`.`id_industria`))) join `egreso` `eg` on((`eg`.`id_egreso` = `rieg`.`id_egreso`))) ;
 
 -- --------------------------------------------------------
 
@@ -12133,7 +12133,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 DROP TABLE IF EXISTS `vw_info_facturacion`;
 
 DROP VIEW IF EXISTS `vw_info_facturacion`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_info_facturacion`  AS  select distinct `i`.`id_industria` AS `id_industria`,`fact`.`monto_facturacion_anual` AS `monto_facturacion_anual`,`fact`.`porcentaje_mayorista` AS `porcentaje_mayorista`,`fact`.`porcentaje_minorista` AS `porcentaje_minorista`,`fact`.`porcentaje_provincia` AS `porcentaje_provincia`,`fact`.`porcentaje_otras_provincias` AS `porcentaje_otras_provincias`,`fact`.`porcentaje_exterior` AS `porcentaje_exterior`,`fact`.`facturacion_dolares` AS `facturacion_dolares`,`fact`.`prevision_ingresos_anio_corriente` AS `prevision_ingresos_anio_corriente`,`fact`.`prevision_ingresos_anio_corriente_dolares` AS `prevision_ingresos_anio_corriente_dolares`,`fact`.`porcentaje_prevision_mercado_interno` AS `porcentaje_prevision_mercado_interno`,`fact`.`porcentaje_prevision_mercado_externo` AS `porcentaje_prevision_mercado_externo`,concat_ws(' ',`cati`.`categoria`,'-','Entre $',`cati`.`monto_minimo`,'y $',`cati`.`monto_maximo`) AS `categoria_pyme`,`fact`.`anio` AS `Anio_Facturacion` from ((`industria` `i` left join `facturacion` `fact` on((`fact`.`id_industria` = `i`.`id_industria`))) left join `categoria_ingresos` `cati` on((`cati`.`id_categoria_ingreso` = `fact`.`id_categoria_ingresos`))) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_info_facturacion`  AS  select distinct `i`.`id_industria` AS `id_industria`,`fact`.`monto_facturacion_anual` AS `monto_facturacion_anual`,`fact`.`porcentaje_mayorista` AS `porcentaje_mayorista`,`fact`.`porcentaje_minorista` AS `porcentaje_minorista`,`fact`.`porcentaje_provincia` AS `porcentaje_provincia`,`fact`.`porcentaje_otras_provincias` AS `porcentaje_otras_provincias`,`fact`.`porcentaje_exterior` AS `porcentaje_exterior`,`fact`.`facturacion_dolares` AS `facturacion_dolares`,`fact`.`prevision_ingresos_anio_corriente` AS `prevision_ingresos_anio_corriente`,`fact`.`prevision_ingresos_anio_corriente_dolares` AS `prevision_ingresos_anio_corriente_dolares`,`fact`.`porcentaje_prevision_mercado_interno` AS `porcentaje_prevision_mercado_interno`,`fact`.`porcentaje_prevision_mercado_externo` AS `porcentaje_prevision_mercado_externo`,concat_ws(' ',`cati`.`categoria`,'-','Entre $',`cati`.`monto_minimo`,'y $',`cati`.`monto_maximo`) AS `categoria_pyme`,`fact`.`anio` AS `Anio_Facturacion` from ((`industria` `i` join `facturacion` `fact` on((`fact`.`id_industria` = `i`.`id_industria`))) left join `categoria_ingresos` `cati` on((`cati`.`id_categoria_ingreso` = `fact`.`id_categoria_ingresos`))) ;
 
 -- --------------------------------------------------------
 
@@ -12143,7 +12143,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 DROP TABLE IF EXISTS `vw_info_industria_personal_ocupado`;
 
 DROP VIEW IF EXISTS `vw_info_industria_personal_ocupado`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_info_industria_personal_ocupado`  AS  select distinct `i`.`id_industria` AS `id_industria`,`rt`.`rol_trabajador` AS `rol_trabajador`,`cl`.`condicion_laboral` AS `condicion_laboral`,`rit`.`sexo` AS `sexo`,`rit`.`numero_de_trabajadores` AS `numero_de_trabajadores`,`rit`.`anio` AS `anio_rol_trabajadores` from (((`industria` `i` left join `rel_industria_trabajador` `rit` on((`rit`.`id_industria` = `i`.`id_industria`))) left join `condicion_laboral` `cl` on((`cl`.`id_condicion_laboral` = `rit`.`id_condicion_laboral`))) left join `rol_trabajador` `rt` on((`rt`.`id_rol_trabajador` = `rit`.`id_rol_trabajador`))) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_info_industria_personal_ocupado`  AS  select distinct `i`.`id_industria` AS `id_industria`,`rt`.`rol_trabajador` AS `rol_trabajador`,`cl`.`condicion_laboral` AS `condicion_laboral`,`rit`.`sexo` AS `sexo`,`rit`.`numero_de_trabajadores` AS `numero_de_trabajadores`,`rit`.`anio` AS `anio_rol_trabajadores` from (((`industria` `i` join `rel_industria_trabajador` `rit` on((`rit`.`id_industria` = `i`.`id_industria`))) join `condicion_laboral` `cl` on((`cl`.`id_condicion_laboral` = `rit`.`id_condicion_laboral`))) join `rol_trabajador` `rt` on((`rt`.`id_rol_trabajador` = `rit`.`id_rol_trabajador`))) ;
 
 -- --------------------------------------------------------
 
@@ -12153,7 +12153,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 DROP TABLE IF EXISTS `vw_info_insumo`;
 
 DROP VIEW IF EXISTS `vw_info_insumo`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_info_insumo`  AS  select distinct `i`.`id_industria` AS `id_industria`,`ins`.`insumo` AS `Insumos_utilizados`,`rii`.`es_propio` AS `Es_insumo_propio`,(select rtrim(`lins`.`localidad`) from `localidad` `lins` where (`lins`.`id_localidad` = `rii`.`id_localidad`)) AS `Localidad_Origen_Insumo`,(select rtrim(`pins`.`pais`) from `pais` `pins` where (`pins`.`id_pais` = `rii`.`id_pais`)) AS `Pais_Origen_Insumo`,(select `miins`.`motivo_importacion` from `motivo_importacion` `miins` where (`miins`.`id_motivo_importacion` = `rii`.`id_motivo_importacion`)) AS `motivo_importacion_Insumo`,`rii`.`detalles` AS `Detalle_de_motivo_de_importacion_Insumo`,`rii`.`anio` AS `anio_insumos` from (((`industria` `i` left join `rel_industria_insumo` `rii` on((`rii`.`id_industria` = `i`.`id_industria`))) left join `insumo` `ins` on((`ins`.`id_insumo` = `rii`.`id_insumo`))) left join `unidad_de_medida` `umins` on((`umins`.`id_unidad_de_medida` = `rii`.`id_unidad_de_medida`))) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_info_insumo`  AS  select distinct `i`.`id_industria` AS `id_industria`,`ins`.`insumo` AS `Insumos_utilizados`,`rii`.`es_propio` AS `Es_insumo_propio`,(select rtrim(`lins`.`localidad`) from `localidad` `lins` where (`lins`.`id_localidad` = `rii`.`id_localidad`)) AS `Localidad_Origen_Insumo`,(select rtrim(`pins`.`pais`) from `pais` `pins` where (`pins`.`id_pais` = `rii`.`id_pais`)) AS `Pais_Origen_Insumo`,(select `miins`.`motivo_importacion` from `motivo_importacion` `miins` where (`miins`.`id_motivo_importacion` = `rii`.`id_motivo_importacion`)) AS `motivo_importacion_Insumo`,`rii`.`detalles` AS `Detalle_de_motivo_de_importacion_Insumo`,`rii`.`anio` AS `anio_insumos` from (((`industria` `i` join `rel_industria_insumo` `rii` on((`rii`.`id_industria` = `i`.`id_industria`))) join `insumo` `ins` on((`ins`.`id_insumo` = `rii`.`id_insumo`))) join `unidad_de_medida` `umins` on((`umins`.`id_unidad_de_medida` = `rii`.`id_unidad_de_medida`))) ;
 
 -- --------------------------------------------------------
 
@@ -12163,7 +12163,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 DROP TABLE IF EXISTS `vw_info_motivo_ociosidad`;
 
 DROP VIEW IF EXISTS `vw_info_motivo_ociosidad`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_info_motivo_ociosidad`  AS  select distinct `i`.`id_industria` AS `id_industria`,`mo`.`motivo_ociosidad` AS `motivo_ociosidad`,`rimo`.`anio` AS `anio_ociosidad` from ((`industria` `i` left join `rel_industria_motivo_ociosidad` `rimo` on((`rimo`.`id_industria` = `i`.`id_industria`))) left join `motivo_ociosidad` `mo` on((`mo`.`id_motivo_ociosidad` = `rimo`.`id_motivo_ociosidad`))) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_info_motivo_ociosidad`  AS  select distinct `i`.`id_industria` AS `id_industria`,`mo`.`motivo_ociosidad` AS `motivo_ociosidad`,`rimo`.`anio` AS `anio_ociosidad` from ((`industria` `i` join `rel_industria_motivo_ociosidad` `rimo` on((`rimo`.`id_industria` = `i`.`id_industria`))) join `motivo_ociosidad` `mo` on((`mo`.`id_motivo_ociosidad` = `rimo`.`id_motivo_ociosidad`))) ;
 
 -- --------------------------------------------------------
 
@@ -12173,7 +12173,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 DROP TABLE IF EXISTS `vw_info_promocion_industrial`;
 
 DROP VIEW IF EXISTS `vw_info_promocion_industrial`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_info_promocion_industrial`  AS  select distinct `i`.`id_industria` AS `id_industria`,`pi`.`promocion_industrial` AS `promocion_industrial`,`ed`.`estado` AS `Estado_Promocion_industrial`,concat_ws(' ','Desde:',`ripi`.`fecha_inicio`,'Hasta:',`ripi`.`fecha_fin`) AS `Vigencia_Promocion_industrial`,`ripi`.`anio` AS `Anio_Promocion_industrial` from (((`industria` `i` left join `rel_industria_promocion_industrial` `ripi` on((`ripi`.`id_industria` = `i`.`id_industria`))) left join `promocion_industrial` `pi` on((`pi`.`id_promocion_industrial` = `ripi`.`id_promocion_industrial`))) left join `estado_documentacion` `ed` on((`ed`.`id_estado_documentacion` = `ripi`.`id_estado_documentacion`))) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_info_promocion_industrial`  AS  select distinct `i`.`id_industria` AS `id_industria`,`pi`.`promocion_industrial` AS `promocion_industrial`,`ed`.`estado` AS `Estado_Promocion_industrial`,concat('Desde:',`ripi`.`fecha_inicio`,' ','Hasta:',`ripi`.`fecha_fin`) AS `Vigencia_Promocion_industrial`,`ripi`.`anio` AS `Anio_Promocion_industrial` from (((`industria` `i` join `rel_industria_promocion_industrial` `ripi` on((`ripi`.`id_industria` = `i`.`id_industria`))) join `promocion_industrial` `pi` on((`pi`.`id_promocion_industrial` = `ripi`.`id_promocion_industrial`))) join `estado_documentacion` `ed` on((`ed`.`id_estado_documentacion` = `ripi`.`id_estado_documentacion`))) ;
 
 -- --------------------------------------------------------
 
@@ -12183,7 +12183,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 DROP TABLE IF EXISTS `vw_info_servicio`;
 
 DROP VIEW IF EXISTS `vw_info_servicio`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_info_servicio`  AS  select distinct `i`.`id_industria` AS `id_industria`,`serv`.`servicio` AS `Servicio`,`ris`.`cantidad_consumida` AS `cantidad_consumida`,`ris`.`costo` AS `Costo_del_Servicio`,(select `fcs`.`frecuencia_de_contratacion` from `frecuencia_de_contratacion` `fcs` where (`fcs`.`id_frecuencia_de_contratacion` = `ris`.`id_frecuencia_de_contratacion`)) AS `frecuencia_de_contratacion_Servicio`,(select rtrim(`lserv`.`localidad`) from `localidad` `lserv` where (`lserv`.`id_localidad` = `ris`.`id_localidad`)) AS `Localidad_Origen_Servicio`,(select rtrim(`pserv`.`pais`) from `pais` `pserv` where (`pserv`.`id_pais` = `ris`.`id_pais`)) AS `Pais_Origen_Servicio`,(select `miserv`.`motivo_importacion` from `motivo_importacion` `miserv` where (`miserv`.`id_motivo_importacion` = `ris`.`id_motivo_importacion`)) AS `motivo_importacion_Servicio`,`ris`.`detalles` AS `Detalle_de_motivo_de_importacion_Servicio`,`ris`.`anio` AS `anio_Servicios` from (((`industria` `i` left join `rel_industria_servicio` `ris` on((`ris`.`id_industria` = `i`.`id_industria`))) left join `servicio` `serv` on((`serv`.`id_servicio` = `ris`.`id_servicio`))) left join `rel_industria_egreso` `rieg` on((`rieg`.`id_industria` = `i`.`id_industria`))) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_info_servicio`  AS  select distinct `i`.`id_industria` AS `id_industria`,`serv`.`servicio` AS `Servicio`,`ris`.`cantidad_consumida` AS `cantidad_consumida`,`ris`.`costo` AS `Costo_del_Servicio`,(select `fcs`.`frecuencia_de_contratacion` from `frecuencia_de_contratacion` `fcs` where (`fcs`.`id_frecuencia_de_contratacion` = `ris`.`id_frecuencia_de_contratacion`)) AS `frecuencia_de_contratacion_Servicio`,(select rtrim(`lserv`.`localidad`) from `localidad` `lserv` where (`lserv`.`id_localidad` = `ris`.`id_localidad`)) AS `Localidad_Origen_Servicio`,(select rtrim(`pserv`.`pais`) from `pais` `pserv` where (`pserv`.`id_pais` = `ris`.`id_pais`)) AS `Pais_Origen_Servicio`,(select `miserv`.`motivo_importacion` from `motivo_importacion` `miserv` where (`miserv`.`id_motivo_importacion` = `ris`.`id_motivo_importacion`)) AS `motivo_importacion_Servicio`,`ris`.`detalles` AS `Detalle_de_motivo_de_importacion_Servicio`,`ris`.`anio` AS `anio_Servicios` from ((`industria` `i` join `rel_industria_servicio` `ris` on((`ris`.`id_industria` = `i`.`id_industria`))) join `servicio` `serv` on((`serv`.`id_servicio` = `ris`.`id_servicio`))) ;
 
 -- --------------------------------------------------------
 
@@ -12193,7 +12193,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 DROP TABLE IF EXISTS `vw_info_sistema_de_calidad`;
 
 DROP VIEW IF EXISTS `vw_info_sistema_de_calidad`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_info_sistema_de_calidad`  AS  select distinct `i`.`id_industria` AS `id_industria`,`sc`.`sistema_de_calidad` AS `sistema_de_calidad`,`ed`.`estado` AS `Estado_Sistema_de_calidad`,concat_ws(' ','Desde:',`ris`.`fecha_inicio`,'Hasta:',`ris`.`fecha_fin`) AS `Vigencia_Sistema_de_calidad`,`ris`.`anio` AS `Anio_Sistema_de_calidad` from (((`industria` `i` left join `rel_industria_sistema` `ris` on((`ris`.`id_industria` = `i`.`id_industria`))) left join `sistema_de_calidad` `sc` on((`sc`.`id_sistema_de_calidad` = `ris`.`id_sistema_de_calidad`))) left join `estado_documentacion` `ed` on((`ed`.`id_estado_documentacion` = `ris`.`id_estado_documentacion`))) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_info_sistema_de_calidad`  AS  select distinct `i`.`id_industria` AS `id_industria`,`sc`.`sistema_de_calidad` AS `sistema_de_calidad`,`ed`.`estado` AS `Estado_Sistema_de_calidad`,concat_ws(' ','Desde:',`ris`.`fecha_inicio`,'Hasta:',`ris`.`fecha_fin`) AS `Vigencia_Sistema_de_calidad`,`ris`.`anio` AS `Anio_Sistema_de_calidad` from (((`industria` `i` join `rel_industria_sistema` `ris` on((`ris`.`id_industria` = `i`.`id_industria`))) join `sistema_de_calidad` `sc` on((`sc`.`id_sistema_de_calidad` = `ris`.`id_sistema_de_calidad`))) join `estado_documentacion` `ed` on((`ed`.`id_estado_documentacion` = `ris`.`id_estado_documentacion`))) ;
 
 -- --------------------------------------------------------
 
@@ -12203,7 +12203,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 DROP TABLE IF EXISTS `vw_info_situacion_de_planta`;
 
 DROP VIEW IF EXISTS `vw_info_situacion_de_planta`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_info_situacion_de_planta`  AS  select distinct `i`.`id_industria` AS `id_industria`,`sp`.`produccion_sobre_capacidad` AS `produccion_sobre_capacidad`,`sp`.`superficie_lote` AS `superficie_lote`,`sp`.`superficie_planta` AS `superficie_planta`,`sp`.`es_zona_industrial` AS `Establecida_en_zona_industrial`,`sp`.`inversion_anual` AS `inversion_anual`,`sp`.`inversion_activo_fijo` AS `inversion_activo_fijo`,`sp`.`capacidad_instalada` AS `capacidad_instalada`,`sp`.`capacidad_ociosa` AS `capacidad_ociosa`,`sp`.`anio` AS `anio_situacion_De_planta` from (`industria` `i` left join `situacion_de_planta` `sp` on((`sp`.`id_industria` = `i`.`id_industria`))) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_info_situacion_de_planta`  AS  select distinct `i`.`id_industria` AS `id_industria`,`sp`.`produccion_sobre_capacidad` AS `produccion_sobre_capacidad`,`sp`.`superficie_lote` AS `superficie_lote`,`sp`.`superficie_planta` AS `superficie_planta`,`sp`.`es_zona_industrial` AS `Establecida_en_zona_industrial`,`sp`.`inversion_anual` AS `inversion_anual`,`sp`.`inversion_activo_fijo` AS `inversion_activo_fijo`,`sp`.`capacidad_instalada` AS `capacidad_instalada`,`sp`.`capacidad_ociosa` AS `capacidad_ociosa`,`sp`.`anio` AS `anio_situacion_De_planta` from (`industria` `i` join `situacion_de_planta` `sp` on((`sp`.`id_industria` = `i`.`id_industria`))) ;
 
 -- --------------------------------------------------------
 
@@ -12213,7 +12213,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 DROP TABLE IF EXISTS `vw_info_ventas_exterior`;
 
 DROP VIEW IF EXISTS `vw_info_ventas_exterior`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_info_ventas_exterior`  AS  select distinct `i`.`id_industria` AS `id_industria`,`cv`.`clasificacion_ventas` AS `Tipo_de_Venta`,(select ltrim(rtrim(`pdv`.`pais`)) from `pais` `pdv` where (`pdv`.`id_pais` = `rdvpa`.`id_pais`)) AS `Pais_Destino_ventas`,`dv`.`anio` AS `anio_destino_ventas` from (((`industria` `i` left join `destino_ventas` `dv` on((`dv`.`id_industria` = `i`.`id_industria`))) left join `rel_destino_ventas_pais` `rdvpa` on((`rdvpa`.`id_destino_ventas` = `dv`.`id_destino_ventas`))) left join `clasificacion_ventas` `cv` on((`cv`.`id_clasificacion_ventas` = `dv`.`id_clasificacion_ventas`))) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_info_ventas_exterior`  AS  select distinct `i`.`id_industria` AS `id_industria`,`cv`.`clasificacion_ventas` AS `Tipo_de_Venta`,(select ltrim(rtrim(`pdv`.`pais`)) from `pais` `pdv` where (`pdv`.`id_pais` = `rdvpa`.`id_pais`)) AS `Pais_Destino_ventas`,`dv`.`anio` AS `anio_destino_ventas` from (((`industria` `i` join `destino_ventas` `dv` on((`dv`.`id_industria` = `i`.`id_industria`))) join `rel_destino_ventas_pais` `rdvpa` on((`rdvpa`.`id_destino_ventas` = `dv`.`id_destino_ventas`))) join `clasificacion_ventas` `cv` on((`cv`.`id_clasificacion_ventas` = `dv`.`id_clasificacion_ventas`))) ;
 
 -- --------------------------------------------------------
 
@@ -12223,7 +12223,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 DROP TABLE IF EXISTS `vw_info_ventas_nacionales`;
 
 DROP VIEW IF EXISTS `vw_info_ventas_nacionales`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_info_ventas_nacionales`  AS  select distinct `i`.`id_industria` AS `id_industria`,`cv`.`clasificacion_ventas` AS `Tipo_de_Venta`,(select ltrim(rtrim(`prdv`.`provincia`)) from `provincia` `prdv` where (`prdv`.`id_provincia` = `rdvpr`.`id_provincia`)) AS `Provincia_Destino_ventas`,`dv`.`anio` AS `anio_destino_ventas` from (((`industria` `i` left join `destino_ventas` `dv` on((`dv`.`id_industria` = `i`.`id_industria`))) left join `rel_destino_ventas_provincia` `rdvpr` on((`rdvpr`.`id_destino_ventas` = `dv`.`id_destino_ventas`))) left join `clasificacion_ventas` `cv` on((`cv`.`id_clasificacion_ventas` = `dv`.`id_clasificacion_ventas`))) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_info_ventas_nacionales`  AS  select `i`.`id_industria` AS `id_industria`,`cv`.`clasificacion_ventas` AS `Tipo_de_Venta`,ltrim(rtrim(`p`.`provincia`)) AS `Provincia_Destino_ventas`,`dv`.`anio` AS `anio_destino_ventas` from ((((`industria` `i` join `destino_ventas` `dv` on((`dv`.`id_industria` = `i`.`id_industria`))) join `rel_destino_ventas_provincia` `rdvpr` on((`rdvpr`.`id_destino_ventas` = `dv`.`id_destino_ventas`))) join `provincia` `p` on((`p`.`id_provincia` = `rdvpr`.`id_provincia`))) join `clasificacion_ventas` `cv` on((`cv`.`id_clasificacion_ventas` = `dv`.`id_clasificacion_ventas`))) ;
 
 --
 -- Restricciones para tablas volcadas
