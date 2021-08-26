@@ -87,9 +87,7 @@
                                                     (El año que se declara de la Industria es del año que paso...)
                                                     <i class="fa fa-bars form-control-feedback"></i>
                                                     <select class="form-control" id="periodofiscal" name="periodo_fiscal" required="" aria-required="true">
-
-                                                        <option value="{{$per_fiscal->id_periodo_fiscal}}" selected>{{$per_fiscal->anio}}</option>
-
+                                                        <option id="anio_periodo_fiscal" value="{{$per_fiscal->anio}}" selected>{{$per_fiscal->anio}}</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -2088,6 +2086,71 @@
                                                 </tr>
                                             </thead>
                                             <tbody id="tbody_sistemas_dj">
+
+                                            </tbody>
+                                        </table>
+
+
+
+                                    </div>
+
+                                    <div class="card">
+                                        <div class="card-header">
+                                            Promocion industrial
+                                        </div>
+
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th width="25%" scope="col">Descripción</th>
+                                                    <th width="25%" scope="col">Estado</th>
+                                                    <th width="25%" scope="col">Vigencia</th>
+                                                    <th width="25%" scope="col">Año</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="tbody_promo_dj">
+
+                                            </tbody>
+                                        </table>
+
+
+
+                                    </div>
+
+                                    <div class="card">
+                                        <div class="card-header">
+                                            Economia del conocimiento
+                                        </div>
+
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th width="25%" scope="col">Sector</th>
+                                                    <th width="25%" scope="col">Año</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="tbody_economia_dj">
+
+                                            </tbody>
+                                        </table>
+
+
+
+                                    </div>
+
+                                    <div class="card">
+                                        <div class="card-header">
+                                            Perfil
+                                        </div>
+
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th width="25%" scope="col">Perfil</th>
+                                                    <th width="25%" scope="col">Año</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="tbody_perfil_dj">
 
                                             </tbody>
                                         </table>

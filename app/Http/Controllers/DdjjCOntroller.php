@@ -35,6 +35,9 @@ class DdjjCOntroller extends Controller
         $result['fact'] = DB::select('select * from vw_info_facturacion where id_industria = '.$id.'');
         $result['efluente'] = DB::select('select * from vw_info_efluente where id_industria = '.$id.'');
         $result['gastos'] = DB::select('select * from vw_info_egreso where id_industria = '.$id.'');
+        $result['promo'] = DB::select('select * from vw_info_promocion_industrial where id_industria = '.$id.'');
+        $result['eco'] = DB::select('select * from vw_info_economia_del_conocimiento_sector where id_industria = '.$id.'');
+        $result['perfil'] = DB::select('select * from vw_info_economia_del_conocimiento_perfil where id_industria = '.$id.'');
 
         $pdf =PDF::loadView('Dj.dj',compact($result));
 

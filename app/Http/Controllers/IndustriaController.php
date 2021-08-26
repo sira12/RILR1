@@ -55,7 +55,6 @@ class IndustriaController extends Controller
 
 
         $industria = new Industria();
-
         $industria->id_contribuyente = intval($params['id_contribuyente']);
         $industria->nombre_de_fantasia = $params['nombre_de_fantasia'];
         $industria->id_punto_cardinal = intval($params['zona']);
@@ -78,10 +77,14 @@ class IndustriaController extends Controller
         $industria->fecha_de_actualizacion = Carbon::now();
         $industria->es_zona_industrial = $params['zona_industrial'];
 
-        $industria->save();
-        $id = $industria->id_industria;
-
-        return $id;
+        if($industria->save()){
+            $id = $industria->id_industria;
+            return $id;
+        }else{
+            return "error";
+        }
+       
+       
 
     }
 

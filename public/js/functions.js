@@ -992,6 +992,9 @@ function cargar_tabla_efluentes() {
 }
 
 function cargar_tabla_actividades() {
+
+    console.log("periodo ",$("#anio_periodo_fiscal").val())
+    
     var table = $('.yajra-datatable').DataTable();
     table.destroy();
     //$('.yajra-datatable').empty();
@@ -1005,7 +1008,8 @@ function cargar_tabla_actividades() {
             "type": "POST",
             "data": {
                 _token: $('meta[name="csrf-token"]').attr('content'),
-                id_industria: id_industria
+                id_industria: id_industria,
+                periodo:$("#anio_periodo_fiscal").val()
             },
         },
         columns: [{
@@ -2703,6 +2707,55 @@ function trae_views_ddjj() {
                     );
             })
 
+             $(response.promo).each(function(i, v) {
+
+                var vi= v.Vigencia_Promocion_industrial == "Desde: Hasta:" ? "--" :v.Vigencia_Sistema_de_calidad 
+
+               
+                $('#tbody_promo_dj').append(
+                        '<tr>'+
+                          '<td>'+v.promocion_industrial+'</td>'+
+                          '<td>'+v.Estado_Promocion_industrial+'</td>'+
+                          '<td>'+vi+'</td>'+
+                          '<td>'+v.Anio_Promocion_industrial+'</td>'+
+                          
+                        '</tr>'
+
+                    );
+            })
+
+
+             $(response.eco).each(function(i, v) {
+
+                
+               
+                $('#tbody_economia_dj').append(
+                        '<tr>'+
+                          '<td>'+v.sector+'</td>'+
+                         
+                          '<td>'+v.Anio_Economia_del_conocimiento_sector+'</td>'+
+                          
+                        '</tr>'
+
+                    );
+            })
+
+
+             
+
+             $(response.perfil).each(function(i, v) {
+
+                
+               
+                $('#tbody_perfil_dj').append(
+                        '<tr>'+
+                          '<td>'+v.perfil+'</td>'+
+                         
+                          '<td>'+v.Anio_Economia_del_conocimiento_perfil+'</td>'+    
+                        '</tr>'
+
+                    );
+            })
             
         }
     });

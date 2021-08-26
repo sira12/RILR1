@@ -52,18 +52,6 @@ class ProcedimientosController extends Controller
         ]);
     }
 
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-
     /**
      * Store a newly created resource in storage.
      *
@@ -74,8 +62,9 @@ class ProcedimientosController extends Controller
     {
         $params = array();
         parse_str($request->data, $params);
-
-
+        /* dd($params); 
+        die(); */
+        $status=200;
         //cargar industria
         $industria = new IndustriaController();
         $id_industria = $industria->store($request);
@@ -86,10 +75,15 @@ class ProcedimientosController extends Controller
         $per_act_indu = new PeriodoActividadIndustriaController();
         $id_periodo_indu = $per_act_indu->store($request, $id_industria);
 
+        if($id_industria != "error" && $id_periodo_indu != "error" ){
+            $msg = "¡Datos Guardados exitosamente!";
+        }else{
+            $status=1;
+        }
 
-        $msg = "¡Datos Guardados exitosamente!";
+     
         return response()->json(array(
-            'status' => 200,
+            'status' => $status,
             'msg' => $msg,
             'id_industria' => $id_industria
         ), 200);
@@ -127,6 +121,7 @@ class ProcedimientosController extends Controller
             $data = DB::table('rel_industria_actividad')
                 ->join('actividad', 'rel_industria_actividad.id_actividad', '=', 'actividad.id_actividad')
                 ->where('id_industria', intval($request->id_industria))
+                ->where('anio',$request->periodo)
                 ->where('fecha_fin',NULL)
                 ->select(
                     'rel_industria_actividad.*',
@@ -185,8 +180,7 @@ class ProcedimientosController extends Controller
         $params = array();
         parse_str($request->data, $params);
         $fecha = Carbon::createFromFormat('d-m-Y', $params['fecha_inicio'])->toDateTimeString();
-        $date = Carbon::now()->format('Y');
-
+        $date =$request->periodo;
         $status = 200;
         $act_principal = array();
 
@@ -197,6 +191,7 @@ class ProcedimientosController extends Controller
             $act_principal = DB::table('rel_industria_actividad')
                 ->where('id_industria', intval($params['id_industria_modal']))
                 ->where('es_actividad_principal', 'S')
+                ->where('anio',$date)
                 ->where('fecha_fin',NULL)
                 ->get();
         }
@@ -204,6 +199,7 @@ class ProcedimientosController extends Controller
         $act_existente = DB::table('rel_industria_actividad')
             ->where('id_industria', intval($params['id_industria_modal']))
             ->where('id_actividad', intval($params['id_actividad']))
+            ->where('anio',$date)
             ->where('fecha_fin',NULL)
             ->get();
 

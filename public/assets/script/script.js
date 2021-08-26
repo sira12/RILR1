@@ -2540,55 +2540,26 @@ $('document').ready(function () {
 				},
 				success: function (data) {
 
+					if(data.id_industria != "error"){
+						$("#id_industria_modal").val(data.id_industria);
+					}
+					
 
-					$("#id_industria_modal").val(data.id_industria);
-
-					if (data.success == 1) {
+					if (data.status == 1) {
 
 						$("#save").fadeIn(1000, function () {
 
 							var n = noty({
-								text: "<span class='fa fa-warning'></span> POR FAVOR DEBE DE COMPLETAR LOS CAMPOS REQUERIDOS, VERIFIQUE NUEVAMENTE POR FAVOR...!",
+								text: "<span class='fa fa-warning'></span>"+data.msg,
 								theme: 'defaultTheme',
-								layout: 'center',
+								layout: 'topCenter',
 								type: 'warning',
 								timeout: 5000,
 							});
 							$("#btn-submit").html('<span class="fa fa-save"></span> Continuar');
 
 						});
-					}
-					else if (data.status == 2) {
-
-						$("#save").fadeIn(1000, function () {
-
-							var n = noty({
-								text: "<span class='fa fa-warning'></span> DEBE DE INGRESAR UN EMAIL DIFERENTE AL INGRESADO EN EL FORMULARIO DE REGISTRO INICIAL, VERIFIQUE NUEVAMENTE POR FAVOR ...!",
-								theme: 'defaultTheme',
-								layout: 'center',
-								type: 'warning',
-								timeout: 5000,
-							});
-							$("#btn-submit").html('<span class="fa fa-save"></span> Continuar');
-
-						});
-					}
-					else if (data.status == 3) {
-
-						$("#save").fadeIn(1000, function () {
-
-							var n = noty({
-								text: "<span class='fa fa-warning'></span> ESTE NOMBRE DE ESTABLECIMIENTO YA SE ENCUENTRA REGISTRADO, VERIFIQUE NUEVAMENTE POR FAVOR ...!",
-								theme: 'defaultTheme',
-								layout: 'center',
-								type: 'warning',
-								timeout: 5000,
-							});
-							$("#btn-submit").html('<span class="fa fa-save"></span> Continuar');
-
-						});
-					}
-					else if (data.status == 200) {
+					}else if (data.status == 200) {
 
 						$("#save").fadeIn(1000, function () {
 

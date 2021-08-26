@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 22-08-2021 a las 01:15:54
+-- Tiempo de generación: 26-08-2021 a las 19:06:38
 -- Versión del servidor: 5.7.31
 -- Versión de PHP: 7.4.9
 
@@ -9299,7 +9299,7 @@ CREATE TABLE IF NOT EXISTS `industria` (
   KEY `FK_industria_contribuyente` (`id_contribuyente`),
   KEY `FK_industria_localidad` (`id_localidad`),
   KEY `FK_industria_punto_cardinal` (`id_punto_cardinal`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `industria`
@@ -9308,7 +9308,8 @@ CREATE TABLE IF NOT EXISTS `industria` (
 INSERT INTO `industria` (`id_industria`, `id_contribuyente`, `nombre_de_fantasia`, `id_punto_cardinal`, `id_localidad`, `id_barrio`, `id_calle`, `numero`, `piso`, `depto`, `referencia_domicilio`, `tel_fijo`, `tel_celular`, `cod_postal`, `es_casa_central`, `direccion_gps`, `latitud`, `longitud`, `email`, `pagina_web`, `es_zona_industrial`, `fecha_inicio`, `fecha_fin`, `fecha_de_actualizacion`) VALUES
 (1, 1, 'Lusoft LR', 3, 134, 17, 13, '12', '12', '12', '12', '3804620304', '3804620304', '5300', 'S', NULL, -29.3999, -66.8643, 'empresa@empresa.com', 'http://dominio.com', 'S', '2021-06-01', NULL, '2021-06-08 03:14:27'),
 (2, 1, 'Establecimiento de prueba', 1, 26, 138, 61, '11', '22', '33', 'casa blanca', '3804620304', '4423789', '5300', 'S', NULL, -29.4141, -66.7963, 'empresa@empresa.com', 'http://dominio.com', 'S', '2021-06-01', NULL, '2021-06-18 12:33:51'),
-(3, 3, 'Germany', 1, 670, 283, 716, '12', '12', '12', '12', '3789656763', '3789656763', '5300', 'S', NULL, -29.3999, -66.8643, 'empresa@germany.com', 'http://dominio.com', 'S', '2021-08-01', NULL, '2021-08-13 13:02:48');
+(3, 3, 'Germany', 1, 670, 283, 716, '12', '12', '12', '12', '3789656763', '3789656763', '5300', 'S', NULL, -29.3999, -66.8643, 'empresa@germany.com', 'http://dominio.com', 'S', '2021-08-01', NULL, '2021-08-13 13:02:48'),
+(4, 1, 'asdasdasda', 1, 134, 35, 13, '12', '12', '12', '12', '3804620304', '3804620304', '5300', 'S', NULL, -29.3999, -66.8643, 'asd@asd.com', 'http://asasd.com', 'S', '2021-08-01', NULL, '2021-08-25 02:54:16');
 
 -- --------------------------------------------------------
 
@@ -10415,7 +10416,7 @@ CREATE TABLE IF NOT EXISTS `periodo_de_actividad_de_industria` (
   `fecha_fin` date DEFAULT NULL,
   PRIMARY KEY (`id_periodo_de_actividad_de_industria`),
   KEY `FK_periodo_de_actividad_de_industria_industria` (`id_industria`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `periodo_de_actividad_de_industria`
@@ -10424,7 +10425,8 @@ CREATE TABLE IF NOT EXISTS `periodo_de_actividad_de_industria` (
 INSERT INTO `periodo_de_actividad_de_industria` (`id_periodo_de_actividad_de_industria`, `id_industria`, `fecha_de_inicio`, `fecha_fin`) VALUES
 (1, 1, '2021-06-01', NULL),
 (2, 2, '2021-06-01', NULL),
-(3, 3, '2021-08-01', NULL);
+(3, 3, '2021-08-01', NULL),
+(4, 4, '2021-08-01', NULL);
 
 -- --------------------------------------------------------
 
@@ -10799,59 +10801,6 @@ INSERT INTO `rel_destino_ventas_provincia` (`id_rel_destino_ventas_provincia`, `
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `rel_economia_del_conocimiento_perfil`
---
-
-DROP TABLE IF EXISTS `rel_economia_del_conocimiento_perfil`;
-CREATE TABLE IF NOT EXISTS `rel_economia_del_conocimiento_perfil` (
-  `id_rel_economia_del_conocimiento_perfil` int(11) NOT NULL AUTO_INCREMENT,
-  `id_economia_del_conocimiento_perfil` int(11) NOT NULL,
-  `id_industria` int(11) NOT NULL,
-  `anio` int(11) NOT NULL,
-  `fecha_de_actualizacion` datetime NOT NULL,
-  PRIMARY KEY (`id_rel_economia_del_conocimiento_perfil`),
-  KEY `FK_rel_economia_del_conocimiento_perfil_economia_del_conocimient` (`id_economia_del_conocimiento_perfil`),
-  KEY `FK_rel_economia_del_conocimiento_perfil_industria` (`id_industria`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
---
--- Volcado de datos para la tabla `rel_economia_del_conocimiento_perfil`
---
-
-INSERT INTO `rel_economia_del_conocimiento_perfil` (`id_rel_economia_del_conocimiento_perfil`, `id_economia_del_conocimiento_perfil`, `id_industria`, `anio`, `fecha_de_actualizacion`) VALUES
-(2, 11, 1, 2021, '2021-08-11 23:28:43');
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `rel_economia_del_conocimiento_sector`
---
-
-DROP TABLE IF EXISTS `rel_economia_del_conocimiento_sector`;
-CREATE TABLE IF NOT EXISTS `rel_economia_del_conocimiento_sector` (
-  `id_rel_economia_del_conocimiento_sector` int(11) NOT NULL AUTO_INCREMENT,
-  `id_economia_del_conocimiento_sector` int(11) NOT NULL,
-  `id_industria` int(11) NOT NULL,
-  `anio` int(11) NOT NULL,
-  `fecha_de_actualizacion` datetime NOT NULL,
-  PRIMARY KEY (`id_rel_economia_del_conocimiento_sector`),
-  KEY `FK_rel_economia_del_conocimiento_sector_economia_del_conocimient` (`id_economia_del_conocimiento_sector`),
-  KEY `FK_rel_economia_del_conocimiento_sector_industria` (`id_industria`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
---
--- Volcado de datos para la tabla `rel_economia_del_conocimiento_sector`
---
-
-INSERT INTO `rel_economia_del_conocimiento_sector` (`id_rel_economia_del_conocimiento_sector`, `id_economia_del_conocimiento_sector`, `id_industria`, `anio`, `fecha_de_actualizacion`) VALUES
-(2, 7, 1, 2021, '2021-08-11 21:58:15'),
-(3, 8, 1, 2021, '2021-08-11 22:52:31'),
-(4, 9, 1, 2021, '2021-08-11 22:54:51'),
-(5, 1, 1, 2021, '2021-08-11 23:07:18');
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `rel_industria_actividad`
 --
 
@@ -10909,6 +10858,59 @@ CREATE TABLE IF NOT EXISTS `rel_industria_certificado` (
 
 INSERT INTO `rel_industria_certificado` (`id_rel_industria_certificado`, `id_industria`, `id_certificado`, `id_estado_documentacion`, `fecha_inicio`, `fecha_fin`, `anio`, `fecha_de_actualizacion`, `numero_de_certificado`) VALUES
 (1, 1, 1, 2, NULL, NULL, 2021, '2021-08-11 23:49:13', 'NULL');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `rel_industria_economia_del_conocimiento_perfil`
+--
+
+DROP TABLE IF EXISTS `rel_industria_economia_del_conocimiento_perfil`;
+CREATE TABLE IF NOT EXISTS `rel_industria_economia_del_conocimiento_perfil` (
+  `id_rel_economia_del_conocimiento_perfil` int(11) NOT NULL AUTO_INCREMENT,
+  `id_economia_del_conocimiento_perfil` int(11) NOT NULL,
+  `id_industria` int(11) NOT NULL,
+  `anio` int(11) NOT NULL,
+  `fecha_de_actualizacion` datetime NOT NULL,
+  PRIMARY KEY (`id_rel_economia_del_conocimiento_perfil`),
+  KEY `FK_rel_economia_del_conocimiento_perfil_economia_del_conocimient` (`id_economia_del_conocimiento_perfil`),
+  KEY `FK_rel_economia_del_conocimiento_perfil_industria` (`id_industria`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `rel_industria_economia_del_conocimiento_perfil`
+--
+
+INSERT INTO `rel_industria_economia_del_conocimiento_perfil` (`id_rel_economia_del_conocimiento_perfil`, `id_economia_del_conocimiento_perfil`, `id_industria`, `anio`, `fecha_de_actualizacion`) VALUES
+(2, 11, 1, 2021, '2021-08-11 23:28:43');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `rel_industria_economia_del_conocimiento_sector`
+--
+
+DROP TABLE IF EXISTS `rel_industria_economia_del_conocimiento_sector`;
+CREATE TABLE IF NOT EXISTS `rel_industria_economia_del_conocimiento_sector` (
+  `id_rel_economia_del_conocimiento_sector` int(11) NOT NULL AUTO_INCREMENT,
+  `id_economia_del_conocimiento_sector` int(11) NOT NULL,
+  `id_industria` int(11) NOT NULL,
+  `anio` int(11) NOT NULL,
+  `fecha_de_actualizacion` datetime NOT NULL,
+  PRIMARY KEY (`id_rel_economia_del_conocimiento_sector`),
+  KEY `FK_rel_economia_del_conocimiento_sector_economia_del_conocimient` (`id_economia_del_conocimiento_sector`),
+  KEY `FK_rel_economia_del_conocimiento_sector_industria` (`id_industria`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `rel_industria_economia_del_conocimiento_sector`
+--
+
+INSERT INTO `rel_industria_economia_del_conocimiento_sector` (`id_rel_economia_del_conocimiento_sector`, `id_economia_del_conocimiento_sector`, `id_industria`, `anio`, `fecha_de_actualizacion`) VALUES
+(2, 7, 1, 2021, '2021-08-11 21:58:15'),
+(3, 8, 1, 2021, '2021-08-11 22:52:31'),
+(4, 9, 1, 2021, '2021-08-11 22:54:51'),
+(5, 1, 1, 2021, '2021-08-11 23:07:18');
 
 -- --------------------------------------------------------
 
@@ -11113,7 +11115,14 @@ CREATE TABLE IF NOT EXISTS `rel_industria_promocion_industrial` (
   KEY `FK_rel_industria_promocion_industrial_estado_documentacion` (`id_estado_documentacion`),
   KEY `FK_rel_industria_promocion_industrial_industria` (`id_industria`),
   KEY `FK_rel_industria_promocion_industrial_promocion_indutrial` (`id_promocion_industrial`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `rel_industria_promocion_industrial`
+--
+
+INSERT INTO `rel_industria_promocion_industrial` (`id_rel_industria_promocion_industrial`, `id_industria`, `id_promocion_industrial`, `id_estado_documentacion`, `fecha_inicio`, `fecha_fin`, `anio`, `fecha_de_actualizacion`) VALUES
+(1, 1, 1, 1, '2021-08-24', '2021-08-31', 2021, '2021-08-24 21:55:23');
 
 -- --------------------------------------------------------
 
@@ -11815,6 +11824,32 @@ CREATE TABLE IF NOT EXISTS `vw_info_contribuyente_industria` (
 -- --------------------------------------------------------
 
 --
+-- Estructura Stand-in para la vista `vw_info_economia_del_conocimiento_perfil`
+-- (Véase abajo para la vista actual)
+--
+DROP VIEW IF EXISTS `vw_info_economia_del_conocimiento_perfil`;
+CREATE TABLE IF NOT EXISTS `vw_info_economia_del_conocimiento_perfil` (
+`id_industria` int(11)
+,`perfil` varchar(60)
+,`Anio_Economia_del_conocimiento_perfil` int(11)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura Stand-in para la vista `vw_info_economia_del_conocimiento_sector`
+-- (Véase abajo para la vista actual)
+--
+DROP VIEW IF EXISTS `vw_info_economia_del_conocimiento_sector`;
+CREATE TABLE IF NOT EXISTS `vw_info_economia_del_conocimiento_sector` (
+`id_industria` int(11)
+,`sector` varchar(60)
+,`Anio_Economia_del_conocimiento_sector` int(11)
+);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura Stand-in para la vista `vw_info_efluente`
 -- (Véase abajo para la vista actual)
 --
@@ -11915,6 +11950,21 @@ CREATE TABLE IF NOT EXISTS `vw_info_motivo_ociosidad` (
 -- --------------------------------------------------------
 
 --
+-- Estructura Stand-in para la vista `vw_info_promocion_industrial`
+-- (Véase abajo para la vista actual)
+--
+DROP VIEW IF EXISTS `vw_info_promocion_industrial`;
+CREATE TABLE IF NOT EXISTS `vw_info_promocion_industrial` (
+`id_industria` int(11)
+,`promocion_industrial` varchar(150)
+,`Estado_Promocion_industrial` varchar(50)
+,`Vigencia_Promocion_industrial` varchar(35)
+,`Anio_Promocion_industrial` smallint(6)
+);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura Stand-in para la vista `vw_info_servicio`
 -- (Véase abajo para la vista actual)
 --
@@ -12003,7 +12053,7 @@ CREATE TABLE IF NOT EXISTS `vw_info_ventas_nacionales` (
 DROP TABLE IF EXISTS `vw_info_actividad_materia_prima`;
 
 DROP VIEW IF EXISTS `vw_info_actividad_materia_prima`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_info_actividad_materia_prima`  AS  select `i`.`id_industria` AS `id_industria`,`a`.`id_Actividad` AS `id_Actividad`,`a`.`actividad` AS `actividad`,`ria`.`es_actividad_principal` AS `es_actividad_principal`,`ria`.`observacion` AS `observacion`,`ria`.`fecha_inicio` AS `fecha_inicio`,ifnull(`ria`.`fecha_fin`,'') AS `IFNULL(ria.fecha_fin, '')`,`mp`.`materia_prima` AS `Materia_Prima_Utilizada`,concat_ws(' ',`ramp`.`cantidad`,`ummp`.`unidad_de_medida`) AS `Cantidad_MP_Anual_Utilizada`,`ramp`.`es_propio` AS `Es_MP_propia`,(select rtrim(`lmp`.`localidad`) from `localidad` `lmp` where (`lmp`.`id_localidad` = `ramp`.`id_localidad`)) AS `Localidad_Origen_MP`,(select rtrim(`pmp`.`pais`) from `pais` `pmp` where (`pmp`.`id_pais` = `ramp`.`id_pais`)) AS `Pais_Origen_MP`,(select `mi`.`motivo_importacion` from `motivo_importacion` `mi` where (`mi`.`id_motivo_importacion` = `ramp`.`id_motivo_importacion`)) AS `motivo_importacion_MP`,`ramp`.`detalles` AS `Detalle_de_motivo_de_importacion_MP`,`ramp`.`anio` AS `anio_MP` from ((((((`industria` `i` join `contribuyente` `c` on((`c`.`id_contribuyente` = `i`.`id_contribuyente`))) left join `rel_industria_actividad` `ria` on((`ria`.`id_industria` = `i`.`id_industria`))) left join `actividad` `a` on((`a`.`id_Actividad` = `ria`.`id_actividad`))) left join `rel_actividad_materia_prima` `ramp` on((`ramp`.`id_rel_industria_actividad` = `ria`.`id_rel_industria_actividad`))) left join `materia_prima` `mp` on((`mp`.`id_materia_prima` = `ramp`.`id_materia_prima`))) left join `unidad_de_medida` `ummp` on((`ummp`.`id_unidad_de_medida` = `ramp`.`id_unidad_de_medida`))) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_info_actividad_materia_prima`  AS  select `i`.`id_industria` AS `id_industria`,`a`.`id_Actividad` AS `id_Actividad`,`a`.`actividad` AS `actividad`,`ria`.`es_actividad_principal` AS `es_actividad_principal`,`ria`.`observacion` AS `observacion`,`ria`.`fecha_inicio` AS `fecha_inicio`,ifnull(`ria`.`fecha_fin`,'') AS `IFNULL(ria.fecha_fin, '')`,`mp`.`materia_prima` AS `Materia_Prima_Utilizada`,concat_ws(' ',`ramp`.`cantidad`,`ummp`.`unidad_de_medida`) AS `Cantidad_MP_Anual_Utilizada`,`ramp`.`es_propio` AS `Es_MP_propia`,(select rtrim(`lmp`.`localidad`) from `localidad` `lmp` where (`lmp`.`id_localidad` = `ramp`.`id_localidad`)) AS `Localidad_Origen_MP`,(select rtrim(`pmp`.`pais`) from `pais` `pmp` where (`pmp`.`id_pais` = `ramp`.`id_pais`)) AS `Pais_Origen_MP`,(select `mi`.`motivo_importacion` from `motivo_importacion` `mi` where (`mi`.`id_motivo_importacion` = `ramp`.`id_motivo_importacion`)) AS `motivo_importacion_MP`,`ramp`.`detalles` AS `Detalle_de_motivo_de_importacion_MP`,`ramp`.`anio` AS `anio_MP` from ((((((`industria` `i` join `contribuyente` `c` on((`c`.`id_contribuyente` = `i`.`id_contribuyente`))) join `rel_industria_actividad` `ria` on((`ria`.`id_industria` = `i`.`id_industria`))) join `actividad` `a` on((`a`.`id_Actividad` = `ria`.`id_actividad`))) join `rel_actividad_materia_prima` `ramp` on((`ramp`.`id_rel_industria_actividad` = `ria`.`id_rel_industria_actividad`))) join `materia_prima` `mp` on((`mp`.`id_materia_prima` = `ramp`.`id_materia_prima`))) join `unidad_de_medida` `ummp` on((`ummp`.`id_unidad_de_medida` = `ramp`.`id_unidad_de_medida`))) ;
 
 -- --------------------------------------------------------
 
@@ -12034,6 +12084,26 @@ DROP TABLE IF EXISTS `vw_info_contribuyente_industria`;
 
 DROP VIEW IF EXISTS `vw_info_contribuyente_industria`;
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_info_contribuyente_industria`  AS  select `i`.`id_industria` AS `id_industria`,`c`.`cuit` AS `cuit`,`c`.`numero_de_ib` AS `numero_de_ib`,`ri`.`regimen_ib` AS `regimen_ib`,`c`.`razon_social` AS `razon_social`,`civa`.`condicion_iva` AS `condicion_iva`,`nj`.`naturaleza_juridica` AS `naturaleza_juridica`,(select `pac`.`fecha_inicio` from `periodo_de_actividad_de_contribuyente` `pac` where (`pac`.`id_periodo_de_actividad_de_contribuyente` = (select max(`pacaux`.`id_periodo_de_actividad_de_contribuyente`) from `periodo_de_actividad_de_contribuyente` `pacaux` where (`pacaux`.`id_contribuyente` = `c`.`id_contribuyente`)))) AS `Inicio_de_Actividades_Contribuyente`,`c`.`email_fiscal` AS `email_fiscal`,`c`.`fecha_inicio_de_actividades` AS `Inicio_de_actividad_Contribuyente`,`p`.`nombre` AS `persona_declarante`,`p`.`documento` AS `documento`,`ta`.`tipo_de_afectacion` AS `En_calidad_de`,(case `c`.`id_localidad` when NULL then '' else (select rtrim(`l1`.`localidad`) from `localidad` `l1` where (`l1`.`id_localidad` = `c`.`id_localidad`)) end) AS `Localidad_Legal`,`c`.`cod_postal` AS `CP_Legal`,`i`.`nombre_de_fantasia` AS `nombre_de_fantasia`,`i`.`fecha_inicio` AS `Fecha_inicio_industria`,`i`.`fecha_fin` AS `Fecha_fin_industria`,`i`.`email` AS `mail_industria`,`i`.`pagina_web` AS `pagina_web`,`i`.`tel_fijo` AS `tel_fijo`,`i`.`tel_celular` AS `tel_celular`,(case `i`.`id_localidad` when NULL then '' else (select rtrim(`l1`.`localidad`) from `localidad` `l1` where (`l1`.`id_localidad` = `i`.`id_localidad`)) end) AS `Localidad_Industria`,`i`.`cod_postal` AS `CP_Industria`,`i`.`es_zona_industrial` AS `es_zona_industrial`,`i`.`es_casa_central` AS `es_casa_central`,`i`.`direccion_gps` AS `direccion_gps`,`i`.`latitud` AS `latitud`,`i`.`longitud` AS `longitud` from ((((((((`industria` `i` join `contribuyente` `c` on((`c`.`id_contribuyente` = `i`.`id_contribuyente`))) left join `rel_persona_contribuyente` `rpc` on((`rpc`.`id_contribuyente` = `c`.`id_contribuyente`))) left join `persona` `p` on((`p`.`id_persona` = `rpc`.`id_contribuyente`))) left join `tipo_de_documento` `td` on((`td`.`id_tipo_de_documento` = `p`.`documento`))) left join `tipo_de_afectacion` `ta` on((`ta`.`id_tipo_de_afectacion` = `rpc`.`id_tipo_de_afectacion`))) left join `condicion_iva` `civa` on((`civa`.`id_condicion_iva` = `c`.`id_condicion_iva`))) left join `naturaleza_juridica` `nj` on((`nj`.`id_naturaleza_juridica` = `c`.`id_naturaleza_juridica`))) left join `regimen_ib` `ri` on((`ri`.`id_regimen_ib` = `c`.`id_regimen_ib`))) ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura para la vista `vw_info_economia_del_conocimiento_perfil`
+--
+DROP TABLE IF EXISTS `vw_info_economia_del_conocimiento_perfil`;
+
+DROP VIEW IF EXISTS `vw_info_economia_del_conocimiento_perfil`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_info_economia_del_conocimiento_perfil`  AS  select distinct `i`.`id_industria` AS `id_industria`,`ecp`.`perfil` AS `perfil`,`riep`.`anio` AS `Anio_Economia_del_conocimiento_perfil` from ((`industria` `i` left join `rel_industria_economia_del_conocimiento_perfil` `riep` on((`riep`.`id_industria` = `i`.`id_industria`))) left join `economia_del_conocimiento_perfil` `ecp` on((`ecp`.`id_economia_del_conocimiento_perfil` = `riep`.`id_economia_del_conocimiento_perfil`))) ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura para la vista `vw_info_economia_del_conocimiento_sector`
+--
+DROP TABLE IF EXISTS `vw_info_economia_del_conocimiento_sector`;
+
+DROP VIEW IF EXISTS `vw_info_economia_del_conocimiento_sector`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_info_economia_del_conocimiento_sector`  AS  select distinct `i`.`id_industria` AS `id_industria`,`ecs`.`sector` AS `sector`,`ries`.`anio` AS `Anio_Economia_del_conocimiento_sector` from ((`industria` `i` left join `rel_industria_economia_del_conocimiento_sector` `ries` on((`ries`.`id_industria` = `i`.`id_industria`))) left join `economia_del_conocimiento_sector` `ecs` on((`ecs`.`id_economia_del_conocimiento_sector` = `ries`.`id_economia_del_conocimiento_sector`))) ;
 
 -- --------------------------------------------------------
 
@@ -12094,6 +12164,16 @@ DROP TABLE IF EXISTS `vw_info_motivo_ociosidad`;
 
 DROP VIEW IF EXISTS `vw_info_motivo_ociosidad`;
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_info_motivo_ociosidad`  AS  select distinct `i`.`id_industria` AS `id_industria`,`mo`.`motivo_ociosidad` AS `motivo_ociosidad`,`rimo`.`anio` AS `anio_ociosidad` from ((`industria` `i` left join `rel_industria_motivo_ociosidad` `rimo` on((`rimo`.`id_industria` = `i`.`id_industria`))) left join `motivo_ociosidad` `mo` on((`mo`.`id_motivo_ociosidad` = `rimo`.`id_motivo_ociosidad`))) ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura para la vista `vw_info_promocion_industrial`
+--
+DROP TABLE IF EXISTS `vw_info_promocion_industrial`;
+
+DROP VIEW IF EXISTS `vw_info_promocion_industrial`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_info_promocion_industrial`  AS  select distinct `i`.`id_industria` AS `id_industria`,`pi`.`promocion_industrial` AS `promocion_industrial`,`ed`.`estado` AS `Estado_Promocion_industrial`,concat_ws(' ','Desde:',`ripi`.`fecha_inicio`,'Hasta:',`ripi`.`fecha_fin`) AS `Vigencia_Promocion_industrial`,`ripi`.`anio` AS `Anio_Promocion_industrial` from (((`industria` `i` left join `rel_industria_promocion_industrial` `ripi` on((`ripi`.`id_industria` = `i`.`id_industria`))) left join `promocion_industrial` `pi` on((`pi`.`id_promocion_industrial` = `ripi`.`id_promocion_industrial`))) left join `estado_documentacion` `ed` on((`ed`.`id_estado_documentacion` = `ripi`.`id_estado_documentacion`))) ;
 
 -- --------------------------------------------------------
 
@@ -12324,20 +12404,6 @@ ALTER TABLE `rel_destino_ventas_provincia`
   ADD CONSTRAINT `FK_rel_destino_ventas_provincia_provincia` FOREIGN KEY (`id_provincia`) REFERENCES `provincia` (`id_provincia`);
 
 --
--- Filtros para la tabla `rel_economia_del_conocimiento_perfil`
---
-ALTER TABLE `rel_economia_del_conocimiento_perfil`
-  ADD CONSTRAINT `FK_rel_economia_del_conocimiento_perfil_economia_del_conocimient` FOREIGN KEY (`id_economia_del_conocimiento_perfil`) REFERENCES `economia_del_conocimiento_perfil` (`id_economia_del_conocimiento_perfil`),
-  ADD CONSTRAINT `FK_rel_economia_del_conocimiento_perfil_industria` FOREIGN KEY (`id_industria`) REFERENCES `industria` (`id_industria`);
-
---
--- Filtros para la tabla `rel_economia_del_conocimiento_sector`
---
-ALTER TABLE `rel_economia_del_conocimiento_sector`
-  ADD CONSTRAINT `FK_rel_economia_del_conocimiento_sector_economia_del_conocimient` FOREIGN KEY (`id_economia_del_conocimiento_sector`) REFERENCES `economia_del_conocimiento_sector` (`id_economia_del_conocimiento_sector`),
-  ADD CONSTRAINT `FK_rel_economia_del_conocimiento_sector_industria` FOREIGN KEY (`id_industria`) REFERENCES `industria` (`id_industria`);
-
---
 -- Filtros para la tabla `rel_industria_actividad`
 --
 ALTER TABLE `rel_industria_actividad`
@@ -12351,6 +12417,20 @@ ALTER TABLE `rel_industria_certificado`
   ADD CONSTRAINT `FK_rel_industria_certificado_certificado` FOREIGN KEY (`id_certificado`) REFERENCES `certificado` (`id_certificado`),
   ADD CONSTRAINT `FK_rel_industria_certificado_estado_documentacion` FOREIGN KEY (`id_estado_documentacion`) REFERENCES `estado_documentacion` (`id_estado_documentacion`),
   ADD CONSTRAINT `FKrel_industria_certificado_industria` FOREIGN KEY (`id_industria`) REFERENCES `industria` (`id_industria`);
+
+--
+-- Filtros para la tabla `rel_industria_economia_del_conocimiento_perfil`
+--
+ALTER TABLE `rel_industria_economia_del_conocimiento_perfil`
+  ADD CONSTRAINT `FK_rel_economia_del_conocimiento_perfil_economia_del_conocimient` FOREIGN KEY (`id_economia_del_conocimiento_perfil`) REFERENCES `economia_del_conocimiento_perfil` (`id_economia_del_conocimiento_perfil`),
+  ADD CONSTRAINT `FK_rel_economia_del_conocimiento_perfil_industria` FOREIGN KEY (`id_industria`) REFERENCES `industria` (`id_industria`);
+
+--
+-- Filtros para la tabla `rel_industria_economia_del_conocimiento_sector`
+--
+ALTER TABLE `rel_industria_economia_del_conocimiento_sector`
+  ADD CONSTRAINT `FK_rel_economia_del_conocimiento_sector_economia_del_conocimient` FOREIGN KEY (`id_economia_del_conocimiento_sector`) REFERENCES `economia_del_conocimiento_sector` (`id_economia_del_conocimiento_sector`),
+  ADD CONSTRAINT `FK_rel_economia_del_conocimiento_sector_industria` FOREIGN KEY (`id_industria`) REFERENCES `industria` (`id_industria`);
 
 --
 -- Filtros para la tabla `rel_industria_efluente`

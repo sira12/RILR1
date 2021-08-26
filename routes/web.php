@@ -75,8 +75,8 @@ Route::get('/procedimientos',[ProcedimientosController::class,'index'] )->middle
 
 //guardar Procedimientos
     //generales industria
-    Route::post('/saveGenerales',[ProcedimientosController::class,'storeGenerales']);
-    Route::get('/edit/tramite/{id}',[ProcedimientosController::class,'edit']);
+    Route::post('/saveGenerales',[ProcedimientosController::class,'storeGenerales'])->middleware(['auth']);
+    Route::get('/edit/tramite/{id}',[ProcedimientosController::class,'edit'])->middleware(['auth']);
     Route::get('/tramite/{id}',[ProcedimientosController::class,'getTramite']);
     Route::post('/updateGenerales',[ProcedimientosController::class,'updateGeneral']);
 

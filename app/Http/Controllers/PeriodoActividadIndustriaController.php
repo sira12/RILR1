@@ -46,8 +46,14 @@ class PeriodoActividadIndustriaController extends Controller
         $periodo_industria->id_industria=$id;
         $periodo_industria->fecha_de_inicio=$fecha;
 
-         $periodo_industria->save();
+        if( $periodo_industria->save()){
+            return $periodo_industria->id_periodo_de_actividad_de_industria;
+        }else{
+            return "error";
+        }
+        
 
+         
     }
 
     /**
