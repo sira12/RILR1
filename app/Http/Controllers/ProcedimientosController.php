@@ -186,6 +186,10 @@ class ProcedimientosController extends Controller
 
         //comprobaciones
 
+        dd($date);
+
+        dd($params); 
+        die();
 
         if ($params['es_actividad_principal'] == 'S') {
             $act_principal = DB::table('rel_industria_actividad')
@@ -317,28 +321,7 @@ class ProcedimientosController extends Controller
     }
 
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-
-    /**
-     * Display the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-
-    }
+   
 
 
     /**
@@ -478,20 +461,6 @@ class ProcedimientosController extends Controller
             
     }
 
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-
     /**
      * Update the specified resource in storage.
      *
@@ -520,14 +489,5 @@ class ProcedimientosController extends Controller
     }
 
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
+    
 }

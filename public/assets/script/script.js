@@ -2803,6 +2803,7 @@ $("#btn-actividad").on('click', function () {
 			var data = $("#saveactividad").serialize();
 			var seccion = $("input#seccionactividad").val();
 			var industria = $("input#id_industria").val();
+			var p_f=$("#anio_periodo_fiscal").val();
 
 			$.ajax({
 				type: 'POST',
@@ -2811,6 +2812,7 @@ $("#btn-actividad").on('click', function () {
 				data: {
 					_token: $('meta[name="csrf-token"]').attr('content'),
 					data: data,
+					periodo:p_f
 				},
 				beforeSend: function () {
 					$("#save").fadeOut();
