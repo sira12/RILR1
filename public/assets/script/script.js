@@ -2940,7 +2940,12 @@ function muestraForm(ref) {
 
 	} else {
 
-		if (ref == "actividades") {
+		if(ref == "generales"){
+
+			
+
+
+		}else if (ref == "actividades") {
 
 			cargar_tabla_actividades();
 

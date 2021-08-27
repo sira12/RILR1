@@ -1227,8 +1227,8 @@ function cargar_tabla_materia() {
             data: 'cantidad',
             name: 'cantidad'
         }, {
-            data: 'unidad_de_medida',
-            name: 'unidad_de_medida'
+            data: 'id_unidad_de_medida',
+            name: 'id_unidad_de_medida'
         }, {
             data: 'action',
             name: 'action',
@@ -2056,7 +2056,44 @@ function getTramite() {
         $.ajax({
             type: "get",
             url: "/tramite/" + $("#id_industria_modal").val(),
-            success: function(response) {}
+            success: function(response) {
+
+                $("#nombre_de_fantasia").val(response.industria.nombre_de_fantasia)
+                $("#fecha_actividad_industria").val(moment(response.industria.fecha_inicio).format('DD-MM-YYYY'));  
+                $("#es_casa_central").val(response.industria.es_casa_central)
+                $("#zona_industrial").val(response.industria.es_zona_industrial)
+                $("#tel_fijo").val(response.industria.tel_fijo)
+               $("#tel_celular").val(response.industria.tel_celular)
+               $("#cod_postal").val(response.industria.cod_postal)
+               $("#zona").val(response.industria.id_punto_cardinal)
+               $("#id_provincia").val(response.industria.id_provincia_planta)
+               $("#buscar_provincia").val(response.industria.provincia_planta)
+            
+               $("#id_localidad").val(response.industria.id_localidad)
+               $("#buscar_localidad").val(response.industria.localidad_planta)
+
+                $("#id_barrio").val(response.industria.id_barrio_planta)
+               $("#buscar_barrio").val(response.industria.barrio_planta)
+
+                $("#id_calle").val(response.industria.id_calle_planta)
+               $("#buscar_calle").val(response.industria.calle_planta)
+      
+                $("#nro_calle_panta").val(response.industria.nro_calle_planta)
+                $("#nro_piso_planta").val(response.industria.piso_planta)
+            
+
+                $("#nro_departamento_planta").val(response.industria.numero)
+                $("#referencia_planta").val(response.industria.referencia_planta)
+                $("#latitud").val(response.industria.latitud)
+                $("#longitud").val(response.industria.longitud)
+                $("#pagina_web").val(response.industria.pagina_web)
+                $("#email").val(response.industria.email)
+                
+
+
+
+
+            }
         });
     }
 }

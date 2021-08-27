@@ -27,7 +27,7 @@ class MateriaPrimaController extends Controller
         if ($request->ajax()) {
             $data = DB::table('rel_actividad_materia_prima')
                 ->join('materia_prima', 'rel_actividad_materia_prima.id_materia_prima', '=', 'materia_prima.id_materia_prima')
-                ->join('unidad_de_medida', 'rel_actividad_materia_prima.unidad_de_medida', '=', 'unidad_de_medida.id_unidad_de_medida')
+                ->join('unidad_de_medida', 'rel_actividad_materia_prima.id_unidad_de_medida', '=', 'unidad_de_medida.id_unidad_de_medida')
                 ->where('id_rel_industria_actividad', intval($request->id_rel_industria_actividad_materia_prima)) //es el id_rel_industira_actividad
                 ->select(
                     'rel_actividad_materia_prima.*',
@@ -126,7 +126,7 @@ class MateriaPrimaController extends Controller
             $id_rel_actividad_materia_prima = DB::table('rel_actividad_materia_prima')->insertGetId([
                 'id_rel_industria_actividad' => intval($params['id_rel_industria_actividad_materia_prima']),
                 'id_materia_prima' => $id_materia,
-                'unidad_de_medida' => intval($params['medida_materia']),
+                'id_unidad_de_medida' => intval($params['medida_materia']),
                 'cantidad' => intval($params['cantidad_materia']),
                 'es_propio' => $params['es_propio_materia'],
                 'id_localidad' => $localidad,
@@ -217,7 +217,7 @@ class MateriaPrimaController extends Controller
                 ->update([
                     'id_rel_industria_actividad' => intval($params['id_rel_industria_actividad_materia_prima']),
                     'id_materia_prima' =>intval($params['id_materia_prima']),
-                    'unidad_de_medida' => intval($params['medida_materia']),
+                    'id_unidad_de_medida' => intval($params['medida_materia']),
                     'cantidad' => intval($params['cantidad_materia']),
                     'es_propio' => $params['es_propio_materia'],
                     'id_localidad' => $localidad,

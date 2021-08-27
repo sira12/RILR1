@@ -56,9 +56,21 @@
                         </div>
 
                         <div class="form-body">
+                            <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group has-feedback">
+                                                    <label class="control-label">Año: <span class="symbol required"></span></label>
+                                                    (El año que se declara de la Industria es del año que paso...)
+                                                    <i class="fa fa-bars form-control-feedback"></i>
+                                                    <select class="form-control" id="periodofiscal" name="periodo_fiscal" required="" aria-required="true">
+                                                        <option id="anio_periodo_fiscal" value="{{$per_fiscal->anio}}" selected>{{$per_fiscal->anio}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
                             <!--form body-->
                             <div class="row-horizon">
-                                <span class="categories selectedGat" href="#datosGenerales"><i class="fa fa-tasks"></i> Datos Generales</span>
+                                <span class="categories selectedGat" href="#datosGenerales" onclick="muestraForm('generales')"><i class="fa fa-tasks"></i> Datos Generales</span>
                                 <span class="categories" href="#act" onclick="muestraForm('actividades')"><i class="fa fa-tasks"></i> Actividad</span>
                                 <span class="categories" href="#insumos" onclick="muestraForm('insumos');"><i class="fa fa-tasks"></i> Insumos y Servicios</span>
                                 <span class="categories" href="#splanta" onclick="muestraForm('splanta');"><i class="fa fa-tasks"></i> Situación de la Planta</span>
@@ -72,26 +84,14 @@
                             <div id="secciones" class="mt-3">
                                 <!-- Div secciones -->
 
-
                                 <hr>
 
                                 <section id="datosGenerales">
                                     <form class="form-material" method="post" action="#" name="savegeneral" id="savegeneral" enctype="multipart/form-data">
                                         @csrf
-                                        <h3 class="card-subtitle mt-3"> Datos Generales </h3>
+                                       
 
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group has-feedback">
-                                                    <label class="control-label">Año: <span class="symbol required"></span></label>
-                                                    (El año que se declara de la Industria es del año que paso...)
-                                                    <i class="fa fa-bars form-control-feedback"></i>
-                                                    <select class="form-control" id="periodofiscal" name="periodo_fiscal" required="" aria-required="true">
-                                                        <option id="anio_periodo_fiscal" value="{{$per_fiscal->anio}}" selected>{{$per_fiscal->anio}}</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        
 
                                         <h3 class="card-subtitle mt-3"> Datos de Establecimiento Industrial</h3>
 

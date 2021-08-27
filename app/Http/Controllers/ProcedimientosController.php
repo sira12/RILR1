@@ -186,10 +186,7 @@ class ProcedimientosController extends Controller
 
         //comprobaciones
 
-        dd($date);
-
-        dd($params); 
-        die();
+        
 
         if ($params['es_actividad_principal'] == 'S') {
             $act_principal = DB::table('rel_industria_actividad')
@@ -313,6 +310,15 @@ class ProcedimientosController extends Controller
 
     //dar de baja la actividad
     public function BajaActividad(Request $request){
+
+        DB::table('rel_actividad_producto')->where('id_rel_industria_actividad', intval($request->id))->update([
+            'activo'=>'N'
+        ]);
+
+        DB::table('rel_actividad_materia_prima')->where('id_rel_industria_actividad', intval($request->id))->update([
+            'activo'=>'N'
+        ]);
+
          DB::table('rel_industria_actividad')->where('id_rel_industria_actividad', intval($request->id))->update([
              'fecha_fin'=>Carbon::now()
          ]);
@@ -390,22 +396,22 @@ class ProcedimientosController extends Controller
         $zona = PuntoCardinal::all();
 
         $mi_industria = DB::table('industria')
-            ->join('contribuyente', 'industria.id_contribuyente', '=', 'contribuyente.id_contribuyente')
+            //->join('contribuyente', 'industria.id_contribuyente', '=', 'contribuyente.id_contribuyente')
             ->join('punto_cardinal as punto_planta', 'industria.id_punto_cardinal', '=', 'punto_planta.id_punto_cardinal')
-            ->join('punto_cardinal as punto_legal', 'contribuyente.id_punto_cardinal', '=', 'punto_legal.id_punto_cardinal')
+            //->join('punto_cardinal as punto_legal', 'contribuyente.id_punto_cardinal', '=', 'punto_legal.id_punto_cardinal')
             ->join('localidad as localidad_planta', 'industria.id_localidad', '=', 'localidad_planta.id_localidad')
             ->join('provincia as provincia_planta', 'localidad_planta.id_provincia', '=', 'provincia_planta.id_provincia')
             ->join('barrio as barrio_planta', 'industria.id_barrio', '=', 'barrio_planta.id_barrio')
             ->join('calle as calle_planta', 'industria.id_calle', '=', 'calle_planta.id_calle')
             ->join('barrio', 'industria.id_barrio', '=', 'barrio.id_barrio')
             ->join('calle', 'industria.id_calle', '=', 'calle.id_calle')
-            ->join('regimen_ib', 'contribuyente.id_regimen_ib', '=', 'regimen_ib.id_regimen_ib')
-            ->join('condicion_iva', 'contribuyente.id_condicion_iva', '=', 'condicion_iva.id_condicion_iva')
-            ->join('naturaleza_juridica', 'contribuyente.id_naturaleza_juridica', '=', 'naturaleza_juridica.id_naturaleza_juridica')
-            ->join('localidad as localidad_legal', 'contribuyente.id_localidad', '=', 'localidad_legal.id_localidad')
-            ->join('provincia as provincia_legal', 'localidad_legal.id_provincia', '=', 'provincia_legal.id_provincia')
-            ->join('barrio as barrio_legal', 'contribuyente.id_barrio', '=', 'barrio_legal.id_barrio')
-            ->join('calle as calle_legal', 'contribuyente.id_calle', '=', 'calle_legal.id_calle')
+            //->join('regimen_ib', 'contribuyente.id_regimen_ib', '=', 'regimen_ib.id_regimen_ib')
+            //->join('condicion_iva', 'contribuyente.id_condicion_iva', '=', 'condicion_iva.id_condicion_iva')
+            //->join('naturaleza_juridica', 'contribuyente.id_naturaleza_juridica', '=', 'naturaleza_juridica.id_naturaleza_juridica')
+            //->join('localidad as localidad_legal', 'contribuyente.id_localidad', '=', 'localidad_legal.id_localidad')
+            //->join('provincia as provincia_legal', 'localidad_legal.id_provincia', '=', 'provincia_legal.id_provincia')
+            //->join('barrio as barrio_legal', 'contribuyente.id_barrio', '=', 'barrio_legal.id_barrio')
+            //->join('calle as calle_legal', 'contribuyente.id_calle', '=', 'calle_legal.id_calle')
             ->select(
                 'industria.*',
                 'industria.id_localidad as id_localidad_planta',
@@ -423,7 +429,7 @@ class ProcedimientosController extends Controller
                 'industria.depto as depto_planta',
                 'industria.referencia_domicilio as referencia_planta',
 
-                'contribuyente.*',
+                /* 'contribuyente.*',
                 'contribuyente.id_localidad as id_localidad_legal',
                 'contribuyente.id_barrio as id_barrio_legal',
                 'contribuyente.id_calle as id_calle_legal',
@@ -437,12 +443,12 @@ class ProcedimientosController extends Controller
                 'contribuyente.numero as nro_calle_legal',
                 'contribuyente.piso as piso_legal',
                 'contribuyente.depto as depto_legal',
-                'contribuyente.referencias_domicilio as referencia_legal',
+                'contribuyente.referencias_domicilio as referencia_legal', */
 
 
-                'regimen_ib.regimen_ib',
-                'condicion_iva.condicion_iva',
-                'naturaleza_juridica.naturaleza_juridica',
+                //'regimen_ib.regimen_ib',
+                //'condicion_iva.condicion_iva',
+                //'naturaleza_juridica.naturaleza_juridica',
 
             )
             ->where('industria.id_industria', $id)
