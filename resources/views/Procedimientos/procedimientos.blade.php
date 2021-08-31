@@ -47,13 +47,15 @@
                     <div class="card-body">
                         <h3 class="card-title"><i class="fa fa-building"></i> Trámite de Registro y Estadistica
                             Industrial</h3>
-                        <h4 class="card-subtitle">Declaración jurada anual (Dec. 1736/68 MHEOP: Dec. 534/77 ME; Dec.
+                        <h4 class="card-subtitle" style="font-size: 15px;" >Declaración jurada anual (Dec. 1736/68 MHEOP: Dec. 534/77 ME; Dec.
                             100/81 MEO y SP; Dec. 4962/85 MHS y OP) </h4>
                         <hr>
 
                         <div id="save">
                             <!-- error will be shown here ! -->
                         </div>
+
+                        <h3 class="card-title"><i class="fa fa-building"></i> Nombre de la industria: <span id="nombre_industria_fantasia"></span></h3>
 
                         <div class="form-body">
                             <div class="row">
@@ -824,7 +826,7 @@
                                                     <th>Servicio Utilizado</th>
                                                     <th>Frecuencia</th>
 
-                                                    <th>Costo</th>
+                                                    <th>Cantidad Consumida</th>
                                                     <th>Año</th>
                                                     <th width="12%">Acciones</th>
                                                 </tr>

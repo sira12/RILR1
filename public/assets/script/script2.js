@@ -2794,7 +2794,7 @@ function UpdateServicioBasicoAsignado(id_rel_industria_servicios) {
             '<td><input type="hidden" name="id_servicio_basico[]"  value="'+v.id_servicio+'" /><label>'+v.servicio+'</label></td>'+
 
                                               
-            '<td class="text-center"><input type="text" class="form-control" name="costo_basico[]" value="'+v.costo+'"  placeholder="Ingrese Importe Total Anual" autocomplete="off" onKeyPress="EvaluateText(\'' + flot + '\',this);" onBlur="this.value=Number_Format(this.value, 2,\'' + coma + '\',\'' + punto + '\')" style="width:100%;height:40px;background:#f0f9fc;border-radius:5px 5px 5px 5px;"></td>'
+            '<td class="text-center"><input type="text" class="form-control" name="costo_basico[]" value="'+v.cantidad_consumida+'"  placeholder="Ingrese Importe Total Anual" autocomplete="off" onKeyPress="EvaluateText(\'' + flot + '\',this);" onBlur="this.value=Number_Format(this.value, 2,\'' + coma + '\',\'' + punto + '\')" style="width:100%;height:40px;background:#f0f9fc;border-radius:5px 5px 5px 5px;"></td>'
             +'</tr>'
 
           );

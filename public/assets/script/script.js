@@ -3300,6 +3300,7 @@ $('document').ready(function () {
 			var data = $("#saveasignacioninsumo").serialize();
 			var seccion = $("#seccioninsumo").val();
 			var industria = $("#id_industria_modal").val();
+			var periodo_fiscal=  $("#anio_periodo_fiscal").val();
 
 			$.ajax({
 				type: 'POST',
@@ -3308,7 +3309,8 @@ $('document').ready(function () {
 				data: {
 					_token: $('meta[name="csrf-token"]').attr('content'),
 					id_industria: industria,
-					data: data
+					data: data,
+					p_f:periodo_fiscal
 				},
 				beforeSend: function () {
 					$("#save").fadeOut();
@@ -3454,6 +3456,9 @@ $("#btn-insumo-update").on('click', function () {
 		var seccion = $("#seccioninsumo").val();
 		var industria = $("#id_industria_modal").val();
 
+		var periodo_fiscal=  $("#anio_periodo_fiscal").val();
+	
+
 		$.ajax({
 			type: 'POST',
 			url: '/updateInsumo',
@@ -3461,7 +3466,8 @@ $("#btn-insumo-update").on('click', function () {
 			data: {
 				_token: $('meta[name="csrf-token"]').attr('content'),
 				id_industria: industria,
-				data: data
+				data: data,
+				p_f:periodo_fiscal
 			},
 			beforeSend: function () {
 				$("#save").fadeOut();
@@ -3623,6 +3629,8 @@ $('document').ready(function () {
 			var data = $("#saveserviciobasico").serialize();
 			var seccion = $("#seccionserviciobasico").val();
 			var industria = $("#id_industria_modal").val();
+			var periodo_fiscal=  $("#anio_periodo_fiscal").val();
+	
 
 			$.ajax({
 				type: 'POST',
@@ -3631,7 +3639,8 @@ $('document').ready(function () {
 				data: {
 					_token: $('meta[name="csrf-token"]').attr('content'),
 					data: data,
-					id_industria:industria
+					id_industria:industria,
+					p_f:periodo_fiscal
 				},
 				beforeSend: function () {
 					$("#save").fadeOut();
@@ -3735,6 +3744,8 @@ $('document').ready(function () {
 			var data = $("#updateserviciobasico").serialize();
 			var seccion = $("#seccionserviciobasicoupdate").val();
 			var industria = $("#id_industria_modal").val();
+			var periodo_fiscal=  $("#anio_periodo_fiscal").val();
+			
 
 			$.ajax({
 				type: 'POST',
@@ -3743,7 +3754,8 @@ $('document').ready(function () {
 				data: {
 					_token: $('meta[name="csrf-token"]').attr('content'),
 					data:data,
-					id_industria:industria
+					id_industria:industria,
+					p_f:periodo_fiscal
 				},
 				beforeSend: function () {
 					$("#save").fadeOut();
@@ -3860,6 +3872,8 @@ $('document').ready(function () {
 			var data = $("#savecombustible").serialize();
 			var seccion = $("#seccioncombustible").val();
 			var industria = $("#id_industria_modal").val();
+			var periodo_fiscal=  $("#anio_periodo_fiscal").val();
+	
 
 			$.ajax({
 				type: 'POST',
@@ -3868,7 +3882,8 @@ $('document').ready(function () {
 				data: {
 					_token: $('meta[name="csrf-token"]').attr('content'),
 					data:data,
-					id_industria: industria
+					id_industria: industria,
+					p_f:periodo_fiscal
 				},
 				beforeSend: function () {
 					$("#save").fadeOut();
@@ -4174,6 +4189,7 @@ $('document').ready(function () {
 			var data = $("#saveotros").serialize();
 			var seccion = $("#seccionotros").val();
 			var industria = $("#id_industria_modal").val();
+			var periodo_fiscal=  $("#anio_periodo_fiscal").val();
 
 			$.ajax({
 				type: 'POST',
@@ -4182,7 +4198,8 @@ $('document').ready(function () {
 				data: {
 					_token: $('meta[name="csrf-token"]').attr('content'),
 					data:data,
-					id_industria: industria
+					id_industria: industria,
+					p_f:periodo_fiscal
 				},
 				beforeSend: function () {
 					$("#save").fadeOut();
@@ -4473,6 +4490,7 @@ $('document').ready(function () {
 			var data = $("#savedevengados").serialize();
 			var seccion = $("#secciondevengados").val();
 			var industria = $("#id_industria_modal").val();
+			var periodo_fiscal=  $("#anio_periodo_fiscal").val();
 
 			$.ajax({
 				type: 'POST',
@@ -4481,7 +4499,8 @@ $('document').ready(function () {
 				data: {
 					_token: $('meta[name="csrf-token"]').attr('content'),
 					data:data,
-					id_industria: industria
+					id_industria: industria,
+					p_f:periodo_fiscal
 				},
 				beforeSend: function () {
 					$("#save").fadeOut();

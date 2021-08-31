@@ -708,15 +708,15 @@
                     </div>
 
                     <div class="table-responsive">
-                        <table id="ser_basico" class="table2 display">
+                        <table  class="table2 display">
                             <thead>
 
                                 <th>Servicio Básico <span class="symbol required"></span></th>
 
-                                <th>Importe Total Anual <span class="symbol required"></span></th>
+                                <th>Cantidad Consumida(unidades)<span class="symbol required"></span></th>
 
                             </thead>
-                            <tbody>
+                            <tbody id="ser_basico">
 
 
 
@@ -1145,7 +1145,7 @@
                     </div>
 
                     <div class="table-responsive">
-                        <table id="gastos_generados" class="table2 display">
+                        <table  class="table2 display">
                             <thead>
                                 <tr role="row">
                                     <th>Servicios <span class="symbol required"></span></th>
@@ -1153,7 +1153,7 @@
                                     <th>Importe Total Anual <span class="symbol required"></span></th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="gastos_generados">
 
 
 

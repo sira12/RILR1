@@ -10,49 +10,25 @@ use App\Models\Servicio;
 
 class ServicioController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
+   
 
 
     //saca frecuencia
     public function frecuencia()
     {
-        $fr = DB::table('fecuencia_de_contratacion')->get();
+        $fr = DB::table('frecuencia_de_contratacion')->get();
 
         $response = array();
         foreach ($fr as $f) {
-            $response[] = array("value" => $f->id_fecuencia_de_contratacion, "label" => trim($f->fecuencia_de_contratacion));
+            $response[] = array("value" => $f->id_frecuencia_de_contratacion, "label" => trim($f->frecuencia_de_contratacion));
         }
 
         return response()->json($response);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+    
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-    }
+    
 
     public function getServicio(Request $request)
     {
@@ -61,7 +37,7 @@ class ServicioController extends Controller
         $servicio = DB::table('rel_industria_servicio')->where('id_rel_industria_servicio', $request->id)
             ->join('servicio', 'rel_industria_servicio.id_servicio', '=', 'servicio.id_servicio')
             ->leftjoin('unidad_de_medida', 'rel_industria_servicio.id_unidad_de_medida','unidad_de_medida.id_unidad_de_medida')
-            ->join('fecuencia_de_contratacion', 'rel_industria_servicio.id_frecuencia_de_contratacion', '=', 'fecuencia_de_contratacion.id_fecuencia_de_contratacion')
+            ->join('frecuencia_de_contratacion', 'rel_industria_servicio.id_frecuencia_de_contratacion', '=', 'frecuencia_de_contratacion.id_frecuencia_de_contratacion')
             ->join('pais', 'rel_industria_servicio.id_pais', 'pais.id_pais')
             ->join('localidad', 'rel_industria_servicio.id_localidad', 'localidad.id_localidad')
             ->join('provincia', 'localidad.id_provincia', 'provincia.id_provincia')
@@ -116,11 +92,8 @@ class ServicioController extends Controller
 
         $id_industria = intval($request->id_industria);
 
-
-
-        $date = Carbon::now()->format('Y'); //2021
         $status = 200;
-
+        $periodo_fiscal= $request->p_f;
 
         if ($params['proceso'] == "savecombustible") {
             //comprobaciones: si ya se cargó;
@@ -128,6 +101,7 @@ class ServicioController extends Controller
             $ser_existente = DB::table('rel_industria_servicio')
                 ->where('id_industria', $id_industria)
                 ->where('id_servicio',  intval($params['id_servicio_combustible']))
+                ->where('anio',$periodo_fiscal)
                 ->get();
 
             //si el insumo ya esta cargado para esta industria devolver msj
@@ -136,22 +110,18 @@ class ServicioController extends Controller
                 $status = 1;
             } else {
 
-
-
-
                 $id_rel_servicio_industria = DB::table('rel_industria_servicio')->insertGetId([
                     'id_industria' => $id_industria,
                     'id_servicio' => intval($params['id_servicio_combustible']),
                     'id_frecuencia_de_contratacion' => 1,
                     'costo' => intval($params['costo_combustible']),
-
                     'id_localidad' =>  intval($params['id_localidad_combustible']),
                     'id_pais' => intval($params['id_pais_combustible']),
                     'id_unidad_de_medida' => intval($params['medida_combustible']),
                     'id_motivo_importacion' => isset($params['motivo_importacion_combustible']) && $params['motivo_importacion_combustible'] != "" ? intval($params['motivo_importacion_combustible']) : null,
                     'detalles' => isset($params['detalles_combustible']) ? $params['detalles_combustible'] : "",
                     'cantidad_consumida' => 0,
-                    'anio' => $date,
+                    'anio' => $periodo_fiscal,
                     'fecha_de_actualizacion' => Carbon::now(),
                 ]);
 
@@ -174,6 +144,7 @@ class ServicioController extends Controller
             $ser_existente = DB::table('rel_industria_servicio')
                 ->where('id_industria', $id_industria)
                 ->where('id_servicio',  $id_servicio)
+                ->where('anio',$periodo_fiscal)
                 ->get();
 
             if (count($ser_existente) > 0) {
@@ -193,7 +164,7 @@ class ServicioController extends Controller
                     'detalles' => isset($params['detalles_otros']) ? $params['detalles_otros'] : "",
                     'cantidad_consumida' => intval($params['cantidad_otros']),
                     'id_frecuencia_de_contratacion'=> intval($params['frecuencia_otros']),
-                    'anio' => $date,
+                    'anio' => $periodo_fiscal,
                     'fecha_de_actualizacion' => Carbon::now(),
                     'id_unidad_de_medida' => null
                 ]);
@@ -225,13 +196,12 @@ class ServicioController extends Controller
                     'id_industria' => $id_industria,
                     'id_servicio' => intval($valor),
                     'id_frecuencia_de_contratacion' => 1,
-                    'costo' => intval($params['costo_basico'][$i]),
                     'id_localidad' =>  $localidad,
                     'id_pais' => $pais,
                     'id_motivo_importacion' => $motivo,
                     'detalles' => $detalles,
-                    'cantidad_consumida' => 0,
-                    'anio' => $date,
+                    'cantidad_consumida' => intval($params['costo_basico'][$i]), //en servicios basicos se utiliza la cantidad consumida y el parametro es el costo_basico
+                    'anio' => $periodo_fiscal,
                     'fecha_de_actualizacion' => Carbon::now(),
                     'id_unidad_de_medida' => null
                 ]);
@@ -257,6 +227,7 @@ class ServicioController extends Controller
 
         $date = Carbon::now()->format('Y');
         $status = 200;
+        $periodo_fiscal= $request->p_f;
 
 
 
@@ -267,6 +238,7 @@ class ServicioController extends Controller
                 ->where('id_industria', $id_industria)
                 ->where('id_servicio',  intval($params['id_servicio_combustible']))
                 ->where('id_rel_industria_servicio', '!=', intval($params['id_rel_industria_combustible']))
+                ->where('anio',$periodo_fiscal)
                 ->get();
 
             //si el insumo ya esta cargado para esta industria devolver msj
@@ -283,7 +255,6 @@ class ServicioController extends Controller
                         'id_servicio' => intval($params['id_servicio_combustible']),
                         'id_frecuencia_de_contratacion' => 1,
                         'costo' => intval($params['costo_combustible']),
-
                         'id_localidad' =>  intval($params['id_localidad_combustible']),
                         'id_pais' => intval($params['id_pais_combustible']),
                         'id_unidad_de_medida' => intval($params['medida_combustible']),
@@ -314,6 +285,7 @@ class ServicioController extends Controller
                 ->where('id_industria', $id_industria)
                 ->where('id_servicio',  $id_servicio)
                 ->where('id_rel_industria_servicio', '!=', intval($params['id_rel_industria_otros']))
+                ->where('anio',$periodo_fiscal)
                 ->get();
 
             if (count($ser_existente) > 0) {
@@ -335,7 +307,6 @@ class ServicioController extends Controller
                         'detalles' => isset($params['detalles_otros']) ? $params['detalles_otros'] : "",
                         'cantidad_consumida' => intval($params['cantidad_otros']),
                         'id_frecuencia_de_contratacion'=> intval($params['frecuencia_otros']),
-                        'anio' => $date,
                         'fecha_de_actualizacion' => Carbon::now(),
                         'id_unidad_de_medida' => null
                     ]);
@@ -370,12 +341,12 @@ class ServicioController extends Controller
                         'id_industria' => $id_industria,
                         'id_servicio' => intval($valor),
                         'id_frecuencia_de_contratacion' => 1,
-                        'costo' => intval($params['costo_basico'][$i]),
+                        'cantidad_consumida' => intval($params['costo_basico'][$i]), //en servicios basicos se utiliza la cantidad consumida
                         'id_localidad' =>  $localidad,
                         'id_pais' => $pais,
                         'id_motivo_importacion' => $motivo,
                         'detalles' => $detalles,
-                        'anio' => $date,
+                        
                         'fecha_de_actualizacion' => Carbon::now(),
                         'id_unidad_de_medida' => null
                     ]);
@@ -405,12 +376,13 @@ class ServicioController extends Controller
             $data = DB::table('rel_industria_servicio')
                 ->join('servicio', 'rel_industria_servicio.id_servicio', '=', 'servicio.id_servicio')
                 ->join('unidad_de_medida', 'rel_industria_servicio.id_unidad_de_medida', '=', 'unidad_de_medida.id_unidad_de_medida')
-                ->join('fecuencia_de_contratacion', 'rel_industria_servicio.id_frecuencia_de_contratacion', '=', 'fecuencia_de_contratacion.id_fecuencia_de_contratacion')
+                ->join('frecuencia_de_contratacion', 'rel_industria_servicio.id_frecuencia_de_contratacion', '=', 'frecuencia_de_contratacion.id_frecuencia_de_contratacion')
                 ->where('id_industria', intval($request->id_industria)) //es el id_industira
                 ->where('servicio.id_clasificacion_servicio', 2)
+                ->where('anio',$request->p_f)
                 ->select(
                     'rel_industria_servicio.*',
-                    'fecuencia_de_contratacion.fecuencia_de_contratacion as frecuencia',
+                    'frecuencia_de_contratacion.frecuencia_de_contratacion as frecuencia',
                     'servicio.servicio as servicio_utilizado',
                     'servicio.id_clasificacion_servicio',
                     'unidad_de_medida.unidad_de_medida as unidad'
@@ -441,13 +413,14 @@ class ServicioController extends Controller
             $data = DB::table('rel_industria_servicio')
                 ->join('servicio', 'rel_industria_servicio.id_servicio', '=', 'servicio.id_servicio')
 
-                ->join('fecuencia_de_contratacion', 'rel_industria_servicio.id_frecuencia_de_contratacion', '=', 'fecuencia_de_contratacion.id_fecuencia_de_contratacion')
+                ->join('frecuencia_de_contratacion', 'rel_industria_servicio.id_frecuencia_de_contratacion', '=', 'frecuencia_de_contratacion.id_frecuencia_de_contratacion')
                 ->where('id_industria', intval($request->id_industria)) //es el id_industira
                 ->where('servicio.id_clasificacion_servicio', 3)
                 ->orWhere('servicio.id_clasificacion_servicio', 4)
+                ->where('anio',$request->p_f)
                 ->select(
                     'rel_industria_servicio.*',
-                    'fecuencia_de_contratacion.fecuencia_de_contratacion as frecuencia',
+                    'frecuencia_de_contratacion.frecuencia_de_contratacion as frecuencia',
                     'servicio.servicio as servicio_utilizado',
                     'servicio.id_clasificacion_servicio',
 
@@ -479,13 +452,14 @@ class ServicioController extends Controller
             $data = DB::table('rel_industria_servicio')
                 ->join('servicio', 'rel_industria_servicio.id_servicio', '=', 'servicio.id_servicio')
 
-                ->join('fecuencia_de_contratacion', 'rel_industria_servicio.id_frecuencia_de_contratacion', '=', 'fecuencia_de_contratacion.id_fecuencia_de_contratacion')
+                ->join('frecuencia_de_contratacion', 'rel_industria_servicio.id_frecuencia_de_contratacion', '=', 'frecuencia_de_contratacion.id_frecuencia_de_contratacion')
                 ->where('id_industria', intval($request->id_industria)) //es el id_industira
                 ->where('servicio.id_clasificacion_servicio', 1)
+                ->where('anio',$request->p_f)
 
                 ->select(
                     'rel_industria_servicio.*',
-                    'fecuencia_de_contratacion.fecuencia_de_contratacion as frecuencia',
+                    'frecuencia_de_contratacion.frecuencia_de_contratacion as frecuencia',
                     'servicio.servicio as servicio_utilizado',
                     'servicio.id_clasificacion_servicio',
 
@@ -539,49 +513,4 @@ class ServicioController extends Controller
     }
 
 
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

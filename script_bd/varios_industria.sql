@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 26-08-2021 a las 20:06:44
+-- Tiempo de generación: 31-08-2021 a las 21:05:19
 -- Versión del servidor: 5.7.31
 -- Versión de PHP: 7.4.9
 
@@ -9323,7 +9323,7 @@ CREATE TABLE IF NOT EXISTS `insumo` (
   `insumo` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
   `activo` char(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'S',
   PRIMARY KEY (`id_insumo`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `insumo`
@@ -9341,7 +9341,8 @@ INSERT INTO `insumo` (`id_insumo`, `insumo`, `activo`) VALUES
 (9, 'Abrasivo', 'S'),
 (10, 'Herramientas de corte', 'S'),
 (11, 'Cinta adhesiva', 'S'),
-(12, 'artón para juntas', 'S');
+(12, 'artón para juntas', 'S'),
+(13, 'insumo prueba', 'S');
 
 -- --------------------------------------------------------
 
@@ -10956,18 +10957,18 @@ CREATE TABLE IF NOT EXISTS `rel_industria_egreso` (
   KEY `ix_rel_industria_egreso_autoinc` (`id_rel_industria_egreso`),
   KEY `FK_rel_industria_egreso_egreso` (`id_egreso`),
   KEY `FK_rel_industria_egreso_industria` (`id_industria`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `rel_industria_egreso`
 --
 
 INSERT INTO `rel_industria_egreso` (`id_rel_industria_egreso`, `id_industria`, `id_egreso`, `importe`, `anio`, `fecha_de_actualizacion`) VALUES
-(6, 1, 1, '0.00', 2021, '2021-06-15 14:37:50'),
-(7, 1, 2, '0.00', 2021, '2021-06-15 14:37:50'),
-(8, 1, 3, '0.00', 2021, '2021-06-15 14:37:50'),
-(9, 1, 4, '0.00', 2021, '2021-06-15 14:37:50'),
-(10, 1, 5, '0.00', 2021, '2021-06-15 14:37:50');
+(11, 1, 1, '12.00', 2021, '2021-08-30 15:43:33'),
+(12, 1, 2, '120.00', 2021, '2021-08-30 15:43:33'),
+(13, 1, 3, '12.00', 2021, '2021-08-30 15:43:33'),
+(14, 1, 4, '12.00', 2021, '2021-08-30 15:43:33'),
+(15, 1, 5, '12.00', 2021, '2021-08-30 15:43:33');
 
 -- --------------------------------------------------------
 
@@ -10994,14 +10995,16 @@ CREATE TABLE IF NOT EXISTS `rel_industria_insumo` (
   KEY `FK_rel_industria_insumo_insumo` (`id_insumo`),
   KEY `FK_rel_industria_insumo_motivo_importacion` (`id_motivo_importacion`),
   KEY `FK_rel_industria_insumo_unidad_de_medida` (`id_unidad_de_medida`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `rel_industria_insumo`
 --
 
 INSERT INTO `rel_industria_insumo` (`id_rel_industria_insumo`, `id_industria`, `id_insumo`, `id_unidad_de_medida`, `cantidad`, `es_propio`, `id_localidad`, `id_pais`, `id_motivo_importacion`, `detalles`, `anio`, `fecha_de_actualizacion`) VALUES
-(1, 1, 1, 1, 1, 'P', 2, 1, NULL, NULL, 2021, '2021-08-06 16:29:24');
+(2, 1, 13, 1, 1, 'P', 134, 1, NULL, '', 2021, '2021-08-30 14:15:51'),
+(3, 1, 2, 1, 1, 'P', 134, 1, NULL, '', 2021, '2021-08-30 14:17:31'),
+(4, 1, 3, 2, 1, 'A', 681, 1, 1, '', 2021, '2021-08-30 14:18:19');
 
 -- --------------------------------------------------------
 
@@ -11137,7 +11140,7 @@ CREATE TABLE IF NOT EXISTS `rel_industria_servicio` (
   `id_servicio` int(11) NOT NULL,
   `id_frecuencia_de_contratacion` int(11) NOT NULL,
   `id_unidad_de_medida` int(11) DEFAULT NULL,
-  `cantidad_consumida` int(11) NOT NULL,
+  `cantidad_consumida` decimal(13,2) NOT NULL,
   `costo` decimal(13,2) DEFAULT NULL,
   `id_localidad` int(11) NOT NULL,
   `id_pais` int(11) NOT NULL,
@@ -11152,19 +11155,7 @@ CREATE TABLE IF NOT EXISTS `rel_industria_servicio` (
   KEY `FK_rel_industria_servicio_pais` (`id_pais`),
   KEY `FK_rel_industria_servicio_servicio` (`id_servicio`),
   KEY `FK_rel_industria_servicio_unidad_de_medida` (`id_unidad_de_medida`)
-) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
---
--- Volcado de datos para la tabla `rel_industria_servicio`
---
-
-INSERT INTO `rel_industria_servicio` (`id_rel_industria_servicio`, `id_industria`, `id_servicio`, `id_frecuencia_de_contratacion`, `id_unidad_de_medida`, `cantidad_consumida`, `costo`, `id_localidad`, `id_pais`, `id_motivo_importacion`, `detalles`, `anio`, `fecha_de_actualizacion`) VALUES
-(38, 1, 1, 1, NULL, 0, '2.00', 134, 1, NULL, NULL, 2021, '2021-08-06 16:29:24'),
-(39, 1, 2, 1, NULL, 0, '1.00', 134, 1, NULL, NULL, 2021, '2021-08-06 16:29:24'),
-(40, 1, 4, 1, NULL, 0, '4.00', 134, 1, NULL, NULL, 2021, '2021-08-06 16:29:24'),
-(41, 1, 5, 1, NULL, 0, '5.00', 134, 1, NULL, NULL, 2021, '2021-08-06 16:29:24'),
-(42, 1, 6, 1, NULL, 0, '67.00', 134, 1, NULL, NULL, 2021, '2021-08-06 16:29:24'),
-(43, 1, 7, 1, NULL, 0, '8.00', 134, 1, NULL, NULL, 2021, '2021-08-06 16:29:24');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- --------------------------------------------------------
 
@@ -11972,7 +11963,7 @@ DROP VIEW IF EXISTS `vw_info_servicio`;
 CREATE TABLE IF NOT EXISTS `vw_info_servicio` (
 `id_industria` int(11)
 ,`Servicio` varchar(50)
-,`cantidad_consumida` int(11)
+,`cantidad_consumida` decimal(13,2)
 ,`Costo_del_Servicio` decimal(13,2)
 ,`frecuencia_de_contratacion_Servicio` varchar(50)
 ,`Localidad_Origen_Servicio` varchar(50)

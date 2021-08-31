@@ -50,11 +50,8 @@ class GastosController extends Controller
         parse_str($request->data, $params);
 
         $id_industria = intval($request->id_industria);
-
-
-
-        $date = Carbon::now()->format('Y'); //2021
         $status = 200;
+        $periodo_fiscal= $request->p_f;
 
 
         $i = 0;
@@ -65,7 +62,7 @@ class GastosController extends Controller
                 'id_industria' => $id_industria,
                 'id_egreso' => intval($valor),
                 'importe' => intval($params['costo_gasto'][$i]),
-                'anio' => $date,
+                'anio' => $periodo_fiscal,
                 'fecha_de_actualizacion'=>Carbon::now()
             ]);
 
@@ -88,7 +85,7 @@ class GastosController extends Controller
 
        
 
-        $date = Carbon::now()->format('Y'); //2021
+        //$date = Carbon::now()->format('Y'); //2021
         $status = 200;
 
 
@@ -101,11 +98,8 @@ class GastosController extends Controller
                 'id_industria' => $id_industria,
                 'id_egreso' => intval($valor),
                 'importe' => intval($params['costo_egreso'][$i]),
-                'anio' => $date,
                 'fecha_de_actualizacion'=>Carbon::now()
             ]);
-
-
             $i++;
         }
 
@@ -120,6 +114,7 @@ class GastosController extends Controller
             $data = DB::table('rel_industria_egreso')
                 ->join('egreso', 'rel_industria_egreso.id_egreso', '=', 'egreso.id_egreso')
                 ->where('id_industria', intval($request->id_industria)) //es el id_industira
+                ->where('anio',$request->p_f)
                 ->select(
                     'rel_industria_egreso.*',
                     'egreso.egreso',
@@ -131,9 +126,9 @@ class GastosController extends Controller
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
 
-                    $actionBtn = '<span style="cursor: pointer;" data-placement="left" title="Ver Servicio" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalDetalleServicio" data-backdrop="static" data-keyboard="false" onClick="VerServicioAsignado('.$row->id_egreso.',\'' . "gastos" . '\')"><i class="mdi mdi-eye font-22 text-danger"></i></span>
+                    $actionBtn = '<span style="cursor: pointer;" data-placement="left" title="Ver Servicio" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalDetalleServicio" data-backdrop="static" data-keyboard="false" onClick="VerServicioAsignado('.$row->id_rel_industria_egreso.',\'' . "gastos" . '\')"><i class="mdi mdi-eye font-22 text-danger"></i></span>
 
-                    <span style="cursor: pointer;" data-placement="left" title="Actualizar Egreso" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalUpdateDevengado" data-backdrop="static" data-keyboard="false" onClick="UpdateDevengadoAsignado('.$row->id_egreso.')"><i class="mdi mdi-table-edit font-22 text-danger"></i></span>';
+                    <span style="cursor: pointer;" data-placement="left" title="Actualizar Egreso" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalUpdateDevengado" data-backdrop="static" data-keyboard="false" onClick="UpdateDevengadoAsignado('.$row->id_rel_industria_egreso.')"><i class="mdi mdi-table-edit font-22 text-danger"></i></span>';
                     return $actionBtn;
                 })
                 ->rawColumns(['action'])

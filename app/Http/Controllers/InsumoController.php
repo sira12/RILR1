@@ -10,25 +10,6 @@ use Yajra\DataTables\DataTables;
 use App\Models\Insumo;
 class InsumoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     public function store_insumo (Request $request) {
       $params=[];
@@ -65,14 +46,10 @@ class InsumoController extends Controller
     {
       //guardar relacion insumo-industria
        $params=[];
-
        parse_str($request->data,$params);
-
-
        $id_industria= intval($request->id_industria);
-
-       $date = Carbon::now()->format('Y');
        $status = 200;
+       $periodo_fiscal= $request->p_f;
 
        //si el id del insumo viene vacio significa que no encontró el insumo, por lo tanto hay que cargarlo
        if ($params['id_insumo'] == "") {
@@ -86,6 +63,7 @@ class InsumoController extends Controller
        $ins_existente = DB::table('rel_industria_insumo')
            ->where('id_industria', $id_industria)
            ->where('id_insumo',  $id_insumo)
+           ->where('anio',$periodo_fiscal)
            ->get();
 
         //si el insumo ya esta cargado para esta industria devolver msj
@@ -129,7 +107,7 @@ class InsumoController extends Controller
              'id_pais' => $pais,
              'id_motivo_importacion' => $motivo,
              'detalles' => $detalles,
-             'anio' => $date,
+             'anio' => $periodo_fiscal,
              'fecha_de_actualizacion' => Carbon::now(),
          ]);
 
@@ -176,7 +154,7 @@ class InsumoController extends Controller
 
       $id_industria= intval($request->id_industria);
 
-      $date = Carbon::now()->format('Y');
+      $periodo_fiscal= $request->p_f;
       $status = 200;
 
       //si el id del insumo viene vacio significa que no encontró el insumo, por lo tanto hay que cargarlo
@@ -192,6 +170,7 @@ class InsumoController extends Controller
           ->where('id_industria', $id_industria)
           ->where('id_insumo',  $id_insumo)
           ->where('id_rel_industria_insumo','!=',intval($params['id_rel_industria_insumos']))
+          ->where('anio',$periodo_fiscal)
           ->get();
 
        //si el insumo ya esta cargado para esta industria devolver msj
@@ -217,10 +196,6 @@ class InsumoController extends Controller
             $detalles = isset($params['detalles_insumo']) ?  $params['detalles_insumo'] : "";
         }
 
-
-
-
-
             $id_rel_producto_actividad = DB::table('rel_industria_insumo')
                 ->where('id_rel_industria_insumo', intval($params['id_rel_industria_insumos']))
                 ->update([
@@ -233,7 +208,6 @@ class InsumoController extends Controller
                   'id_pais' => $pais,
                   'id_motivo_importacion' => $motivo,
                   'detalles' => $detalles,
-
                   'fecha_de_actualizacion' => Carbon::now(),
                 ]);
 
@@ -262,6 +236,7 @@ class InsumoController extends Controller
               ->join('insumo', 'rel_industria_insumo.id_insumo', '=', 'insumo.id_insumo')
               ->join('unidad_de_medida', 'rel_industria_insumo.id_unidad_de_medida', '=', 'unidad_de_medida.id_unidad_de_medida')
               ->where('id_industria', intval($request->id_industria)) //es el id_industira
+              ->where('anio',$request->p_f)
               ->select(
                   'rel_industria_insumo.*',
                   'insumo.insumo as insumo_utilizado',
@@ -286,50 +261,8 @@ class InsumoController extends Controller
 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 
     //funcion para buscar insumos
     public function search_insumo (Request $request) {

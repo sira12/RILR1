@@ -1062,6 +1062,9 @@ function cargar_tabla_actividades() {
 
 function cargar_tabla_otros() {
     var table = $('.yajra-table-otros').DataTable();
+    var periodo_fiscal=  $("#anio_periodo_fiscal").val();
+    
+    
     table.destroy();
     //$('.yajra-datatable').empty();
     var id_industria = $("#id_industria_modal").val();
@@ -1074,7 +1077,8 @@ function cargar_tabla_otros() {
             "type": "POST",
             "data": {
                 _token: $('meta[name="csrf-token"]').attr('content'),
-                id_industria: id_industria
+                id_industria: id_industria,
+                p_f:periodo_fiscal
             },
         },
         columns: [{
@@ -1104,6 +1108,8 @@ function cargar_tabla_otros() {
 
 function cargar_tabla_basicos() {
     var table = $('.yajra-table-basicos').DataTable();
+    var periodo_fiscal=  $("#anio_periodo_fiscal").val();
+    
     table.destroy();
     //$('.yajra-datatable').empty();
     var id_industria = $("#id_industria_modal").val();
@@ -1116,7 +1122,8 @@ function cargar_tabla_basicos() {
             "type": "POST",
             "data": {
                 _token: $('meta[name="csrf-token"]').attr('content'),
-                id_industria: id_industria
+                id_industria: id_industria,
+                p_f:periodo_fiscal
             },
         },
         columns: [{
@@ -1129,8 +1136,8 @@ function cargar_tabla_basicos() {
             data: 'frecuencia',
             name: 'frecuencia'
         }, {
-            data: 'costo',
-            name: 'costo'
+            data: 'cantidad_consumida',
+            name: 'cantidad_consumida'
         }, {
             data: 'anio',
             name: 'anio'
@@ -1159,6 +1166,8 @@ function cargar_tabla_basicos() {
 function cargar_tabla_insumos() {
     $('.yajra-table-insumos').DataTable().destroy();
     var id_industria = $("#id_industria_modal").val();
+    var periodo_fiscal=  $("#anio_periodo_fiscal").val();
+   
     $('.yajra-table-insumos').DataTable({
         processing: false,
         serverSide: true,
@@ -1168,7 +1177,8 @@ function cargar_tabla_insumos() {
             "type": "POST",
             "data": {
                 _token: $('meta[name="csrf-token"]').attr('content'),
-                id_industria: id_industria
+                id_industria: id_industria,
+                p_f:periodo_fiscal
             },
         },
         columns: [{
@@ -1325,6 +1335,8 @@ function cargar_tabla_materia_utilizada() {
 
 function cargar_tabla_combustible() {
     var table = $('.yajra-datatable-combustible').DataTable();
+    var periodo_fiscal=  $("#anio_periodo_fiscal").val();
+   
     table.destroy();
     //$('.yajra-datatable').empty();
     var id_industria = $("#id_industria_modal").val();
@@ -1337,7 +1349,8 @@ function cargar_tabla_combustible() {
             "type": "POST",
             "data": {
                 _token: $('meta[name="csrf-token"]').attr('content'),
-                id_industria: id_industria
+                id_industria: id_industria,
+                 p_f:periodo_fiscal
             },
         },
         columns: [{
@@ -1370,6 +1383,8 @@ function cargar_tabla_combustible() {
 
 function cargar_tabla_gastos() {
     var table = $('.yajra-table-gastos').DataTable();
+    var periodo_fiscal=  $("#anio_periodo_fiscal").val();
+  
     table.destroy();
     //$('.yajra-datatable').empty();
     var id_industria = $("#id_industria_modal").val();
@@ -1382,7 +1397,8 @@ function cargar_tabla_gastos() {
             "type": "POST",
             "data": {
                 _token: $('meta[name="csrf-token"]').attr('content'),
-                id_industria: id_industria
+                id_industria: id_industria,
+                p_f:periodo_fiscal
             },
         },
         columns: [{
@@ -2057,6 +2073,8 @@ function getTramite() {
             type: "get",
             url: "/tramite/" + $("#id_industria_modal").val(),
             success: function(response) {
+
+                $("#nombre_industria_fantasia").text(response.industria.nombre_de_fantasia);
 
                 $("#nombre_de_fantasia").val(response.industria.nombre_de_fantasia)
                 $("#fecha_actividad_industria").val(moment(response.industria.fecha_inicio).format('DD-MM-YYYY'));  
