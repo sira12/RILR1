@@ -29,6 +29,7 @@ class EconomiaController extends Controller
 
         $date = Carbon::now()->format('Y');
         $status = 200;
+        $periodo_fiscal= $request->p_f;
 
         if(isset($params['sectores'])){
 
@@ -36,10 +37,10 @@ class EconomiaController extends Controller
 
                 //comprobaciones
                 $s_existente=[];
-                $s_existente = DB::table('rel_economia_del_conocimiento_sector')
+                $s_existente = DB::table('rel_industria_economia_del_conocimiento_sector')
                 ->where('id_industria', $id_industria)
                 ->where('id_economia_del_conocimiento_sector', intval($sector))
-                ->where('anio', $date)
+                ->where('anio',$periodo_fiscal)
                 ->get();
 
                 if (count($s_existente) > 0) {
@@ -54,10 +55,10 @@ class EconomiaController extends Controller
                 }
 
 
-                if (DB::table('rel_economia_del_conocimiento_sector')->insertGetId([
+                if (DB::table('rel_industria_economia_del_conocimiento_sector')->insertGetId([
                     'id_industria' => $id_industria,
                     'id_economia_del_conocimiento_sector' => intval($sector),
-                    'anio' => $date,
+                    'anio' => $periodo_fiscal,
                     'fecha_de_actualizacion' => Carbon::now(),
                 ])) {
                     $msg = "¡Datos Guardados exitosamente!";
@@ -77,7 +78,7 @@ class EconomiaController extends Controller
             ]); 
 
 
-            if (DB::table('rel_economia_del_conocimiento_sector')->insertGetId([
+            if (DB::table('rel_industria_economia_del_conocimiento_sector')->insertGetId([
                 'id_industria' => $id_industria,
                 'id_economia_del_conocimiento_sector' => $id,
                 'anio' => $date,
@@ -103,11 +104,12 @@ class EconomiaController extends Controller
 
     public function lisReleco(Request $request){
         if ($request->ajax()) {
-            $data = DB::table('rel_economia_del_conocimiento_sector')
-                ->join('economia_del_conocimiento_sector', 'rel_economia_del_conocimiento_sector.id_economia_del_conocimiento_sector', '=', 'economia_del_conocimiento_sector.id_economia_del_conocimiento_sector')
+            $data = DB::table('rel_industria_economia_del_conocimiento_sector')
+                ->join('economia_del_conocimiento_sector', 'rel_industria_economia_del_conocimiento_sector.id_economia_del_conocimiento_sector', '=', 'economia_del_conocimiento_sector.id_economia_del_conocimiento_sector')
                 ->where('id_industria', intval($request->id_industria)) //es el id_industira
+                ->where('anio',$request->p_f)
                 ->select(
-                    'rel_economia_del_conocimiento_sector.*',
+                    'rel_industria_economia_del_conocimiento_sector.*',
                     'economia_del_conocimiento_sector.sector',
                    
                 )
@@ -157,6 +159,7 @@ class EconomiaController extends Controller
 
         $date = Carbon::now()->format('Y');
         $status = 200;
+        $periodo_fiscal= $request->p_f;
 
         if(isset($params['perfiles'])){
 
@@ -164,10 +167,10 @@ class EconomiaController extends Controller
 
                 //comprobaciones
                 $s_existente=[];
-                $s_existente = DB::table('rel_economia_del_conocimiento_perfil')
+                $s_existente = DB::table('rel_industria_economia_del_conocimiento_perfil')
                 ->where('id_industria', $id_industria)
                 ->where('id_economia_del_conocimiento_perfil', intval($perfil))
-                ->where('anio', $date)
+                ->where('anio', $periodo_fiscal)
                 ->get();
 
                 if (count($s_existente) > 0) {
@@ -182,10 +185,10 @@ class EconomiaController extends Controller
                 }
 
 
-                if (DB::table('rel_economia_del_conocimiento_perfil')->insertGetId([
+                if (DB::table('rel_industria_economia_del_conocimiento_perfil')->insertGetId([
                     'id_industria' => $id_industria,
                     'id_economia_del_conocimiento_perfil' => intval($perfil),
-                    'anio' => $date,
+                    'anio' => $periodo_fiscal,
                     'fecha_de_actualizacion' => Carbon::now(),
                 ])) {
                     $msg = "¡Datos Guardados exitosamente!";
@@ -205,10 +208,10 @@ class EconomiaController extends Controller
             ]); 
 
 
-            if (DB::table('rel_economia_del_conocimiento_perfil')->insertGetId([
+            if (DB::table('rel_industria_economia_del_conocimiento_perfil')->insertGetId([
                 'id_industria' => $id_industria,
                 'id_economia_del_conocimiento_perfil' => $id,
-                'anio' => $date,
+                'anio' => $periodo_fiscal,
                 'fecha_de_actualizacion' => Carbon::now(),
             ])) {
                 $msg = "¡Datos Guardados exitosamente!";
@@ -232,11 +235,12 @@ class EconomiaController extends Controller
 
     public function lisRelPerfil(Request $request){
         if ($request->ajax()) {
-            $data = DB::table('rel_economia_del_conocimiento_perfil')
-                ->join('economia_del_conocimiento_perfil', 'rel_economia_del_conocimiento_perfil.id_economia_del_conocimiento_perfil', '=', 'economia_del_conocimiento_perfil.id_economia_del_conocimiento_perfil')
+            $data = DB::table('rel_industria_economia_del_conocimiento_perfil')
+                ->join('economia_del_conocimiento_perfil', 'rel_industria_economia_del_conocimiento_perfil.id_economia_del_conocimiento_perfil', '=', 'economia_del_conocimiento_perfil.id_economia_del_conocimiento_perfil')
                 ->where('id_industria', intval($request->id_industria)) //es el id_industira
+                ->where('anio',$request->p_f)
                 ->select(
-                    'rel_economia_del_conocimiento_perfil.*',
+                    'rel_industria_economia_del_conocimiento_perfil.*',
                     'economia_del_conocimiento_perfil.perfil',
                    
                 )

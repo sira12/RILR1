@@ -101,26 +101,26 @@
                                             </tr>
                                         </thead>
                                         <tbody class="BusquedaRapida">
-                                        @php
-                                                        $proceso=false;
-                                                        @endphp
-                                 @foreach($industrias as $clave => $industria)
+                                            @php
+                                            $proceso=false;
+                                            @endphp
+                                            @foreach($industrias as $clave => $industria)
                                             <tr role="row" class="odd">
                                                 <td>{{$clave +1}}</td>
                                                 <td>
 
                                                     @if(!$industria->actividad)
 
-                                                        <span class="badge badge-pill badge-warning"> <b>Tramite en proceso</b></span>
-                                                        @php
-                                                        $proceso=true;
-                                                        @endphp
+                                                    <span class="badge badge-pill badge-warning"> <b>Tramite en proceso</b></span>
+                                                    @php
+                                                    $proceso=true;
+                                                    @endphp
                                                     @else
 
-                                                        <span class="badge badge-pill badge-success">Tramite finalizado</span>
-                                                        @php
-                                                            $proceso=false;
-                                                        @endphp
+                                                    <span class="badge badge-pill badge-success">Tramite finalizado</span>
+                                                    @php
+                                                    $proceso=false;
+                                                    @endphp
                                                     @endif
 
                                                 </td>
@@ -132,7 +132,7 @@
 
                                                 </td>
                                             </tr>
-                                       @endforeach
+                                            @endforeach
 
                                         </tbody>
                                     </table>

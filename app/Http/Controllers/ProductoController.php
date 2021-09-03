@@ -95,6 +95,7 @@ class ProductoController extends Controller
  
  
          $date = Carbon::now()->format('Y');
+         $periodo_fiscal= $request->p_f;
  
          $status = 200;
  
@@ -109,6 +110,7 @@ class ProductoController extends Controller
          $prod_existente = DB::table('rel_actividad_producto')
              ->where('id_rel_industria_actividad', intval($params['id_rel_industria_actividad']))
              ->where('id_producto', $id_producto)
+             ->where('anio',$periodo_fiscal)
              ->get();
  
  
@@ -125,7 +127,7 @@ class ProductoController extends Controller
                  'ventas_en_provincia' => intval($params['ventas_en_provincia']),
                  'ventas_en_otras_provincias' => intval($params['ventas_en_otras_provincias']),
                  'ventas_internacionales' => intval($params['ventas_internacionales']),
-                 'anio' => $date,
+                 'anio' => $periodo_fiscal,
                  'fecha_de_actualizacion' => Carbon::now(),
              ]);
  
@@ -153,6 +155,7 @@ class ProductoController extends Controller
  
         // $date = Carbon::now()->format('Y');
          $status = 200;
+         $periodo_fiscal= $request->p_f;
  
  
          $id_producto_actual = intval($params['id_producto']);
@@ -162,6 +165,7 @@ class ProductoController extends Controller
              ->where('id_rel_industria_actividad', intval($params['id_rel_industria_actividad']))
              ->where('id_producto', $id_producto_actual)
              ->where('id_rel_actividad_producto', '!=', intval($params['id_rel_actividad_productos']))
+             ->where('anio',$periodo_fiscal)
              ->get();
  
          //si escribio mal el nombre y quiere editarlo pero el nombre coincide con el de otro
@@ -216,7 +220,7 @@ class ProductoController extends Controller
                      'ventas_en_provincia' => intval($params['ventas_en_provincia']),
                      'ventas_en_otras_provincias' => intval($params['ventas_en_otras_provincias']),
                      'ventas_internacionales' => intval($params['ventas_internacionales']),
-                     'anio' => intval($params['anio_producto']),
+                     //'anio' => intval($params['anio_producto']),
                      'fecha_de_actualizacion' => Carbon::now(),
                  ]);
  
@@ -267,7 +271,7 @@ class ProductoController extends Controller
             $data = DB::table('rel_actividad_producto')
                 ->join('producto', 'rel_actividad_producto.id_producto', '=', 'producto.id_producto')
                 ->join('unidad_de_medida', 'rel_actividad_producto.id_unidad_de_medida', '=', 'unidad_de_medida.id_unidad_de_medida')
-
+                ->where('anio',$request->p_f)
                 ->where('id_rel_industria_actividad', intval($request->id_asignacion_producto)) //es el id_rel_industira_actividad
                 ->select(
                     'rel_actividad_producto.*',

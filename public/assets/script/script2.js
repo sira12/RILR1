@@ -1885,6 +1885,7 @@ $("#btn-update-producto").on('click', function () {
   } else {
 
     let data = $("#updatesignacionproducto").serialize();
+    var periodo_fiscal=  $("#anio_periodo_fiscal").val();
 
 
     $.ajax({
@@ -1893,6 +1894,7 @@ $("#btn-update-producto").on('click', function () {
       data: {
         _token: $('meta[name="csrf-token"]').attr('content'),
         data: data,
+        p_f:periodo_fiscal
       },
       success: function (data) {
         if (data.status == 200) {
@@ -2250,6 +2252,7 @@ $("#btn-updateMateria").on('click', function () {
   } else {
 
     let data = $("#updateAsignacionMateria").serialize();
+    var periodo_fiscal=  $("#anio_periodo_fiscal").val();
 
 
     $.ajax({
@@ -2258,6 +2261,7 @@ $("#btn-updateMateria").on('click', function () {
       data: {
         _token: $('meta[name="csrf-token"]').attr('content'),
         data: data,
+        p_f:periodo_fiscal
       },
       success: function (data) {
         if (data.status == 200) {
@@ -2296,8 +2300,8 @@ $("#btn-updateMateria").on('click', function () {
 
 
 
-            $("#updatesignacionproducto").prop('id', 'saveasignacionproducto');
-            $("#saveasignacionproducto").prop('name', 'saveasignacionproducto');
+            $("#updateAsignacionMateria").prop('id', 'saveasignacionmateria');
+            $("#saveasignacionmateria").prop('name', 'saveasignacionmateria');
 
             //recargo la tabla de actividades
             cargar_tabla_materia();
@@ -2359,8 +2363,8 @@ $("#btn-cancelar-materia").on('click', function () {
 
 
 
-  $("#updatesignacionproducto").prop('id', 'saveasignacionproducto');
-  $("#saveasignacionproducto").prop('name', 'saveasignacionproducto');
+  $("#updateAsignacionMateria").prop('id', 'saveasignacionmateria');
+  $("#saveasignacionmateria").prop('name', 'saveasignacionmateria');
 
 });
 

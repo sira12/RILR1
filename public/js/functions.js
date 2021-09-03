@@ -955,6 +955,7 @@ function cargar_tabla_efluentes() {
     table.destroy();
     //$('.yajra-datatable').empty();
     var id_industria = $("#id_industria_modal").val();
+    var periodo_fiscal = $("#anio_periodo_fiscal").val();
     table = $('.table_efluente').DataTable({
         processing: false,
         serverSide: true,
@@ -964,7 +965,8 @@ function cargar_tabla_efluentes() {
             "type": "POST",
             "data": {
                 _token: $('meta[name="csrf-token"]').attr('content'),
-                id_industria: id_industria
+                id_industria: id_industria,
+                p_f: periodo_fiscal
             },
         },
         columns: [{
@@ -992,9 +994,7 @@ function cargar_tabla_efluentes() {
 }
 
 function cargar_tabla_actividades() {
-
-    console.log("periodo ",$("#anio_periodo_fiscal").val())
-    
+    console.log("periodo ", $("#anio_periodo_fiscal").val())
     var table = $('.yajra-datatable').DataTable();
     table.destroy();
     //$('.yajra-datatable').empty();
@@ -1009,7 +1009,7 @@ function cargar_tabla_actividades() {
             "data": {
                 _token: $('meta[name="csrf-token"]').attr('content'),
                 id_industria: id_industria,
-                periodo:$("#anio_periodo_fiscal").val()
+                periodo: $("#anio_periodo_fiscal").val()
             },
         },
         columns: [{
@@ -1062,9 +1062,7 @@ function cargar_tabla_actividades() {
 
 function cargar_tabla_otros() {
     var table = $('.yajra-table-otros').DataTable();
-    var periodo_fiscal=  $("#anio_periodo_fiscal").val();
-    
-    
+    var periodo_fiscal = $("#anio_periodo_fiscal").val();
     table.destroy();
     //$('.yajra-datatable').empty();
     var id_industria = $("#id_industria_modal").val();
@@ -1078,7 +1076,7 @@ function cargar_tabla_otros() {
             "data": {
                 _token: $('meta[name="csrf-token"]').attr('content'),
                 id_industria: id_industria,
-                p_f:periodo_fiscal
+                p_f: periodo_fiscal
             },
         },
         columns: [{
@@ -1108,8 +1106,7 @@ function cargar_tabla_otros() {
 
 function cargar_tabla_basicos() {
     var table = $('.yajra-table-basicos').DataTable();
-    var periodo_fiscal=  $("#anio_periodo_fiscal").val();
-    
+    var periodo_fiscal = $("#anio_periodo_fiscal").val();
     table.destroy();
     //$('.yajra-datatable').empty();
     var id_industria = $("#id_industria_modal").val();
@@ -1123,7 +1120,7 @@ function cargar_tabla_basicos() {
             "data": {
                 _token: $('meta[name="csrf-token"]').attr('content'),
                 id_industria: id_industria,
-                p_f:periodo_fiscal
+                p_f: periodo_fiscal
             },
         },
         columns: [{
@@ -1166,8 +1163,7 @@ function cargar_tabla_basicos() {
 function cargar_tabla_insumos() {
     $('.yajra-table-insumos').DataTable().destroy();
     var id_industria = $("#id_industria_modal").val();
-    var periodo_fiscal=  $("#anio_periodo_fiscal").val();
-   
+    var periodo_fiscal = $("#anio_periodo_fiscal").val();
     $('.yajra-table-insumos').DataTable({
         processing: false,
         serverSide: true,
@@ -1178,7 +1174,7 @@ function cargar_tabla_insumos() {
             "data": {
                 _token: $('meta[name="csrf-token"]').attr('content'),
                 id_industria: id_industria,
-                p_f:periodo_fiscal
+                p_f: periodo_fiscal
             },
         },
         columns: [{
@@ -1215,6 +1211,7 @@ function cargar_tabla_materia() {
     table.destroy();
     //$('.yajra-datatable').empty();
     var id_asignacion_producto = $("#id_rel_industria_actividad_materia_prima").val();
+    var periodo_fiscal = $("#anio_periodo_fiscal").val();
     table = $('.yajra-datatable-materia').DataTable({
         paginate: false,
         serverSide: true,
@@ -1224,7 +1221,8 @@ function cargar_tabla_materia() {
             "type": "POST",
             "data": {
                 _token: $('meta[name="csrf-token"]').attr('content'),
-                id_rel_industria_actividad_materia_prima: id_asignacion_producto
+                id_rel_industria_actividad_materia_prima: id_asignacion_producto,
+                p_f: periodo_fiscal
             },
         },
         columns: [{
@@ -1254,6 +1252,7 @@ function cargar_tabla_productos() {
     table.destroy();
     //$('.yajra-datatable').empty();
     var id_asignacion_producto = $("#id_asignacion_producto").val();
+    var periodo_fiscal = $("#anio_periodo_fiscal").val();
     table = $('.yajra-datatable-productos').DataTable({
         paginate: false,
         serverSide: true,
@@ -1263,7 +1262,8 @@ function cargar_tabla_productos() {
             "type": "POST",
             "data": {
                 _token: $('meta[name="csrf-token"]').attr('content'),
-                id_asignacion_producto: id_asignacion_producto
+                id_asignacion_producto: id_asignacion_producto,
+                p_f: periodo_fiscal
             },
         },
         columns: [{
@@ -1335,8 +1335,7 @@ function cargar_tabla_materia_utilizada() {
 
 function cargar_tabla_combustible() {
     var table = $('.yajra-datatable-combustible').DataTable();
-    var periodo_fiscal=  $("#anio_periodo_fiscal").val();
-   
+    var periodo_fiscal = $("#anio_periodo_fiscal").val();
     table.destroy();
     //$('.yajra-datatable').empty();
     var id_industria = $("#id_industria_modal").val();
@@ -1350,7 +1349,7 @@ function cargar_tabla_combustible() {
             "data": {
                 _token: $('meta[name="csrf-token"]').attr('content'),
                 id_industria: id_industria,
-                 p_f:periodo_fiscal
+                p_f: periodo_fiscal
             },
         },
         columns: [{
@@ -1383,8 +1382,7 @@ function cargar_tabla_combustible() {
 
 function cargar_tabla_gastos() {
     var table = $('.yajra-table-gastos').DataTable();
-    var periodo_fiscal=  $("#anio_periodo_fiscal").val();
-  
+    var periodo_fiscal = $("#anio_periodo_fiscal").val();
     table.destroy();
     //$('.yajra-datatable').empty();
     var id_industria = $("#id_industria_modal").val();
@@ -1398,7 +1396,7 @@ function cargar_tabla_gastos() {
             "data": {
                 _token: $('meta[name="csrf-token"]').attr('content'),
                 id_industria: id_industria,
-                p_f:periodo_fiscal
+                p_f: periodo_fiscal
             },
         },
         columns: [{
@@ -1437,6 +1435,7 @@ function cargar_tabla_gastos() {
 
 function cargar_tabla_splanta() {
     var table = $('.tabla_splanta').DataTable();
+    var periodo_fiscal = $("#anio_periodo_fiscal").val();
     table.destroy();
     //$('.yajra-datatable').empty();
     var id_industria = $("#id_industria_modal").val();
@@ -1449,7 +1448,8 @@ function cargar_tabla_splanta() {
             "type": "POST",
             "data": {
                 _token: $('meta[name="csrf-token"]').attr('content'),
-                id_industria: id_industria
+                id_industria: id_industria,
+                p_f: periodo_fiscal
             },
         },
         columns: [{
@@ -1488,6 +1488,7 @@ function cargar_tabla_motivo_ociosidad() {
     table.destroy();
     //$('.yajra-datatable').empty();
     var id_industria = $("#id_industria_modal").val();
+    var periodo_fiscal = $("#anio_periodo_fiscal").val();
     table = $('.tabla_mo').DataTable({
         processing: false,
         serverSide: true,
@@ -1497,7 +1498,8 @@ function cargar_tabla_motivo_ociosidad() {
             "type": "POST",
             "data": {
                 _token: $('meta[name="csrf-token"]').attr('content'),
-                id_industria: id_industria
+                id_industria: id_industria,
+                p_f: periodo_fiscal
             },
         },
         columns: [{
@@ -1524,6 +1526,7 @@ function cargar_tabla_p_o_m() {
     table.destroy();
     //$('.yajra-datatable').empty();
     var id_industria = $("#id_industria_modal").val();
+    var periodo_fiscal = $("#anio_periodo_fiscal").val();
     table = $('.tabla_po_m').DataTable({
         processing: false,
         serverSide: true,
@@ -1536,7 +1539,8 @@ function cargar_tabla_p_o_m() {
             "type": "POST",
             "data": {
                 _token: $('meta[name="csrf-token"]').attr('content'),
-                id_industria: id_industria
+                id_industria: id_industria,
+                p_f: periodo_fiscal
             },
         },
         columns: [{
@@ -1585,6 +1589,7 @@ function cargar_tabla_p_o_f() {
     table.destroy();
     //$('.yajra-datatable').empty();
     var id_industria = $("#id_industria_modal").val();
+    var periodo_fiscal = $("#anio_periodo_fiscal").val();
     table = $('.tabla_po_f').DataTable({
         processing: false,
         serverSide: true,
@@ -1597,7 +1602,8 @@ function cargar_tabla_p_o_f() {
             "type": "POST",
             "data": {
                 _token: $('meta[name="csrf-token"]').attr('content'),
-                id_industria: id_industria
+                id_industria: id_industria,
+                p_f: periodo_fiscal
             },
         },
         columns: [{
@@ -1646,6 +1652,7 @@ function cargar_tabla_ventas() {
     table.destroy();
     //$('.yajra-datatable').empty();
     var id_industria = $("#id_industria_modal").val();
+    var periodo_fiscal = $("#anio_periodo_fiscal").val();
     table = $('.table_ventas').DataTable({
         processing: false,
         serverSide: true,
@@ -1655,7 +1662,8 @@ function cargar_tabla_ventas() {
             "type": "POST",
             "data": {
                 _token: $('meta[name="csrf-token"]').attr('content'),
-                id_industria: id_industria
+                id_industria: id_industria,
+                p_f: periodo_fiscal
             },
         },
         columns: [{
@@ -1730,6 +1738,7 @@ function cargar_tabla_fact() {
     table.destroy();
     //$('.yajra-datatable').empty();
     var id_industria = $("#id_industria_modal").val();
+    var periodo_fiscal = $("#anio_periodo_fiscal").val();
     table = $('.table_facturacion').DataTable({
         processing: false,
         serverSide: true,
@@ -1739,7 +1748,8 @@ function cargar_tabla_fact() {
             "type": "POST",
             "data": {
                 _token: $('meta[name="csrf-token"]').attr('content'),
-                id_industria: id_industria
+                id_industria: id_industria,
+                p_f: periodo_fiscal
             },
         },
         columns: [{
@@ -1778,6 +1788,7 @@ function cargar_tabla_cert() {
     table.destroy();
     //$('.yajra-datatable').empty();
     var id_industria = $("#id_industria_modal").val();
+    var periodo_fiscal = $("#anio_periodo_fiscal").val();
     table = $('.table_certificados_list').DataTable({
         processing: false,
         serverSide: true,
@@ -1787,7 +1798,8 @@ function cargar_tabla_cert() {
             "type": "POST",
             "data": {
                 _token: $('meta[name="csrf-token"]').attr('content'),
-                id_industria: id_industria
+                id_industria: id_industria,
+                p_f: periodo_fiscal
             },
         },
         columns: [{
@@ -1823,6 +1835,7 @@ function cargar_tabla_sc() {
     table.destroy();
     //$('.yajra-datatable').empty();
     var id_industria = $("#id_industria_modal").val();
+    var periodo_fiscal = $("#anio_periodo_fiscal").val();
     table = $('.table_sc').DataTable({
         processing: false,
         serverSide: true,
@@ -1832,7 +1845,8 @@ function cargar_tabla_sc() {
             "type": "POST",
             "data": {
                 _token: $('meta[name="csrf-token"]').attr('content'),
-                id_industria: id_industria
+                id_industria: id_industria,
+                p_f: periodo_fiscal
             },
         },
         columns: [{
@@ -1868,6 +1882,7 @@ function cargar_tabla_promo() {
     table.destroy();
     //$('.yajra-datatable').empty();
     var id_industria = $("#id_industria_modal").val();
+    var periodo_fiscal = $("#anio_periodo_fiscal").val();
     table = $('.table_promo').DataTable({
         processing: false,
         serverSide: true,
@@ -1877,7 +1892,8 @@ function cargar_tabla_promo() {
             "type": "POST",
             "data": {
                 _token: $('meta[name="csrf-token"]').attr('content'),
-                id_industria: id_industria
+                id_industria: id_industria,
+                p_f: periodo_fiscal
             },
         },
         columns: [{
@@ -1913,6 +1929,7 @@ function cargar_tabla_economia() {
     table.destroy();
     //$('.yajra-datatable').empty();
     var id_industria = $("#id_industria_modal").val();
+    var periodo_fiscal = $("#anio_periodo_fiscal").val();
     table = $('.table_economia').DataTable({
         processing: false,
         serverSide: true,
@@ -1922,7 +1939,8 @@ function cargar_tabla_economia() {
             "type": "POST",
             "data": {
                 _token: $('meta[name="csrf-token"]').attr('content'),
-                id_industria: id_industria
+                id_industria: id_industria,
+                p_f: periodo_fiscal
             },
         },
         columns: [{
@@ -1949,6 +1967,7 @@ function cargar_tabla_perfil() {
     table.destroy();
     //$('.yajra-datatable').empty();
     var id_industria = $("#id_industria_modal").val();
+    var periodo_fiscal = $("#anio_periodo_fiscal").val();
     table = $('.table_perfil').DataTable({
         processing: false,
         serverSide: true,
@@ -1958,7 +1977,8 @@ function cargar_tabla_perfil() {
             "type": "POST",
             "data": {
                 _token: $('meta[name="csrf-token"]').attr('content'),
-                id_industria: id_industria
+                id_industria: id_industria,
+                p_f: periodo_fiscal
             },
         },
         columns: [{
@@ -2067,58 +2087,61 @@ $(document).ready(function() {
 });
 
 function getTramite() {
-    if ($("#id_industria_modal").val() != undefined && $("#id_industria_modal").val() != "") {
-        console.log("modal", $("#id_industria_modal").val())
-        $.ajax({
-            type: "get",
-            url: "/tramite/" + $("#id_industria_modal").val(),
-            success: function(response) {
+    console.log("modal", $("#id_industria_modal").val())
+    $.ajax({
+        type: "get",
+        url: "/tramite/" + $("#id_industria_modal").val(),
+        success: function(response) {
 
-                $("#nombre_industria_fantasia").text(response.industria.nombre_de_fantasia);
-
-                $("#nombre_de_fantasia").val(response.industria.nombre_de_fantasia)
-                $("#fecha_actividad_industria").val(moment(response.industria.fecha_inicio).format('DD-MM-YYYY'));  
-                $("#es_casa_central").val(response.industria.es_casa_central)
-                $("#zona_industrial").val(response.industria.es_zona_industrial)
-                $("#tel_fijo").val(response.industria.tel_fijo)
-               $("#tel_celular").val(response.industria.tel_celular)
-               $("#cod_postal").val(response.industria.cod_postal)
-               $("#zona").val(response.industria.id_punto_cardinal)
-               $("#id_provincia").val(response.industria.id_provincia_planta)
-               $("#buscar_provincia").val(response.industria.provincia_planta)
-            
-               $("#id_localidad").val(response.industria.id_localidad)
-               $("#buscar_localidad").val(response.industria.localidad_planta)
-
-                $("#id_barrio").val(response.industria.id_barrio_planta)
-               $("#buscar_barrio").val(response.industria.barrio_planta)
-
-                $("#id_calle").val(response.industria.id_calle_planta)
-               $("#buscar_calle").val(response.industria.calle_planta)
-      
-                $("#nro_calle_panta").val(response.industria.nro_calle_planta)
-                $("#nro_piso_planta").val(response.industria.piso_planta)
-            
-
-                $("#nro_departamento_planta").val(response.industria.numero)
-                $("#referencia_planta").val(response.industria.referencia_planta)
-                $("#latitud").val(response.industria.latitud)
-                $("#longitud").val(response.industria.longitud)
-                $("#pagina_web").val(response.industria.pagina_web)
-                $("#email").val(response.industria.email)
-                
+            $(response.periodo_fiscal).each(function(i, v) {
+                $('#anio_periodo_fiscal').append('<option value="' + v.anio + '">' + v.anio + '</option>');
+            })
 
 
+            $(".mostrar_info_industria").show();
+             $("#savegeneral").prop('id', 'updategeneral');
+            $("#updategeneral").prop('name', 'updategeneral');
+            $("#btn-submit-save-generales").hide()
+            $("#btn-update-generales").show()
 
 
-            }
-        });
-    }
+            $("#nombre_industria_fantasia").text(response.industria.nombre_de_fantasia);
+            $("#nombre_de_fantasia").val(response.industria.nombre_de_fantasia)
+            $("#fecha_actividad_industria").val(moment(response.industria.fecha_inicio).format('DD-MM-YYYY'));
+            $("#es_casa_central").val(response.industria.es_casa_central)
+            $("#zona_industrial").val(response.industria.es_zona_industrial)
+            $("#tel_fijo").val(response.industria.tel_fijo)
+            $("#tel_celular").val(response.industria.tel_celular)
+            $("#cod_postal").val(response.industria.cod_postal)
+            $("#zona").val(response.industria.id_punto_cardinal)
+            $("#id_provincia").val(response.industria.id_provincia_planta)
+            $("#buscar_provincia").val(response.industria.provincia_planta)
+            $("#id_localidad").val(response.industria.id_localidad)
+            $("#buscar_localidad").val(response.industria.localidad_planta)
+            $("#id_barrio").val(response.industria.id_barrio_planta)
+            $("#buscar_barrio").val(response.industria.barrio_planta)
+            $("#id_calle").val(response.industria.id_calle_planta)
+            $("#buscar_calle").val(response.industria.calle_planta)
+            $("#nro_calle_panta").val(response.industria.nro_calle_planta)
+            $("#nro_piso_planta").val(response.industria.piso_planta)
+            $("#nro_departamento_planta").val(response.industria.numero)
+            $("#referencia_planta").val(response.industria.referencia_planta)
+            $("#latitud").val(response.industria.latitud)
+            $("#longitud").val(response.industria.longitud)
+            $("#pagina_web").val(response.industria.pagina_web)
+            $("#email").val(response.industria.email)
+        }
+    });
 }
 
 function lanzador() {
     muestraReloj();
-    getTramite();
+
+    //si se encuentra seteado el id de la industria es por que se está editando
+     if ($("#id_industria_modal").val() != undefined && $("#id_industria_modal").val() != "") {
+         getTramite()
+     }
+   ;
 }
 
 function getClasificacionVentas() {
@@ -2436,382 +2459,131 @@ function trae_views_ddjj() {
             _token: $('meta[name="csrf-token"]').attr('content'),
             id: $("#id_industria_modal").val()
         },
-         dataType : 'json',
+        dataType: 'json',
         success: function(response) {
-            
-
-            
-
             //contribuyente
-
             $("#cuit_dj").text(response.industria_contribuyente[0].cuit)
             $("#rs_dj").text(response.industria_contribuyente[0].razon_social)
             $("#rib_dj").text(response.industria_contribuyente[0].regimen_ib)
             $("#nib_dj").text(response.industria_contribuyente[0].numero_de_ib)
-
             $("#civa_dj").text(response.industria_contribuyente[0].condicion_iva)
             $("#nj_dj").text(response.industria_contribuyente[0].naturaleza_juridica)
             $("#ef_dj").text(response.industria_contribuyente[0].email_fiscal)
             $("#cp_dj").text(response.industria_contribuyente[0].CP_Legal)
-
             $("#fiac_dj").text(response.industria_contribuyente[0].Inicio_de_Actividades_Contribuyente)
             $("#ll_dj").text(response.industria_contribuyente[0].Localidad_Legal)
             $("#dni_dj").text(response.industria_contribuyente[0].documento)
             $("#d_dj").text(response.industria_contribuyente[0].persona_declarante)
-
             $("#calidad_dj").text(response.industria_contribuyente[0].En_calidad_de)
-
             //industria
-
-            var casa_central= response.industria_contribuyente[0].es_casa_central == "S" ? "SI":"NO"
-            var zona_ind=response.industria_contribuyente[0].es_zona_industrial== "S" ? "SI":"NO"
-            
+            var casa_central = response.industria_contribuyente[0].es_casa_central == "S" ? "SI" : "NO"
+            var zona_ind = response.industria_contribuyente[0].es_zona_industrial == "S" ? "SI" : "NO"
             $("#nei_dj").text(response.industria_contribuyente[0].nombre_de_fantasia)
             $("#fiae_dj").text(response.industria_contribuyente[0].Fecha_inicio_industria)
             $("#ecc_dj").text(casa_central)
             $("#ezi_dj").text(zona_ind)
-
-            $("#ntf_dj").text(response.industria_contribuyente[0].tel_fijo)            
+            $("#ntf_dj").text(response.industria_contribuyente[0].tel_fijo)
             $("#ntc_dj").text(response.industria_contribuyente[0].tel_celular)
             $("#cee_dj").text(response.industria_contribuyente[0].mail_industria)
             $("#lp_dj").text(response.industria_contribuyente[0].Localidad_Industria)
-
-            $("#pw_dj").text(response.industria_contribuyente[0].pagina_web)            
+            $("#pw_dj").text(response.industria_contribuyente[0].pagina_web)
             $("#lu_dj").text(response.industria_contribuyente[0].latitud)
             $("#lonu_dj").text(response.industria_contribuyente[0].longitud)
             $("#cpi_dj").text(response.industria_contribuyente[0].CP_Industria)
-
-
             //actividades ,prod
-
             $(response.act_prod).each(function(i, v) {
-
-                
-                var p=v.es_actividad_principal == "S" ? "Si" : "No"
+                var p = v.es_actividad_principal == "S" ? "Si" : "No"
                 //var m=v.motivo_importacion_Insumo == null ? "--" : v.motivo_importacion_Insumo
                 //var d=v.Detalle_de_motivo_de_importacion_Insumo == null ? "--" : v.Detalle_de_motivo_de_importacion_Insumo 
-                $('#tbody_act_prod_dj').append(
-
-                        '<tr>'+
-                          '<td>'+v.actividad+'</td>'+
-                          '<td>'+p+'</td>'+
-                          '<td>'+v.observacion+'</td>'+
-                          '<td>'+v.fecha_inicio+'</td>'+
-                          '<td></td>'+
-                          '<td>'+v.Productos_Elaborados+'</td>'+
-                          '<td>'+v.Cantidad_producida+'</td>'+
-                          '<td>'+v.porcentaje_sobre_produccion+'</td>'+
-                          '<td>'+v.ventas_en_provincia+'</td>'+
-                          '<td>'+v.ventas_en_otras_provincias+'</td>'+
-                          '<td>'+v.ventas_en_el_exterior+'</td>'+
-                          '<td>'+v.anio_productos+'</td>'+
-                        '</tr>'
-
-                    );
+                $('#tbody_act_prod_dj').append('<tr>' + '<td>' + v.actividad + '</td>' + '<td>' + p + '</td>' + '<td>' + v.observacion + '</td>' + '<td>' + v.fecha_inicio + '</td>' + '<td></td>' + '<td>' + v.Productos_Elaborados + '</td>' + '<td>' + v.Cantidad_producida + '</td>' + '<td>' + v.porcentaje_sobre_produccion + '</td>' + '<td>' + v.ventas_en_provincia + '</td>' + '<td>' + v.ventas_en_otras_provincias + '</td>' + '<td>' + v.ventas_en_el_exterior + '</td>' + '<td>' + v.anio_productos + '</td>' + '</tr>');
             })
-
             $(response.act_mat).each(function(i, v) {
-
-                
-                var p=v.es_actividad_principal == "S" ? "Si" : "No"
-                var mp=v.Es_MP_propia == "S "? "Si" : "No"
+                var p = v.es_actividad_principal == "S" ? "Si" : "No"
+                var mp = v.Es_MP_propia == "S " ? "Si" : "No"
                 //var d=v.Detalle_de_motivo_de_importacion_Insumo == null ? "--" : v.Detalle_de_motivo_de_importacion_Insumo 
-                $('#tbody_act_mp_dj').append(
-
-                        '<tr>'+
-                          '<td style="font-size:15px">'+v.actividad+'</td>'+
-                          '<td>'+p+'</td>'+
-                          '<td>'+v.observacion+'</td>'+
-                          '<td style="font-size:15px">'+v.fecha_inicio+'</td>'+
-                          '<td></td>'+
-                          '<td>'+v.Materia_Prima_Utilizada+'</td>'+
-                          '<td>'+v.Cantidad_MP_Anual_Utilizada+'</td>'+
-                          '<td>'+mp+'</td>'+
-                          '<td>'+v.Localidad_Origen_MP+'</td>'+
-                          '<td>'+v.Pais_Origen_MP+'</td>'+
-                          '<td>'+v.motivo_importacion_MP+'</td>'+
-                          '<td>'+v.Detalle_de_motivo_de_importacion_MP+'</td>'+
-                          '<td>'+v.anio_MP+'</td>'+
-                        '</tr>'
-
-                    );
+                $('#tbody_act_mp_dj').append('<tr>' + '<td style="font-size:15px">' + v.actividad + '</td>' + '<td>' + p + '</td>' + '<td>' + v.observacion + '</td>' + '<td style="font-size:15px">' + v.fecha_inicio + '</td>' + '<td></td>' + '<td>' + v.Materia_Prima_Utilizada + '</td>' + '<td>' + v.Cantidad_MP_Anual_Utilizada + '</td>' + '<td>' + mp + '</td>' + '<td>' + v.Localidad_Origen_MP + '</td>' + '<td>' + v.Pais_Origen_MP + '</td>' + '<td>' + v.motivo_importacion_MP + '</td>' + '<td>' + v.Detalle_de_motivo_de_importacion_MP + '</td>' + '<td>' + v.anio_MP + '</td>' + '</tr>');
             })
-
-
-
-
-             //insumos
-             $(response.insumos).each(function(i, v) {
-
-                
-                var p=v.Es_insumo_propio == "P" ? "Propio" : "Adquirido"
-                var m=v.motivo_importacion_Insumo == null ? "--" : v.motivo_importacion_Insumo
-                var d=v.Detalle_de_motivo_de_importacion_Insumo == null ? "--" : v.Detalle_de_motivo_de_importacion_Insumo 
-                $('#tbody_insumos_dj').append(
-
-                        '<tr>'+
-                          '<td>'+v.Insumos_utilizados+'</td>'+
-                          '<td>'+p+'</td>'+
-                          '<td>'+v.Localidad_Origen_Insumo+'</td>'+
-                          '<td>'+v.Pais_Origen_Insumo+'</td>'+
-                          '<td>'+m+'</td>'+
-                          '<td>'+d+'</td>'+
-                          '<td>'+v.anio_insumos+'</td>'+
-                        '</tr>'
-
-                    );
+            //insumos
+            $(response.insumos).each(function(i, v) {
+                var p = v.Es_insumo_propio == "P" ? "Propio" : "Adquirido"
+                var m = v.motivo_importacion_Insumo == null ? "--" : v.motivo_importacion_Insumo
+                var d = v.Detalle_de_motivo_de_importacion_Insumo == null ? "--" : v.Detalle_de_motivo_de_importacion_Insumo
+                $('#tbody_insumos_dj').append('<tr>' + '<td>' + v.Insumos_utilizados + '</td>' + '<td>' + p + '</td>' + '<td>' + v.Localidad_Origen_Insumo + '</td>' + '<td>' + v.Pais_Origen_Insumo + '</td>' + '<td>' + m + '</td>' + '<td>' + d + '</td>' + '<td>' + v.anio_insumos + '</td>' + '</tr>');
             })
-
             //servicios
-
-             $(response.servicios).each(function(i, v) {
-
-                var m=v.motivo_importacion_Servicio == null ? "--" : v.motivo_importacion_Servicio
-                var d=v.Detalle_de_motivo_de_importacion_Servicio == null ? "--" : v.Detalle_de_motivo_de_importacion_Servicio 
-                $('#tbody_servicios_dj').append(
-
-                        '<tr>'+
-                          '<td>'+v.Servicio+'</td>'+
-                          '<td>'+v.cantidad_consumida+'</td>'+
-                          '<td>'+v.Costo_del_Servicio+'</td>'+
-                          '<td>'+v.frecuencia_de_contratacion_Servicio+'</td>'+
-                          '<td>'+v.Localidad_Origen_Servicio+'</td>'+
-                          '<td>'+v.Pais_Origen_Servicio+'</td>'+
-                          '<td>'+m+'</td>'+
-                          '<td>'+d+'</td>'+
-                          '<td>'+v.anio_Servicios+'</td>'+
-                        '</tr>'
-
-                    );
+            $(response.servicios).each(function(i, v) {
+                var m = v.motivo_importacion_Servicio == null ? "--" : v.motivo_importacion_Servicio
+                var d = v.Detalle_de_motivo_de_importacion_Servicio == null ? "--" : v.Detalle_de_motivo_de_importacion_Servicio
+                $('#tbody_servicios_dj').append('<tr>' + '<td>' + v.Servicio + '</td>' + '<td>' + v.cantidad_consumida + '</td>' + '<td>' + v.Costo_del_Servicio + '</td>' + '<td>' + v.frecuencia_de_contratacion_Servicio + '</td>' + '<td>' + v.Localidad_Origen_Servicio + '</td>' + '<td>' + v.Pais_Origen_Servicio + '</td>' + '<td>' + m + '</td>' + '<td>' + d + '</td>' + '<td>' + v.anio_Servicios + '</td>' + '</tr>');
             })
-
-             //tbody_gastos_dj
-
-             $(response.gastos).each(function(i, v) {
-
-                $('#tbody_gastos_dj').append(
-
-                        '<tr>'+
-                          '<td>'+v.Concepto_de_egreso+'</td>'+
-                          '<td>$'+v.importe+'</td>'+
-                          '<td>'+v.anio_egresos+'</td>'+
-                        '</tr>'
-
-                    );
+            //tbody_gastos_dj
+            $(response.gastos).each(function(i, v) {
+                $('#tbody_gastos_dj').append('<tr>' + '<td>' + v.Concepto_de_egreso + '</td>' + '<td>$' + v.importe + '</td>' + '<td>' + v.anio_egresos + '</td>' + '</tr>');
             })
-
-             //sit planta 
-
-             $(response.sit).each(function(i, v) {
-
-                var m=v.Establecida_en_zona_industrial == 0 ? "No" : "Si"
+            //sit planta 
+            $(response.sit).each(function(i, v) {
+                var m = v.Establecida_en_zona_industrial == 0 ? "No" : "Si"
                 //var d=v.Detalle_de_motivo_de_importacion_Servicio == null ? "--" : v.Detalle_de_motivo_de_importacion_Servicio 
-                $('#tbody_situacion_dj').append(
-
-                        '<tr>'+
-                          '<td>'+v.produccion_sobre_capacidad+'%</td>'+
-                          '<td>'+v.superficie_lote+'</td>'+
-                          '<td>'+v.superficie_planta+'</td>'+
-                          '<td>'+m+'</td>'+
-                          '<td>$'+v.inversion_anual+'</td>'+
-                          '<td>$'+v.inversion_activo_fijo+'</td>'+
-                          '<td>'+v.capacidad_instalada+'%</td>'+
-                          '<td>'+v.capacidad_ociosa+'%</td>'+
-                          '<td>'+v.anio_situacion_De_planta+'</td>'+
-                        '</tr>'
-
-                    );
+                $('#tbody_situacion_dj').append('<tr>' + '<td>' + v.produccion_sobre_capacidad + '%</td>' + '<td>' + v.superficie_lote + '</td>' + '<td>' + v.superficie_planta + '</td>' + '<td>' + m + '</td>' + '<td>$' + v.inversion_anual + '</td>' + '<td>$' + v.inversion_activo_fijo + '</td>' + '<td>' + v.capacidad_instalada + '%</td>' + '<td>' + v.capacidad_ociosa + '%</td>' + '<td>' + v.anio_situacion_De_planta + '</td>' + '</tr>');
             })
-
-             $(response.ocios).each(function(i, v) {
-
-                 
-                $('#tbody_mot_o_dj').append(
-
-                        '<tr>'+
-                          '<td>'+v.motivo_ociosidad+'</td>'+
-                          '<td>'+v.anio_ociosidad+'</td>'+
-                        '</tr>'
-
-                    );
+            $(response.ocios).each(function(i, v) {
+                $('#tbody_mot_o_dj').append('<tr>' + '<td>' + v.motivo_ociosidad + '</td>' + '<td>' + v.anio_ociosidad + '</td>' + '</tr>');
             })
-
-             //tbody_p_ocupado_dj
-
-              $(response.po).each(function(i, v) {
-
-                var s=v.sexo == "M" ? "Masculino" : "Femenino"
+            //tbody_p_ocupado_dj
+            $(response.po).each(function(i, v) {
+                var s = v.sexo == "M" ? "Masculino" : "Femenino"
                 //var d=v.Detalle_de_motivo_de_importacion_Servicio == null ? "--" : v.Detalle_de_motivo_de_importacion_Servicio 
-                $('#tbody_p_ocupado_dj').append(
-
-                        '<tr>'+
-                          '<td>'+v.rol_trabajador+'</td>'+
-                          '<td>'+v.condicion_laboral+'</td>'+
-                          '<td>'+s+'</td>'+
-                          '<td>'+v.numero_de_trabajadores+'</td>'+
-                          '<td>'+v.anio_rol_trabajadores+'</td>'+
-                        '</tr>'
-
-                    );
+                $('#tbody_p_ocupado_dj').append('<tr>' + '<td>' + v.rol_trabajador + '</td>' + '<td>' + v.condicion_laboral + '</td>' + '<td>' + s + '</td>' + '<td>' + v.numero_de_trabajadores + '</td>' + '<td>' + v.anio_rol_trabajadores + '</td>' + '</tr>');
             })
-
-              //tbody_venta_nacional_dj
-
-              $(response.venta_nacional).each(function(i, v) {
-                $('#tbody_venta_nacional_dj').append(
-
-                        '<tr>'+
-                          '<td>'+v.Tipo_de_Venta+'</td>'+
-                          '<td>'+v.Provincia_Destino_ventas+'</td>'+
-                          
-                          '<td>'+v.anio_destino_ventas+'</td>'+
-                        '</tr>'
-
-                    );
+            //tbody_venta_nacional_dj
+            $(response.venta_nacional).each(function(i, v) {
+                $('#tbody_venta_nacional_dj').append('<tr>' + '<td>' + v.Tipo_de_Venta + '</td>' + '<td>' + v.Provincia_Destino_ventas + '</td>' + '<td>' + v.anio_destino_ventas + '</td>' + '</tr>');
             })
-
-              //tbody_venta_nacional_dj
-
-              $(response.venta_inter).each(function(i, v) {
-                $('#tbody_venta_inter_dj').append(
-
-                        '<tr>'+
-                          '<td>'+v.Tipo_de_Venta+'</td>'+
-                          '<td>'+v.Pais_Destino_ventas+'</td>'+
-                          
-                          '<td>'+v.anio_destino_ventas+'</td>'+
-                        '</tr>'
-
-                    );
+            //tbody_venta_nacional_dj
+            $(response.venta_inter).each(function(i, v) {
+                $('#tbody_venta_inter_dj').append('<tr>' + '<td>' + v.Tipo_de_Venta + '</td>' + '<td>' + v.Pais_Destino_ventas + '</td>' + '<td>' + v.anio_destino_ventas + '</td>' + '</tr>');
             })
-
-              //facturacion
-
-              $(response.fact).each(function(i, v) {
-                $('#tbody_facturacion_dj').append(
-
-                        '<tr>'+
-                          '<td>'+v.categoria_pyme+'</td>'+
-                          '<td>$'+v.prevision_ingresos_anio_corriente+'</td>'+
-                          '<td>'+v.prevision_ingresos_anio_corriente_dolares+'Usd</td>'+
-                          '<td>'+v.porcentaje_prevision_mercado_interno+'%</td>'+
-                          '<td>'+v.porcentaje_prevision_mercado_externo+'%</td>'+
-                         
-                          
-                          '<td>'+v.Anio_Facturacion+'</td>'+
-                        '</tr>'
-
-                    );
+            //facturacion
+            $(response.fact).each(function(i, v) {
+                $('#tbody_facturacion_dj').append('<tr>' + '<td>' + v.categoria_pyme + '</td>' + '<td>$' + v.prevision_ingresos_anio_corriente + '</td>' + '<td>' + v.prevision_ingresos_anio_corriente_dolares + 'Usd</td>' + '<td>' + v.porcentaje_prevision_mercado_interno + '%</td>' + '<td>' + v.porcentaje_prevision_mercado_externo + '%</td>' + '<td>' + v.Anio_Facturacion + '</td>' + '</tr>');
             })
-
-              //efluente
-
-              $(response.efluente).each(function(i, v) {
-
-                
-               
-                $('#tbody_efluentes_dj').append(
-                        '<tr>'+
-                          '<td>'+v.efluente+'</td>'+
-                          '<td>'+v.Tratamiento_del_Efluente+'</td>'+
-                          '<td>'+v.Destino_Efluente+'</td>'+
-                          '<td>'+v.anio_efluente+'</td>'+
-                          
-                        '</tr>'
-
-                    );
+            //efluente
+            $(response.efluente).each(function(i, v) {
+                $('#tbody_efluentes_dj').append('<tr>' + '<td>' + v.efluente + '</td>' + '<td>' + v.Tratamiento_del_Efluente + '</td>' + '<td>' + v.Destino_Efluente + '</td>' + '<td>' + v.anio_efluente + '</td>' + '</tr>');
             })
-
-
-
-             // certificados
-
-             $(response.certificados).each(function(i, v) {
-
-                var vi= v.Vigencia_Certificado == "Desde: Hasta:" ? "--" :v.Vigencia_Certificado 
-
-               
-                $('#tbody_certificados_dj').append(
-                        '<tr>'+
-                          '<td>'+v.certificado+'</td>'+
-                          '<td>'+v.Estado_Certificado+'</td>'+
-                          '<td>'+vi+'</td>'+
-                          '<td>'+v.anio_certificado+'</td>'+
-                          
-                        '</tr>'
-
-                    );
+            // certificados
+            $(response.certificados).each(function(i, v) {
+                var vi = v.Vigencia_Certificado == "Desde: Hasta:" ? "--" : v.Vigencia_Certificado
+                $('#tbody_certificados_dj').append('<tr>' + '<td>' + v.certificado + '</td>' + '<td>' + v.Estado_Certificado + '</td>' + '<td>' + vi + '</td>' + '<td>' + v.anio_certificado + '</td>' + '</tr>');
             })
-
-             //  sistemas de calidad 
-
-             $(response.sistemas).each(function(i, v) {
-
-                var vi= v.Vigencia_Sistema_de_calidad == "Desde: Hasta:" ? "--" :v.Vigencia_Sistema_de_calidad 
-
-               
-                $('#tbody_sistemas_dj').append(
-                        '<tr>'+
-                          '<td>'+v.sistema_de_calidad+'</td>'+
-                          '<td>'+v.Estado_Sistema_de_calidad+'</td>'+
-                          '<td>'+vi+'</td>'+
-                          '<td>'+v.Anio_Sistema_de_calidad+'</td>'+
-                          
-                        '</tr>'
-
-                    );
+            //  sistemas de calidad 
+            $(response.sistemas).each(function(i, v) {
+                var vi = v.Vigencia_Sistema_de_calidad == "Desde: Hasta:" ? "--" : v.Vigencia_Sistema_de_calidad
+                $('#tbody_sistemas_dj').append('<tr>' + '<td>' + v.sistema_de_calidad + '</td>' + '<td>' + v.Estado_Sistema_de_calidad + '</td>' + '<td>' + vi + '</td>' + '<td>' + v.Anio_Sistema_de_calidad + '</td>' + '</tr>');
             })
-
-             $(response.promo).each(function(i, v) {
-
-                var vi= v.Vigencia_Promocion_industrial == "Desde: Hasta:" ? "--" :v.Vigencia_Sistema_de_calidad 
-
-               
-                $('#tbody_promo_dj').append(
-                        '<tr>'+
-                          '<td>'+v.promocion_industrial+'</td>'+
-                          '<td>'+v.Estado_Promocion_industrial+'</td>'+
-                          '<td>'+vi+'</td>'+
-                          '<td>'+v.Anio_Promocion_industrial+'</td>'+
-                          
-                        '</tr>'
-
-                    );
+            $(response.promo).each(function(i, v) {
+                var vi = v.Vigencia_Promocion_industrial == "Desde: Hasta:" ? "--" : v.Vigencia_Sistema_de_calidad
+                $('#tbody_promo_dj').append('<tr>' + '<td>' + v.promocion_industrial + '</td>' + '<td>' + v.Estado_Promocion_industrial + '</td>' + '<td>' + vi + '</td>' + '<td>' + v.Anio_Promocion_industrial + '</td>' + '</tr>');
             })
-
-
-             $(response.eco).each(function(i, v) {
-
-                
-               
-                $('#tbody_economia_dj').append(
-                        '<tr>'+
-                          '<td>'+v.sector+'</td>'+
-                         
-                          '<td>'+v.Anio_Economia_del_conocimiento_sector+'</td>'+
-                          
-                        '</tr>'
-
-                    );
+            $(response.eco).each(function(i, v) {
+                $('#tbody_economia_dj').append('<tr>' + '<td>' + v.sector + '</td>' + '<td>' + v.Anio_Economia_del_conocimiento_sector + '</td>' + '</tr>');
             })
-
-
-             
-
-             $(response.perfil).each(function(i, v) {
-
-                
-               
-                $('#tbody_perfil_dj').append(
-                        '<tr>'+
-                          '<td>'+v.perfil+'</td>'+
-                         
-                          '<td>'+v.Anio_Economia_del_conocimiento_perfil+'</td>'+    
-                        '</tr>'
-
-                    );
+            $(response.perfil).each(function(i, v) {
+                $('#tbody_perfil_dj').append('<tr>' + '<td>' + v.perfil + '</td>' + '<td>' + v.Anio_Economia_del_conocimiento_perfil + '</td>' + '</tr>');
             })
-            
         }
     });
 }
+$(document).ready(function() {
+    $("#anio_periodo_fiscal").on('change', function() {
+        //.prop('selected', true)
+        //$('.selDiv option[value="SEL1"]')
+        //$("#periodofiscal").children("option").filter(":selected").prop('selected', false)
+        //$("#periodofiscal").find('option:selected').attr('selected', false);
+        //$('this option').removeAttr( "selected" )
+        //$('#periodofiscal  option[value="'+$(this).val()+'"]').attr('selected', true)
+        console.log($(this).val())
+        $('#anio_periodo_fiscal').val($(this).val())
+        $("#span_generales").click();
+    })
+})

@@ -18,8 +18,9 @@ class SituacionPlantaController extends Controller
         parse_str($request->data, $params);
 
         $id_industria = intval($request->id_industria);
-        $date = Carbon::now()->format('Y'); //2021
+        //$date = Carbon::now()->format('Y'); //2021
         $status = 200;
+        $periodo_fiscal = $request->p_f;
 
 
         if (DB::table('situacion_de_planta')->insert([
@@ -32,7 +33,7 @@ class SituacionPlantaController extends Controller
             'inversion_activo_fijo' => isset($params['inversion_activo_fijo']) ? intval($params['inversion_activo_fijo']) : null,
             'capacidad_instalada' => intval($params['capacidad_instalada']),
             'capacidad_ociosa' => intval($params['capacidad_ociosa']),
-            'anio' => $date,
+            'anio' => $periodo_fiscal,
             'fecha_actualizacion' => Carbon::now(),
         ])) {
 
@@ -56,8 +57,9 @@ class SituacionPlantaController extends Controller
         parse_str($request->data, $params);
 
         $id_industria = intval($request->id_industria);
-        $date = Carbon::now()->format('Y'); //2021
+        //$date = Carbon::now()->format('Y'); //2021
         $status = 200;
+        $periodo_fiscal = $request->p_f;
 
 
         if (DB::table('situacion_de_planta')
@@ -72,7 +74,7 @@ class SituacionPlantaController extends Controller
                 'inversion_activo_fijo' => isset($params['inversion_activo_fijo']) ? intval($params['inversion_activo_fijo']) : null,
                 'capacidad_instalada' => intval($params['capacidad_instalada']),
                 'capacidad_ociosa' => intval($params['capacidad_ociosa']),
-                'anio' => $date,
+                //'anio' => $date, no se tiene en cuenta, solo actualiza datos
                 'fecha_actualizacion' => Carbon::now(),
             ])
         ) {
@@ -105,6 +107,7 @@ class SituacionPlantaController extends Controller
         if ($request->ajax()) {
             $data = DB::table('situacion_de_planta')
                 ->where('id_industria', intval($request->id_industria)) //es el id_industira
+                ->where('anio', $request->p_f)
                 ->select(
                     'situacion_de_planta.*',
                 )
@@ -141,15 +144,15 @@ class SituacionPlantaController extends Controller
     public function getMotivo(Request $request)
     {
         $m = DB::table('rel_industria_motivo_ociosidad')
-        ->select(
+            ->select(
 
-            'rel_industria_motivo_ociosidad.*',
-            'motivo_ociosidad.motivo_ociosidad'
+                'rel_industria_motivo_ociosidad.*',
+                'motivo_ociosidad.motivo_ociosidad'
 
 
-        )
-        ->join('motivo_ociosidad','rel_industria_motivo_ociosidad.id_motivo_ociosidad','=','motivo_ociosidad.id_motivo_ociosidad')
-        ->where('id_rel_industria_motivo_ociosidad', intval($request->id))->get();
+            )
+            ->join('motivo_ociosidad', 'rel_industria_motivo_ociosidad.id_motivo_ociosidad', '=', 'motivo_ociosidad.id_motivo_ociosidad')
+            ->where('id_rel_industria_motivo_ociosidad', intval($request->id))->get();
 
         return response()->json($m);
     }
@@ -167,8 +170,9 @@ class SituacionPlantaController extends Controller
         parse_str($request->data, $params);
 
         $id_industria = intval($request->id_industria);
-        $date = Carbon::now()->format('Y'); //2021
         $status = 200;
+        $periodo_fiscal = $request->p_f;
+
 
         $id = 0;
 
@@ -177,7 +181,7 @@ class SituacionPlantaController extends Controller
         $motivos_existentes = DB::table('rel_industria_motivo_ociosidad')
             ->where('id_industria', $id_industria)
             ->where('id_motivo_ociosidad', intval($params['id_motivo_ociosidad']))
-            ->where('anio', 2021)
+            ->where('anio', $periodo_fiscal)
             ->get();
 
 
@@ -205,7 +209,7 @@ class SituacionPlantaController extends Controller
             if (DB::table('rel_industria_motivo_ociosidad')->insert([
                 'id_industria' => $id_industria,
                 'id_motivo_ociosidad' => $id,
-                'anio' => $date,
+                'anio' => $periodo_fiscal,
                 'fecha_de_actualizacion' => Carbon::now()
             ])) {
 
@@ -227,6 +231,7 @@ class SituacionPlantaController extends Controller
             $data = DB::table('rel_industria_motivo_ociosidad')
                 ->where('id_industria', intval($request->id_industria)) //es el id_industira
                 ->join('motivo_ociosidad', 'rel_industria_motivo_ociosidad.id_motivo_ociosidad', '=', 'motivo_ociosidad.id_motivo_ociosidad')
+                ->where('anio', $request->p_f)
                 ->select(
                     'rel_industria_motivo_ociosidad.*',
                     'motivo_ociosidad.motivo_ociosidad'
@@ -255,8 +260,9 @@ class SituacionPlantaController extends Controller
         parse_str($request->data, $params);
 
         $id_industria = intval($request->id_industria);
-        $date = Carbon::now()->format('Y'); //2021
+        //$date = Carbon::now()->format('Y'); //2021
         $status = 200;
+        $periodo_fiscal = $request->p_f;
 
         $id = 0;
         //comprobaciones
@@ -265,7 +271,7 @@ class SituacionPlantaController extends Controller
             ->where('id_industria', $id_industria)
             ->where('id_motivo_ociosidad', intval($params['id_motivo_ociosidad']))
             ->where('id_rel_industria_motivo_ociosidad', '!=', intval($params['id_rel_industria_motivo_ociosidad']))
-            ->where('anio', 2021)
+            ->where('anio', $periodo_fiscal)
             ->get();
 
 
@@ -293,7 +299,7 @@ class SituacionPlantaController extends Controller
                 ->update([
                     'id_industria' => $id_industria,
                     'id_motivo_ociosidad' => $id,
-                    'anio' => $date,
+                    //'anio' => $date,
                     'fecha_de_actualizacion' => Carbon::now()
                 ])
             ) {
@@ -347,8 +353,11 @@ class SituacionPlantaController extends Controller
 
         parse_str($request->data, $params);
         $id_industria = intval($request->id_industria);
-        $date = Carbon::now()->format('Y'); //2021
+        //$date = Carbon::now()->format('Y'); //2021
         $status = 200;
+        $periodo_fiscal = $request->p_f;
+
+
 
         $i = 0;
 
@@ -357,54 +366,54 @@ class SituacionPlantaController extends Controller
         $m = 0;
 
         //anotacion: la comprobacion debe ser con el periodo de actividad, pero todavia no esta hecho,por lo tanto se setea 2021
-        $rol_existente=DB::table('rel_industria_trabajador')
-                        ->where('id_rol_trabajador',intval($params['rol_trabajador']))
-                        ->where('anio',2021)
-                        ->where('id_industria',$id_industria )
-                        ->get();
+        $rol_existente = DB::table('rel_industria_trabajador')
+            ->where('id_rol_trabajador', intval($params['rol_trabajador']))
+            ->where('anio', $periodo_fiscal)
+            ->where('id_industria', $id_industria)
+            ->get();
 
-        if(count( $rol_existente) > 0){
+        if (count($rol_existente) > 0) {
             $msg = "¡Ya existe el rol seleccionado para esta industria en este periodo!";
             $status = 1;
-        }else{
+        } else {
             foreach ($params['id_condicion_laboral'] as $condicion) {
 
                 if (isset($params['masculino'][$i])) {
-    
+
                     if (DB::table('rel_industria_trabajador')->insert([
-    
+
                         'id_industria' => $id_industria,
                         'id_rol_trabajador' => intval($params['rol_trabajador']),
                         'id_condicion_laboral' => intval($condicion),
                         'sexo' => "M",
                         'numero_de_trabajadores' => intval($params['masculino'][$i]),
-                        'anio' => $date,
+                        'anio' => $periodo_fiscal,
                         'fecha_de_actualizacion' => Carbon::now()
-    
+
                     ])) {
                         $m = 1;
                     }
                 }
-    
-    
+
+
                 if (isset($params['femenino'][$i])) {
                     if (DB::table('rel_industria_trabajador')->insert([
-    
+
                         'id_industria' => $id_industria,
                         'id_rol_trabajador' => intval($params['rol_trabajador']),
                         'id_condicion_laboral' => intval($condicion),
                         'sexo' => "F",
                         'numero_de_trabajadores' => intval($params['femenino'][$i]),
-                        'anio' => $date,
+                        'anio' => $periodo_fiscal,
                         'fecha_de_actualizacion' => Carbon::now()
-    
+
                     ])) {
-    
+
                         $f = 1;
                     }
                 }
-    
-    
+
+
                 $i++;
             }
 
@@ -417,12 +426,6 @@ class SituacionPlantaController extends Controller
                 $status = 1;
             }
         }
-
-        
-
-
-        
-
         return response()->json(array('status' => $status, 'msg' => $msg), 200);
     }
 
@@ -442,7 +445,7 @@ class SituacionPlantaController extends Controller
 
                 )
                 ->where('id_industria', '=', intval($request->id_industria))
-                ->where('anio', 2021)
+                ->where('anio',$request->p_f)
                 ->where('sexo', "M")
 
                 ->get();
@@ -477,7 +480,7 @@ class SituacionPlantaController extends Controller
 
                 )
                 ->where('id_industria', '=', intval($request->id_industria))
-                ->where('anio', 2021)
+                ->where('anio',$request->p_f)
                 ->where('sexo', "F")
 
                 ->get();
@@ -497,27 +500,28 @@ class SituacionPlantaController extends Controller
     }
 
 
-    public function getRelPersonal(Request $request){
+    public function getRelPersonal(Request $request)
+    {
 
 
 
-        $r=DB::table('rel_industria_trabajador')
-                ->join('rol_trabajador', 'rel_industria_trabajador.id_rol_trabajador', 'rol_trabajador.id_rol_trabajador')
-                ->join('condicion_laboral', 'rel_industria_trabajador.id_condicion_laboral', 'condicion_laboral.id_condicion_laboral')
-                ->select(
-                    'rel_industria_trabajador.*',
-                    'rol_trabajador.rol_trabajador',
-                    'condicion_laboral.condicion_laboral'
+        $r = DB::table('rel_industria_trabajador')
+            ->join('rol_trabajador', 'rel_industria_trabajador.id_rol_trabajador', 'rol_trabajador.id_rol_trabajador')
+            ->join('condicion_laboral', 'rel_industria_trabajador.id_condicion_laboral', 'condicion_laboral.id_condicion_laboral')
+            ->select(
+                'rel_industria_trabajador.*',
+                'rol_trabajador.rol_trabajador',
+                'condicion_laboral.condicion_laboral'
 
-                )
-                ->where('id_rel_industria_trabajadores', '=', intval($request->id))
-                ->get();
+            )
+            ->where('id_rel_industria_trabajadores', '=', intval($request->id))
+            ->get();
 
         return response()->json($r);
-
     }
 
-    public function updateRelPersonal(Request $request){
+    public function updateRelPersonal(Request $request)
+    {
 
 
         $params = [];
@@ -526,6 +530,7 @@ class SituacionPlantaController extends Controller
         $id_industria = intval($request->id_industria);
         $date = Carbon::now()->format('Y'); //2021
         $status = 200;
+        $periodo_fiscal= $request->p_f;
 
         $i = 0;
 
@@ -533,49 +538,43 @@ class SituacionPlantaController extends Controller
 
         $m = 0;
 
-       
-            $sexo= isset($params['masculino']) ? "masculino" : "femenino"; 
-        
-            foreach ($params['id_condicion_laboral'] as $condicion) {
 
-                
-    
-                    if (DB::table('rel_industria_trabajador')
-                    ->where('id_rel_industria_trabajadores',intval($params['id_rel_industria_personal_update']))
-                    ->update([
-    
-                        'id_industria' => $id_industria,
-                        //'id_rol_trabajador' => intval($params['rol_trabajador']),
-                        'id_condicion_laboral' => intval($condicion),
-                        //'sexo' => "M",
-                        'numero_de_trabajadores' => intval($params[$sexo][$i]),
-                        //'anio' => $date,
-                        'fecha_de_actualizacion' => Carbon::now()
-    
-                    ])) {
-                        $m = 1;
-                    }
-    
-                $i++;
+        $sexo = isset($params['masculino']) ? "masculino" : "femenino";
+
+        foreach ($params['id_condicion_laboral'] as $condicion) {
+
+
+
+            if (DB::table('rel_industria_trabajador')
+                ->where('id_rel_industria_trabajadores', intval($params['id_rel_industria_personal_update']))
+                ->update([
+
+                    'id_industria' => $id_industria,
+                    //'id_rol_trabajador' => intval($params['rol_trabajador']),
+                    'id_condicion_laboral' => intval($condicion),
+                    //'sexo' => "M",
+                    'numero_de_trabajadores' => intval($params[$sexo][$i]),
+                    //'anio' => $date,
+                    'fecha_de_actualizacion' => Carbon::now()
+
+                ])
+            ) {
+                $m = 1;
             }
 
-            //mensaje
-            if ($m == 1 ) {
+            $i++;
+        }
 
-                $msg = "¡Datos Actualizados Exitosamente!";
-            } else {
-                $msg = "¡Error al Actualizar el personal ocupado!";
-                $status = 1;
-            }
-        
+        //mensaje
+        if ($m == 1) {
 
-        
-
-
-        
+            $msg = "¡Datos Actualizados Exitosamente!";
+        } else {
+            $msg = "¡Error al Actualizar el personal ocupado!";
+            $status = 1;
+        }
 
         return response()->json(array('status' => $status, 'msg' => $msg), 200);
-
     }
 
     /**

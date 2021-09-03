@@ -29,6 +29,7 @@ class MateriaPrimaController extends Controller
                 ->join('materia_prima', 'rel_actividad_materia_prima.id_materia_prima', '=', 'materia_prima.id_materia_prima')
                 ->join('unidad_de_medida', 'rel_actividad_materia_prima.id_unidad_de_medida', '=', 'unidad_de_medida.id_unidad_de_medida')
                 ->where('id_rel_industria_actividad', intval($request->id_rel_industria_actividad_materia_prima)) //es el id_rel_industira_actividad
+                ->where('anio',$request->p_f)
                 ->select(
                     'rel_actividad_materia_prima.*',
                     'materia_prima.materia_prima as nombre_materia_prima',
@@ -74,6 +75,7 @@ class MateriaPrimaController extends Controller
 
 
         $date = Carbon::now()->format('Y');
+        $periodo_fiscal= $request->p_f;
 
         $status = 200;
 
@@ -88,7 +90,8 @@ class MateriaPrimaController extends Controller
         //comprobaciones
         $mat_existente = DB::table('rel_actividad_materia_prima')
             ->where('id_rel_industria_actividad', intval($params['id_rel_industria_actividad_materia_prima']))
-            ->where('id_materia_prima', intval($params['id_materia_prima']))
+            ->where('id_materia_prima', $id_materia)
+            ->where('anio',$periodo_fiscal)
             ->get();
 
 
@@ -133,7 +136,7 @@ class MateriaPrimaController extends Controller
                 'id_pais' => $pais,
                 'id_motivo_importacion' => $motivo,
                 'detalles' => $detalles,
-                'anio' => $date,
+                'anio' => $periodo_fiscal,
                 'fecha_de_actualizacion' => Carbon::now(),
             ]);
 
@@ -150,9 +153,7 @@ class MateriaPrimaController extends Controller
         parse_str($request->data, $params);
 
       
-
-
-        $date = Carbon::now()->format('Y');
+        $periodo_fiscal= $request->p_f;
 
         $status = 200;
 
@@ -167,8 +168,9 @@ class MateriaPrimaController extends Controller
         //comprobaciones
         $mat_existente = DB::table('rel_actividad_materia_prima')
             ->where('id_rel_industria_actividad', intval($params['id_rel_industria_actividad_materia_prima']))
-            ->where('id_materia_prima', intval($params['id_materia_prima']))
+            ->where('id_materia_prima',$id_materia)
             ->where('id_rel_actividad_materia_prima', '!=', intval($params['id_asignacion_materia']))
+            ->where('anio',$periodo_fiscal)
             ->get();
 
 
@@ -186,17 +188,17 @@ class MateriaPrimaController extends Controller
         } else {
 
 
-            //comprobacion si el prod esta siendo utilizado
+            //comprobacion si el materia esta siendo utilizado
 
             $mat_utilizado = DB::table('rel_actividad_materia_prima')
                 ->where('id_rel_industria_actividad', '!=', intval($params['id_rel_industria_actividad_materia_prima']))
-                ->where('id_materia_prima', intval($params['id_materia_prima']))
+                ->where('id_materia_prima', $id_materia)
                 ->where('id_rel_actividad_materia_prima', '!=', intval($params['id_asignacion_materia']))
                 ->get();
 
 
             if (count($mat_utilizado) < 1) {
-                //si el producto no est'a siendo utilizado lo edito
+                //si el materia no est'a siendo utilizado lo edito
                 $materia = new MateriaPrimaController();
                 $id_materia = $materia->update($request, intval($params['id_materia_prima']));
             } else {
@@ -224,7 +226,7 @@ class MateriaPrimaController extends Controller
                     'id_pais' => $pais,
                     'id_motivo_importacion' => $motivo,
                     'detalles' => $detalles,
-                    'anio' => $date,
+                    //'anio' => $date,
                     'fecha_de_actualizacion' => Carbon::now(),
                 ]);
 

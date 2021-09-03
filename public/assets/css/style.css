@@ -29920,3 +29920,12 @@ font-weight:bold;
 .capitalize {
   text-transform: lowercase;
 }
+
+
+/*menu horizontal*/
+
+div.scrollmenu {
+  
+  overflow: auto;
+  white-space: nowrap;
+}

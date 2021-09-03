@@ -35,8 +35,9 @@ class VentasyFacturacionController extends Controller
 
         parse_str($request->data, $params);
         $id_industria = intval($request->id_industria);
-        $date = Carbon::now()->format('Y'); //2021
         $status = 200;
+        $periodo_fiscal= $request->p_f;
+	   
 
 
 
@@ -44,7 +45,7 @@ class VentasyFacturacionController extends Controller
         $existente = DB::table('destino_ventas')
             ->where('id_industria', $id_industria)
             ->where('id_clasificacion_ventas', $params['clasif_venta'])
-            ->where('anio', 2021)
+            ->where('anio',$periodo_fiscal)
             ->get();
 
 
@@ -58,7 +59,7 @@ class VentasyFacturacionController extends Controller
             $id = DB::table('destino_ventas')->insertGetId([
                 'id_clasificacion_ventas' => intval($params['clasif_venta']),
                 'id_industria' => $id_industria,
-                'anio' => $date,
+                'anio' => $periodo_fiscal,
                 'fecha_de_actualizacion' => Carbon::now(),
             ]);
 
@@ -93,6 +94,7 @@ class VentasyFacturacionController extends Controller
         $id_industria = intval($request->id_industria);
         $date = Carbon::now()->format('Y'); //2021
         $status = 200;
+        $periodo_fiscal= $request->p_f;
 
 
 
@@ -101,7 +103,7 @@ class VentasyFacturacionController extends Controller
         $existente = DB::table('destino_ventas')
             ->where('id_industria', $id_industria)
             ->where('id_clasificacion_ventas', $params['clasif_venta'])
-            ->where('anio', 2021)
+            ->where('anio',$periodo_fiscal)
             ->where('id_destino_ventas', '!=', intval($params['id_destino_ventas']))
             ->get();
 
@@ -116,7 +118,7 @@ class VentasyFacturacionController extends Controller
             DB::table('destino_ventas')->where('id_destino_ventas', intval($params['id_destino_ventas']))->update([
                 'id_clasificacion_ventas' => intval($params['clasif_venta']),
                 'id_industria' => $id_industria,
-                'anio' => $date,
+                //'anio' => $date,
                 'fecha_de_actualizacion' => Carbon::now(),
             ]);
 
@@ -170,13 +172,15 @@ class VentasyFacturacionController extends Controller
 
         if ($request->ajax()) {
 
-            //traer dependiendo el periodo fiscal , queda pendiente
-
+            //traer dependiendo el periodo fiscal 
+            $periodo_fiscal= $request->p_f;
+            
         
             
             $data = DB::table('destino_ventas')
                 ->join('clasificacion_ventas', 'destino_ventas.id_clasificacion_ventas', 'clasificacion_ventas.id_clasificacion_ventas')
                 ->where('id_industria', $request->id_industria)
+                ->where('anio',$periodo_fiscal)
                 ->select([
                     'destino_ventas.*',
                     'clasificacion_ventas.clasificacion_ventas'
@@ -241,6 +245,7 @@ class VentasyFacturacionController extends Controller
             $data = DB::table('facturacion')
                 ->join('categoria_ingresos', 'facturacion.id_categoria_ingresos', 'categoria_ingresos.id_categoria_ingreso')
                 ->where('id_industria', $request->id_industria)
+                ->where('anio',$request->p_f)
                 ->select([
                     'facturacion.*',
                     'categoria_ingresos.categoria'
@@ -291,14 +296,15 @@ class VentasyFacturacionController extends Controller
 
         parse_str($request->data, $params);
         $id_industria = intval($request->id_industria);
-        $date = Carbon::now()->format('Y'); //2021
+        
         $status = 200;
+        $periodo_fiscal= $request->p_f;
 
      
 
         $existente = DB::table('facturacion')
             ->where('id_industria', $id_industria)
-            ->where('anio', $date)
+            ->where('anio',$periodo_fiscal)
             ->get();
 
         if (count($existente) > 0) {
@@ -314,7 +320,7 @@ class VentasyFacturacionController extends Controller
                 'prevision_ingresos_anio_corriente_dolares' => intval($params['prevision_ingresos_anio_corriente_dolares']),
                 'porcentaje_prevision_mercado_interno' => intval($params['porcentaje_prevision_mercado_interno']),
                 'porcentaje_prevision_mercado_externo' => intval($params['porcentaje_prevision_mercado_externo']),
-                'anio' => $date,
+                'anio' => $periodo_fiscal,
                 'fecha_de_actualizacion' => Carbon::now(),
 
             ]);
@@ -329,6 +335,7 @@ class VentasyFacturacionController extends Controller
     public function updateFacturacion(Request $request)
     {
         $params = [];
+        $periodo_fiscal= $request->p_f;
 
         parse_str($request->data, $params);
         $id_industria = intval($request->id_industria);

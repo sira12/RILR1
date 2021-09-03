@@ -32,7 +32,7 @@ class ProcedimientosController extends Controller
         $iva = CondicionIva::where('activo', "S")->get();
         $naturaleza_juridica = NaturalezaJuridica::where('activo', "S")->get();
 
-        $per_fiscal = DB::table('periodo_fiscal')->where('anio', Carbon::now()->format('Y'))->first();
+        //$per_fiscal = DB::table('periodo_fiscal')->where('anio', Carbon::now()->format('Y'))->first();
 
         $user = auth()->user();
         $rel = DB::table('rel_persona_contribuyente')->where('id_rel_persona_contribuyente', $user->id_rel_persona_contribuyente)->select('id_contribuyente', 'id_persona')->first();
@@ -44,7 +44,7 @@ class ProcedimientosController extends Controller
             'id_persona' => $rel->id_persona,
             'id_contribuyente' => $rel->id_contribuyente,
             'contribuyente' => $contribuyente,
-            'per_fiscal' => $per_fiscal,
+            //'per_fiscal' => $per_fiscal,
             'regimen' => $regimen,
             'condicion_iva' => $iva,
             'naturaleza_juridica' => $naturaleza_juridica,
@@ -375,8 +375,7 @@ class ProcedimientosController extends Controller
         $iva = CondicionIva::where('activo', "S")->get();
         $naturaleza_juridica = NaturalezaJuridica::where('activo', "S")->get();
 
-        $per_fiscal = DB::table('periodo_fiscal')->where('anio', Carbon::now()->format('Y'))->first();
-
+       
         $user = auth()->user();
 
         $rel = DB::table('rel_persona_contribuyente')
@@ -453,7 +452,18 @@ class ProcedimientosController extends Controller
             )
             ->where('industria.id_industria', $id)
             ->get();
-            
+
+
+            $inicio_industria = Carbon::createFromFormat('Y-m-d', $mi_industria[0]->fecha_inicio)->format('Y');
+            $anio_actual=Carbon::now()->format('Y');
+            $per_fiscal="";
+
+            if($inicio_industria == $anio_actual){
+                $per_fiscal = DB::table('periodo_fiscal')->where('anio', $anio_actual)->get();
+            }else{
+                $per_fiscal = DB::table('periodo_fiscal')->where('anio','<', $anio_actual)
+                                                        ->where('anio','>=',$inicio_industria)->get();
+            }
 
             $response=[];
 
@@ -461,7 +471,7 @@ class ProcedimientosController extends Controller
             $response['tel_fijo_legal']=$rel->fijo_legal;
             $response['tel_celular_legal']=$rel->celular_legal;
             $response['cuit']=$cuit->cuit;
-
+            $response['periodo_fiscal']=$per_fiscal;
            return response()->json($response);
 
             
@@ -479,18 +489,19 @@ class ProcedimientosController extends Controller
         $params = array();
         parse_str($request->data, $params);
 
-
+    
         //cargar industria
         $industria = new IndustriaController();
-        $industria->update($request, intVal($params['id_industria']));
+        $industria->update($request, intVal($request->id));
 
 
         //cargar periodo industria
 
         $per_act_indu = new PeriodoActividadIndustriaController();
-        $per_act_indu->update($request, intVal($params['id_industria']));
+        $per_act_indu->update($request, intVal($request->id));
 
-        return response()->json(['success' => 1]);
+        return response()->json(array('status' => 200, 'msg' => "Datos Actualizados Correctamente"), 200);
+       
 
     }
 

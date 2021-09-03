@@ -63,9 +63,8 @@ class PrevencionCAController extends Controller
         parse_str($request->data, $params);
 
         $id_industria = intval($request->id_industria);
-
-        $date = Carbon::now()->format('Y');
         $status = 200;
+        $periodo_fiscal = $request->p_f;
 
         //si el id del insumo viene vacio significa que no encontró el insumo, por lo tanto hay que cargarlo
         if ($params['id_efluente_e'] == "") {
@@ -79,12 +78,13 @@ class PrevencionCAController extends Controller
         $ef_existente = DB::table('rel_industria_efluente')
             ->where('id_industria', $id_industria)
             ->where('id_efluente',  $id_efluente)
+            ->where('anio', $periodo_fiscal)
             ->get();
 
 
         //si el ef ya esta cargado para esta industria devolver msj
         if (count($ef_existente) > 0) {
-            $msg = "¡Este insumo ya se encuentra cargado para esta industria!";
+            $msg = "¡Este efluente ya se encuentra cargado para esta industria!";
             $status = 1;
         } else {
 
@@ -93,7 +93,7 @@ class PrevencionCAController extends Controller
                 'id_efluente' => $id_efluente,
                 'tratamiento' => $params['tratamiento_residuo'],
                 'destino' => $params['destino'],
-                'anio' => $date,
+                'anio' => $periodo_fiscal,
                 'fecha_de_actualizacion' => Carbon::now(),
             ])) {
 
@@ -127,13 +127,11 @@ class PrevencionCAController extends Controller
     public function updateRelEfluenteIndustria(Request $request)
     {
         $params = [];
-
         parse_str($request->data, $params);
-
         $id_industria = intval($request->id_industria);
-
-        $date = Carbon::now()->format('Y');
         $status = 200;
+        $periodo_fiscal= $request->p_f;
+	  
 
         //si el id del insumo viene vacio significa que no encontró el insumo, por lo tanto hay que cargarlo
         if ($params['id_efluente_e'] == "") {
@@ -148,7 +146,7 @@ class PrevencionCAController extends Controller
             ->where('id_industria', $id_industria)
             ->where('id_rel_industria_efluente', '!=', intval($params['id_rel_industria_efluente']))
             ->where('id_efluente',  $id_efluente)
-            ->where('anio', $date)
+            ->where('anio',$periodo_fiscal)
             ->get();
 
 
@@ -196,6 +194,7 @@ class PrevencionCAController extends Controller
             $data = DB::table('rel_industria_efluente')
                 ->join('efluente', 'rel_industria_efluente.id_efluente', '=', 'efluente.id_efluente')
                 ->where('id_industria', intval($request->id_industria)) //es el id_industira
+                ->where('anio',$request->p_f)
                 ->select(
                     'rel_industria_efluente.*',
                     'efluente.efluente',
@@ -208,7 +207,7 @@ class PrevencionCAController extends Controller
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
 
-                   // <span style="cursor: pointer;" data-placement="left" title="Ver Efluente" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalDetalleEfluente" data-backdrop="static" data-keyboard="false" onClick="VerEfluente(' . $row->id_rel_industria_efluente . ')"><i class="mdi mdi-eye font-22 text-danger"></i></span>
+                    // <span style="cursor: pointer;" data-placement="left" title="Ver Efluente" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalDetalleEfluente" data-backdrop="static" data-keyboard="false" onClick="VerEfluente(' . $row->id_rel_industria_efluente . ')"><i class="mdi mdi-eye font-22 text-danger"></i></span>
 
                     $actionBtn = '
 
@@ -239,75 +238,68 @@ class PrevencionCAController extends Controller
 
 
         $id_industria = intval($request->id_industria);
-
-        $date = Carbon::now()->format('Y');
         $status = 200;
+        $periodo_fiscal= $request->p_f;
+	   
         //comprobaciones
-       
+        foreach ($params['checkbox'] as $index => $cb) {
 
 
-        
-     
-
-
-            foreach ($params['checkbox'] as $index => $cb) {
-
-                
-                $cer_existente=[];
-                $cer_existente = DB::table('rel_industria_certificado')
+            $cer_existente = [];
+            $cer_existente = DB::table('rel_industria_certificado')
                 ->where('id_industria', $id_industria)
                 ->where('id_certificado', intval($params['id_certificado'][$index]))
-                ->where('anio', $date)
+                ->where('anio',$periodo_fiscal)
                 ->get();
 
-                if (count($cer_existente) > 0) {
-                    $nombre_cert= DB::table('certificado')
+            if (count($cer_existente) > 0) {
+                $nombre_cert = DB::table('certificado')
                     ->where('id_certificado', $cer_existente[0]->id_certificado)
                     ->get();
-                  
-                    $msg = "¡La industria ya tiene cargado ".$nombre_cert[0]->certificado;
-                    $status = 1;
 
-                    break;    
-                }
+                $msg = "¡La industria ya tiene cargado " . $nombre_cert[0]->certificado;
+                $status = 1;
 
-                $fecha_inicio = null;
-                $fecha_fin = null;
-
-                $id_estado=0;
-
-
-                if ($cb == "POSEE") {
-                    $id_estado=1;
-                    $fecha_inicio = new Carbon($params['inicio_certificado'][$index]);
-                    $fecha_fin = new Carbon($params['fin_certificado'][$index]);
-                }
-
-                if($cb == "NO POSEE"){
-                    $id_estado=2;
-                }
-
-                if($cb == "EN TRAMITE"){
-                    $id_estado=3;
-                }
-
-
-                if (DB::table('rel_industria_certificado')->insertGetId([
-                    'id_industria' => $id_industria,
-                    'id_certificado' => intval($params['id_certificado'][$index]),
-                    'id_estado_documentacion' => $id_estado,
-                    'fecha_fin' => $fecha_fin,
-                    'fecha_inicio' => $fecha_inicio,
-                    'anio' => $date,
-                    'fecha_de_actualizacion' => Carbon::now(),
-                ])) {
-                    $msg = "¡Datos Guardados exitosamente!";
-                } else {
-                    $status = 1;
-                    $msg = "¡error!";
-                }
+                break;
             }
-        
+
+            $fecha_inicio = null;
+            $fecha_fin = null;
+
+            $id_estado = 0;
+
+
+            if ($cb == "POSEE") {
+                $id_estado = 1;
+                $fecha_inicio = new Carbon($params['inicio_certificado'][$index]);
+                $fecha_fin = new Carbon($params['fin_certificado'][$index]);
+            }
+
+            if ($cb == "NO POSEE") {
+                $id_estado = 2;
+            }
+
+            if ($cb == "EN TRAMITE") {
+                $id_estado = 3;
+            }
+
+
+            if (DB::table('rel_industria_certificado')->insertGetId([
+                'id_industria' => $id_industria,
+                'id_certificado' => intval($params['id_certificado'][$index]),
+                'id_estado_documentacion' => $id_estado,
+                'fecha_fin' => $fecha_fin,
+                'fecha_inicio' => $fecha_inicio,
+                'anio' => $periodo_fiscal,
+                'fecha_de_actualizacion' => Carbon::now(),
+            ])) {
+                $msg = "¡Datos Guardados exitosamente!";
+            } else {
+                $status = 1;
+                $msg = "¡error!";
+            }
+        }
+
         return response()->json(array('status' => $status, 'msg' => $msg), 200);
     }
 
@@ -320,11 +312,12 @@ class PrevencionCAController extends Controller
                 ->join('certificado', 'rel_industria_certificado.id_certificado', '=', 'certificado.id_certificado')
                 ->join('estado_documentacion', 'rel_industria_certificado.id_estado_documentacion', '=', 'estado_documentacion.id_estado_documentacion')
                 ->where('id_industria', intval($request->id_industria)) //es el id_industira
+                ->where('anio',$request->p_f)
                 ->select(
                     'rel_industria_certificado.*',
                     'certificado.certificado',
                     "estado_documentacion.estado"
-                    
+
                 )
                 ->get();
 
@@ -375,22 +368,22 @@ class PrevencionCAController extends Controller
         $fecha_inicio = null;
         $fecha_fin = null;
 
-        $id_estado=0;
+        $id_estado = 0;
 
         if ($params['estado_certificado'] == "POSEE") {
 
             $fecha_inicio = new Carbon($params['inicio_certificado']);
             $fecha_fin = new Carbon($params['fin_certificado']);
-            $id_estado=1;
+            $id_estado = 1;
         }
 
 
-        if($params['estado_certificado'] == "NO POSEE"){
-            $id_estado=2;
+        if ($params['estado_certificado'] == "NO POSEE") {
+            $id_estado = 2;
         }
 
-        if($params['estado_certificado'] == "EN TRAMITE"){
-            $id_estado=3;
+        if ($params['estado_certificado'] == "EN TRAMITE") {
+            $id_estado = 3;
         }
 
         if (DB::table('rel_industria_certificado')->where('id_rel_industria_certificado', intval($params['id_rel_industria_certificado']))->update([
@@ -410,8 +403,9 @@ class PrevencionCAController extends Controller
     }
 
 
-    public function deleteRelCert(Request $request){
-        if(DB::table('rel_industria_certificado')->where('id_rel_industria_certificado', intval($request->id))->delete()){
+    public function deleteRelCert(Request $request)
+    {
+        if (DB::table('rel_industria_certificado')->where('id_rel_industria_certificado', intval($request->id))->delete()) {
             return response()->json(array('status' => 200), 200);
         }
     }
