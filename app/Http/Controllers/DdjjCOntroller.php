@@ -19,11 +19,11 @@ class DdjjCOntroller extends Controller
 
         $id=$request->id;
         $result=[];
-        $result['industria_contribuyente'] = DB::select('select * from vw_info_contribuyente_industria where id_industria = '.$id.'');
+        $result['industria_contribuyente'] = DB::select("select * from vw_info_contribuyente_industria where id_industria = '.$id.'");
         //$result['actividades'] = DB::select('select * from vw_info_industria_actividad_producto_mp where id_industria = '.$id.'');
-        $result['servicios'] = DB::select('select * from vw_info_servicio where id_industria = '.$id.'');
-        $result['insumos'] = DB::select('select * from vw_info_insumo where id_industria = '.$id.'');
-        $result['certificados'] = DB::select('select * from vw_info_certificado where id_industria = '.$id.'');
+        $result['servicios'] = DB::select("select * from vw_info_servicio where id_industria = '.$id.'");
+        $result['insumos'] = DB::select("select * from vw_info_insumo where id_industria = '.$id.'");
+        $result['certificados'] = DB::select("select * from vw_info_certificado where id_industria = '.$id.'");
         $result['sistemas'] = DB::select('select * from vw_info_sistema_de_calidad where id_industria = '.$id.'');
         $result['act_prod'] = DB::select('select * from vw_info_actividad_producto where id_industria = '.$id.'');
         $result['act_mat'] = DB::select('select * from vw_info_actividad_materia_prima where id_industria = '.$id.'');
@@ -39,11 +39,16 @@ class DdjjCOntroller extends Controller
         $result['eco'] = DB::select('select * from vw_info_economia_del_conocimiento_sector where id_industria = '.$id.'');
         $result['perfil'] = DB::select('select * from vw_info_economia_del_conocimiento_perfil where id_industria = '.$id.'');
 
-        $pdf =PDF::loadView('Dj.dj',compact($result));
 
-        $content = $pdf->download()->getOriginalContent();
+        if(isset($request->var_control) && $request->var_control == "export"){
 
-        //Storage::put('dj_docs/name.pdf',$content) ;
+  
+            $pdf =PDF::loadView('Dj.dj',$result);
+
+            $content = $pdf->download()->getOriginalContent();
+    
+            Storage::put('dj_docs/name.pdf',$content) ;
+        }
 
         return response()->json( $result);
 

@@ -41,7 +41,13 @@
     <!-- All Jquery -->
     <!-- ============================================================== -->
     <script src="{{ asset('assets/script/jquery.min.js')}}"></script>
-    <script src="{{ asset('assets/js/bootstrap.js')}}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+   <!--  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.1/jspdf.debug.js " integrity="sha384-THVO/sM0mFD9h7dfSndI6TS0PgAGavwKvB5hAxRRvc0o9cPLohB0wb/PTA7LdUHs" crossorigin="anonymous"></script>
+    <script src ="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.1/jspdf.min.js"> </script> -->
+    <script src="{{ asset('assets/js/bootstrap.js')}}">
+    </script>
+
     <script src="{{ asset('js/functions.js')}}"></script>
 
     <link rel="stylesheet" href="{{asset('assets/venobox/venobox/venobox.min.css')}}" />
@@ -74,13 +80,13 @@
         @yield('content')
         @include('footer')
     </div>
-   
-   
+
+
 
     <!-- apps -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
-    
+
     <script src="{{ asset('assets/js/app.min.js')}}"></script>
     <script src="{{ asset('assets/js/app.init.horizontal-fullwidth.js')}}"></script>
     <script src="{{ asset('assets/js/app-style-switcher.js')}}"></script>
@@ -111,24 +117,24 @@
     <script type="text/javascript" src="{{ asset('assets/script/validation.min.js')}}"></script>
     <script type="text/javascript" src="{{ asset('assets/script/script.js')}}"></script>
     <link rel="stylesheet" href="{{ asset('assets/calendario/jquery-ui.css')}}" />
-    
+
     {{--<script src="{{ asset('assets/calendario/jquery-ui.js')}}"></script>--}}
     <!-- script jquery -->
-    
-    
+
+
     <script src="{{asset('assets/plugins/fileupload/bootstrap-fileupload.min.js')}}"></script>
     <!-- jQuery -->
     <script src="{{ asset('assets/plugins/noty/packaged/jquery.noty.packaged.min.js')}}"></script>
 
-   
 
-     <!-- Calendario -->
-     <link rel="stylesheet" href="{{ asset('assets/calendario/jquery-ui.css')}}" />
+
+    <!-- Calendario -->
+    <link rel="stylesheet" href="{{ asset('assets/calendario/jquery-ui.css')}}" />
     <script src="{{ asset('assets/calendario/jquery-ui.js')}}"></script>
     <script src="{{ asset('assets/script/jscalendario.js')}}"></script>
-    
+
     <script>
-        var base="<?php echo public_path() ?>"
+        var base = "<?php echo public_path() ?>"
     </script>
     <!-- Calendario -->
 

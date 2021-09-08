@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function () {
     var id_localidad
     var id_localidad2
     var id_provincia1;
@@ -7,7 +7,7 @@ $(document).ready(function() {
     var id_pais
     //zona planta
     $("#buscar_provincia").autocomplete({
-        source: function(request, response) {
+        source: function (request, response) {
             // Fetch data
             $.ajax({
                 url: "/provincias",
@@ -17,12 +17,12 @@ $(document).ready(function() {
                     _token: $('meta[name="csrf-token"]').attr('content'),
                     search: request.term,
                 },
-                success: function(data) {
+                success: function (data) {
                     response(data);
                 }
             });
         },
-        select: function(event, ui) {
+        select: function (event, ui) {
             // Set selection
             $('#buscar_provincia').val(ui.item.label); // display the selected text
             $('#id_provincia').val(ui.item.value); // save selected id to input
@@ -31,7 +31,7 @@ $(document).ready(function() {
         }
     });
     $("#buscar_localidad").autocomplete({
-        source: function(request, response) {
+        source: function (request, response) {
             // Fetch data
             $.ajax({
                 url: "/localidades",
@@ -42,12 +42,12 @@ $(document).ready(function() {
                     search: request.term,
                     id_prov: id_provincia1
                 },
-                success: function(data) {
+                success: function (data) {
                     response(data);
                 }
             });
         },
-        select: function(event, ui) {
+        select: function (event, ui) {
             // Set selection
             $('#buscar_localidad').val(ui.item.label); // display the selected text
             $('#id_localidad').val(ui.item.value); // save selected id to input
@@ -56,7 +56,7 @@ $(document).ready(function() {
         }
     });
     $("#buscar_barrio").autocomplete({
-        source: function(request, response) {
+        source: function (request, response) {
             // Fetch data
             $.ajax({
                 url: "/barrios",
@@ -67,12 +67,12 @@ $(document).ready(function() {
                     search: request.term,
                     id_loc: id_localidad
                 },
-                success: function(data) {
+                success: function (data) {
                     response(data);
                 }
             });
         },
-        select: function(event, ui) {
+        select: function (event, ui) {
             // Set selection
             $('#buscar_barrio').val(ui.item.label); // display the selected text
             $('#id_barrio').val(ui.item.value); // save selected id to input
@@ -80,7 +80,7 @@ $(document).ready(function() {
         }
     });
     $("#buscar_calle").autocomplete({
-        source: function(request, response) {
+        source: function (request, response) {
             // Fetch data
             $.ajax({
                 url: "/calles",
@@ -91,19 +91,19 @@ $(document).ready(function() {
                     search: request.term,
                     id_loc: id_localidad
                 },
-                success: function(data) {
+                success: function (data) {
                     response(data);
                 }
             });
         },
-        select: function(event, ui) {
+        select: function (event, ui) {
             // Set selection
             $('#buscar_calle').val(ui.item.label); // display the selected text
             $('#id_calle').val(ui.item.value); // save selected id to input
             return false;
         }
     });
-    $("#buscar_provincia").change(function() {
+    $("#buscar_provincia").change(function () {
         if ($("#buscar_provincia").val().length < 1) {
             //limpiar id localidad, barrio, calle
             $('#id_localidad').val("")
@@ -121,7 +121,7 @@ $(document).ready(function() {
             $("#buscar_localidad").prop("disabled", false);
         }
     });
-    $("#buscar_localidad").change(function() {
+    $("#buscar_localidad").change(function () {
         if ($("#buscar_localidad").val().length < 1) {
             //limpiar id localidad, barrio, calle
             $('#id_localidad').val("")
@@ -138,7 +138,7 @@ $(document).ready(function() {
             $("#buscar_barrio").prop("disabled", false);
         }
     });
-    $("#buscar_barrio").change(function() {
+    $("#buscar_barrio").change(function () {
         if ($("#buscar_barrio").val().length < 1) {
             //limpiar id localidad, barrio, calle
             $('#id_barrio').val("")
@@ -152,7 +152,7 @@ $(document).ready(function() {
             $("#buscar_calle").prop("disabled", false);
         }
     })
-    $("#search_calle").change(function() {
+    $("#search_calle").change(function () {
         if ($("#search_calle").val().length < 1) {
             //limpiar id localidad, barrio, calle
             $('#id_calle').val("")
@@ -166,7 +166,7 @@ $(document).ready(function() {
     })
     //zona legal
     $("#buscar_provincia_legal").autocomplete({
-        source: function(request, response) {
+        source: function (request, response) {
             // Fetch data
             $.ajax({
                 url: "/provincias",
@@ -176,12 +176,12 @@ $(document).ready(function() {
                     _token: $('meta[name="csrf-token"]').attr('content'),
                     search: request.term,
                 },
-                success: function(data) {
+                success: function (data) {
                     response(data);
                 }
             });
         },
-        select: function(event, ui) {
+        select: function (event, ui) {
             // Set selection
             $('#buscar_provincia_legal').val(ui.item.label); // display the selected text
             $('#id_provincia_legal').val(ui.item.value); // save selected id to input
@@ -190,7 +190,7 @@ $(document).ready(function() {
         }
     });
     $("#buscar_localidad2").autocomplete({
-        source: function(request, response) {
+        source: function (request, response) {
             // Fetch data
             $.ajax({
                 url: "/localidades",
@@ -201,12 +201,12 @@ $(document).ready(function() {
                     search: request.term,
                     id_prov: id_provincia2
                 },
-                success: function(data) {
+                success: function (data) {
                     response(data);
                 }
             });
         },
-        select: function(event, ui) {
+        select: function (event, ui) {
             // Set selection
             $('#buscar_localidad2').val(ui.item.label); // display the selected text
             $('#id_localidad_administracion').val(ui.item.value); // save selected id to input
@@ -215,7 +215,7 @@ $(document).ready(function() {
         }
     });
     $("#buscar_barrio2").autocomplete({
-        source: function(request, response) {
+        source: function (request, response) {
             // Fetch data
             $.ajax({
                 url: "/barrios",
@@ -226,12 +226,12 @@ $(document).ready(function() {
                     search: request.term,
                     id_loc: id_localidad2
                 },
-                success: function(data) {
+                success: function (data) {
                     response(data);
                 }
             });
         },
-        select: function(event, ui) {
+        select: function (event, ui) {
             // Set selection
             $('#buscar_barrio2').val(ui.item.label); // display the selected text
             $('#id_barrio_administracion').val(ui.item.value); // save selected id to input
@@ -239,7 +239,7 @@ $(document).ready(function() {
         }
     });
     $("#buscar_calle2").autocomplete({
-        source: function(request, response) {
+        source: function (request, response) {
             // Fetch data
             $.ajax({
                 url: "/calles",
@@ -250,19 +250,19 @@ $(document).ready(function() {
                     search: request.term,
                     id_loc: id_localidad2
                 },
-                success: function(data) {
+                success: function (data) {
                     response(data);
                 }
             });
         },
-        select: function(event, ui) {
+        select: function (event, ui) {
             // Set selection
             $('#buscar_calle2').val(ui.item.label); // display the selected text
             $('#id_calle_administracion').val(ui.item.value); // save selected id to input
             return false;
         }
     });
-    $("#buscar_provincia_legal").change(function() {
+    $("#buscar_provincia_legal").change(function () {
         if ($("#buscar_provincia_legal").val().length < 1) {
             //limpiar id localidad, barrio, calle
             $('#id_localidad_administracion').val("")
@@ -280,7 +280,7 @@ $(document).ready(function() {
             $("#buscar_localidad2").prop("disabled", false);
         }
     });
-    $("#buscar_localidad2").change(function() {
+    $("#buscar_localidad2").change(function () {
         if ($("#buscar_localidad2").val().length < 1) {
             //limpiar id localidad, barrio, calle
             $('#id_localidad_administracion').val("")
@@ -297,7 +297,7 @@ $(document).ready(function() {
             $("#buscar_barrio2").prop("disabled", false);
         }
     });
-    $("#buscar_barrio2").change(function() {
+    $("#buscar_barrio2").change(function () {
         if ($("#buscar_barrio2").val().length < 1) {
             //limpiar id localidad, barrio, calle
             $('#id_barrio_administracion').val("")
@@ -311,7 +311,7 @@ $(document).ready(function() {
             $("#buscar_calle2").prop("disabled", false);
         }
     })
-    $("#buscar_calle2").change(function() {
+    $("#buscar_calle2").change(function () {
         if ($("#buscar_calle2").val().length < 1) {
             //limpiar id localidad, barrio, calle
             $('#id_calle_administracion').val("")
@@ -325,7 +325,7 @@ $(document).ready(function() {
     })
     //buscar actividad ppor codigo//
     $("#search_codigo").autocomplete({
-        source: function(request, response) {
+        source: function (request, response) {
             // Fetch data
             $.ajax({
                 url: "/actividades",
@@ -335,12 +335,12 @@ $(document).ready(function() {
                     _token: $('meta[name="csrf-token"]').attr('content'),
                     search: request.term,
                 },
-                success: function(data) {
+                success: function (data) {
                     response(data);
                 }
             });
         },
-        select: function(event, ui) {
+        select: function (event, ui) {
             // Set selection
             $('#id_actividad').val(ui.item.value);
             $('#search_codigo').val(ui.item.label);
@@ -349,7 +349,7 @@ $(document).ready(function() {
             return false;
         }
     });
-    $("#search_codigo").change(function() {
+    $("#search_codigo").change(function () {
         if ($(this).val().length < 1) {
             $('#id_actividad').val("");
             $('#search_descripcion').val("");
@@ -357,7 +357,7 @@ $(document).ready(function() {
         }
     }); //si seleccio0na uno y despues borra el seleccionado se resetean los inputs
     $("#search_descripcion").autocomplete({
-        source: function(request, response) {
+        source: function (request, response) {
             // Fetch data
             $.ajax({
                 url: "/actividades",
@@ -368,12 +368,12 @@ $(document).ready(function() {
                     search: request.term,
                     filtro: 1
                 },
-                success: function(data) {
+                success: function (data) {
                     response(data);
                 }
             });
         },
-        select: function(event, ui) {
+        select: function (event, ui) {
             // Set selection
             $('#id_actividad').val(ui.item.value);
             $('#search_codigo').val(ui.item.actividad);
@@ -382,7 +382,7 @@ $(document).ready(function() {
             return false;
         }
     });
-    $("#search_descripcion").change(function() {
+    $("#search_descripcion").change(function () {
         if ($(this).val().length < 1) {
             $('#id_actividad').val("");
             $('#search_codigo').val("");
@@ -392,7 +392,7 @@ $(document).ready(function() {
     //buscar producto
     var length_search_producto
     $("#search_producto").autocomplete({
-        source: function(request, response) {
+        source: function (request, response) {
             // Fetch data
             $.ajax({
                 url: "/buscarProducto",
@@ -402,12 +402,12 @@ $(document).ready(function() {
                     _token: $('meta[name="csrf-token"]').attr('content'),
                     search: request.term,
                 },
-                success: function(data) {
+                success: function (data) {
                     response(data);
                 }
             });
         },
-        select: function(event, ui) {
+        select: function (event, ui) {
             // Set selection
             $('#id_producto').val(ui.item.value);
             $('#search_producto').val(ui.item.label);
@@ -415,13 +415,13 @@ $(document).ready(function() {
             return false;
         }
     });
-    $("#search_producto").keyup(function() {
+    $("#search_producto").keyup(function () {
         if ($(this).val().length < length_search_producto) {
             $('#id_producto').val("");
         }
     }); //si seleccio0na uno y despues borra el seleccionado se resetean los inputs
     $("#search_materia").autocomplete({
-        source: function(request, response) {
+        source: function (request, response) {
             // Fetch data
             $.ajax({
                 url: "/getMateriaPrima",
@@ -431,26 +431,26 @@ $(document).ready(function() {
                     _token: $('meta[name="csrf-token"]').attr('content'),
                     search: request.term,
                 },
-                success: function(data) {
+                success: function (data) {
                     response(data);
                 }
             });
         },
-        select: function(event, ui) {
+        select: function (event, ui) {
             // Set selection
             $('#id_materia_prima').val(ui.item.value);
             $('#search_materia').val(ui.item.label);
             return false;
         }
     });
-    $("#search_materia").change(function() {
+    $("#search_materia").change(function () {
         if ($(this).val().length < 1) {
             $('#id_materia_prima').val("");
             $('#search_materia').val("");
         }
     }); //si seleccio0na uno y despues borra el seleccionado se resetean los inputs
     $("#search_pais").autocomplete({
-        source: function(request, response) {
+        source: function (request, response) {
             // Fetch data
             $.ajax({
                 url: "/getpais",
@@ -460,12 +460,12 @@ $(document).ready(function() {
                     _token: $('meta[name="csrf-token"]').attr('content'),
                     search: request.term,
                 },
-                success: function(data) {
+                success: function (data) {
                     response(data);
                 }
             });
         },
-        select: function(event, ui) {
+        select: function (event, ui) {
             // Set selection
             $('#search_pais').val(ui.item.label); // display the selected text
             $('#id_pais').val(ui.item.value); // save selected id to input
@@ -473,7 +473,7 @@ $(document).ready(function() {
             return false;
         }
     });
-    $("#search_pais").change(function() {
+    $("#search_pais").change(function () {
         if ($("#search_pais").val().length < 1) {
             //limpiar id localidad, barrio, calle
             $('#id_pais').val("")
@@ -490,7 +490,7 @@ $(document).ready(function() {
         }
     });
     $("#search_provincia").autocomplete({
-        source: function(request, response) {
+        source: function (request, response) {
             // Fetch data
             $.ajax({
                 url: "/provincias",
@@ -501,12 +501,12 @@ $(document).ready(function() {
                     search: request.term,
                     id_pais: id_pais
                 },
-                success: function(data) {
+                success: function (data) {
                     response(data);
                 }
             });
         },
-        select: function(event, ui) {
+        select: function (event, ui) {
             // Set selection
             $('#search_provincia').val(ui.item.label); // display the selected text
             $('#id_provincia').val(ui.item.value); // save selected id to input
@@ -514,7 +514,7 @@ $(document).ready(function() {
             return false;
         }
     });
-    $("#search_provincia").change(function() {
+    $("#search_provincia").change(function () {
         if ($("#search_provincia").val().length < 1) {
             //limpiar id localidad, barrio, calle
             $('#id_localidad3').val("")
@@ -527,7 +527,7 @@ $(document).ready(function() {
         }
     });
     $("#search_localidad32").autocomplete({
-        source: function(request, response) {
+        source: function (request, response) {
             // Fetch data
             $.ajax({
                 url: "/localidades",
@@ -538,12 +538,12 @@ $(document).ready(function() {
                     search: request.term,
                     id_prov: id_provincia_3
                 },
-                success: function(data) {
+                success: function (data) {
                     response(data);
                 }
             });
         },
-        select: function(event, ui) {
+        select: function (event, ui) {
             // Set selection
             $('#search_localidad32').val(ui.item.label); // display the selected text
             $('#id_localidad3').val(ui.item.value); // save selected id to input
@@ -552,7 +552,7 @@ $(document).ready(function() {
     });
     //############################INSUMOS##################################################
     $("#search_insumo").autocomplete({
-        source: function(request, response) {
+        source: function (request, response) {
             // Fetch data
             $.ajax({
                 url: "/search_insumo",
@@ -562,26 +562,26 @@ $(document).ready(function() {
                     _token: $('meta[name="csrf-token"]').attr('content'),
                     search: request.term,
                 },
-                success: function(data) {
+                success: function (data) {
                     response(data);
                 }
             });
         },
-        select: function(event, ui) {
+        select: function (event, ui) {
             // Set selection
             $('#search_insumo').val(ui.item.label); // display the selected text
             $('#id_insumo').val(ui.item.value); // save selected id to input
             return false;
         }
     });
-    $("#search_insumo").keyup(function() {
+    $("#search_insumo").keyup(function () {
         if ($("#search_insumo").val().length < 1) {
             $('#id_insumo').val("")
         }
     });
     //busqueda paises 
     $("#search_pais_insumo").autocomplete({
-        source: function(request, response) {
+        source: function (request, response) {
             // Fetch data
             $.ajax({
                 url: "/getpais",
@@ -591,12 +591,12 @@ $(document).ready(function() {
                     _token: $('meta[name="csrf-token"]').attr('content'),
                     search: request.term,
                 },
-                success: function(data) {
+                success: function (data) {
                     response(data);
                 }
             });
         },
-        select: function(event, ui) {
+        select: function (event, ui) {
             id_pais = null
             // Set selection
             $('#search_pais_insumo').val(ui.item.label); // display the selected text
@@ -605,7 +605,7 @@ $(document).ready(function() {
             return false;
         }
     });
-    $("#search_pais_insumo").change(function() {
+    $("#search_pais_insumo").change(function () {
         if ($("#search_pais_insumo").val().length < 1) {
             //limpiar id localidad, barrio, calle
             $('#id_pais_insumo').val("")
@@ -622,7 +622,7 @@ $(document).ready(function() {
         }
     });
     $("#search_provincia_insumo").autocomplete({
-        source: function(request, response) {
+        source: function (request, response) {
             // Fetch data
             $.ajax({
                 url: "/provincias",
@@ -633,12 +633,12 @@ $(document).ready(function() {
                     search: request.term,
                     id_pais: id_pais
                 },
-                success: function(data) {
+                success: function (data) {
                     response(data);
                 }
             });
         },
-        select: function(event, ui) {
+        select: function (event, ui) {
             id_provincia_3 = null
             // Set selection
             $('#search_provincia_insumo').val(ui.item.label); // display the selected text
@@ -647,7 +647,7 @@ $(document).ready(function() {
             return false;
         }
     });
-    $("#search_provincia_insumo").change(function() {
+    $("#search_provincia_insumo").change(function () {
         if ($("#search_provincia_insumo").val().length < 1) {
             //limpiar id localidad, barrio, calle
             $('#id_localidad_insumo').val("")
@@ -660,7 +660,7 @@ $(document).ready(function() {
         }
     });
     $("#search_localidad_insumo").autocomplete({
-        source: function(request, response) {
+        source: function (request, response) {
             // Fetch data
             $.ajax({
                 url: "/localidades",
@@ -671,12 +671,12 @@ $(document).ready(function() {
                     search: request.term,
                     id_prov: id_provincia_3
                 },
-                success: function(data) {
+                success: function (data) {
                     response(data);
                 }
             });
         },
-        select: function(event, ui) {
+        select: function (event, ui) {
             // Set selection
             $('#search_localidad_insumo').val(ui.item.label); // display the selected text
             $('#id_localidad_insumo').val(ui.item.value); // save selected id to input
@@ -685,7 +685,7 @@ $(document).ready(function() {
     });
     //#########################combustible$#####################
     $("#search_pais_combustible").autocomplete({
-        source: function(request, response) {
+        source: function (request, response) {
             // Fetch data
             $.ajax({
                 url: "/getpais",
@@ -695,12 +695,12 @@ $(document).ready(function() {
                     _token: $('meta[name="csrf-token"]').attr('content'),
                     search: request.term,
                 },
-                success: function(data) {
+                success: function (data) {
                     response(data);
                 }
             });
         },
-        select: function(event, ui) {
+        select: function (event, ui) {
             id_pais = null
             // Set selection
             $('#search_pais_combustible').val(ui.item.label); // display the selected text
@@ -709,7 +709,7 @@ $(document).ready(function() {
             return false;
         }
     });
-    $("#search_pais_combustible").keyup(function() {
+    $("#search_pais_combustible").keyup(function () {
         if ($("#search_pais_combustible").val().length < 1) {
             //limpiar id localidad, barrio, calle
             $('#id_pais_combustible').val("")
@@ -726,7 +726,7 @@ $(document).ready(function() {
         }
     });
     $("#search_provincia_combustible").autocomplete({
-        source: function(request, response) {
+        source: function (request, response) {
             // Fetch data
             $.ajax({
                 url: "/provincias",
@@ -737,12 +737,12 @@ $(document).ready(function() {
                     search: request.term,
                     id_pais: id_pais
                 },
-                success: function(data) {
+                success: function (data) {
                     response(data);
                 }
             });
         },
-        select: function(event, ui) {
+        select: function (event, ui) {
             id_provincia_3 = null
             // Set selection
             $('#search_provincia_combustible').val(ui.item.label); // display the selected text
@@ -751,7 +751,7 @@ $(document).ready(function() {
             return false;
         }
     });
-    $("#search_provincia_combustible").keyup(function() {
+    $("#search_provincia_combustible").keyup(function () {
         if ($("#search_provincia_combustible").val().length < 1) {
             //limpiar id localidad, barrio, calle
             $('#id_localidad_combustible').val("")
@@ -764,7 +764,7 @@ $(document).ready(function() {
         }
     });
     $("#search_localidad_combustible").autocomplete({
-        source: function(request, response) {
+        source: function (request, response) {
             // Fetch data
             $.ajax({
                 url: "/localidades",
@@ -775,12 +775,12 @@ $(document).ready(function() {
                     search: request.term,
                     id_prov: id_provincia_3
                 },
-                success: function(data) {
+                success: function (data) {
                     response(data);
                 }
             });
         },
-        select: function(event, ui) {
+        select: function (event, ui) {
             // Set selection
             $('#search_localidad_combustible').val(ui.item.label); // display the selected text
             $('#id_localidad_combustible').val(ui.item.value); // save selected id to input
@@ -789,7 +789,7 @@ $(document).ready(function() {
     });
     // otros
     $("#search_servicio_otros").autocomplete({
-        source: function(request, response) {
+        source: function (request, response) {
             // Fetch data
             $.ajax({
                 url: "/search_servicio_otros",
@@ -799,25 +799,25 @@ $(document).ready(function() {
                     _token: $('meta[name="csrf-token"]').attr('content'),
                     search: request.term,
                 },
-                success: function(data) {
+                success: function (data) {
                     response(data);
                 }
             });
         },
-        select: function(event, ui) {
+        select: function (event, ui) {
             // Set selection
             $('#search_servicio_otros').val(ui.item.label); // display the selected text
             $('#id_servicio_otros').val(ui.item.value); // save selected id to input
             return false;
         }
     });
-    $("#search_servicio_otros").keyup(function() {
+    $("#search_servicio_otros").keyup(function () {
         if ($("#search_servicio_otros").val().length < 1) {
             $('#id_servicio_otros').val("")
         }
     });
     $("#search_pais_otros").autocomplete({
-        source: function(request, response) {
+        source: function (request, response) {
             // Fetch data
             $.ajax({
                 url: "/getpais",
@@ -827,12 +827,12 @@ $(document).ready(function() {
                     _token: $('meta[name="csrf-token"]').attr('content'),
                     search: request.term,
                 },
-                success: function(data) {
+                success: function (data) {
                     response(data);
                 }
             });
         },
-        select: function(event, ui) {
+        select: function (event, ui) {
             id_pais = null
             // Set selection
             $('#search_pais_otros').val(ui.item.label); // display the selected text
@@ -841,7 +841,7 @@ $(document).ready(function() {
             return false;
         }
     });
-    $("#search_pais_otros").keyup(function() {
+    $("#search_pais_otros").keyup(function () {
         if ($("#search_pais_otros").val().length < 1) {
             //limpiar id localidad, barrio, calle
             $('#id_pais_otros').val("")
@@ -858,7 +858,7 @@ $(document).ready(function() {
         }
     });
     $("#search_provincia_otros").autocomplete({
-        source: function(request, response) {
+        source: function (request, response) {
             // Fetch data
             $.ajax({
                 url: "/provincias",
@@ -869,12 +869,12 @@ $(document).ready(function() {
                     search: request.term,
                     id_pais: id_pais
                 },
-                success: function(data) {
+                success: function (data) {
                     response(data);
                 }
             });
         },
-        select: function(event, ui) {
+        select: function (event, ui) {
             id_provincia_3 = null
             // Set selection
             $('#search_provincia_otros').val(ui.item.label); // display the selected text
@@ -883,7 +883,7 @@ $(document).ready(function() {
             return false;
         }
     });
-    $("#search_provincia_otros").keyup(function() {
+    $("#search_provincia_otros").keyup(function () {
         if ($("#search_provincia_otros").val().length < 1) {
             //limpiar id localidad, barrio, calle
             $('#id_localidad_otros').val("")
@@ -896,7 +896,7 @@ $(document).ready(function() {
         }
     });
     $("#search_localidad_otros").autocomplete({
-        source: function(request, response) {
+        source: function (request, response) {
             // Fetch data
             $.ajax({
                 url: "/localidades",
@@ -907,12 +907,12 @@ $(document).ready(function() {
                     search: request.term,
                     id_prov: id_provincia_3
                 },
-                success: function(data) {
+                success: function (data) {
                     response(data);
                 }
             });
         },
-        select: function(event, ui) {
+        select: function (event, ui) {
             // Set selection
             $('#search_localidad_otros').val(ui.item.label); // display the selected text
             $('#id_localidad_otros').val(ui.item.value); // save selected id to input
@@ -921,7 +921,7 @@ $(document).ready(function() {
     });
     //efluentes
     $("#search_efluente_e").autocomplete({
-        source: function(request, response) {
+        source: function (request, response) {
             // Fetch data
             $.ajax({
                 url: "/search_efluente_e",
@@ -931,19 +931,19 @@ $(document).ready(function() {
                     _token: $('meta[name="csrf-token"]').attr('content'),
                     search: request.term,
                 },
-                success: function(data) {
+                success: function (data) {
                     response(data);
                 }
             });
         },
-        select: function(event, ui) {
+        select: function (event, ui) {
             // Set selection
             $('#search_efluente_e').val(ui.item.label); // display the selected text
             $('#id_efluente_e').val(ui.item.value); // save selected id to input
             return false;
         }
     });
-    $("#search_efluente_e").keyup(function() {
+    $("#search_efluente_e").keyup(function () {
         if ($("#search_efluente_e").val().length < 1) {
             $('#id_efluente_e').val("")
         }
@@ -989,7 +989,7 @@ function cargar_tabla_efluentes() {
             name: 'action',
             orderable: true,
             searchable: true
-        }, ],
+        },],
     })
 }
 
@@ -1003,6 +1003,8 @@ function cargar_tabla_actividades() {
         processing: false,
         serverSide: true,
         searching: false,
+        responsive: true,
+        width: '100%',
         "ajax": {
             "url": "/listRelAct",
             "type": "POST",
@@ -1032,11 +1034,11 @@ function cargar_tabla_actividades() {
             name: 'action',
             orderable: true,
             searchable: true
-        }, ],
+        },],
         columnDefs: [{
             targets: 2,
             "data": "es_actividad_principal",
-            "render": function(data, type, row, meta) {
+            "render": function (data, type, row, meta) {
                 /* DEFINICION DE LAS VARIABLES: 
                  * data: es el origen de dato... lo que segun el columns obtiene.
                  * type: display (no se para que es).
@@ -1053,10 +1055,10 @@ function cargar_tabla_actividades() {
         }, {
             targets: 1,
             "data": "fecha_inicio",
-            "render": function(data, type, row, meta) {
+            "render": function (data, type, row, meta) {
                 return row.fecha_inicio.replace(/^(\d{4})-(\d{2})-(\d{2})$/g, '$3-$2-$1');
             }
-        }, ]
+        },]
     })
 }
 
@@ -1099,7 +1101,7 @@ function cargar_tabla_otros() {
             name: 'action',
             orderable: true,
             searchable: true
-        }, ],
+        },],
         columnDefs: []
     })
 }
@@ -1143,11 +1145,11 @@ function cargar_tabla_basicos() {
             name: 'action',
             orderable: true,
             searchable: true
-        }, ],
+        },],
         columnDefs: [{
             targets: 1,
             "data": "servicio_utilizado",
-            "render": function(data, type, row, meta) {
+            "render": function (data, type, row, meta) {
                 /* DEFINICION DE LAS VARIABLES: 
                  * data: es el origen de dato... lo que segun el columns obtiene.
                  * type: display (no se para que es).
@@ -1156,7 +1158,7 @@ function cargar_tabla_basicos() {
                 $("#boton_servicio_basico").prop("disabled", true);
                 return row.servicio_utilizado;
             }
-        }, ]
+        },]
     })
 }
 
@@ -1197,9 +1199,9 @@ function cargar_tabla_insumos() {
             name: 'action',
             orderable: true,
             searchable: true
-        }, ],
+        },],
         columnDefs: [],
-        createdRow: function(row, data, dataIndex) {
+        createdRow: function (row, data, dataIndex) {
             $(row).addClass('odd');
             $(row).attr('role', 'row');
         },
@@ -1242,7 +1244,7 @@ function cargar_tabla_materia() {
             name: 'action',
             orderable: true,
             searchable: true
-        }, ],
+        },],
         columnDefs: []
     })
 }
@@ -1286,7 +1288,7 @@ function cargar_tabla_productos() {
             name: 'action',
             orderable: true,
             searchable: true
-        }, ],
+        },],
         columnDefs: []
     })
 }
@@ -1328,7 +1330,7 @@ function cargar_tabla_materia_utilizada() {
             name: 'action',
             orderable: true,
             searchable: true
-        }, ],
+        },],
         columnDefs: []
     })
 }
@@ -1375,7 +1377,7 @@ function cargar_tabla_combustible() {
             name: 'action',
             orderable: true,
             searchable: true
-        }, ],
+        },],
         columnDefs: []
     })
 }
@@ -1416,11 +1418,11 @@ function cargar_tabla_gastos() {
             name: 'action',
             orderable: true,
             searchable: true
-        }, ],
+        },],
         columnDefs: [{
             targets: 1,
             "data": "egreso",
-            "render": function(data, type, row, meta) {
+            "render": function (data, type, row, meta) {
                 /* DEFINICION DE LAS VARIABLES: 
                  * data: es el origen de dato... lo que segun el columns obtiene.
                  * type: display (no se para que es).
@@ -1429,7 +1431,7 @@ function cargar_tabla_gastos() {
                 $("#agregar_egreso").prop("disabled", true);
                 return row.egreso;
             }
-        }, ]
+        },]
     })
 }
 
@@ -1478,7 +1480,7 @@ function cargar_tabla_splanta() {
             name: 'action',
             orderable: true,
             searchable: true
-        }, ],
+        },],
         columnDefs: []
     })
 }
@@ -1516,7 +1518,7 @@ function cargar_tabla_motivo_ociosidad() {
             name: 'action',
             orderable: true,
             searchable: true
-        }, ],
+        },],
         columnDefs: []
     })
 }
@@ -1563,11 +1565,11 @@ function cargar_tabla_p_o_m() {
             name: 'action',
             orderable: true,
             searchable: true
-        }, ],
+        },],
         columnDefs: [{
             targets: 3,
             "data": "condicion_laboral",
-            "render": function(data, type, row, meta) {
+            "render": function (data, type, row, meta) {
                 /* DEFINICION DE LAS VARIABLES: 
                  * data: es el origen de dato... lo que segun el columns obtiene.
                  * type: display (no se para que es).
@@ -1580,7 +1582,7 @@ function cargar_tabla_p_o_m() {
                 }
                 return a;
             }
-        }, ]
+        },]
     })
 }
 
@@ -1626,11 +1628,11 @@ function cargar_tabla_p_o_f() {
             name: 'action',
             orderable: true,
             searchable: true
-        }, ],
+        },],
         columnDefs: [{
             targets: 3,
             "data": "condicion_laboral",
-            "render": function(data, type, row, meta) {
+            "render": function (data, type, row, meta) {
                 /* DEFINICION DE LAS VARIABLES: 
                  * data: es el origen de dato... lo que segun el columns obtiene.
                  * type: display (no se para que es).
@@ -1643,7 +1645,7 @@ function cargar_tabla_p_o_f() {
                 }
                 return a;
             }
-        }, ]
+        },]
     })
 }
 
@@ -1686,11 +1688,11 @@ function cargar_tabla_ventas() {
             name: 'action',
             orderable: true,
             searchable: true
-        }, ],
+        },],
         columnDefs: [{
             targets: 2,
             "data": "provincias",
-            "render": function(data, type, row, meta) {
+            "render": function (data, type, row, meta) {
                 /* DEFINICION DE LAS VARIABLES: 
                  * data: es el origen de dato... lo que segun el columns obtiene.
                  * type: display (no se para que es).
@@ -1699,7 +1701,7 @@ function cargar_tabla_ventas() {
                 var provincias = "";
                 var cont = row.provincias.length;
                 var cnt = 0;
-                row.provincias.forEach(function(element, index) {
+                row.provincias.forEach(function (element, index) {
                     cnt += 1;
                     provincias += element.provincia
                     if (cnt < cont) {
@@ -1711,7 +1713,7 @@ function cargar_tabla_ventas() {
         }, {
             targets: 3,
             "data": "paises",
-            "render": function(data, type, row, meta) {
+            "render": function (data, type, row, meta) {
                 /* DEFINICION DE LAS VARIABLES: 
                  * data: es el origen de dato... lo que segun el columns obtiene.
                  * type: display (no se para que es).
@@ -1720,7 +1722,7 @@ function cargar_tabla_ventas() {
                 var paises = "";
                 var cont = row.paises.length;
                 var cnt = 0;
-                row.paises.forEach(function(element, index) {
+                row.paises.forEach(function (element, index) {
                     cnt += 1;
                     paises += element.pais
                     if (cnt < cont) {
@@ -1729,7 +1731,7 @@ function cargar_tabla_ventas() {
                 });
                 return paises;
             }
-        }, ]
+        },]
     })
 }
 
@@ -1778,7 +1780,7 @@ function cargar_tabla_fact() {
             name: 'action',
             orderable: true,
             searchable: true
-        }, ],
+        },],
         columnDefs: []
     })
 }
@@ -1825,7 +1827,7 @@ function cargar_tabla_cert() {
             name: 'action',
             orderable: true,
             searchable: true
-        }, ],
+        },],
         columnDefs: []
     })
 }
@@ -1872,7 +1874,7 @@ function cargar_tabla_sc() {
             name: 'action',
             orderable: true,
             searchable: true
-        }, ],
+        },],
         columnDefs: []
     })
 }
@@ -1919,7 +1921,7 @@ function cargar_tabla_promo() {
             name: 'action',
             orderable: true,
             searchable: true
-        }, ],
+        },],
         columnDefs: []
     })
 }
@@ -1957,7 +1959,7 @@ function cargar_tabla_economia() {
             name: 'action',
             orderable: true,
             searchable: true
-        }, ],
+        },],
         columnDefs: []
     })
 }
@@ -1995,7 +1997,7 @@ function cargar_tabla_perfil() {
             name: 'action',
             orderable: true,
             searchable: true
-        }, ],
+        },],
         columnDefs: []
     })
 }
@@ -2007,10 +2009,10 @@ function cargar_clasif_ingresos() {
         data: {
             _token: $('meta[name="csrf-token"]').attr('content'),
         },
-        success: function(response) {
+        success: function (response) {
             $('#clasif_ingreso').find("tr").remove();
             $('#clasif_ingreso_2').append('<tr role="row" class="text-left"><th>Categoria</th><th>Nivel de Ingresos</th><th>Corresponde</th></tr></thead>');
-            $(response).each(function(i, v) {
+            $(response).each(function (i, v) {
                 $('#clasif_ingreso').append('<tr role="row" class="text-left">' + ' <td>' + v.categoria + '</td>' + ' <td>Desde $' + v.monto_minimo + ' - Hasta$' + v.monto_maximo + '</td>' + '  <td>' + '  <div class="custom-control custom-radio custom-control-inline">' + '   <input type="radio" id="categoria_ingresos_' + v.id_categoria_ingreso + '" name="categoria_ingresos" value="' + v.id_categoria_ingreso + '" class="custom-control-input c_fac">' + ' <label class="custom-control-label" for="categoria_ingresos_' + v.id_categoria_ingreso + '"></label>' + '</div>' + ' </td>' + ' </tr>');
             })
         }
@@ -2055,10 +2057,10 @@ function btn_cancelar_venta() {
     $('#ventas_paises').trigger('change');
 }
 //moostrar forms
-$(document).ready(function() {
+$(document).ready(function () {
     $('#secciones section').hide();
     $('#secciones section:first').show();
-    $('.row-horizon span').click(function() {
+    $('.row-horizon span').click(function () {
         $('#secciones section').hide();
         $('.row-horizon span').removeClass('selectedGat')
         $(this).addClass('selectedGat');
@@ -2068,12 +2070,12 @@ $(document).ready(function() {
     })
 });
 //visor de archivos
-$(document).ready(function() {
+$(document).ready(function () {
     $('.venobox').venobox();
 });
-$(document).ready(function() {
+$(document).ready(function () {
     //set initial state.
-    $("#check_otro").change(function() {
+    $("#check_otro").change(function () {
         $('#check_otro').val(this.checked);
         if ($('#check_otro').val() == "true") {
             $(".selectMotivo").hide("slow");
@@ -2091,15 +2093,15 @@ function getTramite() {
     $.ajax({
         type: "get",
         url: "/tramite/" + $("#id_industria_modal").val(),
-        success: function(response) {
+        success: function (response) {
 
-            $(response.periodo_fiscal).each(function(i, v) {
+            $(response.periodo_fiscal).each(function (i, v) {
                 $('#anio_periodo_fiscal').append('<option value="' + v.anio + '">' + v.anio + '</option>');
             })
 
 
             $(".mostrar_info_industria").show();
-             $("#savegeneral").prop('id', 'updategeneral');
+            $("#savegeneral").prop('id', 'updategeneral');
             $("#updategeneral").prop('name', 'updategeneral');
             $("#btn-submit-save-generales").hide()
             $("#btn-update-generales").show()
@@ -2138,10 +2140,10 @@ function lanzador() {
     muestraReloj();
 
     //si se encuentra seteado el id de la industria es por que se está editando
-     if ($("#id_industria_modal").val() != undefined && $("#id_industria_modal").val() != "") {
-         getTramite()
-     }
-   ;
+    if ($("#id_industria_modal").val() != undefined && $("#id_industria_modal").val() != "") {
+        getTramite()
+    }
+    ;
 }
 
 function getClasificacionVentas() {
@@ -2151,10 +2153,10 @@ function getClasificacionVentas() {
         data: {
             _token: $('meta[name="csrf-token"]').attr('content'),
         },
-        success: function(response) {
+        success: function (response) {
             $("#clasif_venta").find("option").remove();
             $('#clasif_venta').append('<option value="">-- SELECCIONE --</option>');
-            $(response).each(function(i, v) {
+            $(response).each(function (i, v) {
                 $('#clasif_venta').append('<option value="' + v.id_clasificacion_ventas + '">' + v.clasificacion_ventas + '</option>');
             })
         }
@@ -2168,14 +2170,14 @@ function getProvinciasVentas() {
         data: {
             _token: $('meta[name="csrf-token"]').attr('content'),
         },
-        success: function(response) {
+        success: function (response) {
             $("#ventas_provincias").find("option").remove();
             $('#ventas_provincias').select2({
                 width: 'resolve',
                 theme: "classic"
             });
             //$('#ventas_provincias').append('<option value="">-- SELECCIONE --</option>');
-            $(response).each(function(i, v) {
+            $(response).each(function (i, v) {
                 $('#ventas_provincias').append('<option value="' + v.id_provincia + '">' + v.provincia + '</option>');
             })
         }
@@ -2189,14 +2191,14 @@ function getPaisesVentas() {
         data: {
             _token: $('meta[name="csrf-token"]').attr('content'),
         },
-        success: function(response) {
+        success: function (response) {
             $("#ventas_paises").find("option").remove();
             $('#ventas_paises').select2({
                 width: 'resolve',
                 theme: "classic"
             });
             //$('#ventas_provincias').append('<option value="">-- SELECCIONE --</option>');
-            $(response).each(function(i, v) {
+            $(response).each(function (i, v) {
                 $('#ventas_paises').append('<option value="' + v.id_pais + '">' + v.pais + '</option>');
             })
         }
@@ -2210,10 +2212,10 @@ function getCondicionLaboral() {
         data: {
             _token: $('meta[name="csrf-token"]').attr('content'),
         },
-        success: function(response) {
+        success: function (response) {
             $("#p_o").find("tr").remove();
             $('#thead_p_o').append('<tr role="row">' + '<th>Condición Laboral <span class="symbol required"></span></th>' + '<th>Masculino <span class="symbol required"></span></th>' + '<th>Femenino <span class="symbol required"></span></th>' + '</tr>')
-            $(response).each(function(i, v) {
+            $(response).each(function (i, v) {
                 $('#p_o').append('<tr role="row" class="odd">' + '<td><input type="hidden" name="id_condicion_laboral[]" value="' + v.id_condicion_laboral + '" />' + v.condicion_laboral + '</label></td>' + '<td class="text-center"><input type="number" min="0" value="0" class="form-control" name="masculino[]"  placeholder="Ingrese Cantidad Masculino" autocomplete="off" style="width:100%;height:40px;background:#f0f9fc;border-radius:5px 5px 5px 5px;"></td>' + '<td class="text-center"><input type="number" min="0" value="0" class="form-control" name="femenino[]"  placeholder="Ingrese Cantidad Femenino" autocomplete="off" style="width:100%;height:40px;background:#f0f9fc;border-radius:5px 5px 5px 5px;"></td>' + '</tr>');
             })
         }
@@ -2227,10 +2229,10 @@ function getRolTrabajadores() {
         data: {
             _token: $('meta[name="csrf-token"]').attr('content'),
         },
-        success: function(response) {
+        success: function (response) {
             $("#rol_trabajador option").remove();
             $("#rol_trabajador").append('<option value="">' + "--SELECCIONE--" + '</option>');
-            $(response).each(function(i, v) { // indice, valor
+            $(response).each(function (i, v) { // indice, valor
                 $("#rol_trabajador").append('<option value="' + v.id_rol_trabajador + '">' + v.rol_trabajador + '</option>');
             })
         }
@@ -2244,10 +2246,10 @@ function trae_motivo_ociosidad() {
         data: {
             _token: $('meta[name="csrf-token"]').attr('content'),
         },
-        success: function(response) {
+        success: function (response) {
             $("#id_motivo_ociosidad option").remove();
             $("#id_motivo_ociosidad").append('<option value="">' + "--SELECCIONE--" + '</option>');
-            $(response).each(function(i, v) { // indice, valor
+            $(response).each(function (i, v) { // indice, valor
                 $("#id_motivo_ociosidad").append('<option value="' + v.id_motivo_ociosidad + '">' + v.motivo_ociosidad + '</option>');
             })
         }
@@ -2261,12 +2263,12 @@ function getunidades() {
         data: {
             _token: $('meta[name="csrf-token"]').attr('content'),
         },
-        success: function(response) {
+        success: function (response) {
             $("#medida_combustible option").remove();
             $("#medida_combustible").append('<option value="">' + "--SELECCIONE--" + '</option>');
             $("#medida_insumo option").remove();
             $("#medida_insumo").append('<option value="">' + "--SELECCIONE--" + '</option>');
-            $(response).each(function(i, v) { // indice, valor
+            $(response).each(function (i, v) { // indice, valor
                 $("#medida_insumo").append('<option value="' + v.value + '">' + v.label + '</option>');
                 $("#medida_combustible").append('<option value="' + v.value + '">' + v.label + '</option>');
             })
@@ -2281,10 +2283,10 @@ function getFrecuencia() {
         data: {
             _token: $('meta[name="csrf-token"]').attr('content'),
         },
-        success: function(response) {
+        success: function (response) {
             $("#frecuencia_otros option").remove();
             $("#frecuencia_otros").append('<option value="">' + "--SELECCIONE--" + '</option>');
-            $(response).each(function(i, v) { // indice, valor
+            $(response).each(function (i, v) { // indice, valor
                 $("#frecuencia_otros").append('<option value="' + v.value + '">' + v.label + '</option>');
             })
         }
@@ -2298,14 +2300,14 @@ function getMotivo() {
         data: {
             _token: $('meta[name="csrf-token"]').attr('content'),
         },
-        success: function(response) {
+        success: function (response) {
             $("#motivo_importacion_insumo option").remove();
             $("#motivo_importacion_insumo").append('<option value="">' + "--SELECCIONE--" + '</option>');
             $("#motivo_importacion_combustible option").remove();
             $("#motivo_importacion_combustible").append('<option value="">' + "--SELECCIONE--" + '</option>');
             $("#motivo_importacion_otros option").remove();
             $("#motivo_importacion_otros").append('<option value="">' + "--SELECCIONE--" + '</option>');
-            $(response).each(function(i, v) {
+            $(response).each(function (i, v) {
                 $("#motivo_importacion_insumo").append('<option value="' + v.value + '">' + v.label + '</option>');
                 $("#motivo_importacion_combustible").append('<option value="' + v.value + '">' + v.label + '</option>');
                 $("#motivo_importacion_otros").append('<option value="' + v.value + '">' + v.label + '</option>');
@@ -2329,10 +2331,10 @@ function getCertificados() {
         data: {
             _token: $('meta[name="csrf-token"]').attr('content'),
         },
-        success: function(response) {
+        success: function (response) {
             $(".table_certificado_modal").find("tr").remove();
             $('#thead_c').append('<tr role="row">' + '<th>Certificado <span class="symbol required"></span></th>' + ' <th>No Posee </th>' + '  <th>En Trámite </th>' + ' <th>Posee </th>' + '  <th>Fecha Inicial</th>' + ' <th>Fecha Final</th>' + ' </tr>')
-            $(response).each(function(i, v) {
+            $(response).each(function (i, v) {
                 $('.table_certificado_modal').append('<tr role="row" class="odd">' + '<td><input type="hidden" name="id_certificado[]" id="id_certificado_' + v.id_certificado + '" value="' + v.id_certificado + '"><label>' + v.certificado + '</label></td>' + ' <td class="text-center"><div class="custom-control custom-radio custom-control-inline">' + '<input type="radio" name="checkbox[' + i + ']" id="name1_' + v.id_certificado + '" value="NO POSEE" class="custom-control-input" onclick="ProcesarCertificado(\'NO POSEE\',' + v.id_certificado + ');">' + '<label class="custom-control-label" for="name1_' + v.id_certificado + '"></label>' + '</div></td>' + '<td class="text-center"><div class="custom-control custom-radio custom-control-inline">' + '<input type="radio" name="checkbox[' + i + ']" id="name2_' + v.id_certificado + '" value="EN TRAMITE" class="custom-control-input" onclick="ProcesarCertificado(\'EN TRAMITE\',' + v.id_certificado + ');">' + '<label class="custom-control-label" for="name2_' + v.id_certificado + '"></label>' + '</div></td>' + '<td class="text-center"><div class="custom-control custom-radio custom-control-inline">' + '<input type="radio" name="checkbox[' + i + ']" id="name3_' + v.id_certificado + '" value="POSEE" class="custom-control-input" onclick="ProcesarCertificado(\'POSEE\',' + v.id_certificado + ');">' + '<label class="custom-control-label" for="name3_' + v.id_certificado + '"></label>' + '</div></td>' + ' <td class="text-center"><input type="text" class="form-control certificado" name="inicio_certificado[' + i + ']" id="inicio_certificado_' + v.id_certificado + '" placeholder="Ingrese Fecha Inicial" autocomplete="off" style="width:100%;height:40px;background:#f0f9fc;border-radius:5px 5px 5px 5px;"  disabled="" title="Ingrese Fecha Inicial" required="" aria-required="true"></td>' + ' <td class="text-center"><input type="text" class="form-control certificado" name="fin_certificado[' + i + ']" id="fin_certificado_' + v.id_certificado + '" placeholder="Ingrese Fecha Final" autocomplete="off" style="width:100%;height:40px;background:#f0f9fc;border-radius:5px 5px 5px 5px;" disabled="" title="Ingrese Fecha Final" required="" aria-required="true"></td>' + ' </tr>');
             })
         }
@@ -2346,9 +2348,9 @@ function getSc() {
         data: {
             _token: $('meta[name="csrf-token"]').attr('content'),
         },
-        success: function(response) {
+        success: function (response) {
             $("#tbody_sa_modal").find("tr").remove();
-            $(response).each(function(i, v) {
+            $(response).each(function (i, v) {
                 $('#tbody_sa_modal').append('<tr>' + '<td><input type="hidden" name="id_sistema_de_calidad[]"  value="' + v.id_sistema_de_calidad + '"><label>' + v.sistema_de_calidad + '</label></td>' + '<td class="text-center"><div class="custom-control custom-radio custom-control-inline">' + '<input type="radio" name="checkbox[' + i + ']" id="name4_' + v.id_sistema_de_calidad + '" value="NO POSEE" class="custom-control-input" onclick="ProcesarSistema(\'NO POSEE\',' + v.id_sistema_de_calidad + ');">' + '<label class="custom-control-label" for="name4_' + v.id_sistema_de_calidad + '"></label>' + '</div></td>' + '<td class="text-center"><div class="custom-control custom-radio custom-control-inline">' + ' <input type="radio" name="checkbox[' + i + ']" id="name5_' + v.id_sistema_de_calidad + '" value="EN TRAMITE" class="custom-control-input" onclick="ProcesarSistema(\'EN TRAMITE\',' + v.id_sistema_de_calidad + ');">' + '<label class="custom-control-label" for="name5_' + v.id_sistema_de_calidad + '"></label>' + ' </div></td>' + ' <td class="text-center"><div class="custom-control custom-radio custom-control-inline">' + ' <input type="radio" name="checkbox[' + i + ']" id="name6_' + v.id_sistema_de_calidad + '" value="POSEE" class="custom-control-input" onclick="ProcesarSistema(\'POSEE\',' + v.id_sistema_de_calidad + ');">' + '<label class="custom-control-label" for="name6_' + v.id_sistema_de_calidad + '"></label>' + ' </div></td>' + ' <td class="text-center"><input type="text" class="form-control calidad" name="inicio_sistema[' + i + ']" id="inicio_sistema_' + v.id_sistema_de_calidad + '" placeholder="Ingrese Fecha Inicial" autocomplete="off" style="width:100%;height:40px;background:#f0f9fc;border-radius:5px 5px 5px 5px;" title="Ingrese Fecha Inicial" required="" aria-required="true" disabled="disabled"></td>' + '<td class="text-center"><input type="text" class="form-control calidad" name="fin_sistema[' + i + ']" id="fin_sistema_' + v.id_sistema_de_calidad + '" placeholder="Ingrese Fecha Final" autocomplete="off" style="width:100%;height:40px;background:#f0f9fc;border-radius:5px 5px 5px 5px;" title="Ingrese Fecha Final" required="" aria-required="true" disabled="disabled"></td>' + '</tr>');
             })
         }
@@ -2362,9 +2364,9 @@ function getPromocion() {
         data: {
             _token: $('meta[name="csrf-token"]').attr('content'),
         },
-        success: function(response) {
+        success: function (response) {
             $("#tbody_promo").find("tr").remove();
-            $(response).each(function(i, v) {
+            $(response).each(function (i, v) {
                 $('#tbody_promo').append('<tr>' + '<td><input type="hidden" name="id_promocion_industrial[]"  value="' + v.id_promocion_industrial + '"><label>' + v.promocion_industrial + '</label></td>' + '<td class="text-center"><div class="custom-control custom-radio custom-control-inline">' + '<input type="radio" name="checkbox[' + i + ']" id="name7_' + v.id_promocion_industrial + '" value="NO POSEE" class="custom-control-input" onclick="ProcesarPromocion(\'NO POSEE\',' + v.id_promocion_industrial + ');">' + '<label class="custom-control-label" for="name7_' + v.id_promocion_industrial + '"></label>' + '</div></td>' + '<td class="text-center"><div class="custom-control custom-radio custom-control-inline">' + ' <input type="radio" name="checkbox[' + i + ']" id="name8_' + v.id_promocion_industrial + '" value="EN TRAMITE" class="custom-control-input" onclick="ProcesarPromocion(\'EN TRAMITE\',' + v.id_promocion_industrial + ');">' + '<label class="custom-control-label" for="name8_' + v.id_promocion_industrial + '"></label>' + ' </div></td>' + ' <td class="text-center"><div class="custom-control custom-radio custom-control-inline">' + ' <input type="radio" name="checkbox[' + i + ']" id="name9_' + v.id_promocion_industrial + '" value="POSEE" class="custom-control-input" onclick="ProcesarPromocion(\'POSEE\',' + v.id_promocion_industrial + ');">' + '<label class="custom-control-label" for="name9_' + v.id_promocion_industrial + '"></label>' + ' </div></td>' + ' <td class="text-center"><input type="text" class="form-control calendario2" name="inicio_promocion[' + i + ']" id="inicio_promocion_' + v.id_promocion_industrial + '" placeholder="Ingrese Fecha Inicial" autocomplete="off" style="width:100%;height:40px;background:#f0f9fc;border-radius:5px 5px 5px 5px;" title="Ingrese Fecha Inicial" required="" aria-required="true" disabled="disabled"></td>' + '<td class="text-center"><input type="text" class="form-control calendario2" name="fin_promocion[' + i + ']" id="fin_promocion_' + v.id_promocion_industrial + '" placeholder="Ingrese Fecha Final" autocomplete="off" style="width:100%;height:40px;background:#f0f9fc;border-radius:5px 5px 5px 5px;" title="Ingrese Fecha Final" required="" aria-required="true" disabled="disabled"></td>' + '</tr>');
             })
         }
@@ -2379,10 +2381,10 @@ function getSP() {
         data: {
             _token: $('meta[name="csrf-token"]').attr('content'),
         },
-        success: function(response) {
+        success: function (response) {
             $("#tbody_sector").find("tr").remove();
             /*$("#tbody_personal").find("tr").remove();*/
-            $(response).each(function(i, v) {
+            $(response).each(function (i, v) {
                 $('#tbody_sector').append('<tr role="row" class="text-left">' + '<td>' + v.sector + '</td>' + ' <td>' + ' <div class="custom-control custom-radio custom-control-inline">' + '<input type="checkbox" name="sectores[' + i + ']" id="s' + v.id_economia_del_conocimiento_sector + '" value="' + v.id_economia_del_conocimiento_sector + '" class="custom-control-input cb_sector">' + '  <label class="custom-control-label" for="s' + v.id_economia_del_conocimiento_sector + '"></label>' + '  </div>' + '  </td>' + ' </tr>');
             })
             /* $(response.personal).each(function (i, v) {
@@ -2402,9 +2404,9 @@ function getSP() {
         }
     });
 }
-$(document).ready(function() {
+$(document).ready(function () {
     //set initial state.
-    $("#cb_otro_sector").change(function() {
+    $("#cb_otro_sector").change(function () {
         $('#cb_otro_sector').val(this.checked);
         if ($('#cb_otro_sector').val() == "true") {
             $("#_sect").hide("slow");
@@ -2426,18 +2428,18 @@ function getPerfil() {
         data: {
             _token: $('meta[name="csrf-token"]').attr('content'),
         },
-        success: function(response) {
+        success: function (response) {
             $("#tbody_sector").find("tr").remove();
             /*$("#tbody_personal").find("tr").remove();*/
-            $(response).each(function(i, v) {
+            $(response).each(function (i, v) {
                 $('#tbody_perfil').append('<tr role="row" class="text-left">' + '<td>' + v.perfil + '</td>' + ' <td>' + ' <div class="custom-control custom-radio custom-control-inline">' + '<input type="checkbox" name="perfiles[' + i + ']" id="p' + v.id_economia_del_conocimiento_perfil + '" value="' + v.id_economia_del_conocimiento_perfil + '" class="custom-control-input cb_perfil">' + '  <label class="custom-control-label" for="p' + v.id_economia_del_conocimiento_perfil + '"></label>' + '  </div>' + '  </td>' + ' </tr>');
             })
         }
     });
 }
-$(document).ready(function() {
+$(document).ready(function () {
     //set initial state.
-    $("#cb_otro_perfil").change(function() {
+    $("#cb_otro_perfil").change(function () {
         $('#cb_otro_perfil').val(this.checked);
         if ($('#cb_otro_perfil').val() == "true") {
             $("#_perfil").hide("slow");
@@ -2460,7 +2462,7 @@ function trae_views_ddjj() {
             id: $("#id_industria_modal").val()
         },
         dataType: 'json',
-        success: function(response) {
+        success: function (response) {
             //contribuyente
             $("#cuit_dj").text(response.industria_contribuyente[0].cuit)
             $("#rs_dj").text(response.industria_contribuyente[0].razon_social)
@@ -2491,91 +2493,91 @@ function trae_views_ddjj() {
             $("#lonu_dj").text(response.industria_contribuyente[0].longitud)
             $("#cpi_dj").text(response.industria_contribuyente[0].CP_Industria)
             //actividades ,prod
-            $(response.act_prod).each(function(i, v) {
+            $(response.act_prod).each(function (i, v) {
                 var p = v.es_actividad_principal == "S" ? "Si" : "No"
                 //var m=v.motivo_importacion_Insumo == null ? "--" : v.motivo_importacion_Insumo
                 //var d=v.Detalle_de_motivo_de_importacion_Insumo == null ? "--" : v.Detalle_de_motivo_de_importacion_Insumo 
                 $('#tbody_act_prod_dj').append('<tr>' + '<td>' + v.actividad + '</td>' + '<td>' + p + '</td>' + '<td>' + v.observacion + '</td>' + '<td>' + v.fecha_inicio + '</td>' + '<td></td>' + '<td>' + v.Productos_Elaborados + '</td>' + '<td>' + v.Cantidad_producida + '</td>' + '<td>' + v.porcentaje_sobre_produccion + '</td>' + '<td>' + v.ventas_en_provincia + '</td>' + '<td>' + v.ventas_en_otras_provincias + '</td>' + '<td>' + v.ventas_en_el_exterior + '</td>' + '<td>' + v.anio_productos + '</td>' + '</tr>');
             })
-            $(response.act_mat).each(function(i, v) {
+            $(response.act_mat).each(function (i, v) {
                 var p = v.es_actividad_principal == "S" ? "Si" : "No"
                 var mp = v.Es_MP_propia == "S " ? "Si" : "No"
                 //var d=v.Detalle_de_motivo_de_importacion_Insumo == null ? "--" : v.Detalle_de_motivo_de_importacion_Insumo 
                 $('#tbody_act_mp_dj').append('<tr>' + '<td style="font-size:15px">' + v.actividad + '</td>' + '<td>' + p + '</td>' + '<td>' + v.observacion + '</td>' + '<td style="font-size:15px">' + v.fecha_inicio + '</td>' + '<td></td>' + '<td>' + v.Materia_Prima_Utilizada + '</td>' + '<td>' + v.Cantidad_MP_Anual_Utilizada + '</td>' + '<td>' + mp + '</td>' + '<td>' + v.Localidad_Origen_MP + '</td>' + '<td>' + v.Pais_Origen_MP + '</td>' + '<td>' + v.motivo_importacion_MP + '</td>' + '<td>' + v.Detalle_de_motivo_de_importacion_MP + '</td>' + '<td>' + v.anio_MP + '</td>' + '</tr>');
             })
             //insumos
-            $(response.insumos).each(function(i, v) {
+            $(response.insumos).each(function (i, v) {
                 var p = v.Es_insumo_propio == "P" ? "Propio" : "Adquirido"
                 var m = v.motivo_importacion_Insumo == null ? "--" : v.motivo_importacion_Insumo
                 var d = v.Detalle_de_motivo_de_importacion_Insumo == null ? "--" : v.Detalle_de_motivo_de_importacion_Insumo
                 $('#tbody_insumos_dj').append('<tr>' + '<td>' + v.Insumos_utilizados + '</td>' + '<td>' + p + '</td>' + '<td>' + v.Localidad_Origen_Insumo + '</td>' + '<td>' + v.Pais_Origen_Insumo + '</td>' + '<td>' + m + '</td>' + '<td>' + d + '</td>' + '<td>' + v.anio_insumos + '</td>' + '</tr>');
             })
             //servicios
-            $(response.servicios).each(function(i, v) {
+            $(response.servicios).each(function (i, v) {
                 var m = v.motivo_importacion_Servicio == null ? "--" : v.motivo_importacion_Servicio
                 var d = v.Detalle_de_motivo_de_importacion_Servicio == null ? "--" : v.Detalle_de_motivo_de_importacion_Servicio
                 $('#tbody_servicios_dj').append('<tr>' + '<td>' + v.Servicio + '</td>' + '<td>' + v.cantidad_consumida + '</td>' + '<td>' + v.Costo_del_Servicio + '</td>' + '<td>' + v.frecuencia_de_contratacion_Servicio + '</td>' + '<td>' + v.Localidad_Origen_Servicio + '</td>' + '<td>' + v.Pais_Origen_Servicio + '</td>' + '<td>' + m + '</td>' + '<td>' + d + '</td>' + '<td>' + v.anio_Servicios + '</td>' + '</tr>');
             })
             //tbody_gastos_dj
-            $(response.gastos).each(function(i, v) {
+            $(response.gastos).each(function (i, v) {
                 $('#tbody_gastos_dj').append('<tr>' + '<td>' + v.Concepto_de_egreso + '</td>' + '<td>$' + v.importe + '</td>' + '<td>' + v.anio_egresos + '</td>' + '</tr>');
             })
             //sit planta 
-            $(response.sit).each(function(i, v) {
+            $(response.sit).each(function (i, v) {
                 var m = v.Establecida_en_zona_industrial == 0 ? "No" : "Si"
                 //var d=v.Detalle_de_motivo_de_importacion_Servicio == null ? "--" : v.Detalle_de_motivo_de_importacion_Servicio 
                 $('#tbody_situacion_dj').append('<tr>' + '<td>' + v.produccion_sobre_capacidad + '%</td>' + '<td>' + v.superficie_lote + '</td>' + '<td>' + v.superficie_planta + '</td>' + '<td>' + m + '</td>' + '<td>$' + v.inversion_anual + '</td>' + '<td>$' + v.inversion_activo_fijo + '</td>' + '<td>' + v.capacidad_instalada + '%</td>' + '<td>' + v.capacidad_ociosa + '%</td>' + '<td>' + v.anio_situacion_De_planta + '</td>' + '</tr>');
             })
-            $(response.ocios).each(function(i, v) {
+            $(response.ocios).each(function (i, v) {
                 $('#tbody_mot_o_dj').append('<tr>' + '<td>' + v.motivo_ociosidad + '</td>' + '<td>' + v.anio_ociosidad + '</td>' + '</tr>');
             })
             //tbody_p_ocupado_dj
-            $(response.po).each(function(i, v) {
+            $(response.po).each(function (i, v) {
                 var s = v.sexo == "M" ? "Masculino" : "Femenino"
                 //var d=v.Detalle_de_motivo_de_importacion_Servicio == null ? "--" : v.Detalle_de_motivo_de_importacion_Servicio 
                 $('#tbody_p_ocupado_dj').append('<tr>' + '<td>' + v.rol_trabajador + '</td>' + '<td>' + v.condicion_laboral + '</td>' + '<td>' + s + '</td>' + '<td>' + v.numero_de_trabajadores + '</td>' + '<td>' + v.anio_rol_trabajadores + '</td>' + '</tr>');
             })
             //tbody_venta_nacional_dj
-            $(response.venta_nacional).each(function(i, v) {
+            $(response.venta_nacional).each(function (i, v) {
                 $('#tbody_venta_nacional_dj').append('<tr>' + '<td>' + v.Tipo_de_Venta + '</td>' + '<td>' + v.Provincia_Destino_ventas + '</td>' + '<td>' + v.anio_destino_ventas + '</td>' + '</tr>');
             })
             //tbody_venta_nacional_dj
-            $(response.venta_inter).each(function(i, v) {
+            $(response.venta_inter).each(function (i, v) {
                 $('#tbody_venta_inter_dj').append('<tr>' + '<td>' + v.Tipo_de_Venta + '</td>' + '<td>' + v.Pais_Destino_ventas + '</td>' + '<td>' + v.anio_destino_ventas + '</td>' + '</tr>');
             })
             //facturacion
-            $(response.fact).each(function(i, v) {
+            $(response.fact).each(function (i, v) {
                 $('#tbody_facturacion_dj').append('<tr>' + '<td>' + v.categoria_pyme + '</td>' + '<td>$' + v.prevision_ingresos_anio_corriente + '</td>' + '<td>' + v.prevision_ingresos_anio_corriente_dolares + 'Usd</td>' + '<td>' + v.porcentaje_prevision_mercado_interno + '%</td>' + '<td>' + v.porcentaje_prevision_mercado_externo + '%</td>' + '<td>' + v.Anio_Facturacion + '</td>' + '</tr>');
             })
             //efluente
-            $(response.efluente).each(function(i, v) {
+            $(response.efluente).each(function (i, v) {
                 $('#tbody_efluentes_dj').append('<tr>' + '<td>' + v.efluente + '</td>' + '<td>' + v.Tratamiento_del_Efluente + '</td>' + '<td>' + v.Destino_Efluente + '</td>' + '<td>' + v.anio_efluente + '</td>' + '</tr>');
             })
             // certificados
-            $(response.certificados).each(function(i, v) {
+            $(response.certificados).each(function (i, v) {
                 var vi = v.Vigencia_Certificado == "Desde: Hasta:" ? "--" : v.Vigencia_Certificado
                 $('#tbody_certificados_dj').append('<tr>' + '<td>' + v.certificado + '</td>' + '<td>' + v.Estado_Certificado + '</td>' + '<td>' + vi + '</td>' + '<td>' + v.anio_certificado + '</td>' + '</tr>');
             })
             //  sistemas de calidad 
-            $(response.sistemas).each(function(i, v) {
+            $(response.sistemas).each(function (i, v) {
                 var vi = v.Vigencia_Sistema_de_calidad == "Desde: Hasta:" ? "--" : v.Vigencia_Sistema_de_calidad
                 $('#tbody_sistemas_dj').append('<tr>' + '<td>' + v.sistema_de_calidad + '</td>' + '<td>' + v.Estado_Sistema_de_calidad + '</td>' + '<td>' + vi + '</td>' + '<td>' + v.Anio_Sistema_de_calidad + '</td>' + '</tr>');
             })
-            $(response.promo).each(function(i, v) {
+            $(response.promo).each(function (i, v) {
                 var vi = v.Vigencia_Promocion_industrial == "Desde: Hasta:" ? "--" : v.Vigencia_Sistema_de_calidad
                 $('#tbody_promo_dj').append('<tr>' + '<td>' + v.promocion_industrial + '</td>' + '<td>' + v.Estado_Promocion_industrial + '</td>' + '<td>' + vi + '</td>' + '<td>' + v.Anio_Promocion_industrial + '</td>' + '</tr>');
             })
-            $(response.eco).each(function(i, v) {
+            $(response.eco).each(function (i, v) {
                 $('#tbody_economia_dj').append('<tr>' + '<td>' + v.sector + '</td>' + '<td>' + v.Anio_Economia_del_conocimiento_sector + '</td>' + '</tr>');
             })
-            $(response.perfil).each(function(i, v) {
+            $(response.perfil).each(function (i, v) {
                 $('#tbody_perfil_dj').append('<tr>' + '<td>' + v.perfil + '</td>' + '<td>' + v.Anio_Economia_del_conocimiento_perfil + '</td>' + '</tr>');
             })
         }
     });
 }
-$(document).ready(function() {
-    $("#anio_periodo_fiscal").on('change', function() {
+$(document).ready(function () {
+    $("#anio_periodo_fiscal").on('change', function () {
         //.prop('selected', true)
         //$('.selDiv option[value="SEL1"]')
         //$("#periodofiscal").children("option").filter(":selected").prop('selected', false)
@@ -2586,4 +2588,62 @@ $(document).ready(function() {
         $('#anio_periodo_fiscal').val($(this).val())
         $("#span_generales").click();
     })
+})
+
+$(document).ready(function () {
+$("#btn_export_dj").on('click',function(){
+
+    /* let pdf = new jsPDF('l', 'pt', 'a4');
+    pdf.html(document.getElementById('ddjj'), {
+        callback: function () {
+            //pdf.save('test.pdf');
+            window.open(pdf.output('bloburl')); // to debug
+        }
+    });
+ */
+/* 
+    let doc = new jsPDF('l', 'pt', 'a4');
+    doc.fromHTML($('#ddjj').html(), 15, 15, {
+        'width': 170,
+      
+           });
+    doc.save('sample-file.pdf'); */
+
+    var HTML_Width = $("#ddjj").width();
+    var HTML_Height = $("#ddjj").height();
+    var top_left_margin = 15;
+    var PDF_Width = HTML_Width + (top_left_margin * 2);
+    var PDF_Height = (PDF_Width * 1.5) + (top_left_margin * 2);
+    var canvas_image_width = HTML_Width;
+    var canvas_image_height = HTML_Height;
+
+    var totalPDFPages = Math.ceil(HTML_Height / PDF_Height) - 1;
+
+    html2canvas($("#ddjj")[0]).then(function (canvas) {
+       /*  var imgData = canvas.toDataURL("image/jpeg", 1.0);
+        var pdf = new jsPDF('p', 'pt', [PDF_Width, PDF_Height]);
+        pdf.addImage(imgData, 'JPG', top_left_margin, top_left_margin, canvas_image_width, canvas_image_height);
+        for (var i = 1; i <= totalPDFPages; i++) { 
+            pdf.addPage(PDF_Width, PDF_Height);
+            pdf.addImage(imgData, 'JPG', top_left_margin, -(PDF_Height*i)+(top_left_margin*4),canvas_image_width,canvas_image_height);
+        }
+        pdf.save("Your_PDF_Name.pdf"); */
+        //$("#ddjj").hide();
+
+
+        const imgData = canvas.toDataURL('image/png');
+        const pdf = new jsPDF('p', 'pt', [PDF_Width, PDF_Height]);
+        const imgProps= pdf.getImageProperties(imgData);
+        const pdfWidth = pdf.internal.pageSize.getWidth();
+        const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+
+        for (var i = 1; i <= totalPDFPages; i++) { 
+            pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+        }
+     
+        pdf.save('download.pdf');
+    });
+
+
+})
 })
