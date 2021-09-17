@@ -109,10 +109,10 @@
                                                 <td>{{$clave +1}}</td>
                                                 <td>
 
-                                                    @if(!$industria->actividad)
-
+                                                      
                                                     <span class="badge badge-pill badge-warning"> <b>Tramite en proceso</b></span>
-                                                    @php
+                                                    <!--  @if(!$industria->actividad)--> 
+                                                    <!-- @php
                                                     $proceso=true;
                                                     @endphp
                                                     @else
@@ -121,13 +121,13 @@
                                                     @php
                                                     $proceso=false;
                                                     @endphp
-                                                    @endif
+                                                    @endif -->
 
                                                 </td>
                                                 <td>{{$industria->nombre_de_fantasia}}</td>
                                                 <td>
-                                                    <span style="cursor: pointer;" title="Ver Trámite" onClick="#"><i class="mdi mdi-eye font-24 text-danger"></i></span>
-
+                                                    <!-- <span style="cursor: pointer;" title="Ver Trámite" onClick="#"><i class="mdi mdi-eye font-24 text-danger"></i></span>
+ -->
                                                     <span style="cursor: pointer;" title="Continuar Trámite" onClick="UpdateTramite('<?php echo $industria->id_industria ?>')"><i class="mdi mdi-file-multiple font-24 text-danger"></i></span>
 
                                                 </td>
@@ -140,11 +140,11 @@
                             </div>
 
                             <div class="text-left">
-                                @if($proceso == false)
+                               <!--  @if($proceso == false) -->
                                 <a href="{{route('procedimientos')}}"><button type="button" class="btn btn-dark"><span class="fa fa-plus-circle"></span> Registrar Nuevo Establecimiento Industrial</button></a>
-                                @else
+                               <!--  @else
                                 <button type="button" onclick="AlertaTramite('');" class="btn btn-dark"><span class="fa fa-plus-circle"></span> Registrar Nuevo Establecimiento Industrial</button></a>
-                                @endif
+                                @endif -->
                             </div>
 
                         </div>

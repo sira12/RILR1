@@ -80,7 +80,7 @@
                                 <span class="categories" href="#pyca" onclick="muestraForm('pyca');"><i class="fa fa-tasks"></i> Prevención y Control Ambiental</span>
                                 <span class="categories" href="#sc" onclick="muestraForm('sc');"><i class="fa fa-tasks"></i> Sistemas de Calidad</span>
                                 <span class="categories" href="#ec" onclick="muestraForm('ec');"><i class="fa fa-tasks"></i> Economía del Conocimiento</span>
-                                <span class="categories" href="#ddjj" onclick="muestraForm('ddjj');"><i class="fa fa-tasks"></i> Revisión y Confirmación DDJJ</span>
+                                <span class="categories" onclick="alertDj();"><i class="fa fa-tasks"></i> Revisión y Confirmación DDJJ</span>
                             </div>
 
                             <div id="secciones" class="mt-3">
@@ -243,8 +243,8 @@
                                             <div class="col-md-3">
                                                 <div class="form-group has-feedback">
                                                     <label class="control-label">Provincia de Planta: <span class="symbol required"></span></label>
-                                                    <input type="hidden" name="id_provincia" id="id_provincia" value="" />
-                                                    <input type="text" class="form-control" name="buscar_provincia" id="buscar_provincia" placeholder="Ingrese Nombre de Provincia" value="" required="" aria-required="true" />
+                                                    <input type="hidden" name="id_provincia" id="id_provincia" value="9" />
+                                                    <input type="text" class="form-control" name="buscar_provincia" id="buscar_provincia" placeholder="Ingrese Nombre de Provincia" value="LA RIOJA" disabled required="" aria-required="true" />
                                                     <i class="fa fa-search form-control-feedback"></i>
                                                 </div>
                                             </div>
@@ -254,7 +254,7 @@
                                                 <div class="form-group has-feedback">
                                                     <label class="control-label">Localidad de Planta: <span style="cursor: pointer;" class="mdi mdi-alert-circle text-danger" data-container="body" title="Notificación: Ingrese Nombre de Localidad y seleccione en el Listado que se mostrará, en caso de no aparecer, escribala y el sistema se encargará de la asignación del mismo."></span><span class="symbol required"></span></label>
                                                     <input type="hidden" name="id_localidad" id="id_localidad" value="" />
-                                                    <input type="text" class="form-control" disabled name="buscar_localidad" id="buscar_localidad" placeholder="Ingrese Nombre de Localidad" value="" required="" aria-required="true" />
+                                                    <input type="text" class="form-control"  name="buscar_localidad" id="buscar_localidad" placeholder="Ingrese Nombre de Localidad" value="" required="" aria-required="true" />
                                                     <i class="fa fa-search form-control-feedback"></i>
                                                 </div>
                                             </div>

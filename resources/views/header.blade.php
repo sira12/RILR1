@@ -64,12 +64,12 @@
                 <!-- ============================================================== -->
                 <!-- Search -->
                 <!-- ============================================================== -->
-                <li class="nav-item search-box">
+                <!-- <li class="nav-item search-box">
                     <form class="app-search d-none d-lg-block order-lg-2">
                         <input type="text" class="form-control" placeholder="Búsqueda...">
                         <a href="" class="active"><i class="fa fa-search"></i></a>
                     </form>
-                </li>
+                </li> -->
 
                 <!-- ============================================================== -->
                 <!-- User profile and search -->

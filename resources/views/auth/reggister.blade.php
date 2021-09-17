@@ -36,6 +36,8 @@
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
 
+<meta name="csrf-token" content="{{ csrf_token() }}">
+
 </head>
 
 <body onLoad="muestraReloj()" class="fix-header">
@@ -184,7 +186,7 @@
                 <!-- Start Page Content -->
                 <!-- ============================================================== -->
 
-                <form class="form form-material" method="post" action="{{route('register')}}" name="saveinicio" id="saveinicio" enctype="multipart/form-data">
+                <form class="form form-material"  name="saveinicio" id="saveinicio" enctype="multipart/form-data">
                     @csrf
                     <!-- Row -->
                     <div class="row">
@@ -210,7 +212,7 @@
                                                 <div class="form-group has-feedback">
                                                     <label class="control-label">CUIT/CUIL: <span class="symbol required"></span></label>
                                                     <input type="hidden" name="proceso" id="proceso" value="save" />
-                                                    <input type="text" class="form-control" class="@error('cuit') is-invalid @enderror" name="cuit" id="cuit" placeholder="Ingrese Nº de CUIT/CUIL" autocomplete="off" />
+                                                    <input type="text" class="form-control" class="@error('cuit') is-invalid @enderror" name="cuit" id="cuit" maxlength="11" placeholder="Ingrese Nº de CUIT/CUIL" autocomplete="off" />
                                                     <i class="fa fa-bolt form-control-feedback"></i>
 
 
@@ -468,7 +470,7 @@
                                                                 <span class="input-group-addon btn btn-success btn-file">
                                                                     <span class="fileinput-new"><i class="fa fa-cloud-upload"></i> Selecciona Archivo</span>
                                                                     <span class="fileinput-exists"><i class="fa fa-file-photo-o"></i> Cambiar</span>
-                                                                    <input type="file" class="btn btn-default" data-original-title="Subir Imagen" data-rel="tooltip" placeholder="Suba su Archivo" name="dniFrente" id="dniFrente" autocomplete="off" title="Buscar Archivo">
+                                                                    <input type="file" class="btn btn-default" data-original-title="Subir Imagen" data-rel="tooltip" placeholder="Suba su Archivo" name="dniFrente" id="dniFrente" required autocomplete="off" title="Buscar Archivo">
                                                                 </span>
                                                                 <a href="#" class="input-group-addon btn btn-dark fileinput-exists" data-dismiss="fileinput"><i class="fa fa-trash-o"></i> Quitar</a>
                                                             </div><span class="card-subtitle text-muted">Para Subir el Archivo debe tener en cuenta:<br> * El Archivo a cargar debe ser extension.jpg,png,pdf<br> * No debe ser mayor de 5000 KB (5 MB)</span>
@@ -488,7 +490,7 @@
                                                                 <span class="input-group-addon btn btn-success btn-file">
                                                                     <span class="fileinput-new"><i class="fa fa-cloud-upload"></i> Selecciona Archivo</span>
                                                                     <span class="fileinput-exists"><i class="fa fa-file-photo-o"></i> Cambiar</span>
-                                                                    <input type="file" class="btn btn-default" data-original-title="Subir Imagen" data-rel="tooltip" placeholder="Suba su Archivo" name="dniDorso" id="dniDorso" autocomplete="off" title="Buscar Archivo">
+                                                                    <input type="file" class="btn btn-default" data-original-title="Subir Imagen" data-rel="tooltip" placeholder="Suba su Archivo" name="dniDorso" id="dniDorso" required autocomplete="off" title="Buscar Archivo">
                                                                 </span>
                                                                 <a href="#" class="input-group-addon btn btn-dark fileinput-exists" data-dismiss="fileinput"><i class="fa fa-trash-o"></i> Quitar</a>
                                                             </div><span class="card-subtitle text-muted">Para Subir el Archivo debe tener en cuenta:<br> * El Archivo a cargar debe ser extension.jpg,png,pdf<br> * No debe ser mayor de 5000 KB (5 MB)</span>
@@ -582,7 +584,10 @@
                                                 <div class="form-group has-feedback">
                                                     <div class="campo">
                                                         <label class="control-label">Ingrese Contraseña: <a class="symbol required"></a></label>
-                                                        <input class="form-control" class="@error('password') is-invalid @enderror" type="password" placeholder="Ingrese Contraseña" name="password" id="password" autocomplete="off" required="" aria-required="true"><span>Mostrar</span>
+                                                        <input class="form-control" class="@error('password') is-invalid @enderror" 
+                                                        type="password" placeholder="Ingrese Contraseña" name="password" id="password" 
+                                                        autocomplete="off" required="" aria-required="true">
+                                                        <span id="span_pass" onclick="mostrarPass('password');">Mostrar</span>
                                                     </div>
                                                     <i class="fa fa-key form-control-feedback"></i>
 
@@ -602,7 +607,7 @@
                                                 <div class="form-group has-feedback">
                                                     <div class="campo2">
                                                         <label class="control-label">Repita Contraseña: <a class="symbol required"></a></label>
-                                                        <input type="password" class="form-control" name="password_confirmation" class="@error('password_confirmation') is-invalid @enderror" id="password_confirmation" placeholder="Repita Contraseña" autocomplete="off" required="" aria-required="true" /><span>Mostrar</span>
+                                                        <input type="password" class="form-control" name="password_confirmation" class="@error('password_confirmation') is-invalid @enderror" id="password_confirmation" placeholder="Repita Contraseña" autocomplete="off" required="" aria-required="true" /><span id="span_pass_confirm" onclick="mostrarPass('password_confirmation');">Mostrar</span>
                                                     </div>
                                                     <i class="fa fa-key form-control-feedback"></i>
 
@@ -712,9 +717,12 @@
     <script type="text/javascript" src="{{ asset('assets/js/inputmask.bundle.min.js')}}"></script>
     <script type="text/javascript" src="{{ asset('assets/script/mask.js')}}"></script>
     <script type="text/javascript" src="{{ asset('assets/script/password.js')}}"></script>
-    <!-- <script type="text/javascript" src="{{ asset('assets/script/script2.js')}}"></script>-->
+    <!-- <script type="text/javascript" src="{{ asset('assets/script/script2.js')}}"></script> -->
     <script type="text/javascript" src="{{ asset('assets/script/validation.min.js')}}"></script>
-    <!-- <script type="text/javascript" src="{{ asset('assets/script/script.js')}}"></script>-->
+    <script type="text/javascript" src="{{ asset('assets/script/script.js')}}"></script>
+    <script src="{{ asset('js/functions.js')}}"></script>
+    <link rel="stylesheet" href="{{asset('assets/venobox/venobox/venobox.min.css')}}" />
+    <script src="{{asset('assets/venobox/venobox/venobox.min.js')}}"></script>
     <!-- script jquery -->
 
     <!-- Calendario -->
