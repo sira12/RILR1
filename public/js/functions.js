@@ -1,7 +1,7 @@
 $(document).ready(function () {
     var id_localidad
     var id_localidad2
-    var id_provincia1;
+    var id_provincia1=9;
     var id_provincia2;
     var id_provincia_3
     var id_pais
@@ -2591,46 +2591,87 @@ $(document).ready(function () {
 })
 
 $(document).ready(function () {
-$("#btn_export_dj").on('click',function(){
+    $("#btn_export_dj").on('click', function () {
 
-    /* let pdf = new jsPDF('l', 'pt', 'a4');
-    pdf.html(document.getElementById('ddjj'), {
-        callback: function () {
-            //pdf.save('test.pdf');
-            window.open(pdf.output('bloburl')); // to debug
-        }
-    });
- */
-/* 
-    let doc = new jsPDF('l', 'pt', 'a4');
-    doc.fromHTML($('#ddjj').html(), 15, 15, {
-        'width': 170,
-      
-           });
-    doc.save('sample-file.pdf'); */
+        $.ajax({
+            type: "post",
+            url: "/getViewsddjj",
+            data: {
+                _token: $('meta[name="csrf-token"]').attr('content'),
+                id: $("#id_industria_modal").val(),
+                var_control:"export"
+            },
+            dataType: 'json',
+            success: function (response) {
+            
+            
+            }  
+            });
 
-    var HTML_Width = $("#ddjj").width();
-    var HTML_Height = $("#ddjj").height();
-    var top_left_margin = 15;
-    var PDF_Width = HTML_Width + (top_left_margin * 2);
-    var PDF_Height = (PDF_Width * 1.5) + (top_left_margin * 2);
-    var canvas_image_width = HTML_Width;
-    var canvas_image_height = HTML_Height;
+        /* let pdf = new jsPDF('l', 'pt', 'a4');
+        pdf.html(document.getElementById('ddjj'), {
+            callback: function () {
+                //pdf.save('test.pdf');
+                window.open(pdf.output('bloburl')); // to debug
+            }
+        });
+     */
+        /* 
+            let doc = new jsPDF('l', 'pt', 'a4');
+            doc.fromHTML($('#ddjj').html(), 15, 15, {
+                'width': 170,
+              
+                   });
+            doc.save('sample-file.pdf'); */
 
-    var totalPDFPages = Math.ceil(HTML_Height / PDF_Height) - 1;
+       /*  var HTML_Width = $("#ddjj").width();
+        var HTML_Height = $("#ddjj").height();
+        var top_left_margin = 15;
+        var PDF_Width = HTML_Width + (top_left_margin * 2);
+        var PDF_Height = (PDF_Width * 1.5) + (top_left_margin * 2);
+        var canvas_image_width = HTML_Width;
+        var canvas_image_height = HTML_Height;
 
-    html2canvas($("#ddjj")[0]).then(function (canvas) {
-        var imgData = canvas.toDataURL("image/jpeg", 1.0);
-        var pdf = new jsPDF('p', 'pt', [PDF_Width, PDF_Height]);
-        pdf.addImage(imgData, 'JPG', top_left_margin, top_left_margin, canvas_image_width, canvas_image_height);
-        for (var i = 1; i <= totalPDFPages; i++) { 
-            pdf.addPage(PDF_Width, PDF_Height);
-            pdf.addImage(imgData, 'JPG', top_left_margin, -(PDF_Height*i)+(top_left_margin*4),canvas_image_width,canvas_image_height);
-        }
-        pdf.save("Your_PDF_Name.pdf");
-        //$("#ddjj").hide();
-    });
+        var totalPDFPages = Math.ceil(HTML_Height / PDF_Height) - 1;
+
+        html2canvas($("#ddjj")[0]).then(function (canvas) {
+            var imgData = canvas.toDataURL("image/jpeg", 1.0);
+            var pdf = new jsPDF('p', 'pt', [PDF_Width, PDF_Height]);
+            pdf.addImage(imgData, 'JPG', top_left_margin, top_left_margin, canvas_image_width, canvas_image_height);
+            for (var i = 1; i <= totalPDFPages; i++) {
+                pdf.addPage(PDF_Width, PDF_Height);
+                pdf.addImage(imgData, 'JPG', top_left_margin, -(PDF_Height * i) + (top_left_margin * 4), canvas_image_width, canvas_image_height);
+            }
+            pdf.save("Your_PDF_Name.pdf");
+            //$("#ddjj").hide();
+        }); */
 
 
+    })
 })
-})
+
+function mostrarPass(ref) {
+   
+
+    var tipo = document.getElementById(ref);
+    if (tipo.type == "password") {
+        $("#" + ref + "").attr('type', 'text');
+
+        if (ref == "password") {
+            $("#span_pass").text('Ocultar')
+        } else {
+            $("#span_pass_confirm").text('Ocultar')
+        }
+    } else {
+        $("#" + ref + "").attr('type', 'password');
+        if (ref == "password") {
+            $("#span_pass").text('Mostrar')
+        } else {
+            $("#span_pass_confirm").text('Mostrar')
+        }
+    }
+}
+
+function alertDj(){
+    swal("Oops", "Está seccion está en desarrollo, disculpe las molestias.", "warning");
+}

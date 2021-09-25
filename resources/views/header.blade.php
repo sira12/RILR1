@@ -16,7 +16,7 @@
                     <!-- Dark Logo icon -->
 
 
-                    <img src="{{asset('fotos/logo-principal.png')}}" width="150" height="50" alt="Logo Principal" class="dark-logo">
+                    <img src="{{asset('fotos/3-transp.png')}}" width="150" height="35" alt="Logo Principal" class="dark-logo">
 
 
                 </b>
@@ -81,8 +81,8 @@
 
 
                         <span class="ml-2 d-lg-block">
-                            <h5 class="text-dark mb-0">Razon social</h5>
-                            <small class="text-info mb-0">Admin o cuit</small>
+                            <h5 class="text-dark mb-0">{{$contribuyente->razon_social}}</h5>
+                            <small class="text-info mb-0">{{$contribuyente->cuit}}</small>
                         </span>
                     </a>
 
@@ -96,17 +96,28 @@
 
 
                             <div class="ml-2">
-                                <h5 class="mb-0"><abbr title="Nombres/Razón Social">razonsocial</abbr></h5>
-                                <p class="mb-0 text-muted"><abbr title="Correo Electrónico">email</abbr></p>
-                                <p class="mb-0 text-muted"><abbr title="Nº de Teléfono">celular</abbr></p>
+                                <h5 class="mb-0"><abbr title="Nombres/Razón Social">{{$contribuyente->razon_social}}</abbr></h5>
+                                <p class="mb-0 text-muted"><abbr title="Correo Electrónico">{{$contribuyente->email_fiscal}}</abbr></p>
+                               
                             </div>
                         </div>
 
-                        <a class="dropdown-item" href="perfil"><i class="fa fa-user"></i> Ver Perfil</a>
+                        <!-- <a class="dropdown-item" href="perfil"><i class="fa fa-user"></i> Ver Perfil</a>
                         <a class="dropdown-item" href="password"><i class="fa fa-edit"></i> Actualizar Password</a>
-                        <a class="dropdown-item" href="bloqueo"><i class="fa fa-clock-o"></i> Bloquear Sesión</a>
+                        <a class="dropdown-item" href="bloqueo"><i class="fa fa-clock-o"></i> Bloquear Sesión</a> -->
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="logout"><i class="fa fa-power-off"></i> Cerrar Sesión</a>
+
+                        <form method="POST" action="{{ route('logout') }}" style="margin: 0px !important;">
+                        @csrf
+
+                        <a class="dropdown-item" href="route('logout')" onclick="event.preventDefault();
+                                                this.closest('form').submit();" class="sidebar-link"><i class="mdi mdi-power">
+                            </i><span > Cerrar Sesión</span>
+                        </a>
+
+
+                    </form>
+                       <!--  <a class="dropdown-item" href="logout"><i class="fa fa-power-off"></i> Cerrar Sesión</a> -->
                     </div>
                 </li>
 

@@ -17,9 +17,10 @@ class IndexController extends Controller
     {
         $user = auth()->user();
 
-        $contribuyente = DB::table('rel_persona_contribuyente')->where('id_rel_persona_contribuyente', $user->id_rel_persona_contribuyente)->first();
+        $pers_contrib = DB::table('rel_persona_contribuyente')->where('id_rel_persona_contribuyente', $user->id_rel_persona_contribuyente)->first();
+        $contribuyente=DB::table('contribuyente')->where('id_contribuyente',$pers_contrib->id_contribuyente)->get();
 
-        $industrias = Industria::where('industria.id_contribuyente', '=', $contribuyente->id_contribuyente)->get();
+        $industrias = Industria::where('industria.id_contribuyente', '=', $pers_contrib->id_contribuyente)->get();
         foreach ($industrias as $industria) {
             $act = $industria->actividades;
             $industria['actividad'] = $act;
@@ -27,7 +28,8 @@ class IndexController extends Controller
 
         return view('index', [
             'industrias' => $industrias,
-            'id_contribuyente' => $contribuyente->id_contribuyente
+            'id_contribuyente' => $pers_contrib->id_contribuyente,
+            'contribuyente'=>$contribuyente[0]
         ]);
     }
 

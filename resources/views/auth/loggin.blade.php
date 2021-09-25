@@ -57,7 +57,7 @@
 
           <div class="logo">
             <span class="db">
-              <img src="{{ asset('fotos/logo-principal.png')}}" width="80%" height="75px" alt="Logo Principal">
+              <img src="{{ asset('fotos/3-transp.png')}}" width="100%" height="76px" alt="Logo Principal">
             </span>
             <h5 class="font-medium mb-10"></h5>
           </div>
@@ -110,11 +110,11 @@
                   </div>
                 </div>
 
-                <div class="form-group">
+                <!-- <div class="form-group">
                   <div class="col-md-12">
                     <a href="javascript:void(0)" id="to-recover" class="text-dark pull-right"><i class="fa fa-lock"></i> Olvidaste tu Contraseña?</a>
                   </div>
-                </div>
+                </div> -->
 
 
                 <div class="form-group text-center m-t-20">

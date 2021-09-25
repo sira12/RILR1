@@ -9,6 +9,7 @@ use App\Http\Controllers\ProcedimientosController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\ContribuyenteController;
 use App\Http\Controllers\ActividadController;
+use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\DdjjCOntroller;
 use App\Http\Controllers\EconomiaController;
 use App\Http\Controllers\IndustriaController;
@@ -22,7 +23,9 @@ use App\Http\Controllers\SituacionPlantaController;
 use App\Http\Controllers\VentasyFacturacionController;
 use App\Http\Controllers\PrevencionCAController;
 use App\Http\Controllers\SistemasCalidadController;
+use App\Mail\RegistroMailable;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Mail;
 
 /*
 |--------------------------------------------------------------------------
@@ -58,6 +61,10 @@ Route::get('/sl', function () {
   Artisan::call('storage:link');
 });
 
+//check mail
+Route::post('/check_mail',[RegisteredUserController::class,'checkmail']);
+//check cuil
+Route::post('/check_cuil',[RegisteredUserController::class,'checkCuil']);
 //########## Rutas Busquedas Autocomplete ################
 
 Route::post('/barrios',[BarrioController::class,'getBarrios']);
@@ -265,3 +272,11 @@ Route::post('/updateContribuyente',[ContribuyenteController::class,'updateContri
 
 // industria
 Route::post('/getIndustria',[IndustriaController::class,'getIndustria'])->middleware(['auth']);
+
+
+Route::get('/mail',function(){
+  $correo=new RegistroMailable;
+  Mail::to('siradlv@gmail.com')->send($correo); 
+  Mail::to('mauriciogtoloza@gmail.com')->send($correo); 
+   return "mensaje Enviado"; 
+});

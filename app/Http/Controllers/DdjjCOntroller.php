@@ -44,9 +44,11 @@ class DdjjCOntroller extends Controller
 
   
             $pdf =PDF::loadView('Dj.dj',$result);
-
-            $content = $pdf->download()->getOriginalContent();
+            
     
+            $content = $pdf->download()->getOriginalContent();
+
+           
             Storage::put('dj_docs/name.pdf',$content) ;
         }
 

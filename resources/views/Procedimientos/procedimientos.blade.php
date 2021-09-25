@@ -45,11 +45,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <h3 class="card-title"><i class="fa fa-building"></i> Trámite de Registro y Estadistica
-                            Industrial</h3>
-                        <h4 class="card-subtitle" style="font-size: 15px;">Declaración jurada anual (Dec. 1736/68 MHEOP: Dec. 534/77 ME; Dec.
-                            100/81 MEO y SP; Dec. 4962/85 MHS y OP) </h4>
-                        <hr>
+                        
 
                         <div id="save">
                             <!-- error will be shown here ! -->
@@ -67,6 +63,7 @@
                                         <select class="form-control" id="anio_periodo_fiscal" name="anio_periodo_fiscal" required="" aria-required="true">
 
                                         </select>
+                                        <span style="font-weight:500;font-size: 12"> INSCRIPCIÓN/REINSCRIPCIÓN</span> <span style="font-size: 12;">Recuerde que en caso de ser una Reinscripción los valores cargados en las pestañas consecutivas a los datos de actividad deben ser basados en los resultados del período anterior, comprendido entre el 01 de Enero y el 31 de Diciembre del año seleccionado</span>
                                     </div>
                                 </div>
                             </div>
@@ -80,7 +77,8 @@
                                 <span class="categories" href="#pyca" onclick="muestraForm('pyca');"><i class="fa fa-tasks"></i> Prevención y Control Ambiental</span>
                                 <span class="categories" href="#sc" onclick="muestraForm('sc');"><i class="fa fa-tasks"></i> Sistemas de Calidad</span>
                                 <span class="categories" href="#ec" onclick="muestraForm('ec');"><i class="fa fa-tasks"></i> Economía del Conocimiento</span>
-                                <span class="categories" onclick="alertDj();"><i class="fa fa-tasks"></i> Revisión y Confirmación DDJJ</span>
+                                <span class="categories"  href="#ddjj" onclick="muestraForm('ddjj');"><i class="fa fa-tasks"></i> Revisión y Confirmación DDJJ</span>
+                                <!-- alertDj(); -->
                             </div>
 
                             <div id="secciones" class="mt-3">

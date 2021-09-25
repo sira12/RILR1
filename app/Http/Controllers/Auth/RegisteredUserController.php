@@ -17,7 +17,9 @@ use App\Http\Controllers\BarrioController;
 use App\Http\Controllers\CalleController;
 use App\Http\Controllers\PersonaController;
 use App\Http\Controllers\ContribuyenteController;
+use App\Mail\RegistroMailable;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class RegisteredUserController extends Controller
 {
@@ -52,14 +54,20 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request)
     {
-            
+        
         //validar cada campo 
-            $validate= $request->validate([
+           /*  $validate= $request->validate([
                 'nombre' => 'required|min:5|max:30',
                 'cuit' => 'numeric|required|digits_between:11,11',
                 'razonsocial'=>'required|min:5|max:18',
                 'documento'=>'required|min:5|max:18'
-            ]);
+            ]); */
+
+        //comprobar cuit existente
+
+        //comprobar mail existente
+
+        //comprobar dni existente
                     
         //si el barrio no fue encontrado, guardamos nuevo barrio
             if($request->id_barrio == null){
@@ -119,14 +127,11 @@ class RegisteredUserController extends Controller
             $path1=NULL; //se le pasa nulo, ya que no solicita el doc vinculante
         }
 
-
-
         //para apoderado
         if($request->id_tipo_de_afectacion == 5){
             $apoderado = $request->file('apoderado');
             $nombre_apoderado = strtolower($apoderado->getClientOriginalName());
 
-        
             $pos3 = strpos($nombre_apoderado, $findme0);
             $pos4 = strpos($nombre_apoderado, $findme);
             $pos5 = strpos($nombre_apoderado, $findme2);
@@ -134,11 +139,8 @@ class RegisteredUserController extends Controller
             //guardar imagen
             //detectar mime, para mandar a un disco u otro
             if ($pos3 !== false || $pos4 !== false) {
-            
-            
-                    $path2 = $apoderado->storeAs("/images/apoderado",($request->documento . "_". $fecha . '.' . $apoderado->extension()));
 
-            
+                    $path2 = $apoderado->storeAs("/images/apoderado",($request->documento . "_". $fecha . '.' . $apoderado->extension()));
 
             } else if ( $pos5 !== false) {        
                 //guardo en disco para pdfs
@@ -174,8 +176,34 @@ class RegisteredUserController extends Controller
             'fecha_de_actualizacion'=>$fecha_time
         ]);
 
-        event(new Registered($user));
+        //event(new Registered($user));
 
-        return redirect('/');
+        $correo=new RegistroMailable;
+        Mail::to($request->email_fiscal)->send($correo); 
+
+        return response()->json(array('status' => 200, 'msg' => "Guardado Correctamente"), 200);
+    }
+
+
+    public function checkmail(Request $request){
+        $mail=DB::table('usuario')->where('email',$request->mail)->get();
+        $control="noexiste"; 
+        if(count($mail) > 0){
+            $control="existe";
+        }
+
+        return response()->json(array('status' => 200, 'msg' => $control), 200);
+    }
+
+    public function checkCuil(Request $request){
+
+        $contribuyente=DB::table('contribuyente')->where('cuit',$request->cuit)->get();
+        $control="noexiste"; 
+        if(count($contribuyente) > 0){
+            $control="existe";
+        }
+
+        return response()->json(array('status' => 200, 'msg' => $control), 200);
+
     }
 }

@@ -13,14 +13,30 @@
             <div class="col-lg-3 col-md-4 col-xs-12 align-self-center">
                 <h5 class="font-medium text-uppercase mb-0"><i class="fa fa-tasks"></i> Inicio</h5>
             </div>
+            <div class="col-lg-6 col-md-6 col-xs-12 align-self-justify">
+                
+            </div>
             <div class="col-lg-9 col-md-8 col-xs-12 align-self-center">
                 <nav aria-label="breadcrumb" class="mt-2 float-md-right float-left">
                     <ol class="breadcrumb mb-0 justify-content-end p-0">
-                        <li class="breadcrumb-item">Control</li>
+
                         <li class="breadcrumb-item active" aria-current="page"></li>
                     </ol>
                 </nav>
             </div>
+        </div>
+    </div>
+    <div class="page-breadcrumb border-bottom">
+        <div class="row">
+            
+            <div class="col-lg-6 col-md-6 col-xs-12 align-self-justify">
+            <h4 class="card-title"><i class="fa fa-building"></i> Trámite de Registro y Estadistica
+                    Industrial</h4>
+                    <h5 class="card-subtitle" style="font-size: 12px;">Declaración jurada anual (Dec. 1736/68 MHEOP: Dec. 534/77 ME; Dec.
+                        100/81 MEO y SP; Dec. 4962/85 MHS y OP) </h5>
+                  
+            </div>
+            
         </div>
     </div>
     <!-- ============================================================== -->
@@ -109,9 +125,9 @@
                                                 <td>{{$clave +1}}</td>
                                                 <td>
 
-                                                      
+
                                                     <span class="badge badge-pill badge-warning"> <b>Tramite en proceso</b></span>
-                                                    <!--  @if(!$industria->actividad)--> 
+                                                    <!--  @if(!$industria->actividad)-->
                                                     <!-- @php
                                                     $proceso=true;
                                                     @endphp
@@ -128,7 +144,7 @@
                                                 <td>
                                                     <!-- <span style="cursor: pointer;" title="Ver Trámite" onClick="#"><i class="mdi mdi-eye font-24 text-danger"></i></span>
  -->
-                                                    <span style="cursor: pointer;" title="Continuar Trámite" onClick="UpdateTramite('<?php echo $industria->id_industria ?>')"><i class="mdi mdi-file-multiple font-24 text-danger"></i></span>
+                                                    <span style="cursor: pointer;" title="Continuar Trámite" onClick="UpdateTramite('<?php echo $industria->id_industria ?>')"><i class="mdi mdi-table-edit font-24 text-danger"></i></span>
 
                                                 </td>
                                             </tr>
@@ -140,9 +156,9 @@
                             </div>
 
                             <div class="text-left">
-                               <!--  @if($proceso == false) -->
+                                <!--  @if($proceso == false) -->
                                 <a href="{{route('procedimientos')}}"><button type="button" class="btn btn-dark"><span class="fa fa-plus-circle"></span> Registrar Nuevo Establecimiento Industrial</button></a>
-                               <!--  @else
+                                <!--  @else
                                 <button type="button" onclick="AlertaTramite('');" class="btn btn-dark"><span class="fa fa-plus-circle"></span> Registrar Nuevo Establecimiento Industrial</button></a>
                                 @endif -->
                             </div>
