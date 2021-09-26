@@ -63,11 +63,6 @@ class RegisteredUserController extends Controller
                 'documento'=>'required|min:5|max:18'
             ]); */
 
-        //comprobar cuit existente
-
-        //comprobar mail existente
-
-        //comprobar dni existente
                     
         //si el barrio no fue encontrado, guardamos nuevo barrio
             if($request->id_barrio == null){

@@ -212,7 +212,7 @@
                                                 <div class="form-group has-feedback">
                                                     <label class="control-label">CUIT/CUIL: <span class="symbol required"></span></label>
                                                     <input type="hidden" name="proceso" id="proceso" value="save" />
-                                                    <input type="text" class="form-control" class="@error('cuit') is-invalid @enderror" name="cuit" id="cuit" maxlength="11" placeholder="Ingrese Nº de CUIT/CUIL" autocomplete="off" />
+                                                    <input type="text" class="form-control" pattern="[0-9]+" class="@error('cuit') is-invalid @enderror" name="cuit" id="cuit" maxlength="11" placeholder="Ingrese Nº de CUIT/CUIL" autocomplete="off" />
                                                     <i class="fa fa-bolt form-control-feedback"></i>
 
 

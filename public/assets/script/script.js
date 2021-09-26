@@ -1707,6 +1707,7 @@ $('document').ready(function() {
                 required: true,
                 minlength: 11,
                 maxlength: 11,
+                digits: true,
                 checkCuit:true
             },
             razonsocial: {
@@ -1791,6 +1792,7 @@ $('document').ready(function() {
             },
             cuit: {
                 required: "Ingrese N&deg; de CUIT/CUIL",
+                digits: "Ingrese solo digitos",
                 checkCuit:"Este cuit/cuil ya se encuentra registrado, por favor intente con otro.",
                 minlength: "Ingrese 11 d&iacute;gitos como minimo",
                 maxlength: "Ingrese 11 d&iacute;gitos como m&aacute;ximo"
