@@ -2054,11 +2054,13 @@ function MotivoImportacionMateria() {
 
     //habilitamos
     $("#detalle_materia_div").show();
+    $("#detalles_materia").attr('disabled', false);
 
   } else {
 
     // deshabilitamos
      $("#detalle_materia_div").hide();
+     $("#detalles_materia").attr('disabled', true);
 
   }
 }
@@ -2091,7 +2093,7 @@ function origen(ref) {
 
 
 //ACTIVA INPUT DETALLES IMPORTACION EN METERIA PRIMA
-function ActivaDetallesMateriaPrima(detalles) {
+/* function ActivaDetallesMateriaPrima(detalles) {
 
   if (detalles === "0" || detalles === true) {
 
@@ -2104,7 +2106,7 @@ function ActivaDetallesMateriaPrima(detalles) {
     $("#detalles_materia").attr('disabled', false);
 
   }
-}
+} */
 
 // FUNCION PARA ASIGNAR MATERIA PRIMA A PRODUCTO
 function AddMateriaActividad(id_rel_industria_actividad_materia_prima) {

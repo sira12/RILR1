@@ -12,7 +12,7 @@ class ActividadController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-public function index()
+    public function index()
     {
         //
     }
@@ -36,10 +36,10 @@ public function index()
      */
     public function store(Request $request)
     {
-         $params = array();
-         parse_str($request->data, $params);
+        $params = array();
+        parse_str($request->data, $params);
 
-         dd($params);
+        dd($params);
         die();
     }
 
@@ -56,7 +56,6 @@ public function index()
 
         if ($request->search == '') {
             $actividades = Actividad::orderby('nomenclatura_ib', 'asc')->select('id_Actividad', 'actividad')->limit(5)->get();
-
         } else {
 
             if ($request->filtro == 1) {
@@ -68,7 +67,7 @@ public function index()
                 foreach ($actividades as $actividad) {
                     $response[] = array(
                         "value" => $actividad->id_Actividad,
-                        "label" =>$actividad->actividad ,
+                        "label" => $actividad->actividad,
                         "actividad" => trim($actividad->nomenclatura_ib)
                     );
                 }
@@ -78,15 +77,14 @@ public function index()
                     ->where('activo', 'S')
                     ->get();
 
-                 foreach ($actividades as $actividad) {
+                foreach ($actividades as $actividad) {
                     $response[] = array(
                         "value" => $actividad->id_Actividad,
-                        "label" =>trim($actividad->nomenclatura_ib),
+                        "label" => trim($actividad->nomenclatura_ib),
                         "actividad" => $actividad->actividad
                     );
                 }
             }
-
         }
 
 

@@ -22,6 +22,7 @@ use App\Http\Controllers\GastosController;
 use App\Http\Controllers\SituacionPlantaController;
 use App\Http\Controllers\VentasyFacturacionController;
 use App\Http\Controllers\PrevencionCAController;
+use App\Http\Controllers\pruebaController;
 use App\Http\Controllers\SistemasCalidadController;
 use App\Mail\RegistroMailable;
 use Illuminate\Support\Facades\Artisan;
@@ -37,8 +38,9 @@ use Illuminate\Support\Facades\Mail;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/a',[pruebaController::class,'index']);
 
-
+Route::post('/subir',[pruebaController::class,'subirArchivo'])->name('subir');
 
 //Route::post('login','Auth\LoginController@login')->name('login');
 
@@ -62,7 +64,7 @@ Route::get('/sl', function () {
 });
 
 //check mail
-Route::post('/check_mail',[RegisteredUserController::class,'checkmail']);
+Route::post('/check_mail',[RegisteredUserController::class,'prueba']);
 //check cuil
 Route::post('/check_cuil',[RegisteredUserController::class,'checkCuil']);
 //########## Rutas Busquedas Autocomplete ################

@@ -79,7 +79,6 @@ class MateriaPrimaController extends Controller
 
         $status = 200;
 
-
         if ($params['id_materia_prima'] == "") {
             $materia = new MateriaPrimaController();
             $id_materia = $materia->store($request);
@@ -123,7 +122,11 @@ class MateriaPrimaController extends Controller
                 $pais = intval($params['id_pais']);
                 $localidad = intval($params['id_localidad3']);
                 $motivo = intval($params['motivo_importacion_materia']);
-                $detalles = $params['detalles_materia'];
+                $detalles=""; 
+                if($motivo == 4){
+                    $detalles = $params['detalles_materia']; //si el motivo es "otros"
+                }
+               
             }
 
             $id_rel_actividad_materia_prima = DB::table('rel_actividad_materia_prima')->insertGetId([
