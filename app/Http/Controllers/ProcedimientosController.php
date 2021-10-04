@@ -339,7 +339,7 @@ class ProcedimientosController extends Controller
     public function edit($id)
     {
 
-
+        
         $regimen = RegimenIB::where('activo', "S")->get();
         $iva = CondicionIva::where('activo', "S")->get();
         $naturaleza_juridica = NaturalezaJuridica::where('activo', "S")->get();
@@ -364,8 +364,6 @@ class ProcedimientosController extends Controller
             'zona' => $zona
         ]);
 
-
-        
            
     }
 
@@ -488,21 +486,16 @@ class ProcedimientosController extends Controller
 
         $params = array();
         parse_str($request->data, $params);
-
-    
-        //cargar industria
+        
         $industria = new IndustriaController();
         $industria->update($request, intVal($request->id));
 
-
-        //cargar periodo industria
 
         $per_act_indu = new PeriodoActividadIndustriaController();
         $per_act_indu->update($request, intVal($request->id));
 
         return response()->json(array('status' => 200, 'msg' => "Datos Actualizados Correctamente"), 200);
-       
-
+      
     }
 
 

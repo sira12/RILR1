@@ -20,7 +20,11 @@ class DdjjCOntroller extends Controller
         $id=$request->id;
         $result=[];
         $result['industria_contribuyente'] = DB::select("select * from vw_info_contribuyente_industria where id_industria = '.$id.'");
-        //$result['actividades'] = DB::select('select * from vw_info_industria_actividad_producto_mp where id_industria = '.$id.'');
+        
+        dd($result);
+        die();
+
+//$result['actividades'] = DB::select('select * from vw_info_industria_actividad_producto_mp where id_industria = '.$id.'');
         $result['servicios'] = DB::select("select * from vw_info_servicio where id_industria = '.$id.'");
         $result['insumos'] = DB::select("select * from vw_info_insumo where id_industria = '.$id.'");
         $result['certificados'] = DB::select("select * from vw_info_certificado where id_industria = '.$id.'");
@@ -51,6 +55,9 @@ class DdjjCOntroller extends Controller
            
             Storage::put('dj_docs/name.pdf',$content) ;
         }
+        
+        dd($result); 
+        die();
 
         return response()->json( $result);
 

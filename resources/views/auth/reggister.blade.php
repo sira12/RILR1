@@ -186,7 +186,7 @@
                 <!-- Start Page Content -->
                 <!-- ============================================================== -->
 
-                <form class="form form-material"  name="saveinicio" id="saveinicio" enctype="multipart/form-data">
+                <form class="form form-material"  name="saveinicio" id="saveinicio" enctype="multipart/form-data" autocomplete="off">
                     @csrf
                     <!-- Row -->
                     <div class="row">
@@ -291,7 +291,7 @@
                                                 <div class="form-group has-feedback">
                                                     <label class="control-label">Provincia <span style="cursor: pointer;" class="mdi mdi-alert-circle text-danger" data-container="body" title="asd"></span><span class="symbol required"></span></label>
                                                     <input type="hidden" name="id_provincia" id="id_provincia" />
-                                                    <input type="text" class="form-control" name="search_provincia" id="search_provincia" placeholder="Ingrese Nombre de provincia" autocomplete="off" required="" aria-required="true" />
+                                                    <input autocorrect="off" spellcheck="false" autocomplete="off" type="text" class="form-control" name="search_provincia" id="search_provincia" placeholder="Ingrese Nombre de provincia" autocomplete="false" required="" aria-required="true"/>
                                                     <i class="fa fa-search form-control-feedback"></i>
                                                 </div>
                                             </div>
@@ -300,7 +300,7 @@
                                                 <div class="form-group has-feedback">
                                                     <label class="control-label">Localidad <span style="cursor: pointer;" class="mdi mdi-alert-circle text-danger" data-container="body"></span><span class="symbol required"></span></label>
                                                     <input type="hidden" name="id_localidad" id="id_localidad" />
-                                                    <input type="text" class="form-control" name="search_localidad" id="search_localidad" disabled placeholder="Ingrese Nombre de localidad" autocomplete="off" required="" aria-required="true" />
+                                                    <input autocomplete="off" type="text" class="form-control" name="search_localidad" id="search_localidad" disabled placeholder="Ingrese Nombre de localidad" autocomplete="off" required="" aria-required="true" />
                                                     <i class="fa fa-search form-control-feedback"></i>
                                                 </div>
                                             </div>
@@ -309,7 +309,7 @@
                                                 <div class="form-group has-feedback">
                                                     <label class="control-label">Nombre de Barrio: <span style="cursor: pointer;" class="mdi mdi-alert-circle text-danger" data-container="body" title="Notificación: Ingrese Nombre de Barrio y seleccione en el Listado que se mostrará, en caso de no aparecer, escribala y el sistema se encargará de la asignación del mismo."></span><span class="symbol required"></span></label>
                                                     <input type="hidden" name="id_barrio" id="id_barrio" />
-                                                    <input type="text" class="form-control" name="search_barrio" id="search_barrio" disabled placeholder="Ingrese Nombre de Barrio" autocomplete="off" required="" aria-required="true" />
+                                                    <input autocomplete="off" type="text" class="form-control" name="search_barrio" id="search_barrio" disabled placeholder="Ingrese Nombre de Barrio" autocomplete="off" required="" aria-required="true" />
                                                     <i class="fa fa-search form-control-feedback"></i>
                                                 </div>
                                             </div>
@@ -318,7 +318,7 @@
                                                 <div class="form-group has-feedback">
                                                     <label class="control-label">Nombre de Calle: <span style="cursor: pointer;" class="mdi mdi-alert-circle text-danger" data-container="body" title="Notificación: Ingrese Nombre de Calle y seleccione en el Listado que se mostrará, en caso de no aparecer, escribala y el sistema se encargará de la asignación del mismo."></span><span class="symbol required"></span></label>
                                                     <input type="hidden" name="id_calle" id="id_calle" />
-                                                    <input type="text" class="form-control" name="search_calle" id="search_calle" disabled placeholder="Ingrese Nombre de Calle" autocomplete="off" required="" aria-required="true" />
+                                                    <input autocomplete="off" type="text" class="form-control" name="search_calle" id="search_calle" disabled placeholder="Ingrese Nombre de Calle" autocomplete="off" required="" aria-required="true" />
                                                     <i class="fa fa-search form-control-feedback"></i>
                                                 </div>
                                             </div>
@@ -434,8 +434,8 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group has-feedback">
-                                                    <label class="control-label">Email Fiscal : <span style="cursor: pointer;" class="mdi mdi-alert-circle text-danger" data-container="body" title="Notificación: Se usará este medio para Remitir Comprobantes, notificaciones, etc"></span><span class="symbol required"></span></label>
-                                                    <input type="text" class="form-control" class="@error('email_fiscal') is-invalid @enderror" name="email_fiscal" id="email_fiscal" placeholder="Ingrese Correo Electrónico" autocomplete="off" required="" aria-required="true" />
+                                                    <label  class="control-label">Email Fiscal: <span style="cursor: pointer;" class="mdi mdi-alert-circle text-danger" data-container="body" title="Notificación: Se usará este medio para Remitir Comprobantes, notificaciones, etc"></span><span class="symbol required"></span></label>
+                                                    <input autocomplete="off" type="text" class="form-control" class="@error('email_fiscal') is-invalid @enderror" name="email_fiscal" id="email_fiscal" placeholder="Ingrese Correo Electrónico" autocomplete="off" required="" aria-required="true" />
                                                     <i class="fa fa-envelope-o form-control-feedback"></i>
 
                                                     @error('email-fiscal')
@@ -606,7 +606,7 @@
                                             <div class="col-lg-6">
                                                 <div class="form-group has-feedback">
                                                     <div class="campo2">
-                                                        <label class="control-label">Repita Contraseña: <a class="symbol required"></a></label>
+                                                        <label  class="control-label">Repita Contraseña: <a class="symbol required"></a></label>
                                                         <input type="password" class="form-control" name="password_confirmation" class="@error('password_confirmation') is-invalid @enderror" id="password_confirmation" placeholder="Repita Contraseña" autocomplete="off" required="" aria-required="true" /><span id="span_pass_confirm" onclick="mostrarPass('password_confirmation');">Mostrar</span>
                                                     </div>
                                                     <i class="fa fa-key form-control-feedback"></i>
@@ -737,17 +737,32 @@
     <script type="text/javascript" src="{{ asset('assets/plugins/timepicker/jquery-ui-timepicker-addon.js')}}"></script>
     <!-- jQuery -->
 
-
+    <script src="{{ asset('assets/remove-autocomplete/jquery.disable-autofill.js')}}"></script>
+    
+    <script>
+        $('input[autofill="off"]').disableAutofill();
+    </script>
 
 
 
 
     <script type="text/javascript">
+       
+       $('form').attr('autocomplete', 'off');
+        $('input').attr('autocomplete', 'off');
+
+
         var id_provincia
         //var id_localidad
         var id_localidad;
 
         $(document).ready(function() {
+            $('form').attr('autocomplete', 'off');
+            $('input').attr('autocomplete', 'off');
+
+
+
+
             $("#tipo_personeria").change(function() {
 
                 if ($("#tipo_personeria").val() == 2) {

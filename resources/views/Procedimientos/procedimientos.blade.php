@@ -77,7 +77,7 @@
                                 <span class="categories" href="#pyca" onclick="muestraForm('pyca');"><i class="fa fa-tasks"></i> Prevención y Control Ambiental</span>
                                 <span class="categories" href="#sc" onclick="muestraForm('sc');"><i class="fa fa-tasks"></i> Sistemas de Calidad</span>
                                 <span class="categories" href="#ec" onclick="muestraForm('ec');"><i class="fa fa-tasks"></i> Economía del Conocimiento</span>
-                                <span class="categories"  href="#ddjj" onclick="muestraForm('ddjj');"><i class="fa fa-tasks"></i> Revisión y Confirmación DDJJ</span>
+                                <span class="categories" href="#ddjj"   onclick="muestraForm('ddjj');"><i class="fa fa-tasks"></i> Revisión y Confirmación DDJJ</span>
                                 <!-- alertDj(); -->
                             </div>
 
