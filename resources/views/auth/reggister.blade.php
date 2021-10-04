@@ -291,7 +291,7 @@
                                                 <div class="form-group has-feedback">
                                                     <label class="control-label">Provincia <span style="cursor: pointer;" class="mdi mdi-alert-circle text-danger" data-container="body" title="asd"></span><span class="symbol required"></span></label>
                                                     <input type="hidden" name="id_provincia" id="id_provincia" />
-                                                    <input autocorrect="off" spellcheck="false" autocomplete="off" type="text" class="form-control" name="search_provincia" id="search_provincia" placeholder="Ingrese Nombre de provincia" autocomplete="false" required="" aria-required="true"/>
+                                                    <input type="text" class="form-control" name="search_provincia" id="search_provincia" placeholder="Ingrese Nombre de provincia" autocomplete="nope" required="" aria-required="true"/>
                                                     <i class="fa fa-search form-control-feedback"></i>
                                                 </div>
                                             </div>
@@ -300,7 +300,7 @@
                                                 <div class="form-group has-feedback">
                                                     <label class="control-label">Localidad <span style="cursor: pointer;" class="mdi mdi-alert-circle text-danger" data-container="body"></span><span class="symbol required"></span></label>
                                                     <input type="hidden" name="id_localidad" id="id_localidad" />
-                                                    <input autocomplete="off" type="text" class="form-control" name="search_localidad" id="search_localidad" disabled placeholder="Ingrese Nombre de localidad" autocomplete="off" required="" aria-required="true" />
+                                                    <input autocomplete="off" type="text" class="form-control" name="search_localidad" id="search_localidad" disabled placeholder="Ingrese Nombre de localidad" autocomplete="nope" required="" aria-required="true" />
                                                     <i class="fa fa-search form-control-feedback"></i>
                                                 </div>
                                             </div>
@@ -737,28 +737,20 @@
     <script type="text/javascript" src="{{ asset('assets/plugins/timepicker/jquery-ui-timepicker-addon.js')}}"></script>
     <!-- jQuery -->
 
-    <script src="{{ asset('assets/remove-autocomplete/jquery.disable-autofill.js')}}"></script>
-    
-    <script>
-        $('input[autofill="off"]').disableAutofill();
-    </script>
 
 
 
 
     <script type="text/javascript">
        
-       $('form').attr('autocomplete', 'off');
-        $('input').attr('autocomplete', 'off');
-
 
         var id_provincia
         //var id_localidad
         var id_localidad;
 
         $(document).ready(function() {
-            $('form').attr('autocomplete', 'off');
-            $('input').attr('autocomplete', 'off');
+            $('form').attr('autocomplete', 'nope');
+            $('input').attr('autocomplete', 'nope');
 
 
 
