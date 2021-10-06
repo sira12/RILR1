@@ -2601,10 +2601,19 @@ $(document).ready(function () {
                 id: $("#id_industria_modal").val(),
                 var_control:"export"
             },
-            dataType: 'json',
+            responseType: 'blob',
             success: function (response) {
-            
-            
+
+                var binaryData = [];
+                binaryData.push(response);
+                var a = document.createElement('a');
+                var url = window.URL.createObjectURL(new Blob(binaryData, {type: "application/pdf"}));
+                a.href = url;
+                a.download = 'myfile.pdf';
+                document.body.append(a);
+                a.click();
+                a.remove();
+                window.URL.revokeObjectURL(url);
             }  
             });
 

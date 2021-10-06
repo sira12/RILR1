@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Barryvdh\DomPDF\Facade as PDF;
 use Carbon\Carbon;
-
+use Facade\FlareClient\Http\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
@@ -38,6 +38,7 @@ class DdjjCOntroller extends Controller
         $result['eco'] = DB::select('select * from vw_info_economia_del_conocimiento_sector where id_industria = '.$id.'');
         $result['perfil'] = DB::select('select * from vw_info_economia_del_conocimiento_perfil where id_industria = '.$id.'');
 
+$fecha=Carbon::now()->format('d-m-y');;
 
         if(isset($request->var_control) && $request->var_control == "export"){
 
@@ -48,10 +49,14 @@ class DdjjCOntroller extends Controller
             $content = $pdf->download()->getOriginalContent();
 
            
-            Storage::put('dj_docs/name.pdf',$content) ;
+            Storage::put('dj_docs/'.$result['industria_contribuyente'][0]->cuit.'/'.$result['industria_contribuyente'][0]->cuit.'_'.$fecha.'.pdf',$content);
+        
+            return  $pdf->download($result['industria_contribuyente'][0]->cuit.'_'.$fecha.'.pdf');
+        
+        }else{
+            return response()->json($result);
         }
-
-        return response()->json( $result);
+       //
 
     }
 }
