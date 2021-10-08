@@ -1837,9 +1837,9 @@
                                     </div>
 
                                     <div class="text-right">
-                                            <button type="submit" name="btn-btn_export_dj" id="btn_export_dj" class="btn btn-danger"><span class="fa fa-save"></span>
+                                            <a type="submit" name="btn-btn_export_dj" id="btn_export_dj" class="btn btn-danger"><span class="fa fa-save"></span>
                                                 Exportar Declaracion Jurada
-                                            </button>
+                                            </a>
 
                                             
                                     </div>

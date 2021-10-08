@@ -259,7 +259,7 @@ Route::get('/procedimientos',[ProcedimientosController::class,'index'] )->middle
 
     //ddjj
     Route::post('/getViewsddjj', [DdjjCOntroller::class, 'getViewsddjj'])->middleware(['auth']);
-
+    Route::get('/djDownload/{name}/{cuit}', [DdjjCOntroller::class, 'download'])->middleware(['auth']);
 
 
 

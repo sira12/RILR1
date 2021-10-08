@@ -2463,6 +2463,10 @@ function trae_views_ddjj() {
         },
         dataType: 'json',
         success: function (response) {
+          
+            var getUrl = window.location;
+            $("#btn_export_dj").attr("href", getUrl.origin+"/djDownload/"+response.nombre_pdf+"/"+response.industria_contribuyente[0].cuit)
+
             //contribuyente
             $("#cuit_dj").text(response.industria_contribuyente[0].cuit)
             $("#rs_dj").text(response.industria_contribuyente[0].razon_social)
@@ -2590,7 +2594,7 @@ $(document).ready(function () {
     })
 })
 
-$(document).ready(function () {
+/*  $(document).ready(function () {
     $("#btn_export_dj").on('click', function () {
 
         $.ajax({
@@ -2601,63 +2605,16 @@ $(document).ready(function () {
                 id: $("#id_industria_modal").val(),
                 var_control:"export"
             },
-            responseType: 'blob',
-            success: function (response) {
-
-                var binaryData = [];
-                binaryData.push(response);
-                var a = document.createElement('a');
-                var url = window.URL.createObjectURL(new Blob(binaryData, {type: "application/pdf"}));
-                a.href = url;
-                a.download = 'myfile.pdf';
-                document.body.append(a);
-                a.click();
-                a.remove();
-                window.URL.revokeObjectURL(url);
+            responseType: 'arraybuffer',
+            success: function (data) {
+                 
             }  
             });
 
-        /* let pdf = new jsPDF('l', 'pt', 'a4');
-        pdf.html(document.getElementById('ddjj'), {
-            callback: function () {
-                //pdf.save('test.pdf');
-                window.open(pdf.output('bloburl')); // to debug
-            }
-        });
-     */
-        /* 
-            let doc = new jsPDF('l', 'pt', 'a4');
-            doc.fromHTML($('#ddjj').html(), 15, 15, {
-                'width': 170,
-              
-                   });
-            doc.save('sample-file.pdf'); */
-
-       /*  var HTML_Width = $("#ddjj").width();
-        var HTML_Height = $("#ddjj").height();
-        var top_left_margin = 15;
-        var PDF_Width = HTML_Width + (top_left_margin * 2);
-        var PDF_Height = (PDF_Width * 1.5) + (top_left_margin * 2);
-        var canvas_image_width = HTML_Width;
-        var canvas_image_height = HTML_Height;
-
-        var totalPDFPages = Math.ceil(HTML_Height / PDF_Height) - 1;
-
-        html2canvas($("#ddjj")[0]).then(function (canvas) {
-            var imgData = canvas.toDataURL("image/jpeg", 1.0);
-            var pdf = new jsPDF('p', 'pt', [PDF_Width, PDF_Height]);
-            pdf.addImage(imgData, 'JPG', top_left_margin, top_left_margin, canvas_image_width, canvas_image_height);
-            for (var i = 1; i <= totalPDFPages; i++) {
-                pdf.addPage(PDF_Width, PDF_Height);
-                pdf.addImage(imgData, 'JPG', top_left_margin, -(PDF_Height * i) + (top_left_margin * 4), canvas_image_width, canvas_image_height);
-            }
-            pdf.save("Your_PDF_Name.pdf");
-            //$("#ddjj").hide();
-        }); */
 
 
     })
-})
+})  */
 
 function mostrarPass(ref) {
    
