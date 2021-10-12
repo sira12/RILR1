@@ -91,6 +91,29 @@ class InsumoController extends Controller
              $motivo = null;
              $detalles = "";
          } else {
+
+            dd($params);
+            if($params['id_pais_insumo'] == ""){
+                
+                $nom_pais=strtoupper($params['search_pais']);
+                $nom_provincia=strtoupper($params['search_provincia']);
+                $nom_localidad=strtoupper($params['search_localidad32']);
+
+                //cargo pais prvincia y localidad
+                $pais_store=New PaisController();
+                $id_pais_store=$pais_store->store($nom_pais); 
+
+                $provincia_store= New ProvinciaController();
+                $id_prov_store=$provincia_store->store($nom_provincia,$id_pais_store);
+
+                $localidad_store=New LocalidadController();
+                $id_localidad_store=$localidad_store->store($nom_localidad,$id_prov_store);
+                
+                $pais=$id_pais_store;
+                $localidad=$id_localidad_store;
+
+            }
+
              $pais = intval($params['id_pais_insumo']);
              $localidad = intval($params['id_localidad_insumo']);
              $motivo = intval($params['motivo_importacion_insumo']);

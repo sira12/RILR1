@@ -164,6 +164,8 @@ $(document).ready(function () {
             $("#btn-submit").prop("disabled", false);
         }
     })
+
+
     //zona legal
     $("#buscar_provincia_legal").autocomplete({
         source: function (request, response) {
@@ -477,7 +479,7 @@ $(document).ready(function () {
         if ($("#search_pais").val().length < 1) {
             //limpiar id localidad, barrio, calle
             $('#id_pais').val("")
-            $('#id_provincia').val("")
+            $('#id_provincia_mp').val("")
             $('#id_localidad').val("")
             $('#search_localidad3').val("");
             $('#search_provincia').val("");
@@ -489,6 +491,18 @@ $(document).ready(function () {
             $("#search_provincia").prop("disabled", false);
         }
     });
+
+    $("#search_pais").keyup(function () {
+        if ($("#search_pais").val().length < 1) {
+            $('#id_pais').val("")
+            $('#search_provincia').val('');
+            $('#id_provincia_mp').val(''); 
+            $('#id_localidad3').val("")
+            $('#search_localidad32').val("");
+            $("#search_localidad32").prop("disabled", true);
+        }
+    });
+
     $("#search_provincia").autocomplete({
         source: function (request, response) {
             // Fetch data
@@ -509,23 +523,32 @@ $(document).ready(function () {
         select: function (event, ui) {
             // Set selection
             $('#search_provincia').val(ui.item.label); // display the selected text
-            $('#id_provincia').val(ui.item.value); // save selected id to input
+            $('#id_provincia_mp').val(ui.item.value); // save selected id to input
             id_provincia_3 = ui.item.value
             return false;
         }
     });
     $("#search_provincia").change(function () {
         if ($("#search_provincia").val().length < 1) {
-            //limpiar id localidad, barrio, calle
             $('#id_localidad3').val("")
             $('#search_localidad32').val("");
-            //deshabilitar campo calle y barrio
             $("#search_localidad32").prop("disabled", true);
         } else {
             //$("#search_barrio").prop("disabled", false);
             $("#search_localidad32").prop("disabled", false);
         }
     });
+
+    $("#search_provincia").keyup(function () {
+        if ($("#search_provincia").val().length < 1) {
+            $('#id_provincia_mp').val("")
+            $('#id_localidad3').val("")
+            $('#search_localidad32').val("");
+            $("#search_localidad32").prop("disabled", true);
+        }
+    });
+
+
     $("#search_localidad32").autocomplete({
         source: function (request, response) {
             // Fetch data
@@ -550,6 +573,14 @@ $(document).ready(function () {
             return false;
         }
     });
+
+    $("#search_localidad32").keyup(function () {
+        if ($("#search_localidad32").val().length < 1) {
+            $('#id_localidad3').val("")
+        }
+    });
+    
+    
     //############################INSUMOS##################################################
     $("#search_insumo").autocomplete({
         source: function (request, response) {

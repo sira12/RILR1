@@ -2171,7 +2171,7 @@ function UpdateMateriaPrima(id) {
       $("#updateAsignacionMateria #es_propio_materia").val(response[0].es_propio);
       $("#updateAsignacionMateria #id_pais").val(response[0].id_pais);
       $("#updateAsignacionMateria #search_pais").val(response[0].pais);
-      $("#updateAsignacionMateria #id_provincia").val(response[0].id_provincia);
+      $("#updateAsignacionMateria #id_provincia_mp").val(response[0].id_provincia);
       $("#updateAsignacionMateria #search_provincia").val(response[0].provincia);
       $("#updateAsignacionMateria #id_localidad3").val(response[0].id_localidad);
       $("#updateAsignacionMateria #search_localidad32").val(response[0].localidad);

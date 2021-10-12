@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Localidad;
+use Illuminate\Support\Facades\DB;
 
 class LocalidadController extends Controller
 {
@@ -27,15 +28,15 @@ class LocalidadController extends Controller
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function store($nom_localidad, $id_provincia)
     {
-        //
+        return DB::table('localidad')->insertGetId(
+            [
+            'localidad'=>$nom_localidad,
+            'id_provincia'=>intval($id_provincia),
+            'activo'=>'S'
+            ]);
+
     }
 
     /**

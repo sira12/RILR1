@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Provincia;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProvinciaController extends Controller
 {
@@ -21,20 +22,9 @@ class ProvinciaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function store($nom_provincia,$id_pais)
     {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+        return DB::table('provincia')->insertGetId(['provincia'=>$nom_provincia,'id_pais'=>intval($id_pais), 'activo'=>'S']);
     }
      /**
      * Store a newly created resource in storage.

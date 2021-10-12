@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Carbon;
+use PhpParser\Node\Expr\New_;
 
 class MateriaPrimaController extends Controller
 {
@@ -119,10 +120,39 @@ class MateriaPrimaController extends Controller
                 $motivo = null;
                 $detalles = "";
             } else {
-                $pais = intval($params['id_pais']);
-                $localidad = intval($params['id_localidad3']);
+
+                //si no vienen ids de paises localidad y provincia: cargarlos
+
+                if($params['id_pais'] == ""){
+                    $nom_pais=strtoupper($params['search_pais']);
+                    $pais_store=New PaisController();
+                    $id_pais_store=$pais_store->store($nom_pais); 
+                    $pais=$id_pais_store;
+                }else{
+                    $pais = intval($params['id_pais']);
+                }
+
+                if($params['id_provincia_mp'] == ""){
+                    $nom_provincia=strtoupper($params['search_provincia']);
+                    $provincia_store= New ProvinciaController();
+                    $id_prov_store=$provincia_store->store($nom_provincia,$pais);
+                    $provincia=$id_prov_store;
+                }else{
+                    $provincia= intval($params['id_provincia_mp']);
+                }
+
+                if($params['id_localidad3'] == ""){
+                    $nom_localidad=strtoupper($params['search_localidad32']);
+                    $localidad_store=New LocalidadController();
+                    $id_localidad_store=$localidad_store->store($nom_localidad,$provincia);
+                    $localidad=$id_localidad_store;
+                }else{
+                    $localidad=intval($params['id_localidad3']);
+                }
+
+                
                 $motivo = intval($params['motivo_importacion_materia']);
-                $detalles=""; 
+                $detalles="";
                 if($motivo == 4){
                     $detalles = $params['detalles_materia']; //si el motivo es "otros"
                 }

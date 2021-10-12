@@ -386,7 +386,7 @@
                         <div class="col-md-6">
                             <div class="form-group has-feedback">
                                 <label class="control-label">Nombre de Provincia: <span style="cursor: pointer;" class="mdi mdi-alert-circle text-danger" data-container="body" title="Notificación: Ingrese Nombre de Provincia y seleccione en el Listado que se mostrará, en caso de no aparecer, escribala y el sistema se encargará de la asignación del mismo."></span><span class="symbol required"></span></label>
-                                <input type="hidden" name="id_provincia" id="id_provincia" />
+                                <input type="hidden" name="id_provincia_mp" id="id_provincia_mp" />
                                 <input type="text" class="form-control" name="search_provincia" id="search_provincia" placeholder="Ingrese Nombre de Provincia" disabled autocomplete="off" required="" aria-required="true" />
                                 <i class="fa fa-search form-control-feedback"></i>
                             </div>
