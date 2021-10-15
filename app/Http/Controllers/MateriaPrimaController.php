@@ -241,11 +241,64 @@ class MateriaPrimaController extends Controller
             }
 
 
-            $pais = intval($params['id_pais']);
-            $localidad = intval($params['id_localidad3']);
-            $motivo = $params['motivo_importacion_materia']== "" ? null : intval($params['motivo_importacion_materia']);
-            $detalles = isset($params['detalles_materia']) ? $params['detalles_materia'] : "";
+            if ($params['es_propio_materia'] == "P") {
 
+                $pais_localidad = DB::table('rel_industria_actividad')
+                    ->where('id_rel_industria_actividad', intval($params['id_rel_industria_actividad_materia_prima']))
+                    ->join('industria', 'rel_industria_actividad.id_industria', 'industria.id_industria')
+                    ->join('localidad', 'industria.id_localidad', 'localidad.id_localidad')
+                    ->join('provincia', 'localidad.id_provincia', 'provincia.id_provincia')
+                    ->join('pais', 'provincia.id_pais', 'pais.id_pais')
+                    ->select(
+                        'industria.id_localidad',
+                        'pais.id_pais'
+                    )
+                    ->get();
+
+
+                $pais = $pais_localidad[0]->id_pais;
+                $localidad = $pais_localidad[0]->id_localidad;
+                $motivo = null;
+                $detalles = "";
+            } else {
+
+                //si no vienen ids de paises localidad y provincia: cargarlos
+
+                if($params['id_pais'] == ""){
+                    $nom_pais=strtoupper($params['search_pais']);
+                    $pais_store=New PaisController();
+                    $id_pais_store=$pais_store->store($nom_pais); 
+                    $pais=$id_pais_store;
+                }else{
+                    $pais = intval($params['id_pais']);
+                }
+
+                if($params['id_provincia_mp'] == ""){
+                    $nom_provincia=strtoupper($params['search_provincia']);
+                    $provincia_store= New ProvinciaController();
+                    $id_prov_store=$provincia_store->store($nom_provincia,$pais);
+                    $provincia=$id_prov_store;
+                }else{
+                    $provincia= intval($params['id_provincia_mp']);
+                }
+
+                if($params['id_localidad3'] == ""){
+                    $nom_localidad=strtoupper($params['search_localidad32']);
+                    $localidad_store=New LocalidadController();
+                    $id_localidad_store=$localidad_store->store($nom_localidad,$provincia);
+                    $localidad=$id_localidad_store;
+                }else{
+                    $localidad=intval($params['id_localidad3']);
+                }
+
+                
+                $motivo = intval($params['motivo_importacion_materia']);
+                $detalles="";
+                if($motivo == 4){
+                    $detalles = $params['detalles_materia']; //si el motivo es "otros"
+                }
+               
+            }
 
             $id_rel_actividad_materia_prima = DB::table('rel_actividad_materia_prima')
                 ->where('id_rel_actividad_materia_prima', intval($params['id_asignacion_materia']))

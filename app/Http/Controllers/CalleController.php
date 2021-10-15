@@ -33,7 +33,7 @@ class CalleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request,$localidad)
     {
         $calle=new Calle();
 
@@ -41,7 +41,7 @@ class CalleController extends Controller
 
         $calle->calle=$nombre;
         $calle->activo="P";
-        $calle->id_localidad=$request->id_localidad;
+        $calle->id_localidad=$localidad;
         $calle->save();
     }
 

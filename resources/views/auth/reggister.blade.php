@@ -186,7 +186,7 @@
                 <!-- Start Page Content -->
                 <!-- ============================================================== -->
 
-                <form class="form form-material"  name="saveinicio" id="saveinicio" enctype="multipart/form-data" autocomplete="off">
+                <form class="form form-material"  name="saveinicio" id="saveinicio" enctype="multipart/form-data" autocomplete="nope">
                     @csrf
                     <!-- Row -->
                     <div class="row">
@@ -300,7 +300,7 @@
                                                 <div class="form-group has-feedback">
                                                     <label class="control-label">Localidad <span style="cursor: pointer;" class="mdi mdi-alert-circle text-danger" data-container="body"></span><span class="symbol required"></span></label>
                                                     <input type="hidden" name="id_localidad" id="id_localidad" />
-                                                    <input autocomplete="off" type="text" class="form-control" name="search_localidad" id="search_localidad" disabled placeholder="Ingrese Nombre de localidad" autocomplete="nope" required="" aria-required="true" />
+                                                    <input  type="text" class="form-control" name="search_localidad" id="search_localidad" disabled placeholder="Ingrese Nombre de localidad" autocomplete="nope" required="" aria-required="true" />
                                                     <i class="fa fa-search form-control-feedback"></i>
                                                 </div>
                                             </div>
@@ -309,7 +309,7 @@
                                                 <div class="form-group has-feedback">
                                                     <label class="control-label">Nombre de Barrio: <span style="cursor: pointer;" class="mdi mdi-alert-circle text-danger" data-container="body" title="Notificación: Ingrese Nombre de Barrio y seleccione en el Listado que se mostrará, en caso de no aparecer, escribala y el sistema se encargará de la asignación del mismo."></span><span class="symbol required"></span></label>
                                                     <input type="hidden" name="id_barrio" id="id_barrio" />
-                                                    <input autocomplete="off" type="text" class="form-control" name="search_barrio" id="search_barrio" disabled placeholder="Ingrese Nombre de Barrio" autocomplete="off" required="" aria-required="true" />
+                                                    <input  type="text" class="form-control" name="search_barrio" id="search_barrio" disabled placeholder="Ingrese Nombre de Barrio"  required="" aria-required="true"  autocomplete="nope" />
                                                     <i class="fa fa-search form-control-feedback"></i>
                                                 </div>
                                             </div>
@@ -318,7 +318,7 @@
                                                 <div class="form-group has-feedback">
                                                     <label class="control-label">Nombre de Calle: <span style="cursor: pointer;" class="mdi mdi-alert-circle text-danger" data-container="body" title="Notificación: Ingrese Nombre de Calle y seleccione en el Listado que se mostrará, en caso de no aparecer, escribala y el sistema se encargará de la asignación del mismo."></span><span class="symbol required"></span></label>
                                                     <input type="hidden" name="id_calle" id="id_calle" />
-                                                    <input autocomplete="off" type="text" class="form-control" name="search_calle" id="search_calle" disabled placeholder="Ingrese Nombre de Calle" autocomplete="off" required="" aria-required="true" />
+                                                    <input type="text" class="form-control" name="search_calle" id="search_calle" disabled placeholder="Ingrese Nombre de Calle" required="" aria-required="true"  autocomplete="nope" />
                                                     <i class="fa fa-search form-control-feedback"></i>
                                                 </div>
                                             </div>
@@ -470,10 +470,10 @@
                                                                 <span class="input-group-addon btn btn-success btn-file">
                                                                     <span class="fileinput-new"><i class="fa fa-cloud-upload"></i> Selecciona Archivo</span>
                                                                     <span class="fileinput-exists"><i class="fa fa-file-photo-o"></i> Cambiar</span>
-                                                                    <input type="file" class="btn btn-default" data-original-title="Subir Imagen" data-rel="tooltip" placeholder="Suba su Archivo" name="dniFrente" id="dniFrente" required autocomplete="off" title="Buscar Archivo">
+                                                                    <input required type="file" class="btn btn-default" data-original-title="Subir Imagen" data-rel="tooltip" placeholder="Suba su Archivo" name="dniFrente" id="dniFrente" required autocomplete="off" title="Buscar Archivo">
                                                                 </span>
                                                                 <a href="#" class="input-group-addon btn btn-dark fileinput-exists" data-dismiss="fileinput"><i class="fa fa-trash-o"></i> Quitar</a>
-                                                            </div><span class="card-subtitle text-muted">Para Subir el Archivo debe tener en cuenta:<br> * El Archivo a cargar debe ser extension.jpg,png,pdf<br> * No debe ser mayor de 5000 KB (5 MB)</span>
+                                                            </div><span class="card-subtitle text-muted">Para Subir el Archivo debe tener en cuenta:<br> * El Archivo a cargar debe ser extension pdf<br> * No debe ser mayor de 2 MB</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -490,10 +490,10 @@
                                                                 <span class="input-group-addon btn btn-success btn-file">
                                                                     <span class="fileinput-new"><i class="fa fa-cloud-upload"></i> Selecciona Archivo</span>
                                                                     <span class="fileinput-exists"><i class="fa fa-file-photo-o"></i> Cambiar</span>
-                                                                    <input type="file" class="btn btn-default" data-original-title="Subir Imagen" data-rel="tooltip" placeholder="Suba su Archivo" name="dniDorso" id="dniDorso" required autocomplete="off" title="Buscar Archivo">
+                                                                    <input required type="file" class="btn btn-default" data-original-title="Subir Imagen" data-rel="tooltip" placeholder="Suba su Archivo" name="dniDorso" id="dniDorso" required autocomplete="off" title="Buscar Archivo">
                                                                 </span>
                                                                 <a href="#" class="input-group-addon btn btn-dark fileinput-exists" data-dismiss="fileinput"><i class="fa fa-trash-o"></i> Quitar</a>
-                                                            </div><span class="card-subtitle text-muted">Para Subir el Archivo debe tener en cuenta:<br> * El Archivo a cargar debe ser extension.jpg,png,pdf<br> * No debe ser mayor de 5000 KB (5 MB)</span>
+                                                            </div><span class="card-subtitle text-muted">Para Subir el Archivo debe tener en cuenta:<br> * El Archivo a cargar debe ser extension pdf<br> * No debe ser mayor de 2 MB</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -511,10 +511,10 @@
                                                                 <span class="input-group-addon btn btn-success btn-file">
                                                                     <span class="fileinput-new"><i class="fa fa-cloud-upload"></i> Selecciona Archivo</span>
                                                                     <span class="fileinput-exists"><i class="fa fa-file-photo-o"></i> Cambiar</span>
-                                                                    <input type="file" class="btn btn-default" data-original-title="Subir Imagen" data-rel="tooltip" placeholder="Suba su Archivo" name="afip" id="afip" autocomplete="off" title="Buscar Archivo">
+                                                                    <input required type="file" class="btn btn-default" data-original-title="Subir Imagen" data-rel="tooltip" placeholder="Suba su Archivo" name="afip" id="afip" autocomplete="off" title="Buscar Archivo">
                                                                 </span>
                                                                 <a href="#" class="input-group-addon btn btn-dark fileinput-exists" data-dismiss="fileinput"><i class="fa fa-trash-o"></i> Quitar</a>
-                                                            </div><span class="card-subtitle text-muted">Para Subir el Archivo debe tener en cuenta:<br> * El Archivo a cargar debe ser extension.jpg,png,pdf<br> * No debe ser mayor de 5000 KB (5 MB)</span>
+                                                            </div><span class="card-subtitle text-muted">Para Subir el Archivo debe tener en cuenta:<br> * El Archivo a cargar debe ser extension pdf<br> * No debe ser mayor de 2 MB</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -532,10 +532,10 @@
                                                                 <span class="input-group-addon btn btn-success btn-file">
                                                                     <span class="fileinput-new"><i class="fa fa-cloud-upload"></i> Selecciona Archivo</span>
                                                                     <span class="fileinput-exists"><i class="fa fa-file-photo-o"></i> Cambiar</span>
-                                                                    <input type="file" class="btn btn-default" data-original-title="Subir Imagen" data-rel="tooltip" placeholder="Suba su Archivo" name="vinculacion" id="vinculacion" autocomplete="off" title="Buscar Archivo">
+                                                                    <input  type="file" class="btn btn-default" data-original-title="Subir Imagen" data-rel="tooltip" placeholder="Suba su Archivo" name="vinculacion" id="vinculacion" autocomplete="off" title="Buscar Archivo">
                                                                 </span>
                                                                 <a href="#" class="input-group-addon btn btn-dark fileinput-exists" data-dismiss="fileinput"><i class="fa fa-trash-o"></i> Quitar</a>
-                                                            </div><span class="card-subtitle text-muted">Para Subir el Archivo debe tener en cuenta:<br> * El Archivo a cargar debe ser extension.jpg,png,pdf<br> * No debe ser mayor de 5000 KB (5 MB)</span>
+                                                            </div><span class="card-subtitle text-muted">Para Subir el Archivo debe tener en cuenta:<br> * El Archivo a cargar debe ser extension pdf<br> * No debe ser mayor de 2 MB</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -557,10 +557,10 @@
                                                                 <span class="input-group-addon btn btn-success btn-file">
                                                                     <span class="fileinput-new"><i class="fa fa-cloud-upload"></i> Selecciona Archivo</span>
                                                                     <span class="fileinput-exists"><i class="fa fa-file-photo-o"></i> Cambiar</span>
-                                                                    <input type="file" class="btn btn-default" data-original-title="Subir Imagen" data-rel="tooltip" placeholder="Suba su Archivo" name="apoderado" id="apoderado" autocomplete="off" title="Buscar Archivo">
+                                                                    <input  type="file" class="btn btn-default" data-original-title="Subir Imagen" data-rel="tooltip" placeholder="Suba su Archivo" name="apoderado" id="apoderado" autocomplete="off" title="Buscar Archivo">
                                                                 </span>
                                                                 <a href="#" class="input-group-addon btn btn-dark fileinput-exists" data-dismiss="fileinput"><i class="fa fa-trash-o"></i> Quitar</a>
-                                                            </div><span class="card-subtitle text-muted">Para Subir el Archivo debe tener en cuenta:<br> * El Archivo a cargar debe ser extension.jpg,png,pdf<br> * No debe ser mayor de 5000 KB (5 MB)</span>
+                                                            </div><span class="card-subtitle text-muted">Para Subir el Archivo debe tener en cuenta:<br> * El Archivo a cargar debe ser extension pdf<br> * No debe ser mayor de 2 MB</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -743,14 +743,20 @@
 
     <script type="text/javascript">
        
-
+       
         var id_provincia
         //var id_localidad
         var id_localidad;
 
         $(document).ready(function() {
-            $('form').attr('autocomplete', 'nope');
-            $('input').attr('autocomplete', 'nope');
+
+            $("form").attr("autocomplete", "nope");
+            $("input").attr("autocomplete", "nope");
+            $("#search_provincia").attr("autocomplete", "nope");
+            $("#search_localidad").attr("autocomplete", "nope");
+            $("#search_barrio").attr("autocomplete", "nope");
+            $("#search_calle").attr("autocomplete", "nope");
+            
 
 
 
@@ -760,8 +766,11 @@
                 if ($("#tipo_personeria").val() == 2) {
 
                     document.getElementById("vinculacion_empresa").style.visibility = "visible";
+
+                   /*  $("#vinculacion").attr('required',true) */
                 } else {
                     document.getElementById("vinculacion_empresa").style.visibility = "hidden";
+                   /*  $("#vinculacion").attr('required',false) */
                 }
 
             })
@@ -774,8 +783,10 @@
                 if ($("#id_tipo_de_afectacion").val() == 5) {
 
                     document.getElementById("apoderado_empresa").style.visibility = "visible";
+                   /*  $("#apoderado").attr('required',true) */
                 } else {
                     document.getElementById("apoderado_empresa").style.visibility = "hidden";
+                  /*   $("#apoderado").attr('required',false) */
                 }
 
             })
@@ -784,7 +795,7 @@
 
 
         $(document).ready(function() {
-            $("#search_provincia").change(function() {
+            $("#search_provincia").keyup(function() {
 
                 if ($("#search_provincia").val().length < 1) {
                     //limpiar id provincia, id localidad, barrio, calle
@@ -817,7 +828,7 @@
 
 
 
-            $("#search_localidad").change(function() {
+            $("#search_localidad").keyup(function() {
 
                 if ($("#search_localidad").val().length < 1) {
                     //limpiar id localidad, barrio, calle
@@ -847,7 +858,7 @@
 
 
 
-            $("#search_barrio").change(function() {
+            $("#search_barrio").keyup(function() {
 
                 if ($("#search_barrio").val().length < 1) {
                     //limpiar id localidad, barrio, calle
@@ -873,7 +884,7 @@
             })
 
 
-            $("#search_calle").change(function() {
+            $("#search_calle").keyup(function() {
 
                 if ($("#search_calle").val().length < 1) {
                     //limpiar id localidad, barrio, calle
@@ -934,6 +945,7 @@
             $("#search_localidad").autocomplete({
                 source: function(request, response) {
                     // Fetch data
+                    if($('#id_provincia').val() != ""){
                     $.ajax({
                         url: "{{url('/localidades')}}",
                         type: 'post',
@@ -947,6 +959,7 @@
                             response(data);
                         }
                     });
+                }
                 },
                 select: function(event, ui) {
                     // Set selection
@@ -968,6 +981,7 @@
             $("#search_barrio").autocomplete({
                 source: function(request, response) {
                     // Fetch data
+                    if( $('#id_localidad').val() != ""){
                     $.ajax({
                         url: "{{url('/barrios')}}",
                         type: 'post',
@@ -981,6 +995,7 @@
                             response(data);
                         }
                     });
+                }
                 },
                 select: function(event, ui) {
                     // Set selection
@@ -997,6 +1012,7 @@
             $("#search_calle").autocomplete({
                 source: function(request, response) {
                     // Fetch data
+                    if( $('#id_localidad').val() != ""){
                     $.ajax({
                         url: "{{url('/calles')}}",
                         type: 'post',
@@ -1010,6 +1026,7 @@
                             response(data);
                         }
                     });
+                }
                 },
                 select: function(event, ui) {
                     // Set selection

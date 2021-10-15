@@ -64,7 +64,7 @@ Route::get('/sl', function () {
 });
 
 //check mail
-Route::post('/check_mail',[RegisteredUserController::class,'prueba']);
+Route::post('/check_mail',[RegisteredUserController::class,'checkmail']);
 //check cuil
 Route::post('/check_cuil',[RegisteredUserController::class,'checkCuil']);
 //########## Rutas Busquedas Autocomplete ################

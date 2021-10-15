@@ -2914,7 +2914,7 @@
                         <span class="card-subtitle text-muted">Piensa invertir en algún sector previsto de la Economía del Conocimiento</span>
 
                         <div class="table-responsive" id="_sect">
-                            <table id="default_order" class="table2 display">
+                            <table  class="table2 display">
                                 <thead>
                                     <tr role="row" class="text-left">
                                         <th width="80%">Sectores a Invertir</th>

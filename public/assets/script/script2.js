@@ -2085,8 +2085,10 @@ function origen(ref) {
   }
 
   if (valor == "A") {
+  
     $("." + ref + "").show();
   } else {
+   
     $("." + ref + "").hide();
   }
 }
@@ -2166,7 +2168,7 @@ function UpdateMateriaPrima(id) {
       $("#updateAsignacionMateria #id_asignacion_materia").val(response[0].id_rel_actividad_materia_prima);
       $("#updateAsignacionMateria #id_materia_prima").val(response[0].id_materia_prima);
       $("#updateAsignacionMateria #search_materia").val(response[0].materia_prima);
-      $("#updateAsignacionMateria #medida_materia").val(response[0].unidad_de_medida);
+      $("#updateAsignacionMateria #medida_materia").val(response[0].id_unidad_de_medida);
       $("#updateAsignacionMateria #cantidad_materia").val(response[0].cantidad);
       $("#updateAsignacionMateria #es_propio_materia").val(response[0].es_propio);
       $("#updateAsignacionMateria #id_pais").val(response[0].id_pais);
@@ -2179,6 +2181,13 @@ function UpdateMateriaPrima(id) {
       $("#updateAsignacionMateria #detalles_materia").val(response[0].detalles);
       $("#updateAsignacionMateria #anio_materia").val(response[0].anio);
 
+      //quitar disabled
+      if( response[0].es_propio == "A"){
+        $("#search_provincia").attr('disabled', false)
+        $("#search_localidad32").attr('disabled', false)
+        $("#search_pais").attr('disabled', false)
+        $("#detalles_materia").attr('disabled', false)
+      }
 
       response[0].es_propio == "P" ? $(".origen").hide() : $(".origen").show()
 
@@ -2200,31 +2209,38 @@ function UpdateMateriaPrima(id) {
 
 $("#btn-updateMateria").on('click', function () {
 
+  let error=0;
 
   if ($("#search_materia").val() == "") {
+   error=1; 
     var n = noty({
       text: "<span class='fa fa-warning'></span> Debe Completar la busqueda de la materia prima",
       theme: 'defaultTheme',
-      layout: 'center',
+      layout: 'topCenter',
       type: 'warning',
       timeout: 5000,
     });
   } else if ($("#cantidad_materia").val() == "") {
+    error=1; 
+    console.log("cant")
     var n = noty({
       text: "<span class='fa fa-warning'></span> Debe ingresar una cantidad utilizada",
       theme: 'defaultTheme',
-      layout: 'center',
+      layout: 'topCenter',
       type: 'warning',
       timeout: 5000,
     });
   } else if ($("#es_propio_materia").val() == "A") {
 
 
+  
     if ($("#search_pais").val() == "") {
+      error=1; 
+      console.log("pais")
       var n = noty({
         text: "<span class='fa fa-warning'></span> Debe ingresar un pais",
         theme: 'defaultTheme',
-        layout: 'center',
+        layout: 'topCenter',
         type: 'warning',
         timeout: 5000,
       });
@@ -2232,26 +2248,32 @@ $("#btn-updateMateria").on('click', function () {
 
 
     if ($("#search_provincia").val() == "") {
+      error=1; 
+      console.log("prov")
       var n = noty({
         text: "<span class='fa fa-warning'></span> Debe ingresar una provincia",
         theme: 'defaultTheme',
-        layout: 'center',
+        layout: 'topCenter',
         type: 'warning',
         timeout: 5000,
       });
     }
 
     if ($("#search_localidad32").val() == "") {
+      error=1; 
+      console.log("loca")
       var n = noty({
         text: "<span class='fa fa-warning'></span> Debe ingresar una localidad",
         theme: 'defaultTheme',
-        layout: 'center',
+        layout: 'topCenter',
         type: 'warning',
         timeout: 5000,
       });
     }
 
-  } else {
+  } 
+  
+  if(error != 1){
 
     let data = $("#updateAsignacionMateria").serialize();
     var periodo_fiscal=  $("#anio_periodo_fiscal").val();
@@ -2326,13 +2348,6 @@ $("#btn-updateMateria").on('click', function () {
     return false;
 
   }
-
-
-
-
-
-
-
 
 
 })
@@ -2461,12 +2476,11 @@ function MotivoImportacionInsumo() {
 
   if (valor === '4' || valor === true) {
 
-    //deshabilitamos
+    $("#detalles_insumo").attr('disabled', false);
     $("#origen_insumo_div").show();
 
   } else {
-
-    // habilitamos
+    $("#detalles_insumo").attr('disabled', true);
     $("#origen_insumo_div").hide();
 
   }
@@ -2478,7 +2492,6 @@ function VerInsumoAsignado(id_rel_industria_insumos) {
 
   $('#muestradetalleinsumomodal').html('<center><i class="fa fa-spin fa-spinner"></i> Cargando información, por favor espere....</center>');
 
-  
 
   $.ajax({
     type: "POST",
@@ -2491,7 +2504,7 @@ function VerInsumoAsignado(id_rel_industria_insumos) {
 
 
       var motivo= response[0].motivo_importacion ?  response[0].motivo_importacion : "***"
-      var detalle= response[0].detalles == "" || response[0].detalles == null ? "***" : response[0].detalles == ""
+      var detalle= (response[0].detalles == "") || (response[0].detalles == null) ? "***" : response[0].detalles 
 
       var propia = response[0].es_propio =="P" ? "Propio" : "Adquirido"
       $('#muestradetalleinsumomodal').empty();
@@ -2838,13 +2851,11 @@ function MotivoImportacionCombustible() {
   var valor = $("#motivo_importacion_combustible").val();
 
   if (valor === '4' || valor === true) {
-
-              //deshabilitamos
+    $("#detalles_combustible").attr('disabled', false);
               $("#motivo_servicio_div").show();
 
   } else {
-
-              // habilitamos
+    $("#detalles_combustible").attr('disabled', true);
               $("#motivo_servicio_div").hide();
 
   }

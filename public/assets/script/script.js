@@ -1714,6 +1714,10 @@ $('document').ready(function() {
                 required: true,
                 lettersonly: false
             },
+            search_provincia: {
+                required: true,
+                checkIdSelected:true
+            },
             search_localidad: {
                 required: true,
             },
@@ -1769,12 +1773,28 @@ $('document').ready(function() {
             },
             dniFrente: {
                 required: true,
+                extension: "pdf",
+                filesize:2
             },
             dniDorso: {
                 required: true,
+                extension: "pdf",
+                filesize:2
             },
             afip: {
                 required: true,
+                extension: "pdf",
+                filesize:2
+            },
+            vinculacion: {
+                checkVinculacion:true,
+                extension: "pdf",
+                filesize:2
+            },
+            apoderado: {
+               checkApoderado:true,
+                extension: "pdf",
+                filesize:2
             },
             captcha1: {
                 required: true,
@@ -1783,12 +1803,32 @@ $('document').ready(function() {
         messages: {
             dniFrente: {
                 required:"Ingrese foto del frente del DNI",
+                extension: "El archivo debe ser un pdf",
+                filesize:"El archivo no debe superar los 2 Mb"
             },
             dniDorso: {
                 required:"Ingrese foto del dorso del DNI",
+                extension: "El archivo debe ser un pdf",
+                 filesize:"El archivo no debe superar los 2 Mb"
+
             },
             afip: {
                 required:"Ingrese Inscripcion en afip",
+                extension: "El archivo debe ser un pdf",
+                 filesize:"El archivo no debe superar los 2 Mb"
+
+            },
+            vinculacion: {
+                checkVinculacion:"Debe cargar Constancia de vinculacion",
+                extension: "El archivo debe ser un pdf",
+                 filesize:"El archivo no debe superar los 2 Mb"
+
+            },
+            apoderado: {
+                checkApoderado:"Debe cargar constancia de apoderado",
+                extension: "El archivo debe ser un pdf",
+                 filesize:"El archivo no debe superar los 2 Mb"
+
             },
             cuit: {
                 required: "Ingrese N&deg; de CUIT/CUIL",
@@ -1800,6 +1840,10 @@ $('document').ready(function() {
             razonsocial: {
                 required: "Ingrese Nombre/Razon Social",
                 lettersonly: "Ingrese solo letras para Nombres"
+            },
+            search_provincia: {
+                required: "Ingrese Nombre de la Provincia",
+                checkIdSelected:"Seleccione una provincia de la lista"
             },
             search_localidad: {
                 required: "Ingrese Nombre de Localidad"
@@ -1915,11 +1959,64 @@ $('document').ready(function() {
         /* form submit */
     });
 
+    /* $.validator.addMethod('filesize', function (value, element, param) {
+        return this.optional(element) || (element.files[0].size <= param)
+    }, 'File size must be less than {0}'); */
+
+    $.validator.addMethod('filesize', function (value, element, param) {
+        return this.optional(element) || (element.files[0].size <= param * 1000000)
+    }, 'File size must be less than {0} MB');
+
+    //validate file extension custom  method.
+    $.validator.addMethod("extension", function (value, element, param) {
+        param = typeof param === "string" ? param.replace(/,/g, '|') : "doc|docx|png|jpe?g|gif";
+        return this.optional(element) || value.match(new RegExp(".(" + param + ")$", "i"));
+    }, jQuery.format("Please enter a value with a valid extension."));
+
     $.validator.addMethod("pwcheck",
             function(value, element) {
                 return /^[A-Za-z0-9\d=!\-@._*]*$/.test(value) // consists of only these
                 && /[a-z]/.test(value) // has a lowercase letter
                 && /\d/.test(value) // has a digit
+    });
+    $.validator.addMethod("checkVinculacion",
+            function(value, element) {
+                var control =true;
+               if($("#tipo_personeria").val() == 2){
+                   
+
+                   if(document.getElementById("vinculacion").files.length == 0){
+                    control=false;
+                   }
+               
+               }
+
+               return control;
+    });
+    $.validator.addMethod("checkApoderado",
+            function(value, element) {
+                var control =true;
+               if($("#id_tipo_de_afectacion").val() == 5){
+                if(document.getElementById("apoderado").files.length == 0){
+                    control=false;
+                   }
+               }
+
+               return control;
+    });
+
+    $.validator.addMethod("checkIdSelected",
+            function(value, element) {
+                var control =true;
+
+                if($("#id_provincia").val() ==""){
+                    $("#search_localidad").prop("disabled", true);
+                    control=false;
+                }else{
+                    $("#search_localidad").prop("disabled", false);
+                }
+
+                return control; 
     });
     $.validator.addMethod("checkmail",
             function(value, element) {

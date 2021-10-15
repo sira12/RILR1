@@ -33,7 +33,7 @@ class PersonaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request,$localidad,$barrio,$calle)
     {
 
 
@@ -42,9 +42,9 @@ class PersonaController extends Controller
         $persona->documento=$request->documento;
         $persona->id_tipo_de_documento=$request->id_tipo_de_documento;
         $persona->nombre=$request->nombre;
-        $persona->id_localidad=$request->id_localidad;
-        $persona->id_barrio=$request->id_barrio;
-        $persona->id_calle=$request->id_calle;
+        $persona->id_localidad=$localidad;
+        $persona->id_barrio=$barrio;
+        $persona->id_calle=$calle;
         $persona->numero=$request->nro_calle;
         $persona->piso=$request->nro_piso;
         $persona->depto=$request->nro_departamento;

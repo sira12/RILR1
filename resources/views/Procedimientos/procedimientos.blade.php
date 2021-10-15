@@ -1137,7 +1137,7 @@
 
 
                                         <div class="text-right">
-                                            <button type="button" class="btn btn-info" data-placement="left" title="Agregar Norma de Calidad" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalEconomia" data-backdrop="static" data-keyboard="false" onClick="AddIdEconomiaModal('')"><i class=" fa fa-plus-square"></i> Agregar Economía</button>
+                                            <button type="button" class="btn btn-info" data-placement="left" title="Agregar Norma de Calidad" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalEconomia" data-backdrop="static" data-keyboard="false" ><i class=" fa fa-plus-square"></i> Agregar Economía</button>
                                         </div>
 
                                         <div class="table-responsive mt-3">
@@ -1178,7 +1178,7 @@
 
 
                                         <div class="text-right">
-                                            <button type="button" class="btn btn-info" data-placement="left" title="Agregar Perfil" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalPerfil" data-backdrop="static" data-keyboard="false" onClick="AddIdEconomiaModal('')"><i class=" fa fa-plus-square"></i> Agregar Perfil</button>
+                                            <button type="button" class="btn btn-info" data-placement="left" title="Agregar Perfil" data-original-title="" data-href="#" data-toggle="modal" data-target="#MyModalPerfil" data-backdrop="static" data-keyboard="false" ><i class=" fa fa-plus-square"></i> Agregar Perfil</button>
                                         </div>
 
 

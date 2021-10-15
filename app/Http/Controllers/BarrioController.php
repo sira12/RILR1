@@ -33,7 +33,7 @@ class BarrioController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request,$localidad)
     {   
 
         $barrio=new Barrio();
@@ -42,7 +42,7 @@ class BarrioController extends Controller
 
         $barrio->barrio=$nombre;
         $barrio->activo="P";
-        $barrio->id_localidad=$request->id_localidad;
+        $barrio->id_localidad=$localidad;
         $barrio->save(); 
     }
 

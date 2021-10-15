@@ -303,7 +303,7 @@
                     <td style="text-align:center;"><?php echo $ins->Localidad_Origen_Insumo  ?></td>
                     <td style="text-align:center;"><?php echo $ins->Pais_Origen_Insumo ?></td>
                     <td style="text-align:center;"><?php echo $ins->motivo_importacion_Insumo == null ? "--" : $ins->motivo_importacion_Insumo ?></td>
-                    <td style="text-align:center;"><?php echo $ins->Detalle_de_motivo_de_importacion_Insumo == "" ? "--" : $ins->Detalle_de_motivo_de_importacion_MP ?></td>
+                    <td style="text-align:center;"><?php echo $ins->Detalle_de_motivo_de_importacion_Insumo == "" ? "--" : $ins->Detalle_de_motivo_de_importacion_Insumo ?></td>
                     <td style="text-align:center;"><?php echo $ins->anio_insumos  ?></td>
                 </tr>
 

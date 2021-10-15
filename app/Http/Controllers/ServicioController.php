@@ -110,13 +110,47 @@ class ServicioController extends Controller
                 $status = 1;
             } else {
 
+
+               
+                  
+                    //si no vienen ids de paises localidad y provincia: cargarlos
+                    if($params['id_pais_combustible'] == ""){
+                        $nom_pais=strtoupper($params['search_pais_combustible']);
+                        $pais_store=New PaisController();
+                        $id_pais_store=$pais_store->store($nom_pais); 
+                        $pais=$id_pais_store;
+                    }else{
+                        $pais = intval($params['id_pais_combustible']);
+                    }
+        
+                    if($params['id_provincia_combustible'] == ""){
+                        $nom_provincia=strtoupper($params['search_provincia_combustible']);
+                        $provincia_store= New ProvinciaController();
+                        $id_prov_store=$provincia_store->store($nom_provincia,$pais);
+                        $provincia=$id_prov_store;
+                    }else{
+                        $provincia= intval($params['id_provincia_combustible']);
+                    }
+        
+                    if($params['id_localidad_combustible'] == ""){
+                        $nom_localidad=strtoupper($params['search_localidad_combustible']);
+                        $localidad_store=New LocalidadController();
+                        $id_localidad_store=$localidad_store->store($nom_localidad,$provincia);
+                        $localidad=$id_localidad_store;
+                    }else{
+                        $localidad=intval($params['id_localidad_combustible']);
+                    }
+        
+                     
+               
+
                 $id_rel_servicio_industria = DB::table('rel_industria_servicio')->insertGetId([
                     'id_industria' => $id_industria,
                     'id_servicio' => intval($params['id_servicio_combustible']),
                     'id_frecuencia_de_contratacion' => 1,
                     'costo' => intval($params['costo_combustible']),
-                    'id_localidad' =>  intval($params['id_localidad_combustible']),
-                    'id_pais' => intval($params['id_pais_combustible']),
+                    'id_localidad' => $localidad,
+                    'id_pais' => $pais,
                     'id_unidad_de_medida' => intval($params['medida_combustible']),
                     'id_motivo_importacion' => isset($params['motivo_importacion_combustible']) && $params['motivo_importacion_combustible'] != "" ? intval($params['motivo_importacion_combustible']) : null,
                     'detalles' => isset($params['detalles_combustible']) ? $params['detalles_combustible'] : "",
@@ -152,14 +186,44 @@ class ServicioController extends Controller
                 $status = 1;
             } else {
 
+              
+
+                //si no vienen ids de paises localidad y provincia: cargarlos
+                if($params['id_pais_otros'] == ""){
+                    $nom_pais=strtoupper($params['search_pais_otros']);
+                    $pais_store=New PaisController();
+                    $id_pais_store=$pais_store->store($nom_pais); 
+                    $pais=$id_pais_store;
+                }else{
+                    $pais = intval($params['id_pais_otros']);
+                }
+    
+                if($params['id_provincia_otros'] == ""){
+                    $nom_provincia=strtoupper($params['search_provincia_otros']);
+                    $provincia_store= New ProvinciaController();
+                    $id_prov_store=$provincia_store->store($nom_provincia,$pais);
+                    $provincia=$id_prov_store;
+                }else{
+                    $provincia= intval($params['id_provincia_otros']);
+                }
+    
+                if($params['id_localidad_otros'] == ""){
+                    $nom_localidad=strtoupper($params['search_localidad_otros']);
+                    $localidad_store=New LocalidadController();
+                    $id_localidad_store=$localidad_store->store($nom_localidad,$provincia);
+                    $localidad=$id_localidad_store;
+                }else{
+                    $localidad=intval($params['id_localidad_otros']);
+                }
+
 
                 $id = DB::table('rel_industria_servicio')->insertGetId([
                     'id_industria' => $id_industria,
                     'id_servicio' => $id_servicio,
                     'id_frecuencia_de_contratacion' => 1,
                     'costo' => intval($params['costo_otros']),
-                    'id_localidad' =>  intval($params['id_localidad_otros']),
-                    'id_pais' => intval($params['id_pais_otros']),
+                    'id_localidad' =>  $localidad,
+                    'id_pais' => $pais,
                     'id_motivo_importacion' => intval($params['motivo_importacion_otros']),
                     'detalles' => isset($params['detalles_otros']) ? $params['detalles_otros'] : "",
                     'cantidad_consumida' => intval($params['cantidad_otros']),
@@ -248,6 +312,35 @@ class ServicioController extends Controller
             } else {
 
 
+                //si no vienen ids de paises localidad y provincia: cargarlos
+                if($params['id_pais_combustible'] == ""){
+                    $nom_pais=strtoupper($params['search_pais_combustible']);
+                    $pais_store=New PaisController();
+                    $id_pais_store=$pais_store->store($nom_pais); 
+                    $pais=$id_pais_store;
+                }else{
+                    $pais = intval($params['id_pais_combustible']);
+                }
+    
+                if($params['id_provincia_combustible'] == ""){
+                    $nom_provincia=strtoupper($params['search_provincia_combustible']);
+                    $provincia_store= New ProvinciaController();
+                    $id_prov_store=$provincia_store->store($nom_provincia,$pais);
+                    $provincia=$id_prov_store;
+                }else{
+                    $provincia= intval($params['id_provincia_combustible']);
+                }
+    
+                if($params['id_localidad_combustible'] == ""){
+                    $nom_localidad=strtoupper($params['search_localidad_combustible']);
+                    $localidad_store=New LocalidadController();
+                    $id_localidad_store=$localidad_store->store($nom_localidad,$provincia);
+                    $localidad=$id_localidad_store;
+                }else{
+                    $localidad=intval($params['id_localidad_combustible']);
+                }
+
+
                 $id_rel_producto_actividad = DB::table('rel_industria_servicio')
                     ->where('id_rel_industria_servicio', intval($params['id_rel_industria_combustible']))
                     ->update([
@@ -255,8 +348,8 @@ class ServicioController extends Controller
                         'id_servicio' => intval($params['id_servicio_combustible']),
                         'id_frecuencia_de_contratacion' => 1,
                         'costo' => intval($params['costo_combustible']),
-                        'id_localidad' =>  intval($params['id_localidad_combustible']),
-                        'id_pais' => intval($params['id_pais_combustible']),
+                        'id_localidad' =>  $localidad,
+                        'id_pais' => $pais,
                         'id_unidad_de_medida' => intval($params['medida_combustible']),
                         'id_motivo_importacion' => isset($params['motivo_importacion_combustible']) && $params['motivo_importacion_combustible'] != "" ? intval($params['motivo_importacion_combustible']) : null,
                         'detalles' => isset($params['detalles_combustible']) ? $params['detalles_combustible'] : "",
@@ -293,6 +386,34 @@ class ServicioController extends Controller
                 $status = 1;
             } else {
 
+                //si no vienen ids de paises localidad y provincia: cargarlos
+                if($params['id_pais_otros'] == ""){
+                    $nom_pais=strtoupper($params['search_pais_otros']);
+                    $pais_store=New PaisController();
+                    $id_pais_store=$pais_store->store($nom_pais); 
+                    $pais=$id_pais_store;
+                }else{
+                    $pais = intval($params['id_pais_otros']);
+                }
+    
+                if($params['id_provincia_otros'] == ""){
+                    $nom_provincia=strtoupper($params['search_provincia_otros']);
+                    $provincia_store= New ProvinciaController();
+                    $id_prov_store=$provincia_store->store($nom_provincia,$pais);
+                    $provincia=$id_prov_store;
+                }else{
+                    $provincia= intval($params['id_provincia_otros']);
+                }
+    
+                if($params['id_localidad_otros'] == ""){
+                    $nom_localidad=strtoupper($params['search_localidad_otros']);
+                    $localidad_store=New LocalidadController();
+                    $id_localidad_store=$localidad_store->store($nom_localidad,$provincia);
+                    $localidad=$id_localidad_store;
+                }else{
+                    $localidad=intval($params['id_localidad_otros']);
+                }
+
 
                 $id = DB::table('rel_industria_servicio')
                     ->where('id_rel_industria_servicio', intval($params['id_rel_industria_otros']))
@@ -301,8 +422,8 @@ class ServicioController extends Controller
                         'id_servicio' => $id_servicio,
                         'id_frecuencia_de_contratacion' => 1,
                         'costo' => intval($params['costo_otros']),
-                        'id_localidad' =>  intval($params['id_localidad_otros']),
-                        'id_pais' => intval($params['id_pais_otros']),
+                        'id_localidad' => $localidad,
+                        'id_pais' => $pais,
                         'id_motivo_importacion' => intval($params['motivo_importacion_otros']),
                         'detalles' => isset($params['detalles_otros']) ? $params['detalles_otros'] : "",
                         'cantidad_consumida' => intval($params['cantidad_otros']),

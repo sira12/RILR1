@@ -92,30 +92,34 @@ class InsumoController extends Controller
              $detalles = "";
          } else {
 
-            dd($params);
+            //si no vienen ids de paises localidad y provincia: cargarlos
             if($params['id_pais_insumo'] == ""){
-                
-                $nom_pais=strtoupper($params['search_pais']);
-                $nom_provincia=strtoupper($params['search_provincia']);
-                $nom_localidad=strtoupper($params['search_localidad32']);
-
-                //cargo pais prvincia y localidad
+                $nom_pais=strtoupper($params['search_pais_insumo']);
                 $pais_store=New PaisController();
                 $id_pais_store=$pais_store->store($nom_pais); 
-
-                $provincia_store= New ProvinciaController();
-                $id_prov_store=$provincia_store->store($nom_provincia,$id_pais_store);
-
-                $localidad_store=New LocalidadController();
-                $id_localidad_store=$localidad_store->store($nom_localidad,$id_prov_store);
-                
                 $pais=$id_pais_store;
-                $localidad=$id_localidad_store;
-
+            }else{
+                $pais = intval($params['id_pais_insumo']);
             }
 
-             $pais = intval($params['id_pais_insumo']);
-             $localidad = intval($params['id_localidad_insumo']);
+            if($params['id_provincia_insumo'] == ""){
+                $nom_provincia=strtoupper($params['search_provincia_insumo']);
+                $provincia_store= New ProvinciaController();
+                $id_prov_store=$provincia_store->store($nom_provincia,$pais);
+                $provincia=$id_prov_store;
+            }else{
+                $provincia= intval($params['id_provincia_insumo']);
+            }
+
+            if($params['id_localidad_insumo'] == ""){
+                $nom_localidad=strtoupper($params['search_localidad_insumo']);
+                $localidad_store=New LocalidadController();
+                $id_localidad_store=$localidad_store->store($nom_localidad,$provincia);
+                $localidad=$id_localidad_store;
+            }else{
+                $localidad=intval($params['id_localidad_insumo']);
+            }
+
              $motivo = intval($params['motivo_importacion_insumo']);
              $detalles = isset($params['detalles_insumo']) ?  $params['detalles_insumo'] : "";
          }
@@ -204,8 +208,58 @@ class InsumoController extends Controller
 
 
         if ($params['es_propio_insumo'] == "P") {
+            //si es propio significa que que no viene pais ni localidad, por lo tanto por defecto va el de la industria.
+             $pais_localidad = DB::table('industria')
+                 ->where('id_industria', $id_industria)
+                 ->join('localidad', 'industria.id_localidad', 'localidad.id_localidad')
+                 ->join('provincia', 'localidad.id_provincia', 'provincia.id_provincia')
+                 ->join('pais', 'provincia.id_pais', 'pais.id_pais')
+                 ->select(
+                     'industria.id_localidad',
+                     'pais.id_pais'
+                 )
+                 ->get();
+
+             $pais = $pais_localidad[0]->id_pais;
+             $localidad = $pais_localidad[0]->id_localidad;
+             $motivo = null;
+             $detalles = "";
+         } else {
+
+            //si no vienen ids de paises localidad y provincia: cargarlos
+            if($params['id_pais_insumo'] == ""){
+                $nom_pais=strtoupper($params['search_pais_insumo']);
+                $pais_store=New PaisController();
+                $id_pais_store=$pais_store->store($nom_pais); 
+                $pais=$id_pais_store;
+            }else{
+                $pais = intval($params['id_pais_insumo']);
+            }
+
+            if($params['id_provincia_insumo'] == ""){
+                $nom_provincia=strtoupper($params['search_provincia_insumo']);
+                $provincia_store= New ProvinciaController();
+                $id_prov_store=$provincia_store->store($nom_provincia,$pais);
+                $provincia=$id_prov_store;
+            }else{
+                $provincia= intval($params['id_provincia_insumo']);
+            }
+
+            if($params['id_localidad_insumo'] == ""){
+                $nom_localidad=strtoupper($params['search_localidad_insumo']);
+                $localidad_store=New LocalidadController();
+                $id_localidad_store=$localidad_store->store($nom_localidad,$provincia);
+                $localidad=$id_localidad_store;
+            }else{
+                $localidad=intval($params['id_localidad_insumo']);
+            }
+
+             $motivo = intval($params['motivo_importacion_insumo']);
+             $detalles = isset($params['detalles_insumo']) ?  $params['detalles_insumo'] : "";
+         }
 
 
+        /*if ($params['es_propio_insumo'] == "P") {
             $pais = intval($params['id_pais_insumo']);
             $localidad = intval($params['id_localidad_insumo']);
 
@@ -217,7 +271,7 @@ class InsumoController extends Controller
             $localidad = intval($params['id_localidad_insumo']);
             $motivo = $params['motivo_importacion_insumo'] !== "" ? intval($params['motivo_importacion_insumo']) : NULL;
             $detalles = isset($params['detalles_insumo']) ?  $params['detalles_insumo'] : "";
-        }
+        } */
 
             $id_rel_producto_actividad = DB::table('rel_industria_insumo')
                 ->where('id_rel_industria_insumo', intval($params['id_rel_industria_insumos']))
