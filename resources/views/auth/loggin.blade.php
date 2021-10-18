@@ -74,6 +74,19 @@
 
                 
           @endif
+          
+          @if( session('status') )
+          <div class="alert alert-success" role="alert">
+            {{ session('status') }}
+          </div>
+          @endif
+          
+        
+         
+
+
+
+        
 
           
 
@@ -110,11 +123,11 @@
                   </div>
                 </div>
 
-                <!-- <div class="form-group">
+                <div class="form-group">
                   <div class="col-md-12">
-                    <a href="javascript:void(0)" id="to-recover" class="text-dark pull-right"><i class="fa fa-lock"></i> Olvidaste tu Contraseña?</a>
+                    <a href="{{route('password.request')}}" class="text-dark pull-right"><i class="fa fa-lock"></i> Olvidaste tu Contraseña?</a>
                   </div>
-                </div> -->
+                </div>
 
 
                 <div class="form-group text-center m-t-20">

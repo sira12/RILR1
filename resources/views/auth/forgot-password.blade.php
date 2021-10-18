@@ -1,13 +1,20 @@
 <x-guest-layout>
     <x-auth-card>
         <x-slot name="logo">
-            <a href="/">
+            {{-- <a href="/">
                 <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-            </a>
+            </a> --}}
+
+            <div class="logo">
+                <span class="db">
+                  <img style="height: 60px !important;" src="{{ asset('fotos/3-transp.png')}}" width="100%" height="60px" alt="Logo Principal">
+                </span>
+                <h5 class="font-medium mb-10"></h5>
+              </div>
         </x-slot>
 
         <div class="mb-4 text-sm text-gray-600">
-            {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
+            {{ __('¿Olvidaste tu contraseña? No hay problema. Simplemente díganos su dirección de correo electrónico y le enviaremos un enlace para restablecer la contraseña que le permitirá elegir una nueva.') }}
         </div>
 
         <!-- Session Status -->
@@ -28,7 +35,7 @@
 
             <div class="flex items-center justify-end mt-4">
                 <x-button>
-                    {{ __('Email Password Reset Link') }}
+                    {{ __('Enviar') }}
                 </x-button>
             </div>
         </form>

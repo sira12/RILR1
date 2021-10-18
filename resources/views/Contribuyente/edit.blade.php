@@ -456,9 +456,9 @@
                                                     <div class="form-group has-feedback">
                                                         @if($contribuyente->constancia_afip)
 
-                                                            <span style="color: orange; font-size:12px"><b>Tienes un documento ya registrado</b></span>
+                                                            <span style="color: rgb(15, 141, 4); font-size:12px"><b>Tienes un documento ya registrado</b></span>
                                                             <span class="input-group-addon btn btn-primary btn-file">
-                                                                    <a class="venobox"
+                                                                    <a class="" target="_blank"
                                                                        href="{{asset("storage/".$contribuyente->constancia_afip)}}"><span
                                                                             style="color:white; margin-left: 2px;"><i
                                                                                 class="fa fa-eye"></i>Ver</span>
