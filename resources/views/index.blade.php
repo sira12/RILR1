@@ -3,6 +3,7 @@
 @section('content')
 
 @include('menus.menuContribuyente')
+<meta name="csrf-token" content="{{ csrf_token() }}" />
 
 <div class="page-wrapper">
     <!-- ============================================================== -->
@@ -103,7 +104,11 @@
                     <div class="form-body">
 
                         <div class="card-body">
+{{-- Input para traer datos de contribuyente no tocar --}}
+{{-- se lo agarra con la f lanzador--}}
+<input type="hidden" value="{{$contribuyente->id_contribuyente}}" id="id_contribuyente_panel_principal">
 
+{{-- fin input --}}
                             <div class="row">
                                 <div class="table-responsive">
                                     <table id="default_order" class="table table-striped table-bordered border display">
@@ -157,7 +162,7 @@
 
                             <div class="text-left">
                                 <!--  @if($proceso == false) -->
-                                <a href="{{route('procedimientos')}}"><button type="button" class="btn btn-dark"><span class="fa fa-plus-circle"></span> Registrar Nuevo Establecimiento Industrial</button></a>
+                                <a href="{{route('procedimientos')}}"><button id="btn_rg_ei" type="button" class="btn btn-dark"><span class="fa fa-plus-circle"></span> Registrar Nuevo Establecimiento Industrial</button></a>
                                 <!--  @else
                                 <button type="button" onclick="AlertaTramite('');" class="btn btn-dark"><span class="fa fa-plus-circle"></span> Registrar Nuevo Establecimiento Industrial</button></a>
                                 @endif -->

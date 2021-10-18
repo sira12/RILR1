@@ -269,6 +269,7 @@ Route::get('/procedimientos',[ProcedimientosController::class,'index'] )->middle
 //datos generales Contribuyente
 Route::get('/datos/{id}',[ContribuyenteController::class,'edit'] )->middleware(['auth'])->name('datosGenerales');
 Route::post('/updateContribuyente',[ContribuyenteController::class,'updateContribuyente'])->middleware(['auth']);
+Route::post('/g_ctrby',[ContribuyenteController::class,'getContribuyente'])->middleware(['auth']);
 
 
 

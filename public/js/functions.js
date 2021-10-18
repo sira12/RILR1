@@ -2433,7 +2433,6 @@ function getTramite() {
 }
 
 function lanzador() {
-    muestraReloj();
 
     //si se encuentra seteado el id de la industria es por que se está editando
     if (
@@ -2442,6 +2441,62 @@ function lanzador() {
     ) {
         getTramite();
     }
+    if($("#id_contribuyente_panel_principal").val() != undefined){
+        getContribuyente($("#id_contribuyente_panel_principal").val());
+    }else if($("#id_contribuyente_procedimientos_inicio").val() != undefined){
+        getContribuyente($("#id_contribuyente_procedimientos_inicio").val());
+    }    
+
+
+
+}
+function verify(val){
+  
+    if(val === null){
+       
+        return false
+    }
+    return true;
+}
+function getContribuyente(id){
+    $.ajax({
+        type: "post",
+        url: "/g_ctrby",
+        data: {
+            _token: $('meta[name="csrf-token"]').attr("content"),
+            id_contribuyente: id
+        },
+        success: function (response) {
+            console.log(response)
+            if(
+                !verify(response[0].fecha_inicio_de_actividades)  ||
+                !verify(response[0].numero_de_ib)  ||
+                !verify( response[0].id_localidad)  ||
+                !verify(response[0].id_barrio)  ||
+                !verify(response[0].id_calle)  ||
+                !verify(response[0].id_condicion_iva)  ||
+                !verify(response[0].id_naturaleza_juridica) ||
+                !verify(response[0].id_punto_cardinal)  ||
+                !verify(response[0].id_regimen_ib)  ||
+                !verify(response[0].cod_postal) 
+            ){
+                $("#btn_rg_ei").hide();
+                swal({
+                    title:"¡Bienvenido!",
+                    html:"<h1>asdasd</h1>",
+                    text:"Para poder realizar la carga de un Establecimiento industrial es necesario completar unos datos previos, lo redireccionaremos.<br> <b>¡Gracias!</b>",
+                    type:"info",
+                    confirmButtonText: "Ok,redirigirme",
+                    confirmButtonColor: "#8CD4F5"
+                
+                }, function () {
+                    window.location.href = window.location.origin+"/datos/"+id;
+                }
+                );
+
+            }
+        },
+    }); 
 }
 
 function getClasificacionVentas() {

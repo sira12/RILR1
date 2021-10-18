@@ -26,6 +26,7 @@ class IndexController extends Controller
             $industria['actividad'] = $act;
         }
 
+        
         return view('index', [
             'industrias' => $industrias,
             'id_contribuyente' => $pers_contrib->id_contribuyente,

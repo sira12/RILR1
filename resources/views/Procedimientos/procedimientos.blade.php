@@ -5,6 +5,11 @@
 @include('menus.menuContribuyente')
 @include('Procedimientos.modales')
 <meta name="csrf-token" content="{{ csrf_token() }}" />
+{{-- Input para traer datos de contribuyente no tocar --}}
+{{-- se lo agarra con la f lanzador--}}
+<input type="hidden" value="{{$contribuyente->id_contribuyente}}" id="id_contribuyente_procedimientos_inicio">
+
+{{-- fin input --}}
 <!-- ============================================================== -->
 <!-- Page wrapper  -->
 <!-- ============================================================== -->

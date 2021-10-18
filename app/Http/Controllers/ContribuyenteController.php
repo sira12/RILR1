@@ -15,6 +15,12 @@ use Illuminate\Support\Facades\DB;
 
 class ContribuyenteController extends Controller
 {
+
+    public function getContribuyente(Request $request){
+
+        $contribuyente=DB::table('contribuyente')->where('id_contribuyente',intval($request->id_contribuyente))->get();
+        return response()->json($contribuyente);
+    }
     /**
      * Display a listing of the resource.
      *
