@@ -290,9 +290,19 @@
                                             <div class="col-md-3">
                                                 <div class="form-group has-feedback">
                                                     <label class="control-label">Provincia <span style="cursor: pointer;" class="mdi mdi-alert-circle text-danger" data-container="body" title="asd"></span><span class="symbol required"></span></label>
-                                                    <input type="hidden" name="id_provincia" id="id_provincia" />
-                                                    <input type="text" class="form-control" name="search_provincia" id="search_provincia" placeholder="Ingrese Nombre de provincia" autocomplete="nope" required="" aria-required="true"/>
+                                                   {{--  <input type="hidden" name="id_provincia" id="id_provincia" />
+                                                    <input type="text" class="form-control" name="search_provincia" id="search_provincia" placeholder="Ingrese Nombre de provincia" autocomplete="nope" required="" aria-required="true"/> --}}
                                                     <i class="fa fa-search form-control-feedback"></i>
+                                                    
+                                                    <select name="id_provincia" id="id_provincia" class="form-control" required="" aria-required="true">
+                                                        <option value=""> -- SELECCIONE -- </option>
+                                                        @foreach($provincias as $prov)
+                                                        
+                                                        <option value="{{$prov->id_provincia}}">{{$prov->provincia}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                
+                                                
                                                 </div>
                                             </div>
 
@@ -795,12 +805,12 @@
 
 
         $(document).ready(function() {
-            $("#search_provincia").keyup(function() {
-
-                if ($("#search_provincia").val().length < 1) {
+            $("#id_provincia").change(function() {
+               
+                if ($("#id_provincia").val() == "") {
                     //limpiar id provincia, id localidad, barrio, calle
-                    console.log("asdasd");
-                    $('#id_provincia').val("")
+                  
+                    
                     $('#id_localidad').val("")
                     $('#id_barrio').val("")
                     $('#id_calle').val("")

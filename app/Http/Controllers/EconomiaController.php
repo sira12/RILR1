@@ -133,7 +133,7 @@ class EconomiaController extends Controller
     }
 
     public function deleteRelEconomia(Request $request){
-        if(DB::table('rel_economia_del_conocimiento_sector')->where('id_rel_economia_del_conocimiento_sector', intval($request->id))->delete()){
+        if(DB::table('rel_industria_economia_del_conocimiento_sector')->where('id_rel_economia_del_conocimiento_sector', intval($request->id))->delete()){
             return response()->json(array('status' => 200), 200);
         }
     }

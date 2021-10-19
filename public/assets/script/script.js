@@ -5384,6 +5384,8 @@ $('document').ready(function() {
                                 type: 'information',
                                 timeout: 5000,
                             });
+
+                            cargar_tabla_ventas();
                             $('#MyModalVenta').modal('hide');
                             //$('#secciones').load("formularios.php?BuscaFormularioProcedimiento=si&seccion=" + seccion + "&in=" + industria);
                             $("#saveventa")[0].reset();
@@ -5443,6 +5445,8 @@ $("#btn-venta-update").on('click', function() {
                             type: 'information',
                             timeout: 5000,
                         });
+
+                        cargar_tabla_ventas()
                         $('#MyModalVenta').modal('hide');
                         //$('#secciones').load("formularios.php?BuscaFormularioProcedimiento=si&seccion=" + seccion + "&in=" + industria);
                         $("#updateventa")[0].reset();
@@ -5574,6 +5578,8 @@ $('document').ready(function() {
                                 type: 'information',
                                 timeout: 5000,
                             });
+
+                            cargar_tabla_fact();
                             $('#MyModalFacturacion').modal('hide');
                             //$('#secciones').load("formularios.php?BuscaFormularioProcedimiento=si&seccion=" + seccion + "&in=" + industria);
                             $("#savefacturacion")[0].reset();

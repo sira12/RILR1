@@ -35,9 +35,10 @@ class RegisteredUserController extends Controller
         $personaJuridica = PersonaJuridica::all();
         $afectacion = Afectacion::where('activo', "S")->get();
         $tipo_documento = Documento::all();
-
+        $provincias=DB::table('provincia')->where('id_pais',1)->get();
+        
         return view('auth.reggister', [
-
+            'provincias'=> $provincias,
             'afectacion' => $afectacion,
             'tipo_doc' => $tipo_documento,
             'personaJuridica' => $personaJuridica
