@@ -963,7 +963,7 @@
                         data: {
                             _token: "{{ csrf_token() }}",
                             search: request.term,
-                            id_prov: id_provincia
+                            id_prov: $('#id_provincia').val()
                         },
                         success: function(data) {
                             response(data);

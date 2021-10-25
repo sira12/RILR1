@@ -43,7 +43,7 @@ class DdjjCOntroller extends Controller
         
         $pdf =PDF::loadView('Dj.dj',$result);
             
-    
+       
         $content = $pdf->download()->getOriginalContent();
 
            
@@ -63,6 +63,8 @@ class DdjjCOntroller extends Controller
         $pat_1='app\public\dj_docs';
         
         $path= storage_path($pat_1.'\\'.$cuit.'\\'.$name.'.pdf');
+        
+       
         return response()->download($path);
     }
 }

@@ -336,6 +336,7 @@ $(function () {
      changeMonth: true,
      changeYear: true,
      yearSuffix: '',
+     yearRange: '1700:c',
      onClose: function (selectedDate) {
       $("#fecha_actividad_industria").datepicker("option", "minDate", selectedDate);
     }

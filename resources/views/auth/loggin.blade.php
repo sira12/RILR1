@@ -115,7 +115,7 @@
                   <div class="col-lg-12">
                     <div class="form-group has-feedback">
                       <div class="campo">
-                        <label class="control-label">Ingrese su Password: <a class="symbol required"></a></label>
+                        <label class="control-label">Ingrese su Contraseña: <a class="symbol required"></a></label>
                         <input class="form-control" type="password" placeholder="Ingrese su Password" name="password" id="password" autocomplete="off" required="" aria-required="true"><span id="show_password" class="mdi mdi-eye icon" onclick="MostrarPassword()"></span>
                       </div>
                       <i class="fa fa-key form-control-feedback"></i>

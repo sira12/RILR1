@@ -319,6 +319,11 @@
                                         </div>
 
                                         <div class="row">
+                                            <h4 class="card-subtitle m-0">Ubicación GPS: </h4>
+                                            <hr>
+                                        </div>
+
+                                        <div class="row">
                                             <div class="col-md-5">
                                                 <div class="form-group has-feedback">
                                                     <label class="control-label">Latitud de Ubicación: <span class="symbol required"></span></label>
@@ -351,7 +356,7 @@
                                                 <div class="form-group has-feedback">
                                                     <label class="control-label">Pagina Web (Ej:
                                                         http://dominio.com):
-                                                        <span class="symbol required"></span></label>
+                                                        </label>
                                                     <input type="url" class="form-control" name="pagina_web" id="pagina_web" placeholder="Ingrese Url de Pagina Web" autocomplete="off" value="" required="" aria-required="true" />
                                                     <i class="fa fa-globe form-control-feedback"></i>
                                                 </div>
