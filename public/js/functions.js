@@ -3099,545 +3099,564 @@ function trae_views_ddjj() {
         },
         dataType: "json",
         success: function (response) {
-            var getUrl = window.location;
-            $("#btn_export_dj").attr(
-                "href",
-                getUrl.origin +
-                    "/djDownload/" +
-                    response.nombre_pdf +
-                    "/" +
-                    response.industria_contribuyente[0].cuit
-            );
-
-            //contribuyente
-            if(response.industria_contribuyente.length > 0){
-            $("#cuit_dj").text(response.industria_contribuyente[0].cuit);
-            $("#rs_dj").text(response.industria_contribuyente[0].razon_social);
-            $("#rib_dj").text(response.industria_contribuyente[0].regimen_ib);
-            $("#nib_dj").text(response.industria_contribuyente[0].numero_de_ib);
-            $("#civa_dj").text(
-                response.industria_contribuyente[0].condicion_iva
-            );
-            $("#nj_dj").text(
-                response.industria_contribuyente[0].naturaleza_juridica
-            );
-            $("#ef_dj").text(response.industria_contribuyente[0].email_fiscal);
-            $("#cp_dj").text(response.industria_contribuyente[0].CP_Legal);
-            $("#fiac_dj").text(
-                response.industria_contribuyente[0]
-                    .Inicio_de_Actividades_Contribuyente
-            );
-            $("#ll_dj").text(
-                response.industria_contribuyente[0].Localidad_Legal
-            );
-            $("#dni_dj").text(response.industria_contribuyente[0].documento);
-            $("#d_dj").text(
-                response.industria_contribuyente[0].persona_declarante
-            );
-            $("#calidad_dj").text(
-                response.industria_contribuyente[0].En_calidad_de
-            );
-            //industria
-            var casa_central =
-                response.industria_contribuyente[0].es_casa_central == "S"
-                    ? "SI"
-                    : "NO";
-            var zona_ind =
-                response.industria_contribuyente[0].es_zona_industrial == "S"
-                    ? "SI"
-                    : "NO";
-            $("#nei_dj").text(
-                response.industria_contribuyente[0].nombre_de_fantasia
-            );
-            $("#fiae_dj").text(
-                response.industria_contribuyente[0].Fecha_inicio_industria
-            );
-            $("#ecc_dj").text(casa_central);
-            $("#ezi_dj").text(zona_ind);
-            $("#ntf_dj").text(response.industria_contribuyente[0].tel_fijo);
-            $("#ntc_dj").text(response.industria_contribuyente[0].tel_celular);
-            $("#cee_dj").text(
-                response.industria_contribuyente[0].mail_industria
-            );
-            $("#lp_dj").text(
-                response.industria_contribuyente[0].Localidad_Industria
-            );
-            $("#pw_dj").text(response.industria_contribuyente[0].pagina_web);
-            $("#lu_dj").text(response.industria_contribuyente[0].latitud);
-            $("#lonu_dj").text(response.industria_contribuyente[0].longitud);
-            $("#cpi_dj").text(response.industria_contribuyente[0].CP_Industria);
-           
+            
+            console.log(response.content.msg)
+            if(response.content.msg == "found"){
+               
+                $("#contenido_dj").show()
+                $("#div_info_dj").hide()
+                $("#btn_export_dj").show()
+                var getUrl = window.location;
+                $("#btn_export_dj").attr(
+                    "href",
+                    getUrl.origin +
+                        "/djDownload/" +
+                        response.nombre_pdf +
+                        "/" +
+                        response.industria_contribuyente[0].cuit
+                );
+    
+                //contribuyente
+                if(response.industria_contribuyente.length > 0){
+                $("#cuit_dj").text(response.industria_contribuyente[0].cuit);
+                $("#rs_dj").text(response.industria_contribuyente[0].razon_social);
+                $("#rib_dj").text(response.industria_contribuyente[0].regimen_ib);
+                $("#nib_dj").text(response.industria_contribuyente[0].numero_de_ib);
+                $("#civa_dj").text(
+                    response.industria_contribuyente[0].condicion_iva
+                );
+                $("#nj_dj").text(
+                    response.industria_contribuyente[0].naturaleza_juridica
+                );
+                $("#ef_dj").text(response.industria_contribuyente[0].email_fiscal);
+                $("#cp_dj").text(response.industria_contribuyente[0].CP_Legal);
+                $("#fiac_dj").text(
+                    response.industria_contribuyente[0]
+                        .Inicio_de_Actividades_Contribuyente
+                );
+                $("#ll_dj").text(
+                    response.industria_contribuyente[0].Localidad_Legal
+                );
+                $("#dni_dj").text(response.industria_contribuyente[0].documento);
+                $("#d_dj").text(
+                    response.industria_contribuyente[0].persona_declarante
+                );
+                $("#calidad_dj").text(
+                    response.industria_contribuyente[0].En_calidad_de
+                );
+                //industria
+                var casa_central =
+                    response.industria_contribuyente[0].es_casa_central == "S"
+                        ? "SI"
+                        : "NO";
+                var zona_ind =
+                    response.industria_contribuyente[0].es_zona_industrial == "S"
+                        ? "SI"
+                        : "NO";
+                $("#nei_dj").text(
+                    response.industria_contribuyente[0].nombre_de_fantasia
+                );
+                $("#fiae_dj").text(
+                    response.industria_contribuyente[0].Fecha_inicio_industria
+                );
+                $("#ecc_dj").text(casa_central);
+                $("#ezi_dj").text(zona_ind);
+                $("#ntf_dj").text(response.industria_contribuyente[0].tel_fijo);
+                $("#ntc_dj").text(response.industria_contribuyente[0].tel_celular);
+                $("#cee_dj").text(
+                    response.industria_contribuyente[0].mail_industria
+                );
+                $("#lp_dj").text(
+                    response.industria_contribuyente[0].Localidad_Industria
+                );
+                $("#pw_dj").text(response.industria_contribuyente[0].pagina_web);
+                $("#lu_dj").text(response.industria_contribuyente[0].latitud);
+                $("#lonu_dj").text(response.industria_contribuyente[0].longitud);
+                $("#cpi_dj").text(response.industria_contribuyente[0].CP_Industria);
+               
+                }
+               
+                //actividades ,prod
+                if(response.act_prod.length > 0){
+                $(response.act_prod).each(function (i, v) {
+                    var p = v.es_actividad_principal == "S" ? "Si" : "No";
+                    //var m=v.motivo_importacion_Insumo == null ? "--" : v.motivo_importacion_Insumo
+                    //var d=v.Detalle_de_motivo_de_importacion_Insumo == null ? "--" : v.Detalle_de_motivo_de_importacion_Insumo
+                    let fecha_fin= v.fecha_fin == "" ? "--" : v.fecha_fin;
+                    
+                    $("#tbody_act_prod_dj").append(
+                        "<tr>" +
+                            "<td>" +
+                            v.actividad +
+                            "</td>" +
+                            "<td>" +
+                            p +
+                            "</td>" +
+                            "<td>" +
+                            v.observacion +
+                            "</td>" +
+                            "<td>" +
+                            v.fecha_inicio +
+                            "</td>" +
+                            "<td>" +
+                            fecha_fin+"</td>" +
+                            "<td>" +
+                            v.Productos_Elaborados +
+                            "</td>" +
+                            "<td>" +
+                            v.Cantidad_producida +
+                            "</td>" +
+                            "<td>" +
+                            v.porcentaje_sobre_produccion +
+                            "</td>" +
+                            "<td>" +
+                            v.ventas_en_provincia +
+                            "</td>" +
+                            "<td>" +
+                            v.ventas_en_otras_provincias +
+                            "</td>" +
+                            "<td>" +
+                            v.ventas_en_el_exterior +
+                            "</td>" +
+                            "<td>" +
+                            v.anio_productos +
+                            "</td>" +
+                            "</tr>"
+                    );
+                });
+                }
+                if(response.act_mat.length > 0){
+                $(response.act_mat).each(function (i, v) {
+                    var p = v.es_actividad_principal == "S" ? "Si" : "No";
+                    var mp = v.Es_MP_propia == "S " ? "Si" : "No";
+                    //var d=v.Detalle_de_motivo_de_importacion_Insumo == null ? "--" : v.Detalle_de_motivo_de_importacion_Insumo
+                    let fecha_fin= v.fecha_fin == "" ? "--" : v.fecha_fin;
+                    let motivo_imp=v.motivo_importacion_MP == null ? "--" : v.motivo_importacion_MP
+                    $("#tbody_act_mp_dj").append(
+                        "<tr>" +
+                            '<td style="font-size:15px">' +
+                            v.actividad +
+                            "</td>" +
+                            "<td>" +
+                            p +
+                            "</td>" +
+                            "<td>" +
+                            v.observacion +
+                            "</td>" +
+                            '<td style="font-size:15px">' +
+                            v.fecha_inicio +
+                            "</td>" +
+                            "<td>"+fecha_fin+"</td>" +
+                            "<td>" +
+                            v.Materia_Prima_Utilizada +
+                            "</td>" +
+                            "<td>" +
+                            v.Cantidad_MP_Anual_Utilizada +
+                            "</td>" +
+                            "<td>" +
+                            mp +
+                            "</td>" +
+                            "<td>" +
+                            v.Localidad_Origen_MP +
+                            "</td>" +
+                            "<td>" +
+                            v.Pais_Origen_MP +
+                            "</td>" +
+                            "<td>" +
+                            motivo_imp +
+                            "</td>" +
+                            "<td>" +
+                            v.Detalle_de_motivo_de_importacion_MP +
+                            "</td>" +
+                            "<td>" +
+                            v.anio_MP +
+                            "</td>" +
+                            "</tr>"
+                    );
+                });
+                }
+                //insumos
+    
+                if(response.insumos.length > 0){
+                $(response.insumos).each(function (i, v) {
+                    var p = v.Es_insumo_propio == "P" ? "Propio" : "Adquirido";
+                    var m =
+                        v.motivo_importacion_Insumo == null
+                            ? "--"
+                            : v.motivo_importacion_Insumo;
+                    var d =
+                        v.Detalle_de_motivo_de_importacion_Insumo == null
+                            ? "--"
+                            : v.Detalle_de_motivo_de_importacion_Insumo;
+                    $("#tbody_insumos_dj").append(
+                        "<tr>" +
+                            "<td>" +
+                            v.Insumos_utilizados +
+                            "</td>" +
+                            "<td>" +
+                            p +
+                            "</td>" +
+                            "<td>" +
+                            v.Localidad_Origen_Insumo +
+                            "</td>" +
+                            "<td>" +
+                            v.Pais_Origen_Insumo +
+                            "</td>" +
+                            "<td>" +
+                            m +
+                            "</td>" +
+                            "<td>" +
+                            d +
+                            "</td>" +
+                            "<td>" +
+                            v.anio_insumos +
+                            "</td>" +
+                            "</tr>"
+                    );
+                });
+                }
+                //servicios
+                if(response.servicios.length > 0){
+                $(response.servicios).each(function (i, v) {
+                    var m =
+                        v.motivo_importacion_Servicio == null
+                            ? "--"
+                            : v.motivo_importacion_Servicio;
+                    var d =
+                        v.Detalle_de_motivo_de_importacion_Servicio == null
+                            ? "--"
+                            : v.Detalle_de_motivo_de_importacion_Servicio;
+    
+                    let costo= v.Costo_del_Servicio == null ? "--" : "$"+v.Costo_del_Servicio;
+                    $("#tbody_servicios_dj").append(
+                        "<tr>" +
+                            "<td>" +
+                            v.Servicio +
+                            "</td>" +
+                            "<td>" +
+                            v.cantidad_consumida +
+                            "</td>" +
+                            "<td>" +
+                          costo +
+                            "</td>" +
+                            "<td>" +
+                            v.frecuencia_de_contratacion_Servicio +
+                            "</td>" +
+                            "<td>" +
+                            v.Localidad_Origen_Servicio +
+                            "</td>" +
+                            "<td>" +
+                            v.Pais_Origen_Servicio +
+                            "</td>" +
+                            "<td>" +
+                            m +
+                            "</td>" +
+                            "<td>" +
+                            d +
+                            "</td>" +
+                            "<td>" +
+                            v.anio_Servicios +
+                            "</td>" +
+                            "</tr>"
+                    );
+                });
+                }
+                //tbody_gastos_dj
+                if(response.gastos.length > 0){
+                $(response.gastos).each(function (i, v) {
+                    $("#tbody_gastos_dj").append(
+                        "<tr>" +
+                            "<td>" +
+                            v.Concepto_de_egreso +
+                            "</td>" +
+                            "<td>$" +
+                            v.importe +
+                            "</td>" +
+                            "<td>" +
+                            v.anio_egresos +
+                            "</td>" +
+                            "</tr>"
+                    );
+                });
+                }
+                //sit planta
+    
+                if(response.sit.length > 0){
+                $(response.sit).each(function (i, v) {
+                    var m = v.Establecida_en_zona_industrial == 0 ? "No" : "Si";
+                    //var d=v.Detalle_de_motivo_de_importacion_Servicio == null ? "--" : v.Detalle_de_motivo_de_importacion_Servicio
+                    $("#tbody_situacion_dj").append(
+                        "<tr>" +
+                            "<td>" +
+                            v.produccion_sobre_capacidad +
+                            "%</td>" +
+                            "<td>" +
+                            v.superficie_lote +
+                            "</td>" +
+                            "<td>" +
+                            v.superficie_planta +
+                            "</td>" +
+                            "<td>" +
+                            m +
+                            "</td>" +
+                            "<td>$" +
+                            v.inversion_anual +
+                            "</td>" +
+                            "<td>$" +
+                            v.inversion_activo_fijo +
+                            "</td>" +
+                            "<td>" +
+                            v.capacidad_instalada +
+                            "%</td>" +
+                            "<td>" +
+                            v.capacidad_ociosa +
+                            "%</td>" +
+                            "<td>" +
+                            v.anio_situacion_De_planta +
+                            "</td>" +
+                            "</tr>"
+                    );
+                });
+                }
+    
+                if(response.ocios.length > 0){
+                $(response.ocios).each(function (i, v) {
+                    $("#tbody_mot_o_dj").append(
+                        "<tr>" +
+                            "<td>" +
+                            v.motivo_ociosidad +
+                            "</td>" +
+                            "<td>" +
+                            v.anio_ociosidad +
+                            "</td>" +
+                            "</tr>"
+                    );
+                });
             }
-           
-            //actividades ,prod
-            if(response.act_prod.length > 0){
-            $(response.act_prod).each(function (i, v) {
-                var p = v.es_actividad_principal == "S" ? "Si" : "No";
-                //var m=v.motivo_importacion_Insumo == null ? "--" : v.motivo_importacion_Insumo
-                //var d=v.Detalle_de_motivo_de_importacion_Insumo == null ? "--" : v.Detalle_de_motivo_de_importacion_Insumo
-                let fecha_fin= v.fecha_fin == "" ? "--" : v.fecha_fin;
+                //tbody_p_ocupado_dj
+                if(response.po.length > 0){
+                $(response.po).each(function (i, v) {
+                    var s = v.sexo == "M" ? "Masculino" : "Femenino";
+                    //var d=v.Detalle_de_motivo_de_importacion_Servicio == null ? "--" : v.Detalle_de_motivo_de_importacion_Servicio
+                    $("#tbody_p_ocupado_dj").append(
+                        "<tr>" +
+                            "<td>" +
+                            v.rol_trabajador +
+                            "</td>" +
+                            "<td>" +
+                            v.condicion_laboral +
+                            "</td>" +
+                            "<td>" +
+                            s +
+                            "</td>" +
+                            "<td>" +
+                            v.numero_de_trabajadores +
+                            "</td>" +
+                            "<td>" +
+                            v.anio_rol_trabajadores +
+                            "</td>" +
+                            "</tr>"
+                    );
+                });
+                }
+                //tbody_venta_nacional_dj
+                if(response.venta_nacional.length > 0){
+                $(response.venta_nacional).each(function (i, v) {
+                    $("#tbody_venta_nacional_dj").append(
+                        "<tr>" +
+                            "<td>" +
+                            v.Tipo_de_Venta +
+                            "</td>" +
+                            "<td>" +
+                            v.Provincia_Destino_ventas +
+                            "</td>" +
+                            "<td>" +
+                            v.anio_destino_ventas +
+                            "</td>" +
+                            "</tr>"
+                    );
+                });
+                }
+                //tbody_venta_nacional_dj
+                if(response.venta_inter.length > 0){
+                $(response.venta_inter).each(function (i, v) {
+                    $("#tbody_venta_inter_dj").append(
+                        "<tr>" +
+                            "<td>" +
+                            v.Tipo_de_Venta +
+                            "</td>" +
+                            "<td>" +
+                            v.Pais_Destino_ventas +
+                            "</td>" +
+                            "<td>" +
+                            v.anio_destino_ventas +
+                            "</td>" +
+                            "</tr>"
+                    );
+                });
+            }
+                //facturacion
+                if(response.fact.length > 0){
+                $(response.fact).each(function (i, v) {
+                    $("#tbody_facturacion_dj").append(
+                        "<tr>" +
+                            "<td>" +
+                            v.categoria_pyme +
+                            "</td>" +
+                            "<td>$" +
+                            v.prevision_ingresos_anio_corriente +
+                            "</td>" +
+                            "<td>" +
+                            v.prevision_ingresos_anio_corriente_dolares +
+                            "Usd</td>" +
+                            "<td>" +
+                            v.porcentaje_prevision_mercado_interno +
+                            "%</td>" +
+                            "<td>" +
+                            v.porcentaje_prevision_mercado_externo +
+                            "%</td>" +
+                            "<td>" +
+                            v.Anio_Facturacion +
+                            "</td>" +
+                            "</tr>"
+                    );
+                });
+                }
+                //efluente
+                if(response.efluente.length > 0){
+                $(response.efluente).each(function (i, v) {
+                    $("#tbody_efluentes_dj").append(
+                        "<tr>" +
+                            "<td>" +
+                            v.efluente +
+                            "</td>" +
+                            "<td>" +
+                            v.Tratamiento_del_Efluente +
+                            "</td>" +
+                            "<td>" +
+                            v.Destino_Efluente +
+                            "</td>" +
+                            "<td>" +
+                            v.anio_efluente +
+                            "</td>" +
+                            "</tr>"
+                    );
+                });
+            }
+                // certificados
+                if(response.certificados.length > 0){
+                $(response.certificados).each(function (i, v) {
+                    var vi =
+                        v.Vigencia_Certificado == "Desde: Hasta:"
+                            ? "--"
+                            : v.Vigencia_Certificado;
+                    $("#tbody_certificados_dj").append(
+                        "<tr>" +
+                            "<td>" +
+                            v.certificado +
+                            "</td>" +
+                            "<td>" +
+                            v.Estado_Certificado +
+                            "</td>" +
+                            "<td>" +
+                            vi +
+                            "</td>" +
+                            "<td>" +
+                            v.anio_certificado +
+                            "</td>" +
+                            "</tr>"
+                    );
+                });
+                }   
+                //  sistemas de calidad
+                if(response.sistemas.length > 0){
+                $(response.sistemas).each(function (i, v) {
+                    var vi =
+                        v.Vigencia_Sistema_de_calidad == "Desde: Hasta:"
+                            ? "--"
+                            : v.Vigencia_Sistema_de_calidad;
+                    $("#tbody_sistemas_dj").append(
+                        "<tr>" +
+                            "<td>" +
+                            v.sistema_de_calidad +
+                            "</td>" +
+                            "<td>" +
+                            v.Estado_Sistema_de_calidad +
+                            "</td>" +
+                            "<td>" +
+                            vi +
+                            "</td>" +
+                            "<td>" +
+                            v.Anio_Sistema_de_calidad +
+                            "</td>" +
+                            "</tr>"
+                    );
+                });
+                }
+                if(response.promo.length > 0){
+                $(response.promo).each(function (i, v) {
+                    var vi =
+                        v.Vigencia_Promocion_industrial == "Desde: Hasta:" || v.Vigencia_Promocion_industrial== null
+                            ? "--"
+                            : v.Vigencia_Sistema_de_calidad;
+                    $("#tbody_promo_dj").append(
+                        "<tr>" +
+                            "<td>" +
+                            v.promocion_industrial +
+                            "</td>" +
+                            "<td>" +
+                            v.Estado_Promocion_industrial +
+                            "</td>" +
+                            "<td>" +
+                            vi +
+                            "</td>" +
+                            "<td>" +
+                            v.Anio_Promocion_industrial +
+                            "</td>" +
+                            "</tr>"
+                    );
+                });
+                 }   
+                 if(response.eco.length > 0){
+                $(response.eco).each(function (i, v) {
+                    $("#tbody_economia_dj").append(
+                        "<tr>" +
+                            "<td>" +
+                            v.sector +
+                            "</td>" +
+                            "<td>" +
+                            v.Anio_Economia_del_conocimiento_sector +
+                            "</td>" +
+                            "</tr>"
+                    );
+                });
+            }
+            if(response.perfil.length > 0){
+                $(response.perfil).each(function (i, v) {
+                    $("#tbody_perfil_dj").append(
+                        "<tr>" +
+                            "<td>" +
+                            v.perfil +
+                            "</td>" +
+                            "<td>" +
+                            v.Anio_Economia_del_conocimiento_perfil +
+                            "</td>" +
+                            "</tr>"
+                    );
+                });
+            }
+
+
+            }else{
+                $("#contenido_dj").hide()
+                $("#div_info_dj").show()
                 
-                $("#tbody_act_prod_dj").append(
-                    "<tr>" +
-                        "<td>" +
-                        v.actividad +
-                        "</td>" +
-                        "<td>" +
-                        p +
-                        "</td>" +
-                        "<td>" +
-                        v.observacion +
-                        "</td>" +
-                        "<td>" +
-                        v.fecha_inicio +
-                        "</td>" +
-                        "<td>" +
-                        fecha_fin+"</td>" +
-                        "<td>" +
-                        v.Productos_Elaborados +
-                        "</td>" +
-                        "<td>" +
-                        v.Cantidad_producida +
-                        "</td>" +
-                        "<td>" +
-                        v.porcentaje_sobre_produccion +
-                        "</td>" +
-                        "<td>" +
-                        v.ventas_en_provincia +
-                        "</td>" +
-                        "<td>" +
-                        v.ventas_en_otras_provincias +
-                        "</td>" +
-                        "<td>" +
-                        v.ventas_en_el_exterior +
-                        "</td>" +
-                        "<td>" +
-                        v.anio_productos +
-                        "</td>" +
-                        "</tr>"
-                );
-            });
-            }
-            if(response.act_mat.length > 0){
-            $(response.act_mat).each(function (i, v) {
-                var p = v.es_actividad_principal == "S" ? "Si" : "No";
-                var mp = v.Es_MP_propia == "S " ? "Si" : "No";
-                //var d=v.Detalle_de_motivo_de_importacion_Insumo == null ? "--" : v.Detalle_de_motivo_de_importacion_Insumo
-                let fecha_fin= v.fecha_fin == "" ? "--" : v.fecha_fin;
-                let motivo_imp=v.motivo_importacion_MP == null ? "--" : v.motivo_importacion_MP
-                $("#tbody_act_mp_dj").append(
-                    "<tr>" +
-                        '<td style="font-size:15px">' +
-                        v.actividad +
-                        "</td>" +
-                        "<td>" +
-                        p +
-                        "</td>" +
-                        "<td>" +
-                        v.observacion +
-                        "</td>" +
-                        '<td style="font-size:15px">' +
-                        v.fecha_inicio +
-                        "</td>" +
-                        "<td>"+fecha_fin+"</td>" +
-                        "<td>" +
-                        v.Materia_Prima_Utilizada +
-                        "</td>" +
-                        "<td>" +
-                        v.Cantidad_MP_Anual_Utilizada +
-                        "</td>" +
-                        "<td>" +
-                        mp +
-                        "</td>" +
-                        "<td>" +
-                        v.Localidad_Origen_MP +
-                        "</td>" +
-                        "<td>" +
-                        v.Pais_Origen_MP +
-                        "</td>" +
-                        "<td>" +
-                        motivo_imp +
-                        "</td>" +
-                        "<td>" +
-                        v.Detalle_de_motivo_de_importacion_MP +
-                        "</td>" +
-                        "<td>" +
-                        v.anio_MP +
-                        "</td>" +
-                        "</tr>"
-                );
-            });
-            }
-            //insumos
-
-            if(response.insumos.length > 0){
-            $(response.insumos).each(function (i, v) {
-                var p = v.Es_insumo_propio == "P" ? "Propio" : "Adquirido";
-                var m =
-                    v.motivo_importacion_Insumo == null
-                        ? "--"
-                        : v.motivo_importacion_Insumo;
-                var d =
-                    v.Detalle_de_motivo_de_importacion_Insumo == null
-                        ? "--"
-                        : v.Detalle_de_motivo_de_importacion_Insumo;
-                $("#tbody_insumos_dj").append(
-                    "<tr>" +
-                        "<td>" +
-                        v.Insumos_utilizados +
-                        "</td>" +
-                        "<td>" +
-                        p +
-                        "</td>" +
-                        "<td>" +
-                        v.Localidad_Origen_Insumo +
-                        "</td>" +
-                        "<td>" +
-                        v.Pais_Origen_Insumo +
-                        "</td>" +
-                        "<td>" +
-                        m +
-                        "</td>" +
-                        "<td>" +
-                        d +
-                        "</td>" +
-                        "<td>" +
-                        v.anio_insumos +
-                        "</td>" +
-                        "</tr>"
-                );
-            });
-            }
-            //servicios
-            if(response.servicios.length > 0){
-            $(response.servicios).each(function (i, v) {
-                var m =
-                    v.motivo_importacion_Servicio == null
-                        ? "--"
-                        : v.motivo_importacion_Servicio;
-                var d =
-                    v.Detalle_de_motivo_de_importacion_Servicio == null
-                        ? "--"
-                        : v.Detalle_de_motivo_de_importacion_Servicio;
-
-                let costo= v.Costo_del_Servicio == null ? "--" : "$"+v.Costo_del_Servicio;
-                $("#tbody_servicios_dj").append(
-                    "<tr>" +
-                        "<td>" +
-                        v.Servicio +
-                        "</td>" +
-                        "<td>" +
-                        v.cantidad_consumida +
-                        "</td>" +
-                        "<td>" +
-                      costo +
-                        "</td>" +
-                        "<td>" +
-                        v.frecuencia_de_contratacion_Servicio +
-                        "</td>" +
-                        "<td>" +
-                        v.Localidad_Origen_Servicio +
-                        "</td>" +
-                        "<td>" +
-                        v.Pais_Origen_Servicio +
-                        "</td>" +
-                        "<td>" +
-                        m +
-                        "</td>" +
-                        "<td>" +
-                        d +
-                        "</td>" +
-                        "<td>" +
-                        v.anio_Servicios +
-                        "</td>" +
-                        "</tr>"
-                );
-            });
-            }
-            //tbody_gastos_dj
-            if(response.gastos.length > 0){
-            $(response.gastos).each(function (i, v) {
-                $("#tbody_gastos_dj").append(
-                    "<tr>" +
-                        "<td>" +
-                        v.Concepto_de_egreso +
-                        "</td>" +
-                        "<td>$" +
-                        v.importe +
-                        "</td>" +
-                        "<td>" +
-                        v.anio_egresos +
-                        "</td>" +
-                        "</tr>"
-                );
-            });
-            }
-            //sit planta
-
-            if(response.sit.length > 0){
-            $(response.sit).each(function (i, v) {
-                var m = v.Establecida_en_zona_industrial == 0 ? "No" : "Si";
-                //var d=v.Detalle_de_motivo_de_importacion_Servicio == null ? "--" : v.Detalle_de_motivo_de_importacion_Servicio
-                $("#tbody_situacion_dj").append(
-                    "<tr>" +
-                        "<td>" +
-                        v.produccion_sobre_capacidad +
-                        "%</td>" +
-                        "<td>" +
-                        v.superficie_lote +
-                        "</td>" +
-                        "<td>" +
-                        v.superficie_planta +
-                        "</td>" +
-                        "<td>" +
-                        m +
-                        "</td>" +
-                        "<td>$" +
-                        v.inversion_anual +
-                        "</td>" +
-                        "<td>$" +
-                        v.inversion_activo_fijo +
-                        "</td>" +
-                        "<td>" +
-                        v.capacidad_instalada +
-                        "%</td>" +
-                        "<td>" +
-                        v.capacidad_ociosa +
-                        "%</td>" +
-                        "<td>" +
-                        v.anio_situacion_De_planta +
-                        "</td>" +
-                        "</tr>"
-                );
-            });
+                $("#btn_export_dj").hide()
             }
 
-            if(response.ocios.length > 0){
-            $(response.ocios).each(function (i, v) {
-                $("#tbody_mot_o_dj").append(
-                    "<tr>" +
-                        "<td>" +
-                        v.motivo_ociosidad +
-                        "</td>" +
-                        "<td>" +
-                        v.anio_ociosidad +
-                        "</td>" +
-                        "</tr>"
-                );
-            });
-        }
-            //tbody_p_ocupado_dj
-            if(response.po.length > 0){
-            $(response.po).each(function (i, v) {
-                var s = v.sexo == "M" ? "Masculino" : "Femenino";
-                //var d=v.Detalle_de_motivo_de_importacion_Servicio == null ? "--" : v.Detalle_de_motivo_de_importacion_Servicio
-                $("#tbody_p_ocupado_dj").append(
-                    "<tr>" +
-                        "<td>" +
-                        v.rol_trabajador +
-                        "</td>" +
-                        "<td>" +
-                        v.condicion_laboral +
-                        "</td>" +
-                        "<td>" +
-                        s +
-                        "</td>" +
-                        "<td>" +
-                        v.numero_de_trabajadores +
-                        "</td>" +
-                        "<td>" +
-                        v.anio_rol_trabajadores +
-                        "</td>" +
-                        "</tr>"
-                );
-            });
-            }
-            //tbody_venta_nacional_dj
-            if(response.venta_nacional.length > 0){
-            $(response.venta_nacional).each(function (i, v) {
-                $("#tbody_venta_nacional_dj").append(
-                    "<tr>" +
-                        "<td>" +
-                        v.Tipo_de_Venta +
-                        "</td>" +
-                        "<td>" +
-                        v.Provincia_Destino_ventas +
-                        "</td>" +
-                        "<td>" +
-                        v.anio_destino_ventas +
-                        "</td>" +
-                        "</tr>"
-                );
-            });
-            }
-            //tbody_venta_nacional_dj
-            if(response.venta_inter.length > 0){
-            $(response.venta_inter).each(function (i, v) {
-                $("#tbody_venta_inter_dj").append(
-                    "<tr>" +
-                        "<td>" +
-                        v.Tipo_de_Venta +
-                        "</td>" +
-                        "<td>" +
-                        v.Pais_Destino_ventas +
-                        "</td>" +
-                        "<td>" +
-                        v.anio_destino_ventas +
-                        "</td>" +
-                        "</tr>"
-                );
-            });
-        }
-            //facturacion
-            if(response.fact.length > 0){
-            $(response.fact).each(function (i, v) {
-                $("#tbody_facturacion_dj").append(
-                    "<tr>" +
-                        "<td>" +
-                        v.categoria_pyme +
-                        "</td>" +
-                        "<td>$" +
-                        v.prevision_ingresos_anio_corriente +
-                        "</td>" +
-                        "<td>" +
-                        v.prevision_ingresos_anio_corriente_dolares +
-                        "Usd</td>" +
-                        "<td>" +
-                        v.porcentaje_prevision_mercado_interno +
-                        "%</td>" +
-                        "<td>" +
-                        v.porcentaje_prevision_mercado_externo +
-                        "%</td>" +
-                        "<td>" +
-                        v.Anio_Facturacion +
-                        "</td>" +
-                        "</tr>"
-                );
-            });
-            }
-            //efluente
-            if(response.efluente.length > 0){
-            $(response.efluente).each(function (i, v) {
-                $("#tbody_efluentes_dj").append(
-                    "<tr>" +
-                        "<td>" +
-                        v.efluente +
-                        "</td>" +
-                        "<td>" +
-                        v.Tratamiento_del_Efluente +
-                        "</td>" +
-                        "<td>" +
-                        v.Destino_Efluente +
-                        "</td>" +
-                        "<td>" +
-                        v.anio_efluente +
-                        "</td>" +
-                        "</tr>"
-                );
-            });
-        }
-            // certificados
-            if(response.certificados.length > 0){
-            $(response.certificados).each(function (i, v) {
-                var vi =
-                    v.Vigencia_Certificado == "Desde: Hasta:"
-                        ? "--"
-                        : v.Vigencia_Certificado;
-                $("#tbody_certificados_dj").append(
-                    "<tr>" +
-                        "<td>" +
-                        v.certificado +
-                        "</td>" +
-                        "<td>" +
-                        v.Estado_Certificado +
-                        "</td>" +
-                        "<td>" +
-                        vi +
-                        "</td>" +
-                        "<td>" +
-                        v.anio_certificado +
-                        "</td>" +
-                        "</tr>"
-                );
-            });
-            }   
-            //  sistemas de calidad
-            if(response.sistemas.length > 0){
-            $(response.sistemas).each(function (i, v) {
-                var vi =
-                    v.Vigencia_Sistema_de_calidad == "Desde: Hasta:"
-                        ? "--"
-                        : v.Vigencia_Sistema_de_calidad;
-                $("#tbody_sistemas_dj").append(
-                    "<tr>" +
-                        "<td>" +
-                        v.sistema_de_calidad +
-                        "</td>" +
-                        "<td>" +
-                        v.Estado_Sistema_de_calidad +
-                        "</td>" +
-                        "<td>" +
-                        vi +
-                        "</td>" +
-                        "<td>" +
-                        v.Anio_Sistema_de_calidad +
-                        "</td>" +
-                        "</tr>"
-                );
-            });
-            }
-            if(response.promo.length > 0){
-            $(response.promo).each(function (i, v) {
-                var vi =
-                    v.Vigencia_Promocion_industrial == "Desde: Hasta:" || v.Vigencia_Promocion_industrial== null
-                        ? "--"
-                        : v.Vigencia_Sistema_de_calidad;
-                $("#tbody_promo_dj").append(
-                    "<tr>" +
-                        "<td>" +
-                        v.promocion_industrial +
-                        "</td>" +
-                        "<td>" +
-                        v.Estado_Promocion_industrial +
-                        "</td>" +
-                        "<td>" +
-                        vi +
-                        "</td>" +
-                        "<td>" +
-                        v.Anio_Promocion_industrial +
-                        "</td>" +
-                        "</tr>"
-                );
-            });
-             }   
-             if(response.eco.length > 0){
-            $(response.eco).each(function (i, v) {
-                $("#tbody_economia_dj").append(
-                    "<tr>" +
-                        "<td>" +
-                        v.sector +
-                        "</td>" +
-                        "<td>" +
-                        v.Anio_Economia_del_conocimiento_sector +
-                        "</td>" +
-                        "</tr>"
-                );
-            });
-        }
-        if(response.perfil.length > 0){
-            $(response.perfil).each(function (i, v) {
-                $("#tbody_perfil_dj").append(
-                    "<tr>" +
-                        "<td>" +
-                        v.perfil +
-                        "</td>" +
-                        "<td>" +
-                        v.Anio_Economia_del_conocimiento_perfil +
-                        "</td>" +
-                        "</tr>"
-                );
-            });
-        }
+
+
+          
         },
     });
 }
