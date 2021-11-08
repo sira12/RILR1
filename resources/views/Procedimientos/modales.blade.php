@@ -1343,7 +1343,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="control-label">En el Año Declarado realizó Inversiones en la Planta: <span class="symbol required"></span></label>
+                                <label class="control-label">En el año declarado realizó inversiones en la planta?: <span class="symbol required"></span></label>
                                 <br>
                                 <div class="custom-control custom-radio custom-control-inline">
                                     <input type="radio" id="name3" name="declara_inversion" value="1" class="custom-control-input" onclick="DeclaroInversion();">
@@ -1366,7 +1366,7 @@
 
                         <div class="col-md-3 inversion_i" style="display:none">
                             <div class="form-group has-feedback">
-                                <label class="control-label">Inversión Activo Fijo: <span class="symbol required"></span></label>
+                                <label class="control-label">Inversión Activo Fijo en $: <span class="symbol required"></span></label>
                                 <input type="text" class="form-control" name="inversion_activo_fijo" id="inversion_activo_fijo" placeholder="Ingrese Inversión Activo Fijo" onKeyPress="EvaluateText('%f', this);" onBlur="this.value = NumberFormat(this.value, '2', '.', '')" autocomplete="off" required="" aria-required="true">
                                 <i class="fa fa-pencil form-control-feedback"></i>
                             </div>
