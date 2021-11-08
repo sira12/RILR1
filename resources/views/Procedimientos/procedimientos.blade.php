@@ -50,7 +50,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        
+
 
                         <div id="save">
                             <!-- error will be shown here ! -->
@@ -130,7 +130,7 @@
                                             </div>
                                         </div>
 
-                                        
+
 
                                         <div class="row">
                                             <div class="col-md-12">
@@ -940,7 +940,7 @@
 
                                     <!-- ###################################### CONSULTA DE EFLUENTES ###################################### -->
 
-                                    
+
                                     <div class='alert alert-danger' id="div_info_pyca" style="display: none;">
                                         <center><span class='fa fa-info-circle'></span>Por favor debe realizar la carga de la industria</center>
                                     </div>
@@ -1227,7 +1227,7 @@
 
                                 </section>
 
-                                
+
 
                                 <section id="ddjj">
 
@@ -1294,7 +1294,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-    
+
                                                 <div class="row">
                                                     <div class="col-md-3">
                                                         <div class="form-group has-feedback">
@@ -1320,24 +1320,24 @@
                                                             <br><abbr title="Nº de CUIT/CUIL"></abbr><span id="d_dj"></span>
                                                         </div>
                                                     </div>
-    
-    
+
+
                                                 </div>
-    
+
                                                 <div class="row">
-    
+
                                                     <div class="col-md-3">
                                                         <div class="form-group has-feedback">
                                                             <label class="control-label">En calidad de:</label>
                                                             <br><abbr title="Nº de CUIT/CUIL"></abbr><span id="calidad_dj"></span>
                                                         </div>
                                                     </div>
-    
-    
+
+
                                                 </div>
                                             </div>
                                         </div>
-    
+
                                         <div class="card">
                                             <div class="card-header">
                                                 Datos de la industria
@@ -1368,8 +1368,8 @@
                                                             <br><abbr></abbr> <span id="ezi_dj"></span>
                                                         </div>
                                                     </div>
-    
-    
+
+
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-3">
@@ -1378,7 +1378,7 @@
                                                             <br><abbr></abbr><span id="ntf_dj"></span>
                                                         </div>
                                                     </div>
-    
+
                                                     <div class="col-md-3">
                                                         <div class="form-group has-feedback">
                                                             <label class="control-label">Nº de Celular de Contacto de la Empresa: </label>
@@ -1397,12 +1397,12 @@
                                                             <br><abbr></abbr><span id="lp_dj"></span>
                                                         </div>
                                                     </div>
-    
-    
+
+
                                                 </div>
-    
+
                                                 <div class="row">
-    
+
                                                     <div class="col-md-3">
                                                         <div class="form-group has-feedback">
                                                             <label class="control-label">Pagina Web: </label>
@@ -1421,27 +1421,27 @@
                                                             <br><abbr></abbr> <span id="lonu_dj"></span>
                                                         </div>
                                                     </div>
-    
+
                                                     <div class="col-md-3">
                                                         <div class="form-group has-feedback">
                                                             <label class="control-label">Código Postal: </label>
                                                             <br><abbr></abbr> <span id="cpi_dj"></span>
                                                         </div>
                                                     </div>
-    
-    
+
+
                                                 </div>
                                             </div>
                                         </div>
-    
+
                                         <div class="card">
-    
-    
+
+
                                             <div class="card">
                                                 <div class="card-header">
                                                     Actividades y Productos
                                                 </div>
-    
+
                                                 <table class="table">
                                                     <thead>
                                                         <tr>
@@ -1460,20 +1460,20 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody id="tbody_act_prod_dj">
-    
+
                                                     </tbody>
                                                 </table>
-    
-    
-    
+
+
+
                                             </div>
-    
-    
+
+
                                             <div class="card">
                                                 <div class="card-header">
                                                     Actividades y Materia prima
                                                 </div>
-    
+
                                                 <table class="table">
                                                     <thead>
                                                         <tr>
@@ -1493,26 +1493,26 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody id="tbody_act_mp_dj">
-    
+
                                                     </tbody>
                                                 </table>
-    
-    
-    
+
+
+
                                             </div>
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
                                         </div>
-    
+
                                         <div class="card">
                                             <div class="card-header">
                                                 Insumos de la industria
                                             </div>
-    
+
                                             <table class="table">
                                                 <thead>
                                                     <tr>
@@ -1526,19 +1526,19 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody id="tbody_insumos_dj">
-    
+
                                                 </tbody>
                                             </table>
-    
-    
-    
+
+
+
                                         </div>
-    
+
                                         <div class="card">
                                             <div class="card-header">
                                                 Servicios de la industria
                                             </div>
-    
+
                                             <table class="table">
                                                 <thead>
                                                     <tr>
@@ -1554,42 +1554,42 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody id="tbody_servicios_dj">
-    
+
                                                 </tbody>
                                             </table>
-    
-    
-    
+
+
+
                                         </div>
-    
+
                                         <div class="card">
                                             <div class="card-header">
                                                 Gastos
                                             </div>
-    
+
                                             <table class="table">
                                                 <thead>
                                                     <tr>
                                                         <th scope="col">Concepto</th>
                                                         <th scope="col">Importe</th>
-    
+
                                                         <th scope="col">Año</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody id="tbody_gastos_dj">
-    
+
                                                 </tbody>
                                             </table>
-    
-    
-    
+
+
+
                                         </div>
-    
+
                                         <div class="card">
                                             <div class="card-header">
                                                 Situacion de planta
                                             </div>
-    
+
                                             <table class="table">
                                                 <thead>
                                                     <tr>
@@ -1605,41 +1605,41 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody id="tbody_situacion_dj">
-    
+
                                                 </tbody>
                                             </table>
-    
-    
-    
+
+
+
                                         </div>
-    
+
                                         <div class="card">
                                             <div class="card-header">
                                                 Motivo Ociosidad
                                             </div>
-    
+
                                             <table class="table">
                                                 <thead>
                                                     <tr>
                                                         <th scope="col">Motivo</th>
-    
+
                                                         <th scope="col">Año</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody id="tbody_mot_o_dj">
-    
+
                                                 </tbody>
                                             </table>
-    
-    
-    
+
+
+
                                         </div>
-    
+
                                         <div class="card">
                                             <div class="card-header">
                                                 Personal ocupado
                                             </div>
-    
+
                                             <table class="table">
                                                 <thead>
                                                     <tr>
@@ -1647,23 +1647,23 @@
                                                         <th scope="col">Condicion Laboral</th>
                                                         <th scope="col">Sexo</th>
                                                         <th scope="col">N° de Trabajadores</th>
-    
+
                                                         <th scope="col">Año</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody id="tbody_p_ocupado_dj">
-    
+
                                                 </tbody>
                                             </table>
-    
-    
-    
+
+
+
                                         </div>
                                         <div class="card">
                                             <div class="card-header">
                                                 Ventas Internacionales
                                             </div>
-    
+
                                             <table class="table">
                                                 <thead>
                                                     <tr>
@@ -1673,7 +1673,7 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody id="tbody_venta_inter_dj">
-    
+
                                                 </tbody>
                                             </table>
                                         </div>
@@ -1681,7 +1681,7 @@
                                             <div class="card-header">
                                                 Ventas Nacionales
                                             </div>
-    
+
                                             <table class="table">
                                                 <thead>
                                                     <tr>
@@ -1691,16 +1691,16 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody id="tbody_venta_nacional_dj">
-    
+
                                                 </tbody>
                                             </table>
                                         </div>
-    
+
                                         <div class="card">
                                             <div class="card-header">
                                                 Facturación
                                             </div>
-    
+
                                             <table class="table">
                                                 <thead>
                                                     <tr>
@@ -1713,17 +1713,17 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody id="tbody_facturacion_dj">
-    
+
                                                 </tbody>
                                             </table>
                                         </div>
-    
-    
+
+
                                         <div class="card">
                                             <div class="card-header">
                                                 Efluentes
                                             </div>
-    
+
                                             <table class="table">
                                                 <thead>
                                                     <tr>
@@ -1734,19 +1734,19 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody id="tbody_efluentes_dj">
-    
+
                                                 </tbody>
                                             </table>
-    
-    
-    
+
+
+
                                         </div>
-    
+
                                         <div class="card">
                                             <div class="card-header">
                                                 Certificados de la industria
                                             </div>
-    
+
                                             <table class="table">
                                                 <thead>
                                                     <tr>
@@ -1757,20 +1757,20 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody id="tbody_certificados_dj">
-    
+
                                                 </tbody>
                                             </table>
-    
-    
-    
+
+
+
                                         </div>
-    
-    
+
+
                                         <div class="card">
                                             <div class="card-header">
                                                 Sistemas de calidad de la industria
                                             </div>
-    
+
                                             <table class="table">
                                                 <thead>
                                                     <tr>
@@ -1781,19 +1781,19 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody id="tbody_sistemas_dj">
-    
+
                                                 </tbody>
                                             </table>
-    
-    
-    
+
+
+
                                         </div>
-    
+
                                         <div class="card">
                                             <div class="card-header">
                                                 Promocion industrial
                                             </div>
-    
+
                                             <table class="table">
                                                 <thead>
                                                     <tr>
@@ -1804,19 +1804,19 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody id="tbody_promo_dj">
-    
+
                                                 </tbody>
                                             </table>
-    
-    
-    
+
+
+
                                         </div>
-    
+
                                         <div class="card">
                                             <div class="card-header">
                                                 Economia del conocimiento
                                             </div>
-    
+
                                             <table class="table">
                                                 <thead>
                                                     <tr>
@@ -1825,19 +1825,19 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody id="tbody_economia_dj">
-    
+
                                                 </tbody>
                                             </table>
-    
-    
-    
+
+
+
                                         </div>
-    
+
                                         <div class="card">
                                             <div class="card-header">
                                                 Perfil
                                             </div>
-    
+
                                             <table class="table">
                                                 <thead>
                                                     <tr>
@@ -1846,25 +1846,29 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody id="tbody_perfil_dj">
-    
+
                                                 </tbody>
                                             </table>
-    
-    
-    
+
+
+
                                         </div>
-    
+
                                         <div class="text-right">
-                                                <a type="submit" name="btn-btn_export_dj" id="btn_export_dj" class="btn btn-danger"><span class="fa fa-save"></span>
-                                                    Exportar Declaracion Jurada
+                                                <a type="submit" style="display:none;" name="btn-btn_export_dj" id="btn_export_dj" class="btn btn-danger"><span class="fa fa-save"></span>
+                                                   Exportar/Imprimir Ultima Declaracion Jurada
                                                 </a>
-    
-                                                
+
+                                                <a type="button" style="color: white" name="btn-btn_Rectificar_dj" id="btn_Rectificar_dj" class="btn btn-danger"><span class="fa fa-save"></span>
+                                                    Generar/Rectificar Declaracion Jurada
+                                                </a>
                                         </div>
+
+
 
                                     </div>
 
-                                    
+
 
                                 </section>
 

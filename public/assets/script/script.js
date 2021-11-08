@@ -1892,7 +1892,7 @@ $('document').ready(function() {
                 required: "Ingrese Password de Acceso",
                 minlength: "Ingrese 8 caracteres como m&iacute;nimo",
                 pwcheck: "La contraseña debe contener numeros y letras"
-                
+
             },
             password_confirmation: {
                 required: "Repita Password de Acceso",
@@ -1955,7 +1955,7 @@ $('document').ready(function() {
             return false;
         }
 
-        
+
         /* form submit */
     });
 
@@ -1983,12 +1983,12 @@ $('document').ready(function() {
             function(value, element) {
                 var control =true;
                if($("#tipo_personeria").val() == 2){
-                   
+
 
                    if(document.getElementById("vinculacion").files.length == 0){
                     control=false;
                    }
-               
+
                }
 
                return control;
@@ -2016,12 +2016,12 @@ $('document').ready(function() {
                     $("#search_localidad").prop("disabled", false);
                 }
 
-                return control; 
+                return control;
     });
     $.validator.addMethod("checkmail",
             function(value, element) {
                 var control=false;
-                
+
                 $.ajax({
                     type: 'POST',
                     url: '/check_mail',
@@ -2034,22 +2034,22 @@ $('document').ready(function() {
                         if (data.status == 200) {
                             if(data.msg == "noexiste"){
                                control=true;
-                               
+
                             }else{
                                 control=false;
-                               
+
                             }
-                        } 
+                        }
                     }
                 });
 
                 return control == true ? value : false;
-                
+
     });
     $.validator.addMethod("checkCuit",
             function(value, element) {
                 var control=false;
-                
+
                 $.ajax({
                     type: 'POST',
                     url: '/check_cuil',
@@ -2062,17 +2062,17 @@ $('document').ready(function() {
                         if (data.status == 200) {
                             if(data.msg == "noexiste"){
                                control=true;
-                               
+
                             }else{
                                 control=false;
-                               
+
                             }
-                        } 
+                        }
                     }
                 });
 
                 return control == true ? value : false;
-                
+
     });
 });
 /*  FIN DE FUNCION PARA VALIDAR REGISTRO INICIAL */
@@ -2634,8 +2634,8 @@ $('document').ready(function() {
                             $("#btn-submit").html('<span class="fa fa-save"></span> Continuar');
                         }); */
                         swal("Genial!", "Los datos han sido registrados correctamente. Ya puede seleccionar en la parte superior de la ventana el período sobre el que efectuará la carga de la información", "success");
-       
-                         
+
+
                     }
                 }
             });
@@ -2933,7 +2933,7 @@ $('document').ready(function() {
                             $("#btn-submit").html('<span class="fa fa-save"></span> Guardar');
                         });
 
-                         
+
                     }
                 }
             });
@@ -3074,7 +3074,7 @@ $("#btn-actividad").on('click', function() {
 })
 /* FUNCION JQUERY PARA VALIDAR REGISTRO DE ACTIVIDAD DE ESTABLECIMIENTO */
 function muestraForm(ref) {
-    //muestra mensaje de que cargue la industria antes de proceder 
+    //muestra mensaje de que cargue la industria antes de proceder
     console.log($("#id_industria_modal").val());
     if ($("#id_industria_modal").val() < 1) {
         //si no hay industria cargada en actividades mostrar el msj
@@ -3106,6 +3106,13 @@ function muestraForm(ref) {
         if (ref == "ec") {
             $("#info_ec").hide();
             $("#div_info_ec").show();
+        }
+
+        if (ref == "ddjj") {
+            $("#contenido_dj").hide()
+            $("#div_info_dj").show()
+            $("#btn_export_dj").hide()
+            $("#btn_Rectificar_dj").hide()
         }
     } else {
         if (ref == "generales") {} else if (ref == "actividades") {

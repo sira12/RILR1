@@ -2445,15 +2445,15 @@ function lanzador() {
         getContribuyente($("#id_contribuyente_panel_principal").val());
     }else if($("#id_contribuyente_procedimientos_inicio").val() != undefined){
         getContribuyente($("#id_contribuyente_procedimientos_inicio").val());
-    }    
+    }
 
 
 
 }
 function verify(val){
-  
+
     if(val === null){
-       
+
         return false
     }
     return true;
@@ -2478,7 +2478,7 @@ function getContribuyente(id){
                 !verify(response[0].id_naturaleza_juridica) ||
                 !verify(response[0].id_punto_cardinal)  ||
                 !verify(response[0].id_regimen_ib)  ||
-                !verify(response[0].cod_postal) 
+                !verify(response[0].cod_postal)
             ){
                 $("#btn_rg_ei").hide();
                 swal({
@@ -2488,7 +2488,7 @@ function getContribuyente(id){
                     type:"info",
                     confirmButtonText: "Ok,redirigirme",
                     confirmButtonColor: "#8CD4F5"
-                
+
                 }, function () {
                     window.location.href = window.location.origin+"/datos/"+id;
                 }
@@ -2496,7 +2496,7 @@ function getContribuyente(id){
 
             }
         },
-    }); 
+    });
 }
 
 function getClasificacionVentas() {
@@ -3090,32 +3090,43 @@ $(document).ready(function () {
 });
 
 function trae_views_ddjj() {
+    var periodo_fiscal = $("#anio_periodo_fiscal").val();
     $.ajax({
         type: "post",
         url: "/getViewsddjj",
         data: {
             _token: $('meta[name="csrf-token"]').attr("content"),
             id: $("#id_industria_modal").val(),
+            p_f:periodo_fiscal,
         },
         dataType: "json",
         success: function (response) {
-            
+
             console.log(response.content.msg)
             if(response.content.msg == "found"){
-               
+
                 $("#contenido_dj").show()
                 $("#div_info_dj").hide()
                 $("#btn_export_dj").show()
-                var getUrl = window.location;
-                $("#btn_export_dj").attr(
-                    "href",
-                    getUrl.origin +
-                        "/djDownload/" +
-                        response.nombre_pdf +
-                        "/" +
-                        response.industria_contribuyente[0].cuit
-                );
-    
+                $("#btn_Rectificar_dj").show()
+
+                if(response.nombre_pdf != "not_found" && response.ult_dj == 'yes'){
+                    var getUrl = window.location;
+                    $("#btn_export_dj").show();
+                    $("#btn_export_dj").attr(
+                        "href",
+                        getUrl.origin +
+                            "/djDownload/" +
+                            response.nombre_pdf +
+                            "/" +
+                            response.industria_contribuyente[0].cuit
+                    );
+
+                }else{
+                    $("#btn_export_dj").hide();
+                }
+
+
                 //contribuyente
                 if(response.industria_contribuyente.length > 0){
                 $("#cuit_dj").text(response.industria_contribuyente[0].cuit);
@@ -3173,9 +3184,9 @@ function trae_views_ddjj() {
                 $("#lu_dj").text(response.industria_contribuyente[0].latitud);
                 $("#lonu_dj").text(response.industria_contribuyente[0].longitud);
                 $("#cpi_dj").text(response.industria_contribuyente[0].CP_Industria);
-               
+
                 }
-               
+
                 //actividades ,prod
                 if(response.act_prod.length > 0){
                 $(response.act_prod).each(function (i, v) {
@@ -3183,7 +3194,7 @@ function trae_views_ddjj() {
                     //var m=v.motivo_importacion_Insumo == null ? "--" : v.motivo_importacion_Insumo
                     //var d=v.Detalle_de_motivo_de_importacion_Insumo == null ? "--" : v.Detalle_de_motivo_de_importacion_Insumo
                     let fecha_fin= v.fecha_fin == "" ? "--" : v.fecha_fin;
-                    
+
                     $("#tbody_act_prod_dj").append(
                         "<tr>" +
                             "<td>" +
@@ -3276,7 +3287,7 @@ function trae_views_ddjj() {
                 });
                 }
                 //insumos
-    
+
                 if(response.insumos.length > 0){
                 $(response.insumos).each(function (i, v) {
                     var p = v.Es_insumo_propio == "P" ? "Propio" : "Adquirido";
@@ -3326,7 +3337,7 @@ function trae_views_ddjj() {
                         v.Detalle_de_motivo_de_importacion_Servicio == null
                             ? "--"
                             : v.Detalle_de_motivo_de_importacion_Servicio;
-    
+
                     let costo= v.Costo_del_Servicio == null ? "--" : "$"+v.Costo_del_Servicio;
                     $("#tbody_servicios_dj").append(
                         "<tr>" +
@@ -3380,7 +3391,7 @@ function trae_views_ddjj() {
                 });
                 }
                 //sit planta
-    
+
                 if(response.sit.length > 0){
                 $(response.sit).each(function (i, v) {
                     var m = v.Establecida_en_zona_industrial == 0 ? "No" : "Si";
@@ -3418,7 +3429,7 @@ function trae_views_ddjj() {
                     );
                 });
                 }
-    
+
                 if(response.ocios.length > 0){
                 $(response.ocios).each(function (i, v) {
                     $("#tbody_mot_o_dj").append(
@@ -3567,7 +3578,7 @@ function trae_views_ddjj() {
                             "</tr>"
                     );
                 });
-                }   
+                }
                 //  sistemas de calidad
                 if(response.sistemas.length > 0){
                 $(response.sistemas).each(function (i, v) {
@@ -3616,7 +3627,7 @@ function trae_views_ddjj() {
                             "</tr>"
                     );
                 });
-                 }   
+                 }
                  if(response.eco.length > 0){
                 $(response.eco).each(function (i, v) {
                     $("#tbody_economia_dj").append(
@@ -3650,16 +3661,54 @@ function trae_views_ddjj() {
             }else{
                 $("#contenido_dj").hide()
                 $("#div_info_dj").show()
-                
                 $("#btn_export_dj").hide()
+                $("#btn_Rectificar_dj").hide()
             }
 
 
 
-          
+
         },
     });
 }
+
+$(document).ready(function () {
+$("#btn_Rectificar_dj").on('click',function(){
+
+    var periodo_fiscal = $("#anio_periodo_fiscal").val();
+    $.ajax({
+        type: "post",
+        url: "/getViewsddjj",
+        data: {
+            _token: $('meta[name="csrf-token"]').attr("content"),
+            id: $("#id_industria_modal").val(),
+            p_f:periodo_fiscal,
+            export:true
+        },
+        success: function (response) {
+
+            if(response.nombre_pdf != "not_found" && response.ult_dj == 'yes'){
+                var getUrl = window.location;
+                $("#btn_export_dj").show();
+                $("#btn_export_dj").attr(
+                    "href",
+                    getUrl.origin +
+                        "/djDownload/" +
+                        response.nombre_pdf +
+                        "/" +
+                        response.industria_contribuyente[0].cuit
+                );
+            }
+
+            swal("Genial", "Declaracion jurada generada correctamente, ahora puede imprimirla haciendo click en el boton Exportar/imprimir ultima Declaracion Jurada", "success");
+        },
+    });
+
+
+})
+})
+
+
 $(document).ready(function () {
     $("#anio_periodo_fiscal").on("change", function () {
         //.prop('selected', true)
@@ -3687,8 +3736,8 @@ $(document).ready(function () {
             },
             responseType: 'arraybuffer',
             success: function (data) {
-                 
-            }  
+
+            }
             });
 
 
