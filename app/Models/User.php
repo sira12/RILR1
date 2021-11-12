@@ -13,8 +13,6 @@ class User extends Authenticatable
     use HasFactory, Notifiable;
     use HasRoles;
 
-
-
     /**
      * The table associated with the model.
      *
@@ -28,15 +26,13 @@ class User extends Authenticatable
      * @var string
      */
     protected $primaryKey = 'id_usuario';
-     
+
     /**
      * Indicates if the model should be timestamped.
      *
      * @var bool
      */
     public $timestamps = false;
-
-
 
 
     /**

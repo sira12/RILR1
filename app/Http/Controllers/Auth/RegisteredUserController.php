@@ -36,7 +36,7 @@ class RegisteredUserController extends Controller
         $afectacion = Afectacion::where('activo', "S")->get();
         $tipo_documento = Documento::all();
         $provincias=DB::table('provincia')->where('id_pais',1)->get();
-        
+
         return view('auth.reggister', [
             'provincias'=> $provincias,
             'afectacion' => $afectacion,
@@ -56,8 +56,8 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request)
     {
-        
-       
+
+
         if ($request->id_localidad == null) {
             $localidad = new LocalidadController();
             $id_localidad = $localidad->Store($request->search_localidad, $request->id_provincia);
@@ -83,7 +83,7 @@ class RegisteredUserController extends Controller
         //persona
 
         $persona = new PersonaController();
-        //le paso los datos a guardar, y obtengo el id del registro que se acaba de cargar 
+        //le paso los datos a guardar, y obtengo el id del registro que se acaba de cargar
         $id_persona = $persona->Store($request, $id_localidad, $id_barrio, $id_calle);
 
 
@@ -91,7 +91,7 @@ class RegisteredUserController extends Controller
         //contribuyente
 
         $contribuyente = new ContribuyenteController();
-        //le paso los datos a guardar, y obtengo el id del registro que se acaba de cargar 
+        //le paso los datos a guardar, y obtengo el id del registro que se acaba de cargar
         $id_contribuyente = $contribuyente->Store($request);
 
 
@@ -177,6 +177,25 @@ class RegisteredUserController extends Controller
         Mail::to($request->email_fiscal)->send($correo);
 
         return response()->json(array('status' => 200, 'msg' => "Guardado Correctamente"), 200);
+    }
+
+
+    public function RegisterUser(Request $request){
+
+        $fecha_time = \Carbon\Carbon::now();
+
+        $user = User::create([
+
+            'usuario' => $request->nombre,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'autorizado' => "P",
+            'fecha_alta' => $fecha_time,
+            'activo' => "P",
+            'fecha_de_actualizacion' => $fecha_time
+        ]);
+
+        return response()->json(array('status' => 200, 'msg' => "ok"), 200);
     }
 
 
