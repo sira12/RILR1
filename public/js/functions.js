@@ -947,7 +947,7 @@ $(document).ready(function () {
     $("#search_provincia_otros").autocomplete({
         source: function (request, response) {
             // Fetch data
-            //console.log("pais",$('#id_pais_otros').val())
+         
             if ($("#id_pais_otros").val() !== "") {
                 $.ajax({
                     url: "/provincias",
@@ -1094,7 +1094,6 @@ function cargar_tabla_efluentes() {
 }
 
 function cargar_tabla_actividades() {
-    console.log("periodo ", $("#anio_periodo_fiscal").val());
     var table = $(".yajra-datatable").DataTable();
     table.destroy();
     //$('.yajra-datatable').empty();
@@ -2382,7 +2381,6 @@ $(document).ready(function () {
 });
 
 function getTramite() {
-    console.log("modal", $("#id_industria_modal").val());
     $.ajax({
         type: "get",
         url: "/tramite/" + $("#id_industria_modal").val(),
@@ -2467,7 +2465,6 @@ function getContribuyente(id){
             id_contribuyente: id
         },
         success: function (response) {
-            console.log(response)
             if(
                 !verify(response[0].fecha_inicio_de_actividades)  ||
                 !verify(response[0].numero_de_ib)  ||
@@ -2984,11 +2981,9 @@ function getSP() {
             _token: $('meta[name="csrf-token"]').attr("content"),
         },
         success: function (response) {
-            console.log(response);
             $("#tbody_sector").find("tr").remove();
             /*$("#tbody_personal").find("tr").remove();*/
             $(response).each(function (i, v) {
-                console.log("hola");
                 $("#tbody_sector").append(
                     '<tr role="row" class="text-left">' +
                         "<td>" +v.sector +"</td>" +
@@ -3102,7 +3097,6 @@ function trae_views_ddjj() {
         dataType: "json",
         success: function (response) {
 
-            console.log(response.content.msg)
             if(response.content.msg == "found"){
 
                 $("#contenido_dj").show()
@@ -3717,7 +3711,7 @@ $(document).ready(function () {
         //$("#periodofiscal").find('option:selected').attr('selected', false);
         //$('this option').removeAttr( "selected" )
         //$('#periodofiscal  option[value="'+$(this).val()+'"]').attr('selected', true)
-        console.log($(this).val());
+       
         $("#anio_periodo_fiscal").val($(this).val());
         $("#span_generales").click();
     });

@@ -2276,7 +2276,6 @@ $('document').ready(function() {
             },
         },
         submitHandler: function(form) {
-            console.log(form)
             var data = $("#saveContribuyente").serialize();
             //var seccion = $("input#secciongeneral").val();
             //var industria = $("input#id_industria").val();
@@ -2292,7 +2291,6 @@ $('document').ready(function() {
                     $("#btn-submit").html('<i class="fa fa-refresh"></i> Verificando...');
                 },
                 success: function(data) {
-                    console.log("respuesta", data);
                     if (data.status == 2) {
                         $("#save").fadeIn(1000, function() {
                             var n = noty({
@@ -2586,7 +2584,6 @@ $('document').ready(function() {
             },
         },
         submitHandler: function(form) {
-            console.log(form)
             var data = $("#savegeneral").serialize();
             var seccion = $("input#secciongeneral").val();
             var industria = $("input#id_industria").val();
@@ -2894,7 +2891,6 @@ $('document').ready(function() {
             var data = $("#updategeneral").serialize();
             var seccion = $("input#secciongeneral").val();
             var industria = $("#id_industria_modal").val();
-            console.log(industria)
             $.ajax({
                 type: 'POST',
                 url: '/updateGenerales',
@@ -2909,7 +2905,6 @@ $('document').ready(function() {
                     $("#btn-submit-edit").html('<i class="fa fa-refresh"></i> Verificando...');
                 },
                 success: function(data) {
-                    console.log(data);
                     if (data.status == 1) {
                         $("#save").fadeIn(1000, function() {
                             var n = noty({
@@ -3075,7 +3070,6 @@ $("#btn-actividad").on('click', function() {
 /* FUNCION JQUERY PARA VALIDAR REGISTRO DE ACTIVIDAD DE ESTABLECIMIENTO */
 function muestraForm(ref) {
     //muestra mensaje de que cargue la industria antes de proceder
-    console.log($("#id_industria_modal").val());
     if ($("#id_industria_modal").val() < 1) {
         //si no hay industria cargada en actividades mostrar el msj
         if (ref == "actividades") {
@@ -5493,7 +5487,7 @@ $('document').ready(function() {
     /* validation */
     $("#savefacturacion").validate({
         rules: {
-            clasif_ingreso: {
+            categoria_ingresos: {
                 required: true
             },
             prevision_ingresos_anio_corriente: {
@@ -5608,15 +5602,17 @@ $('document').ready(function() {
 });
 /* FUNCION JQUERY PARA VALIDAR ASIGNACION DE FACTURACION */
 $("#btn-facturacion-update").on("click", function() {
-    if ($("#updatefacturacion #clasif_ingreso").val().length < 1) {
-        var n = noty({
-            text: "<span class='fa fa-warning'></span> Seleccione una clasificacion",
-            theme: 'defaultTheme',
-            layout: 'topCenter',
-            type: 'warning',
-            timeout: 5000,
-        });
-    } else if ($("#updatefacturacion #prevision_ingresos_anio_corriente").val().length < 1) {
+
+        if ($("#updatefacturacion #categoria_ingresos").val() < 1) {
+            var n = noty({
+                text: "<span class='fa fa-warning'></span> Seleccione una clasificacion",
+                theme: 'defaultTheme',
+                layout: 'topCenter',
+                type: 'warning',
+                timeout: 5000,
+            });
+           
+        } else if ($("#updatefacturacion #prevision_ingresos_anio_corriente").val().length < 1) {
         var n = noty({
             text: "<span class='fa fa-warning'></span> Ingrese Facturacion anual año corriente",
             theme: 'defaultTheme',
