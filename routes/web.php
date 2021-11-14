@@ -79,6 +79,7 @@ Route::post('/getpais', [PaisController::class, 'getpais'])->middleware(['auth']
 
 
 Route::get('/panel', [IndexController::class,'index'])->middleware(['auth'])->name('panel');
+Route::get('/dash', [IndexController::class,'indexOperador'])->middleware(['auth'])->name('panel');
 
 Route::get('/procedimientos',[ProcedimientosController::class,'index'] )->middleware(['auth'])->name('procedimientos');
 
