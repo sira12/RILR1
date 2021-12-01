@@ -842,7 +842,6 @@
 
                 if ($("#search_localidad").val().length < 1) {
                     //limpiar id localidad, barrio, calle
-                    console.log("asdasd");
 
                     $('#id_localidad').val("")
                     $('#id_barrio').val("")
@@ -872,7 +871,6 @@
 
                 if ($("#search_barrio").val().length < 1) {
                     //limpiar id localidad, barrio, calle
-                    console.log("asdasd");
 
 
                     $('#id_barrio').val("")
@@ -898,7 +896,6 @@
 
                 if ($("#search_calle").val().length < 1) {
                     //limpiar id localidad, barrio, calle
-                    console.log("asdasd");
 
 
 
@@ -944,7 +941,6 @@
                     $('#id_provincia').val(ui.item.value); // save selected id to input
                     id_provincia = ui.item.value
 
-                    console.log(ui.item.value)
                     return false;
                 }
             });
@@ -963,7 +959,7 @@
                         data: {
                             _token: "{{ csrf_token() }}",
                             search: request.term,
-                            id_prov: id_provincia
+                            id_prov: $('#id_provincia').val()
                         },
                         success: function(data) {
                             response(data);

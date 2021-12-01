@@ -1265,7 +1265,6 @@ function UpdateTramite(id_industria, id_contribuyente) {
     confirmButtonColor: "#808080"
   }, function (isConfirm) {
     if (isConfirm) {
-      console.log(id_industria);
       
      location.href = "/edit/tramite/" + id_industria;
       // handle confirm
@@ -1294,7 +1293,6 @@ function UpdateTramite(id_industria, id_contribuyente) {
 function VerActividad(id_rel_industria_actividad) {
 
   $('#muestradetalleactividadmodal').html('<center><i class="fa fa-spin fa-spinner"></i> Cargando..</center>');
-  console.log("id_rel_industria_actividad", id_rel_industria_actividad)
 
   $.ajax({
     type: "POST",
@@ -2111,7 +2109,6 @@ function UpdateMateriaPrima(id) {
       id_materia: id
     },
     success: function (response) {
-      console.log(response[0]);
       // aqui asigno cada valor a los campos correspondientes
       //$("#updateAsignacionMateria #id_rel_actividad_productos_materia_prima").val(id_rel_actividad_productos_materia_prima);
       $("#updateAsignacionMateria #id_asignacion_materia").val(response[0].id_rel_actividad_materia_prima);
@@ -2171,7 +2168,6 @@ $("#btn-updateMateria").on('click', function () {
     });
   } else if ($("#cantidad_materia").val() == "") {
     error=1; 
-    console.log("cant")
     var n = noty({
       text: "<span class='fa fa-warning'></span> Debe ingresar una cantidad utilizada",
       theme: 'defaultTheme',
@@ -2185,7 +2181,6 @@ $("#btn-updateMateria").on('click', function () {
   
     if ($("#search_pais").val() == "") {
       error=1; 
-      console.log("pais")
       var n = noty({
         text: "<span class='fa fa-warning'></span> Debe ingresar un pais",
         theme: 'defaultTheme',
@@ -2198,7 +2193,6 @@ $("#btn-updateMateria").on('click', function () {
 
     if ($("#search_provincia").val() == "") {
       error=1; 
-      console.log("prov")
       var n = noty({
         text: "<span class='fa fa-warning'></span> Debe ingresar una provincia",
         theme: 'defaultTheme',
@@ -2210,7 +2204,6 @@ $("#btn-updateMateria").on('click', function () {
 
     if ($("#search_localidad32").val() == "") {
       error=1; 
-      console.log("loca")
       var n = noty({
         text: "<span class='fa fa-warning'></span> Debe ingresar una localidad",
         theme: 'defaultTheme',
@@ -2755,7 +2748,6 @@ function UpdateServicioBasicoAsignado(id_rel_industria_servicios) {
         var flot="%f"
        
         $(response).each(function (i, v) {
-        console.log(v)
           $('#ser_basico_2').append(
 
             '<tr role="row" class="odd">'+
@@ -4331,7 +4323,6 @@ function UpdateCertificado(id_rel_industria_certificado) {
           },
           success: function (data) {
 
-              console.log(data[0].certificado)
                // aqui asigno cada valor a los campos correspondientes
             $("#updatecertificado #id_rel_industria_certificado").val(data[0].id_rel_industria_certificado);
               //$("#updatecertificado #industria_certificado_update").val(data[0].id_industria);

@@ -37,32 +37,143 @@ class DdjjCOntroller extends Controller
         $result['promo'] = DB::select('select * from vw_info_promocion_industrial where id_industria ='.$id);
         $result['eco'] = DB::select('select * from vw_info_economia_del_conocimiento_sector where id_industria ='.$id);
         $result['perfil'] = DB::select('select * from vw_info_economia_del_conocimiento_perfil where id_industria ='.$id);
-        
-        $fecha=Carbon::now()->format('d-m-y');
-        $result['nombre_pdf']=$result['industria_contribuyente'][0]->cuit.'_'.$fecha;
-        
-        $pdf =PDF::loadView('Dj.dj',$result);
-            
-    
-        $content = $pdf->download()->getOriginalContent();
 
-           
-        Storage::put('dj_docs/'.$result['industria_contribuyente'][0]->cuit.'/'.$result['industria_contribuyente'][0]->cuit.'_'.$fecha.'.pdf',$content);
-        
-        
-       
+
+        if(count ($result['industria_contribuyente']) < 1){
+
+            $result['content']=array( 'msg' => 'not_found');
+
+            return response()->json($result, 200);
+        }
+        if(count ($result['servicios']) < 1){
+           $result['content']=array( 'msg' => 'not_found');
+
+            return response()->json($result, 200);
+        }
+        if(count ($result['insumos']) < 1){
+           $result['content']=array( 'msg' => 'not_found');
+
+            return response()->json($result, 200);
+        }
+        if(count ($result['certificados']) < 1){
+           $result['content']=array( 'msg' => 'not_found');
+
+            return response()->json($result, 200);
+        }
+        if(count ($result['sistemas']) < 1){
+           $result['content']=array( 'msg' => 'not_found');
+
+            return response()->json($result, 200);
+        }
+        if(count ($result['act_prod']) < 1){
+           $result['content']=array( 'msg' => 'not_found');
+
+            return response()->json($result, 200);
+        }
+        if(count ($result['act_mat']) < 1){
+           $result['content']=array( 'msg' => 'not_found');
+
+            return response()->json($result, 200);
+        }
+        if(count ($result['sit']) < 1){
+           $result['content']=array( 'msg' => 'not_found');
+
+            return response()->json($result, 200);
+        }
+        if(count ($result['ocios']) < 1){
+           $result['content']=array( 'msg' => 'not_found');
+
+            return response()->json($result, 200);
+        }
+        if(count ($result['po']) < 1){
+           $result['content']=array( 'msg' => 'not_found');
+
+            return response()->json($result, 200);
+        }
+        if(count ($result['venta_nacional']) < 1){
+           $result['content']=array( 'msg' => 'not_found');
+
+            return response()->json($result, 200);
+        }
+        if(count ($result['venta_inter']) < 1){
+           $result['content']=array( 'msg' => 'not_found');
+
+            return response()->json($result, 200);
+        }
+        if(count ($result['fact']) < 1){
+           $result['content']=array( 'msg' => 'not_found');
+
+            return response()->json($result, 200);
+        }
+        if(count ($result['efluente']) < 1){
+           $result['content']=array( 'msg' => 'not_found');
+
+            return response()->json($result, 200);
+        }
+        if(count ($result['gastos']) < 1){
+           $result['content']=array( 'msg' => 'not_found');
+
+            return response()->json($result, 200);
+        }
+        if(count ($result['promo']) < 1){
+           $result['content']=array( 'msg' => 'not_found');
+
+            return response()->json($result, 200);
+        }
+        if(count ($result['eco']) < 1){
+           $result['content']=array( 'msg' => 'not_found');
+
+            return response()->json($result, 200);
+        }
+        if(count ($result['perfil']) < 1){
+           $result['content']=array( 'msg' => 'not_found');
+
+            return response()->json($result, 200);
+        }
+
+        $result['content']=array( 'msg' => 'found');
+        $result['nombre_pdf']="not_found";
+        $result['ult_dj']="not";
+
+        if(isset($request->export)){
+            $fecha=Carbon::now();
+            $fecha=str_replace(" ","_",$fecha);
+            $fecha=str_replace(":","_",$fecha);
+            $result['nombre_pdf']=$result['industria_contribuyente'][0]->cuit.'_'.$fecha;
+
+            $pdf =PDF::loadView('Dj.dj',$result);
+            $content = $pdf->download()->getOriginalContent();
+            Storage::put('dj_docs/'.$result['industria_contribuyente'][0]->cuit.'/'.$result['industria_contribuyente'][0]->cuit.'_'.$fecha.'.pdf',$content);
+            $result['ult_dj']="yes";
+
+            DB::table('dj_logs')->insert([
+                'id_industria'=>$id,
+                'nombre_archivo'=>$result['nombre_pdf'],
+                'periodo'=>$request->p_f,
+                'created_at'=>Carbon::now()
+            ]);
+        }else{
+
+            //comprobar si hay djs
+            $dj=DB::table('dj_logs')
+            ->where('id_industria', $id)
+            ->where('periodo',$request->p_f)
+            ->get();
+            if(count($dj) > 0){
+                $nombre=$dj[count($dj)-1]->nombre_archivo; //trae el ultimo
+                $result['nombre_pdf']=$nombre;
+                $result['ult_dj']="yes";
+            }
+        }
+
         return response()->json($result);
-    
-
     }
-    
+
     public function download($name,$cuit){
-       
-      
-        
         $pat_1='app\public\dj_docs';
-        
         $path= storage_path($pat_1.'\\'.$cuit.'\\'.$name.'.pdf');
+
+
         return response()->download($path);
     }
 }
