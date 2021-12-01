@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 4.9.5deb2
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 31-08-2021 a las 21:05:19
--- Versión del servidor: 5.7.31
--- Versión de PHP: 7.4.9
+-- Servidor: localhost:3306
+-- Tiempo de generación: 12-11-2021 a las 07:08:04
+-- Versión del servidor: 10.3.31-MariaDB-0ubuntu0.20.04.1
+-- Versión de PHP: 7.4.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -27,16 +28,13 @@ SET time_zone = "+00:00";
 -- Estructura de tabla para la tabla `actividad`
 --
 
-DROP TABLE IF EXISTS `actividad`;
-CREATE TABLE IF NOT EXISTS `actividad` (
-  `id_Actividad` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `actividad` (
+  `id_Actividad` int(11) NOT NULL,
   `id_rubro` int(11) DEFAULT NULL,
   `nomenclatura_ib` varchar(10) CHARACTER SET utf8 DEFAULT NULL,
   `actividad` varchar(200) CHARACTER SET utf8 DEFAULT NULL,
-  `activo` char(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'S',
-  PRIMARY KEY (`id_Actividad`),
-  KEY `FK_actividad_rubro_actIvidad` (`id_rubro`)
-) ENGINE=InnoDB AUTO_INCREMENT=4154 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+  `activo` char(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'S'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `actividad`
@@ -4208,15 +4206,12 @@ INSERT INTO `actividad` (`id_Actividad`, `id_rubro`, `nomenclatura_ib`, `activid
 -- Estructura de tabla para la tabla `barrio`
 --
 
-DROP TABLE IF EXISTS `barrio`;
-CREATE TABLE IF NOT EXISTS `barrio` (
-  `id_barrio` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `barrio` (
+  `id_barrio` int(11) NOT NULL,
   `barrio` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
   `id_localidad` int(11) NOT NULL,
-  `activo` char(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'S',
-  PRIMARY KEY (`id_barrio`),
-  KEY `FK_barrio_localidad` (`id_localidad`)
-) ENGINE=InnoDB AUTO_INCREMENT=1152 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+  `activo` char(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'S'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `barrio`
@@ -5361,15 +5356,12 @@ INSERT INTO `barrio` (`id_barrio`, `barrio`, `id_localidad`, `activo`) VALUES
 -- Estructura de tabla para la tabla `calle`
 --
 
-DROP TABLE IF EXISTS `calle`;
-CREATE TABLE IF NOT EXISTS `calle` (
-  `id_calle` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `calle` (
+  `id_calle` int(11) NOT NULL,
   `calle` varchar(70) COLLATE utf8_spanish_ci NOT NULL,
   `id_localidad` int(11) NOT NULL,
-  `activo` char(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'S',
-  PRIMARY KEY (`id_calle`),
-  KEY `FK_calle_localidad` (`id_localidad`)
-) ENGINE=InnoDB AUTO_INCREMENT=2851 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+  `activo` char(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'S'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `calle`
@@ -8218,17 +8210,15 @@ INSERT INTO `calle` (`id_calle`, `calle`, `id_localidad`, `activo`) VALUES
 -- Estructura de tabla para la tabla `categoria_ingresos`
 --
 
-DROP TABLE IF EXISTS `categoria_ingresos`;
-CREATE TABLE IF NOT EXISTS `categoria_ingresos` (
-  `id_categoria_ingreso` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `categoria_ingresos` (
+  `id_categoria_ingreso` int(11) NOT NULL,
   `categoria` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
   `monto_minimo` decimal(13,2) NOT NULL,
   `monto_maximo` decimal(13,2) NOT NULL,
   `fecha_inicio_vigencia` date NOT NULL,
   `fecha_fin_vigencia` date DEFAULT NULL,
-  `activo` char(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'S',
-  PRIMARY KEY (`id_categoria_ingreso`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+  `activo` char(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'S'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `categoria_ingresos`
@@ -8246,13 +8236,11 @@ INSERT INTO `categoria_ingresos` (`id_categoria_ingreso`, `categoria`, `monto_mi
 -- Estructura de tabla para la tabla `certificado`
 --
 
-DROP TABLE IF EXISTS `certificado`;
-CREATE TABLE IF NOT EXISTS `certificado` (
-  `id_certificado` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `certificado` (
+  `id_certificado` int(11) NOT NULL,
   `certificado` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
-  `activo` char(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'S',
-  PRIMARY KEY (`id_certificado`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+  `activo` char(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'S'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `certificado`
@@ -8270,12 +8258,10 @@ INSERT INTO `certificado` (`id_certificado`, `certificado`, `activo`) VALUES
 -- Estructura de tabla para la tabla `clasificacion_destino_venta`
 --
 
-DROP TABLE IF EXISTS `clasificacion_destino_venta`;
-CREATE TABLE IF NOT EXISTS `clasificacion_destino_venta` (
-  `id_clasificacion_destino_venta` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `clasificacion_destino_venta` (
+  `id_clasificacion_destino_venta` int(11) NOT NULL,
   `clasificacion_destino_venta` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
-  `activo` char(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'S',
-  PRIMARY KEY (`id_clasificacion_destino_venta`)
+  `activo` char(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'S'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- --------------------------------------------------------
@@ -8284,12 +8270,10 @@ CREATE TABLE IF NOT EXISTS `clasificacion_destino_venta` (
 -- Estructura de tabla para la tabla `clasificacion_servicio`
 --
 
-DROP TABLE IF EXISTS `clasificacion_servicio`;
-CREATE TABLE IF NOT EXISTS `clasificacion_servicio` (
-  `id_clasificacion_servicio` int(11) NOT NULL AUTO_INCREMENT,
-  `clasificacion_servicio` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
-  PRIMARY KEY (`id_clasificacion_servicio`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+CREATE TABLE `clasificacion_servicio` (
+  `id_clasificacion_servicio` int(11) NOT NULL,
+  `clasificacion_servicio` varchar(50) COLLATE utf8_spanish_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `clasificacion_servicio`
@@ -8307,13 +8291,11 @@ INSERT INTO `clasificacion_servicio` (`id_clasificacion_servicio`, `clasificacio
 -- Estructura de tabla para la tabla `clasificacion_ventas`
 --
 
-DROP TABLE IF EXISTS `clasificacion_ventas`;
-CREATE TABLE IF NOT EXISTS `clasificacion_ventas` (
-  `id_clasificacion_ventas` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `clasificacion_ventas` (
+  `id_clasificacion_ventas` int(11) NOT NULL,
   `clasificacion_ventas` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
-  `activo` char(10) CHARACTER SET utf8 DEFAULT 'S',
-  PRIMARY KEY (`id_clasificacion_ventas`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+  `activo` char(10) CHARACTER SET utf8 DEFAULT 'S'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `clasificacion_ventas`
@@ -8330,13 +8312,11 @@ INSERT INTO `clasificacion_ventas` (`id_clasificacion_ventas`, `clasificacion_ve
 -- Estructura de tabla para la tabla `condicion_iva`
 --
 
-DROP TABLE IF EXISTS `condicion_iva`;
-CREATE TABLE IF NOT EXISTS `condicion_iva` (
-  `id_condicion_iva` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `condicion_iva` (
+  `id_condicion_iva` int(11) NOT NULL,
   `condicion_iva` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
-  `activo` char(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'S',
-  PRIMARY KEY (`id_condicion_iva`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+  `activo` char(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'S'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `condicion_iva`
@@ -8358,13 +8338,11 @@ INSERT INTO `condicion_iva` (`id_condicion_iva`, `condicion_iva`, `activo`) VALU
 -- Estructura de tabla para la tabla `condicion_laboral`
 --
 
-DROP TABLE IF EXISTS `condicion_laboral`;
-CREATE TABLE IF NOT EXISTS `condicion_laboral` (
-  `id_condicion_laboral` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `condicion_laboral` (
+  `id_condicion_laboral` int(11) NOT NULL,
   `condicion_laboral` varchar(70) COLLATE utf8_spanish_ci NOT NULL,
-  `activo` char(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'S',
-  PRIMARY KEY (`id_condicion_laboral`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+  `activo` char(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'S'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `condicion_laboral`
@@ -8380,9 +8358,8 @@ INSERT INTO `condicion_laboral` (`id_condicion_laboral`, `condicion_laboral`, `a
 -- Estructura de tabla para la tabla `contribuyente`
 --
 
-DROP TABLE IF EXISTS `contribuyente`;
-CREATE TABLE IF NOT EXISTS `contribuyente` (
-  `id_contribuyente` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `contribuyente` (
+  `id_contribuyente` int(11) NOT NULL,
   `cuit` bigint(20) NOT NULL,
   `numero_de_ib` char(12) COLLATE utf8_spanish_ci DEFAULT NULL,
   `id_regimen_ib` int(11) DEFAULT NULL,
@@ -8404,17 +8381,8 @@ CREATE TABLE IF NOT EXISTS `contribuyente` (
   `cod_postal` varchar(10) COLLATE utf8_spanish_ci DEFAULT NULL,
   `constancia_afip` varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL,
   `fecha_de_actualizacion` datetime NOT NULL,
-  `activo` char(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'S',
-  PRIMARY KEY (`id_contribuyente`),
-  KEY `FK_contribuyente_barrio` (`id_barrio`),
-  KEY `FK_contribuyente_calle` (`id_calle`),
-  KEY `FK_contribuyente_codigo_de_regimen` (`id_regimen_ib`),
-  KEY `FK_contribuyente_condicion_iva` (`id_condicion_iva`),
-  KEY `FK_contribuyente_localidad` (`id_localidad`),
-  KEY `FK_contribuyente_naturaleza_juridica` (`id_naturaleza_juridica`),
-  KEY `FK_contribuyente_persona_juridica` (`id_persona_juridica`),
-  KEY `FK_contribuyente_punto_cardinal` (`id_punto_cardinal`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+  `activo` char(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'S'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `contribuyente`
@@ -8423,7 +8391,10 @@ CREATE TABLE IF NOT EXISTS `contribuyente` (
 INSERT INTO `contribuyente` (`id_contribuyente`, `cuit`, `numero_de_ib`, `id_regimen_ib`, `razon_social`, `id_condicion_iva`, `id_naturaleza_juridica`, `id_persona_juridica`, `id_localidad`, `id_barrio`, `id_calle`, `numero`, `piso`, `depto`, `id_punto_cardinal`, `referencias_domicilio`, `tel_fijo`, `email_fiscal`, `fecha_inicio_de_actividades`, `cod_postal`, `constancia_afip`, `fecha_de_actualizacion`, `activo`) VALUES
 (1, 23400633339, '12345', 2, 'Lusoft', 1, 2, 1, 9, 288, 608, '123', '123', '123', 1, '123', NULL, 'mauriciogtoloza@gmail.com', '2021-05-30', '5300', 'images/contribuyentes/23400633339_08-06-2021.png', '2021-06-08 03:10:04', 'P'),
 (2, 23400633339, NULL, NULL, 'Minios market', NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'minios@minios.com', NULL, NULL, 'images/contribuyentes/23400633339_11-08-2021.png', '2021-08-11 23:53:39', 'P'),
-(3, 17289987776, NULL, NULL, 'Germany Group', NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'germany@germany.com', NULL, NULL, 'images/contribuyentes/17289987776_13-08-2021.png', '2021-08-13 13:01:28', 'P');
+(3, 17289987776, NULL, NULL, 'Germany Group', NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'germany@germany.com', NULL, NULL, 'images/contribuyentes/17289987776_13-08-2021.png', '2021-08-13 13:01:28', 'P'),
+(4, 23400633339, NULL, NULL, 'matecitos', NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'mauriciogtoloza@gmail.com', NULL, NULL, 'images/contribuyentes/23400633339_17-09-2021.jpg', '2021-09-17 02:43:38', 'P'),
+(5, 23400633339, NULL, NULL, 'asdasd', NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'mauriciotoloza@gmail.com', NULL, NULL, 'images/contribuyentes/23400633339_17-09-2021.jpg', '2021-09-17 03:31:53', 'P'),
+(6, 26764537872, '112233', 1, 'MauriciogToloza', 1, 2, 1, 2, 706, 1114, '12', '12', '12', 1, '12', NULL, 'german@mauri.com', '2021-10-01', '5300', 'documents/contribuyentes/26764537872_15-10-2021.pdf', '2021-10-15 12:17:18', 'P');
 
 -- --------------------------------------------------------
 
@@ -8431,15 +8402,12 @@ INSERT INTO `contribuyente` (`id_contribuyente`, `cuit`, `numero_de_ib`, `id_reg
 -- Estructura de tabla para la tabla `departamento`
 --
 
-DROP TABLE IF EXISTS `departamento`;
-CREATE TABLE IF NOT EXISTS `departamento` (
-  `id_departamento` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `departamento` (
+  `id_departamento` int(11) NOT NULL,
   `departamento` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
   `id_provincia` int(11) NOT NULL,
-  `activo` char(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'S',
-  PRIMARY KEY (`id_departamento`),
-  KEY `FK_departamento_provincia` (`id_provincia`)
-) ENGINE=InnoDB AUTO_INCREMENT=566 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+  `activo` char(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'S'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `departamento`
@@ -9015,27 +8983,47 @@ INSERT INTO `departamento` (`id_departamento`, `departamento`, `id_provincia`, `
 -- Estructura de tabla para la tabla `destino_ventas`
 --
 
-DROP TABLE IF EXISTS `destino_ventas`;
-CREATE TABLE IF NOT EXISTS `destino_ventas` (
-  `id_destino_ventas` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `destino_ventas` (
+  `id_destino_ventas` int(11) NOT NULL,
   `id_clasificacion_ventas` int(11) NOT NULL,
   `id_industria` int(11) NOT NULL,
   `anio` int(11) NOT NULL,
-  `fecha_de_actualizacion` datetime NOT NULL,
-  PRIMARY KEY (`id_destino_ventas`),
-  KEY `FK_destino_ventas_clasificacion_venta` (`id_clasificacion_ventas`),
-  KEY `FK_destino_ventas_industria` (`id_industria`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+  `fecha_de_actualizacion` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `destino_ventas`
 --
 
 INSERT INTO `destino_ventas` (`id_destino_ventas`, `id_clasificacion_ventas`, `id_industria`, `anio`, `fecha_de_actualizacion`) VALUES
-(6, 1, 1, 2021, '2021-07-13 03:57:11'),
+(6, 1, 1, 2021, '2021-10-18 21:40:33'),
 (7, 2, 1, 2021, '2021-07-13 03:46:02'),
-(8, 3, 1, 2021, '2021-07-15 13:49:30'),
+(8, 3, 1, 2021, '2021-10-19 12:12:59'),
 (9, 1, 2, 2021, '2021-07-15 14:32:44');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `dj_logs`
+--
+
+CREATE TABLE `dj_logs` (
+  `id` int(11) NOT NULL,
+  `id_industria` int(11) NOT NULL,
+  `nombre_archivo` varchar(200) NOT NULL,
+  `periodo` varchar(200) NOT NULL,
+  `created_at` datetime NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `dj_logs`
+--
+
+INSERT INTO `dj_logs` (`id`, `id_industria`, `nombre_archivo`, `periodo`, `created_at`) VALUES
+(1, 1, '23400633339_2021-11-02_15_48_04', '2021', '2021-11-02 15:48:06'),
+(2, 1, '23400633339_2021-11-02_15_51_58', '2021', '2021-11-02 15:51:59'),
+(3, 1, '23400633339_2021-11-02_15_53_43', '2021', '2021-11-02 15:53:45'),
+(4, 1, '23400633339_2021-11-02_16_02_48', '2021', '2021-11-02 16:02:49');
 
 -- --------------------------------------------------------
 
@@ -9043,12 +9031,10 @@ INSERT INTO `destino_ventas` (`id_destino_ventas`, `id_clasificacion_ventas`, `i
 -- Estructura de tabla para la tabla `economia_del_conocimiento_clasificacion`
 --
 
-DROP TABLE IF EXISTS `economia_del_conocimiento_clasificacion`;
-CREATE TABLE IF NOT EXISTS `economia_del_conocimiento_clasificacion` (
-  `id_economia_del_conocimiento_clasificacion` int(11) NOT NULL AUTO_INCREMENT,
-  `economia_del_conocimiento_clasificacion` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
-  PRIMARY KEY (`id_economia_del_conocimiento_clasificacion`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+CREATE TABLE `economia_del_conocimiento_clasificacion` (
+  `id_economia_del_conocimiento_clasificacion` int(11) NOT NULL,
+  `economia_del_conocimiento_clasificacion` varchar(50) COLLATE utf8_spanish_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `economia_del_conocimiento_clasificacion`
@@ -9064,15 +9050,12 @@ INSERT INTO `economia_del_conocimiento_clasificacion` (`id_economia_del_conocimi
 -- Estructura de tabla para la tabla `economia_del_conocimiento_perfil`
 --
 
-DROP TABLE IF EXISTS `economia_del_conocimiento_perfil`;
-CREATE TABLE IF NOT EXISTS `economia_del_conocimiento_perfil` (
-  `id_economia_del_conocimiento_perfil` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `economia_del_conocimiento_perfil` (
+  `id_economia_del_conocimiento_perfil` int(11) NOT NULL,
   `perfil` varchar(60) COLLATE utf8_spanish_ci NOT NULL,
-  `id_economia_del_conocimiento_clasificacion` int(11) NOT NULL DEFAULT '2',
-  `activo` char(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'S',
-  PRIMARY KEY (`id_economia_del_conocimiento_perfil`),
-  KEY `FK_economia_del_conocimiento_perfil_economia_del_conocimiento_cl` (`id_economia_del_conocimiento_clasificacion`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+  `id_economia_del_conocimiento_clasificacion` int(11) NOT NULL DEFAULT 2,
+  `activo` char(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'S'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `economia_del_conocimiento_perfil`
@@ -9097,15 +9080,12 @@ INSERT INTO `economia_del_conocimiento_perfil` (`id_economia_del_conocimiento_pe
 -- Estructura de tabla para la tabla `economia_del_conocimiento_sector`
 --
 
-DROP TABLE IF EXISTS `economia_del_conocimiento_sector`;
-CREATE TABLE IF NOT EXISTS `economia_del_conocimiento_sector` (
-  `id_economia_del_conocimiento_sector` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `economia_del_conocimiento_sector` (
+  `id_economia_del_conocimiento_sector` int(11) NOT NULL,
   `sector` varchar(60) COLLATE utf8_spanish_ci NOT NULL,
-  `id_economia_del_conocimiento_clasificacion` int(11) NOT NULL DEFAULT '2',
-  `activo` char(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'S',
-  PRIMARY KEY (`id_economia_del_conocimiento_sector`),
-  KEY `FK_economia_del_conocimiento_sector_economia_del_conocimiento_cl` (`id_economia_del_conocimiento_clasificacion`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+  `id_economia_del_conocimiento_clasificacion` int(11) NOT NULL DEFAULT 2,
+  `activo` char(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'S'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `economia_del_conocimiento_sector`
@@ -9120,7 +9100,8 @@ INSERT INTO `economia_del_conocimiento_sector` (`id_economia_del_conocimiento_se
 (6, 'Ingeniería e Industria 4.0', 1, 'S'),
 (7, 'Sector 1 prueba', 2, 'S'),
 (8, 'Sector de prueba ', 2, 'S'),
-(9, 'Prueba 123', 2, 'S');
+(9, 'Prueba 123', 2, 'S'),
+(10, 'sector prueba 2', 2, 'S');
 
 -- --------------------------------------------------------
 
@@ -9128,13 +9109,11 @@ INSERT INTO `economia_del_conocimiento_sector` (`id_economia_del_conocimiento_se
 -- Estructura de tabla para la tabla `efluente`
 --
 
-DROP TABLE IF EXISTS `efluente`;
-CREATE TABLE IF NOT EXISTS `efluente` (
-  `id_efluente` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `efluente` (
+  `id_efluente` int(11) NOT NULL,
   `efluente` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
-  `activo` char(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'S',
-  PRIMARY KEY (`id_efluente`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+  `activo` char(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'S'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `efluente`
@@ -9154,13 +9133,11 @@ INSERT INTO `efluente` (`id_efluente`, `efluente`, `activo`) VALUES
 -- Estructura de tabla para la tabla `egreso`
 --
 
-DROP TABLE IF EXISTS `egreso`;
-CREATE TABLE IF NOT EXISTS `egreso` (
-  `id_egreso` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `egreso` (
+  `id_egreso` int(11) NOT NULL,
   `egreso` varchar(150) COLLATE utf8_spanish_ci NOT NULL,
-  `activo` char(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'S',
-  PRIMARY KEY (`id_egreso`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+  `activo` char(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'S'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `egreso`
@@ -9179,13 +9156,11 @@ INSERT INTO `egreso` (`id_egreso`, `egreso`, `activo`) VALUES
 -- Estructura de tabla para la tabla `estado_documentacion`
 --
 
-DROP TABLE IF EXISTS `estado_documentacion`;
-CREATE TABLE IF NOT EXISTS `estado_documentacion` (
-  `id_estado_documentacion` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `estado_documentacion` (
+  `id_estado_documentacion` int(11) NOT NULL,
   `estado` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
-  `activo` char(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'S',
-  PRIMARY KEY (`id_estado_documentacion`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+  `activo` char(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'S'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `estado_documentacion`
@@ -9202,9 +9177,8 @@ INSERT INTO `estado_documentacion` (`id_estado_documentacion`, `estado`, `activo
 -- Estructura de tabla para la tabla `facturacion`
 --
 
-DROP TABLE IF EXISTS `facturacion`;
-CREATE TABLE IF NOT EXISTS `facturacion` (
-  `id_facturacion` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `facturacion` (
+  `id_facturacion` int(11) NOT NULL,
   `id_industria` int(11) NOT NULL,
   `monto_facturacion_anual` decimal(13,2) DEFAULT NULL,
   `porcentaje_mayorista` decimal(5,2) DEFAULT NULL,
@@ -9219,19 +9193,32 @@ CREATE TABLE IF NOT EXISTS `facturacion` (
   `porcentaje_prevision_mercado_interno` decimal(5,2) DEFAULT NULL,
   `porcentaje_prevision_mercado_externo` decimal(5,2) DEFAULT NULL,
   `anio` int(11) NOT NULL,
-  `fecha_de_actualizacion` datetime NOT NULL,
-  PRIMARY KEY (`id_facturacion`),
-  KEY `FK_facturacion_categoria_ingresos` (`id_categoria_ingresos`),
-  KEY `FK_facturacion_industria` (`id_industria`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+  `fecha_de_actualizacion` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `facturacion`
 --
 
 INSERT INTO `facturacion` (`id_facturacion`, `id_industria`, `monto_facturacion_anual`, `porcentaje_mayorista`, `porcentaje_minorista`, `porcentaje_provincia`, `porcentaje_otras_provincias`, `porcentaje_exterior`, `id_categoria_ingresos`, `facturacion_dolares`, `prevision_ingresos_anio_corriente`, `prevision_ingresos_anio_corriente_dolares`, `porcentaje_prevision_mercado_interno`, `porcentaje_prevision_mercado_externo`, `anio`, `fecha_de_actualizacion`) VALUES
-(2, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, '1.00', '1.00', '1.00', '1.00', 2021, '2021-07-08 19:13:01'),
-(5, 2, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, '4.00', '3.00', '3.00', '4.00', 2021, '2021-07-15 14:34:23');
+(5, 2, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, '4.00', '3.00', '3.00', '4.00', 2021, '2021-07-15 14:34:23'),
+(9, 1, NULL, NULL, NULL, NULL, NULL, NULL, 4, NULL, '12.00', '12.00', '12.00', '12.00', 2021, '2021-10-19 12:13:22');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `failed_jobs`
+--
+
+CREATE TABLE `failed_jobs` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `uuid` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `connection` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `failed_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -9239,12 +9226,10 @@ INSERT INTO `facturacion` (`id_facturacion`, `id_industria`, `monto_facturacion_
 -- Estructura de tabla para la tabla `frecuencia_de_contratacion`
 --
 
-DROP TABLE IF EXISTS `frecuencia_de_contratacion`;
-CREATE TABLE IF NOT EXISTS `frecuencia_de_contratacion` (
-  `id_frecuencia_de_contratacion` int(11) NOT NULL AUTO_INCREMENT,
-  `frecuencia_de_contratacion` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
-  PRIMARY KEY (`id_frecuencia_de_contratacion`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+CREATE TABLE `frecuencia_de_contratacion` (
+  `id_frecuencia_de_contratacion` int(11) NOT NULL,
+  `frecuencia_de_contratacion` varchar(50) COLLATE utf8_spanish_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `frecuencia_de_contratacion`
@@ -9267,9 +9252,8 @@ INSERT INTO `frecuencia_de_contratacion` (`id_frecuencia_de_contratacion`, `frec
 -- Estructura de tabla para la tabla `industria`
 --
 
-DROP TABLE IF EXISTS `industria`;
-CREATE TABLE IF NOT EXISTS `industria` (
-  `id_industria` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `industria` (
+  `id_industria` int(11) NOT NULL,
   `id_contribuyente` int(11) NOT NULL,
   `nombre_de_fantasia` varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL,
   `id_punto_cardinal` int(11) DEFAULT NULL,
@@ -9292,24 +9276,19 @@ CREATE TABLE IF NOT EXISTS `industria` (
   `es_zona_industrial` char(1) COLLATE utf8_spanish_ci DEFAULT NULL,
   `fecha_inicio` date NOT NULL,
   `fecha_fin` date DEFAULT NULL,
-  `fecha_de_actualizacion` datetime NOT NULL,
-  PRIMARY KEY (`id_industria`),
-  KEY `FK_industria_barrio` (`id_barrio`),
-  KEY `FK_industria_calle` (`id_calle`),
-  KEY `FK_industria_contribuyente` (`id_contribuyente`),
-  KEY `FK_industria_localidad` (`id_localidad`),
-  KEY `FK_industria_punto_cardinal` (`id_punto_cardinal`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+  `fecha_de_actualizacion` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `industria`
 --
 
 INSERT INTO `industria` (`id_industria`, `id_contribuyente`, `nombre_de_fantasia`, `id_punto_cardinal`, `id_localidad`, `id_barrio`, `id_calle`, `numero`, `piso`, `depto`, `referencia_domicilio`, `tel_fijo`, `tel_celular`, `cod_postal`, `es_casa_central`, `direccion_gps`, `latitud`, `longitud`, `email`, `pagina_web`, `es_zona_industrial`, `fecha_inicio`, `fecha_fin`, `fecha_de_actualizacion`) VALUES
-(1, 1, 'Lusoft LR', 3, 134, 17, 13, '12', '12', '12', '12', '3804620304', '3804620304', '5300', 'S', NULL, -29.3999, -66.8643, 'empresa@empresa.com', 'http://dominio.com', 'S', '2021-06-01', NULL, '2021-06-08 03:14:27'),
+(1, 1, 'Lusoft LR', 3, 2, 858, 1114, '12', '12', '12', '12', '3804620304', '3804620304', '5300', 'S', NULL, -29.3999, -66.8643, 'empresa@empresa.com', 'http://dominio.com', 'S', '2021-06-01', NULL, '2021-10-19 12:19:04'),
 (2, 1, 'Establecimiento de prueba', 1, 26, 138, 61, '11', '22', '33', 'casa blanca', '3804620304', '4423789', '5300', 'S', NULL, -29.4141, -66.7963, 'empresa@empresa.com', 'http://dominio.com', 'S', '2021-06-01', NULL, '2021-06-18 12:33:51'),
 (3, 3, 'Germany', 1, 670, 283, 716, '12', '12', '12', '12', '3789656763', '3789656763', '5300', 'S', NULL, -29.3999, -66.8643, 'empresa@germany.com', 'http://dominio.com', 'S', '2021-08-01', NULL, '2021-08-13 13:02:48'),
-(4, 1, 'asdasdasda', 1, 134, 35, 13, '12', '12', '12', '12', '3804620304', '3804620304', '5300', 'S', NULL, -29.3999, -66.8643, 'asd@asd.com', 'http://asasd.com', 'S', '2021-08-01', NULL, '2021-08-25 02:54:16');
+(4, 1, 'Industria prueba', 1, 134, 17, 13, '152265', '12', '12', '12', '3804620304', '3804620304', '5300', 'S', NULL, -29.3999, -66.8643, 'prueba@prueba.com', 'http://prueba.com', 'S', '2021-09-01', NULL, '2021-09-03 05:20:52'),
+(5, 5, 'matecitosindustria1', 1, 2, 706, 1114, '12', '12', '12', '12', '123433567', '123433567', '5300', 'S', NULL, -29.4141, -66.7963, 'empresa@empresa.com', 'http://dominio.com', 'N', '2021-09-01', NULL, '2021-09-17 03:59:31');
 
 -- --------------------------------------------------------
 
@@ -9317,13 +9296,11 @@ INSERT INTO `industria` (`id_industria`, `id_contribuyente`, `nombre_de_fantasia
 -- Estructura de tabla para la tabla `insumo`
 --
 
-DROP TABLE IF EXISTS `insumo`;
-CREATE TABLE IF NOT EXISTS `insumo` (
-  `id_insumo` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `insumo` (
+  `id_insumo` int(11) NOT NULL,
   `insumo` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
-  `activo` char(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'S',
-  PRIMARY KEY (`id_insumo`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+  `activo` char(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'S'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `insumo`
@@ -9350,18 +9327,14 @@ INSERT INTO `insumo` (`id_insumo`, `insumo`, `activo`) VALUES
 -- Estructura de tabla para la tabla `localidad`
 --
 
-DROP TABLE IF EXISTS `localidad`;
-CREATE TABLE IF NOT EXISTS `localidad` (
-  `id_localidad` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `localidad` (
+  `id_localidad` int(11) NOT NULL,
   `localidad` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
   `id_departamento` int(11) DEFAULT NULL,
   `id_provincia` int(11) DEFAULT NULL,
   `codigo_postal` int(11) DEFAULT NULL,
-  `activo` char(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'S',
-  PRIMARY KEY (`id_localidad`),
-  KEY `FK_localidad_departamento` (`id_departamento`),
-  KEY `FK_localidad_provincia` (`id_provincia`)
-) ENGINE=InnoDB AUTO_INCREMENT=725 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+  `activo` char(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'S'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `localidad`
@@ -10062,7 +10035,14 @@ INSERT INTO `localidad` (`id_localidad`, `localidad`, `id_departamento`, `id_pro
 (721, 'VILLA SAN AGUSTIN', 504, 47, 0, 'S'),
 (722, 'EL PALOMAR', 187, 3, 0, 'S'),
 (723, 'LA PLATA', 168, 3, 0, 'S'),
-(724, 'SIN ESPECIFICAR', 6, 9, 0, 'N');
+(724, 'SIN ESPECIFICAR', 6, 9, 0, 'N'),
+(725, 'LOC POLONIA', NULL, 52, NULL, 'S'),
+(726, 'POLONIA NUEVA', NULL, 53, NULL, 'S'),
+(727, 'NUEVA POLONIA', NULL, 52, NULL, 'S'),
+(728, 'LOCALIDAD CANADA', NULL, 54, NULL, 'S'),
+(729, 'ANGOLALOC', NULL, 55, NULL, 'S'),
+(730, 'LONDON', NULL, 56, NULL, 'S'),
+(731, 'LONDON', NULL, 57, NULL, 'S');
 
 -- --------------------------------------------------------
 
@@ -10070,18 +10050,14 @@ INSERT INTO `localidad` (`id_localidad`, `localidad`, `id_departamento`, `id_pro
 -- Estructura de tabla para la tabla `log`
 --
 
-DROP TABLE IF EXISTS `log`;
-CREATE TABLE IF NOT EXISTS `log` (
-  `id_log` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `log` (
+  `id_log` int(11) NOT NULL,
   `id_login` int(11) NOT NULL,
   `fecha` datetime NOT NULL,
   `id_opcion` int(11) NOT NULL,
   `movimiento` varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL,
   `id_registro` int(11) NOT NULL,
-  `tabla` varchar(50) CHARACTER SET utf8 DEFAULT NULL,
-  PRIMARY KEY (`id_log`),
-  KEY `FK_log_login` (`id_login`),
-  KEY `FK_log_opcion` (`id_opcion`)
+  `tabla` varchar(50) CHARACTER SET utf8 DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- --------------------------------------------------------
@@ -10090,18 +10066,15 @@ CREATE TABLE IF NOT EXISTS `log` (
 -- Estructura de tabla para la tabla `login`
 --
 
-DROP TABLE IF EXISTS `login`;
-CREATE TABLE IF NOT EXISTS `login` (
-  `id_login` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `login` (
+  `id_login` int(11) NOT NULL,
   `id_usuario` int(11) DEFAULT NULL,
   `nombre_maquina` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
   `nombre_sesion_win` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
   `ingreso` datetime NOT NULL,
   `egreso` datetime DEFAULT NULL,
   `estado_logueo` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
-  `ip` varchar(50) CHARACTER SET utf8 DEFAULT NULL,
-  PRIMARY KEY (`id_login`),
-  KEY `FK_login_usuario` (`id_usuario`)
+  `ip` varchar(50) CHARACTER SET utf8 DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- --------------------------------------------------------
@@ -10110,13 +10083,11 @@ CREATE TABLE IF NOT EXISTS `login` (
 -- Estructura de tabla para la tabla `materia_prima`
 --
 
-DROP TABLE IF EXISTS `materia_prima`;
-CREATE TABLE IF NOT EXISTS `materia_prima` (
-  `id_materia_prima` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `materia_prima` (
+  `id_materia_prima` int(11) NOT NULL,
   `materia_prima` varchar(150) COLLATE utf8_spanish_ci NOT NULL,
-  `activo` char(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'S',
-  PRIMARY KEY (`id_materia_prima`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+  `activo` char(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'S'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `materia_prima`
@@ -10133,13 +10104,70 @@ INSERT INTO `materia_prima` (`id_materia_prima`, `materia_prima`, `activo`) VALU
 -- Estructura de tabla para la tabla `mejora_proyectada`
 --
 
-DROP TABLE IF EXISTS `mejora_proyectada`;
-CREATE TABLE IF NOT EXISTS `mejora_proyectada` (
-  `id_mejora_proyectada` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `mejora_proyectada` (
+  `id_mejora_proyectada` int(11) NOT NULL,
   `mejora_proyectada` varchar(150) COLLATE utf8_spanish_ci NOT NULL,
-  `activo` char(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'S',
-  PRIMARY KEY (`id_mejora_proyectada`)
+  `activo` char(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'S'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `migrations`
+--
+
+CREATE TABLE `migrations` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `migration` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `batch` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `migrations`
+--
+
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
+(1, '2014_10_12_000000_create_users_table', 1),
+(2, '2019_08_19_000000_create_failed_jobs_table', 2),
+(3, '2021_10_25_130814_create_permission_tables', 3);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `model_has_permissions`
+--
+
+CREATE TABLE `model_has_permissions` (
+  `permission_id` bigint(20) UNSIGNED NOT NULL,
+  `model_type` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `model_id` bigint(20) UNSIGNED NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `model_has_permissions`
+--
+
+INSERT INTO `model_has_permissions` (`permission_id`, `model_type`, `model_id`) VALUES
+(1, 'web', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `model_has_roles`
+--
+
+CREATE TABLE `model_has_roles` (
+  `role_id` bigint(20) UNSIGNED NOT NULL,
+  `model_type` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `model_id` bigint(20) UNSIGNED NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `model_has_roles`
+--
+
+INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
+(1, 'App\\Models\\User', 7);
 
 -- --------------------------------------------------------
 
@@ -10147,13 +10175,11 @@ CREATE TABLE IF NOT EXISTS `mejora_proyectada` (
 -- Estructura de tabla para la tabla `modulo`
 --
 
-DROP TABLE IF EXISTS `modulo`;
-CREATE TABLE IF NOT EXISTS `modulo` (
-  `id_modulo` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `modulo` (
+  `id_modulo` int(11) NOT NULL,
   `modulo` varchar(40) COLLATE utf8_spanish_ci NOT NULL,
   `ambito` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
-  `activo` char(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'S',
-  PRIMARY KEY (`id_modulo`)
+  `activo` char(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'S'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- --------------------------------------------------------
@@ -10162,13 +10188,11 @@ CREATE TABLE IF NOT EXISTS `modulo` (
 -- Estructura de tabla para la tabla `motivo_importacion`
 --
 
-DROP TABLE IF EXISTS `motivo_importacion`;
-CREATE TABLE IF NOT EXISTS `motivo_importacion` (
-  `id_motivo_importacion` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `motivo_importacion` (
+  `id_motivo_importacion` int(11) NOT NULL,
   `motivo_importacion` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
-  `activo` char(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'S',
-  PRIMARY KEY (`id_motivo_importacion`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+  `activo` char(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'S'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `motivo_importacion`
@@ -10186,12 +10210,10 @@ INSERT INTO `motivo_importacion` (`id_motivo_importacion`, `motivo_importacion`,
 -- Estructura de tabla para la tabla `motivo_no_mejora`
 --
 
-DROP TABLE IF EXISTS `motivo_no_mejora`;
-CREATE TABLE IF NOT EXISTS `motivo_no_mejora` (
-  `id_motivo_no_mejora` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `motivo_no_mejora` (
+  `id_motivo_no_mejora` int(11) NOT NULL,
   `motivo_no_mejora` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
-  `activo` char(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'S',
-  PRIMARY KEY (`id_motivo_no_mejora`)
+  `activo` char(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'S'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- --------------------------------------------------------
@@ -10200,13 +10222,11 @@ CREATE TABLE IF NOT EXISTS `motivo_no_mejora` (
 -- Estructura de tabla para la tabla `motivo_ociosidad`
 --
 
-DROP TABLE IF EXISTS `motivo_ociosidad`;
-CREATE TABLE IF NOT EXISTS `motivo_ociosidad` (
-  `id_motivo_ociosidad` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `motivo_ociosidad` (
+  `id_motivo_ociosidad` int(11) NOT NULL,
   `motivo_ociosidad` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
-  `activo` char(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'S',
-  PRIMARY KEY (`id_motivo_ociosidad`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+  `activo` char(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'S'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `motivo_ociosidad`
@@ -10229,13 +10249,11 @@ INSERT INTO `motivo_ociosidad` (`id_motivo_ociosidad`, `motivo_ociosidad`, `acti
 -- Estructura de tabla para la tabla `movimiento_comercial`
 --
 
-DROP TABLE IF EXISTS `movimiento_comercial`;
-CREATE TABLE IF NOT EXISTS `movimiento_comercial` (
-  `id_movimiento_comercial` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `movimiento_comercial` (
+  `id_movimiento_comercial` int(11) NOT NULL,
   `movimiento_comercial` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
-  `activo` char(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'S',
-  PRIMARY KEY (`id_movimiento_comercial`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+  `activo` char(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'S'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `movimiento_comercial`
@@ -10253,13 +10271,11 @@ INSERT INTO `movimiento_comercial` (`id_movimiento_comercial`, `movimiento_comer
 -- Estructura de tabla para la tabla `naturaleza_juridica`
 --
 
-DROP TABLE IF EXISTS `naturaleza_juridica`;
-CREATE TABLE IF NOT EXISTS `naturaleza_juridica` (
+CREATE TABLE `naturaleza_juridica` (
   `id_naturaleza_juridica` int(11) NOT NULL,
   `naturaleza_juridica` char(50) COLLATE utf8_spanish_ci NOT NULL,
   `Nro_natj` int(11) DEFAULT NULL,
-  `activo` char(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'S',
-  PRIMARY KEY (`id_naturaleza_juridica`)
+  `activo` char(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'S'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
@@ -10296,15 +10312,12 @@ INSERT INTO `naturaleza_juridica` (`id_naturaleza_juridica`, `naturaleza_juridic
 -- Estructura de tabla para la tabla `notificacion`
 --
 
-DROP TABLE IF EXISTS `notificacion`;
-CREATE TABLE IF NOT EXISTS `notificacion` (
-  `id_notificacion` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `notificacion` (
+  `id_notificacion` int(11) NOT NULL,
   `notificacion` mediumtext COLLATE utf8_spanish_ci NOT NULL,
   `id_tipo_de_notificacion` int(11) NOT NULL,
   `fecha_de_emision` datetime DEFAULT NULL,
-  `activo` char(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'S',
-  PRIMARY KEY (`id_notificacion`),
-  KEY `FK_notificacion_tipo_de_notificacion` (`id_tipo_de_notificacion`)
+  `activo` char(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'S'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- --------------------------------------------------------
@@ -10313,13 +10326,10 @@ CREATE TABLE IF NOT EXISTS `notificacion` (
 -- Estructura de tabla para la tabla `opcion`
 --
 
-DROP TABLE IF EXISTS `opcion`;
-CREATE TABLE IF NOT EXISTS `opcion` (
-  `id_opcion` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `opcion` (
+  `id_opcion` int(11) NOT NULL,
   `opcion` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
-  `id_modulo` int(11) NOT NULL,
-  PRIMARY KEY (`id_opcion`),
-  KEY `FK_opcion_modulo` (`id_modulo`)
+  `id_modulo` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- --------------------------------------------------------
@@ -10328,13 +10338,11 @@ CREATE TABLE IF NOT EXISTS `opcion` (
 -- Estructura de tabla para la tabla `pais`
 --
 
-DROP TABLE IF EXISTS `pais`;
-CREATE TABLE IF NOT EXISTS `pais` (
-  `id_pais` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `pais` (
+  `id_pais` int(11) NOT NULL,
   `pais` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
-  `activo` char(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'S',
-  PRIMARY KEY (`id_pais`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+  `activo` char(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'S'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `pais`
@@ -10354,7 +10362,12 @@ INSERT INTO `pais` (`id_pais`, `pais`, `activo`) VALUES
 (11, 'PERU', 'S'),
 (12, 'COLOMBIA', 'S'),
 (13, 'COREA', 'S'),
-(15, 'CHINA', 'S');
+(15, 'CHINA', 'S'),
+(16, 'POLONIA', 'S'),
+(17, 'CANADA', 'S'),
+(18, 'ANGOLA', 'S'),
+(19, 'INGLATERRA', 'S'),
+(20, 'INGLATERRA', 'S');
 
 -- --------------------------------------------------------
 
@@ -10362,9 +10375,8 @@ INSERT INTO `pais` (`id_pais`, `pais`, `activo`) VALUES
 -- Estructura de tabla para la tabla `parametro`
 --
 
-DROP TABLE IF EXISTS `parametro`;
-CREATE TABLE IF NOT EXISTS `parametro` (
-  `id_parametro` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `parametro` (
+  `id_parametro` int(11) NOT NULL,
   `parametro` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
   `descripcion` varchar(1000) COLLATE utf8_spanish_ci NOT NULL,
   `valor` float NOT NULL,
@@ -10372,9 +10384,21 @@ CREATE TABLE IF NOT EXISTS `parametro` (
   `observaciones` varchar(1000) CHARACTER SET utf8 DEFAULT NULL,
   `fecha_inicio` date NOT NULL,
   `fecha_fin` date DEFAULT NULL,
-  `activo` char(1) COLLATE utf8_spanish_ci DEFAULT NULL,
-  PRIMARY KEY (`id_parametro`)
+  `activo` char(1) COLLATE utf8_spanish_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `password_resets`
+--
+
+CREATE TABLE `password_resets` (
+  `id` int(11) NOT NULL,
+  `email` char(30) DEFAULT NULL,
+  `token` char(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -10382,26 +10406,23 @@ CREATE TABLE IF NOT EXISTS `parametro` (
 -- Estructura de tabla para la tabla `periodo_de_actividad_de_contribuyente`
 --
 
-DROP TABLE IF EXISTS `periodo_de_actividad_de_contribuyente`;
-CREATE TABLE IF NOT EXISTS `periodo_de_actividad_de_contribuyente` (
-  `id_periodo_de_actividad_de_contribuyente` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `periodo_de_actividad_de_contribuyente` (
+  `id_periodo_de_actividad_de_contribuyente` int(11) NOT NULL,
   `id_contribuyente` int(11) NOT NULL,
   `fecha_inicio` date NOT NULL,
   `fecha_fin` date DEFAULT NULL,
   `id_regimen_ib` int(11) NOT NULL,
   `numero_de_ib` char(12) COLLATE utf8_spanish_ci NOT NULL,
-  `fecha_de_actualizacion` datetime NOT NULL,
-  PRIMARY KEY (`id_periodo_de_actividad_de_contribuyente`),
-  KEY `FK_periodo_de_actividad_de_contribuyente_contribuyente` (`id_contribuyente`),
-  KEY `FK_periodo_de_actividad_de_contribuyente_regimen_ib` (`id_regimen_ib`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+  `fecha_de_actualizacion` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `periodo_de_actividad_de_contribuyente`
 --
 
 INSERT INTO `periodo_de_actividad_de_contribuyente` (`id_periodo_de_actividad_de_contribuyente`, `id_contribuyente`, `fecha_inicio`, `fecha_fin`, `id_regimen_ib`, `numero_de_ib`, `fecha_de_actualizacion`) VALUES
-(1, 1, '2021-05-30', NULL, 2, '12345', '2021-06-17 17:57:28');
+(1, 1, '2021-05-30', NULL, 2, '12345', '2021-06-17 17:57:28'),
+(2, 6, '2021-10-01', NULL, 1, '112233', '2021-10-18 21:03:28');
 
 -- --------------------------------------------------------
 
@@ -10409,15 +10430,12 @@ INSERT INTO `periodo_de_actividad_de_contribuyente` (`id_periodo_de_actividad_de
 -- Estructura de tabla para la tabla `periodo_de_actividad_de_industria`
 --
 
-DROP TABLE IF EXISTS `periodo_de_actividad_de_industria`;
-CREATE TABLE IF NOT EXISTS `periodo_de_actividad_de_industria` (
-  `id_periodo_de_actividad_de_industria` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `periodo_de_actividad_de_industria` (
+  `id_periodo_de_actividad_de_industria` int(11) NOT NULL,
   `id_industria` int(11) NOT NULL,
   `fecha_de_inicio` date NOT NULL,
-  `fecha_fin` date DEFAULT NULL,
-  PRIMARY KEY (`id_periodo_de_actividad_de_industria`),
-  KEY `FK_periodo_de_actividad_de_industria_industria` (`id_industria`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+  `fecha_fin` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `periodo_de_actividad_de_industria`
@@ -10427,7 +10445,8 @@ INSERT INTO `periodo_de_actividad_de_industria` (`id_periodo_de_actividad_de_ind
 (1, 1, '2021-06-01', NULL),
 (2, 2, '2021-06-01', NULL),
 (3, 3, '2021-08-01', NULL),
-(4, 4, '2021-08-01', NULL);
+(4, 4, '2021-09-01', NULL),
+(5, 5, '2021-09-01', NULL);
 
 -- --------------------------------------------------------
 
@@ -10435,23 +10454,22 @@ INSERT INTO `periodo_de_actividad_de_industria` (`id_periodo_de_actividad_de_ind
 -- Estructura de tabla para la tabla `periodo_fiscal`
 --
 
-DROP TABLE IF EXISTS `periodo_fiscal`;
-CREATE TABLE IF NOT EXISTS `periodo_fiscal` (
-  `id_periodo_fiscal` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `periodo_fiscal` (
+  `id_periodo_fiscal` int(11) NOT NULL,
   `anio` int(11) NOT NULL,
   `fecha_de_inicio_de_reinscripcion` date NOT NULL,
   `primer_vencimiento_de_reinscripcion` date NOT NULL,
   `vencimiento_de_reinscripcion` date NOT NULL,
-  `aval_legal` varchar(1000) COLLATE utf8_spanish_ci DEFAULT NULL,
-  PRIMARY KEY (`id_periodo_fiscal`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+  `aval_legal` varchar(1000) COLLATE utf8_spanish_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `periodo_fiscal`
 --
 
 INSERT INTO `periodo_fiscal` (`id_periodo_fiscal`, `anio`, `fecha_de_inicio_de_reinscripcion`, `primer_vencimiento_de_reinscripcion`, `vencimiento_de_reinscripcion`, `aval_legal`) VALUES
-(1, 2021, '2020-08-01', '2020-09-30', '2020-09-30', 'Proyecto de Ley');
+(1, 2021, '2020-08-01', '2020-09-30', '2020-09-30', 'Proyecto de Ley'),
+(2, 2020, '2020-08-01', '2020-09-30', '2020-09-30', 'Proyecto de Ley');
 
 -- --------------------------------------------------------
 
@@ -10459,19 +10477,44 @@ INSERT INTO `periodo_fiscal` (`id_periodo_fiscal`, `anio`, `fecha_de_inicio_de_r
 -- Estructura de tabla para la tabla `permiso`
 --
 
-DROP TABLE IF EXISTS `permiso`;
-CREATE TABLE IF NOT EXISTS `permiso` (
-  `id_permiso` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `permiso` (
+  `id_permiso` int(11) NOT NULL,
   `id_rol` int(11) NOT NULL,
-  `id_opcion` int(11) NOT NULL,
+  `seccion` char(100) COLLATE utf8_spanish_ci DEFAULT NULL,
   `ver` char(2) COLLATE utf8_spanish_ci NOT NULL,
   `agregar` char(2) COLLATE utf8_spanish_ci NOT NULL,
   `modificar` char(2) COLLATE utf8_spanish_ci NOT NULL,
-  `borrar` char(2) COLLATE utf8_spanish_ci NOT NULL,
-  PRIMARY KEY (`id_permiso`),
-  KEY `FK_permiso_opcion` (`id_opcion`),
-  KEY `FK_permiso_rol` (`id_rol`)
+  `borrar` char(2) COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `permiso`
+--
+
+INSERT INTO `permiso` (`id_permiso`, `id_rol`, `seccion`, `ver`, `agregar`, `modificar`, `borrar`) VALUES
+(1, 1, 'panel.principal.operador', 's', 's', 's', 's'),
+(2, 1, 'panel.users.operador', 's', 's', 's', 's');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `permissions`
+--
+
+CREATE TABLE `permissions` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `guard_name` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `permissions`
+--
+
+INSERT INTO `permissions` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VALUES
+(1, 'FullControl', 'web', '2021-11-12 00:42:22', '2021-11-12 00:42:22');
 
 -- --------------------------------------------------------
 
@@ -10479,9 +10522,8 @@ CREATE TABLE IF NOT EXISTS `permiso` (
 -- Estructura de tabla para la tabla `persona`
 --
 
-DROP TABLE IF EXISTS `persona`;
-CREATE TABLE IF NOT EXISTS `persona` (
-  `id_persona` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `persona` (
+  `id_persona` int(11) NOT NULL,
   `documento` varchar(12) COLLATE utf8_spanish_ci NOT NULL,
   `id_tipo_de_documento` int(11) NOT NULL,
   `nombre` varchar(50) COLLATE utf8_spanish_ci DEFAULT NULL,
@@ -10503,16 +10545,8 @@ CREATE TABLE IF NOT EXISTS `persona` (
   `vive` varchar(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'S',
   `fecha_de_alta` datetime DEFAULT NULL,
   `activo` char(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'S',
-  `fecha_de_actualizacion` datetime NOT NULL,
-  PRIMARY KEY (`id_persona`),
-  KEY `FK_persona_barrio` (`id_barrio`),
-  KEY `FK_persona_calle` (`id_calle`),
-  KEY `FK_persona_localidad` (`id_localidad`),
-  KEY `FK_persona_pais` (`id_pais`),
-  KEY `FK_persona_punto_cardinal` (`id_punto_cardinal`),
-  KEY `FK_persona_sexo` (`id_sexo`),
-  KEY `FK_persona_tipo_de_documento` (`id_tipo_de_documento`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+  `fecha_de_actualizacion` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `persona`
@@ -10521,7 +10555,10 @@ CREATE TABLE IF NOT EXISTS `persona` (
 INSERT INTO `persona` (`id_persona`, `documento`, `id_tipo_de_documento`, `nombre`, `id_localidad`, `id_barrio`, `id_calle`, `numero`, `id_punto_cardinal`, `piso`, `depto`, `referencias_domicilio`, `tel_fijo`, `tel_celular`, `id_sexo`, `fecha_de_nacimiento`, `id_pais`, `frente_dni`, `dorso_dni`, `vive`, `fecha_de_alta`, `activo`, `fecha_de_actualizacion`) VALUES
 (1, '40063333', 7, 'Mauricio German Toloza', 134, 17, 13, '12', NULL, '12', '12', 'asd', NULL, '3804620304', NULL, NULL, NULL, 'images/dni/40063333_frente_08-06-2021.png', 'images/dni/40063333_dorso_08-06-2021.png', 'S', NULL, 'S', '2021-06-08 03:10:04'),
 (2, '40063333', 7, 'Julio Campana', 134, 19, 17, '12', NULL, '12', '12', '12', NULL, '123123123', NULL, NULL, NULL, 'images/dni/40063333_frente_11-08-2021.png', 'images/dni/40063333_dorso_11-08-2021.png', 'S', NULL, 'S', '2021-08-11 23:53:39'),
-(3, '27448135', 7, 'Mauricio German', 2, 472, 1332, '123', NULL, '23', '222', '22', NULL, '123442212', NULL, NULL, NULL, 'images/dni/27448135_frente_13-08-2021.png', 'images/dni/27448135_dorso_13-08-2021.png', 'S', NULL, 'S', '2021-08-13 13:01:28');
+(3, '27448135', 7, 'Mauricio German', 2, 472, 1332, '123', NULL, '23', '222', '22', NULL, '123442212', NULL, NULL, NULL, 'images/dni/27448135_frente_13-08-2021.png', 'images/dni/27448135_dorso_13-08-2021.png', 'S', NULL, 'S', '2021-08-13 13:01:28'),
+(4, '40063333', 7, 'mt', 670, 283, 172, '12', NULL, '12', '12', '12', NULL, '3804620304', NULL, NULL, NULL, 'images/dni/40063333_frente_17-09-2021.jpg', 'images/dni/40063333_dorso_17-09-2021.jpg', 'S', NULL, 'S', '2021-09-17 02:43:38'),
+(5, '40063333', 7, 'toloza mauricio', 9, 288, 608, '12', NULL, '12', '12', '12', NULL, '3804620304', NULL, NULL, NULL, 'images/dni/40063333_frente_17-09-2021.jpg', 'images/dni/40063333_dorso_17-09-2021.jpg', 'S', NULL, 'S', '2021-09-17 03:31:53'),
+(6, '40063333', 7, 'mauri toloza', 134, 16, 14, '12', NULL, '12', '12', '12', NULL, '3784674636', NULL, NULL, NULL, 'documents/dni/40063333_frente_15-10-2021.pdf', 'documents/dni/40063333_dorso_15-10-2021.pdf', 'S', NULL, 'S', '2021-10-15 12:17:18');
 
 -- --------------------------------------------------------
 
@@ -10529,13 +10566,11 @@ INSERT INTO `persona` (`id_persona`, `documento`, `id_tipo_de_documento`, `nombr
 -- Estructura de tabla para la tabla `persona_juridica`
 --
 
-DROP TABLE IF EXISTS `persona_juridica`;
-CREATE TABLE IF NOT EXISTS `persona_juridica` (
-  `id_persona_juridica` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `persona_juridica` (
+  `id_persona_juridica` int(11) NOT NULL,
   `persona_juridica` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
-  `activo` char(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'S',
-  PRIMARY KEY (`id_persona_juridica`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+  `activo` char(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'S'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `persona_juridica`
@@ -10551,13 +10586,11 @@ INSERT INTO `persona_juridica` (`id_persona_juridica`, `persona_juridica`, `acti
 -- Estructura de tabla para la tabla `producto`
 --
 
-DROP TABLE IF EXISTS `producto`;
-CREATE TABLE IF NOT EXISTS `producto` (
-  `id_producto` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `producto` (
+  `id_producto` int(11) NOT NULL,
   `producto` varchar(150) COLLATE utf8_spanish_ci NOT NULL,
-  `activo` char(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'S',
-  PRIMARY KEY (`id_producto`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+  `activo` char(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'S'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `producto`
@@ -10573,13 +10606,11 @@ INSERT INTO `producto` (`id_producto`, `producto`, `activo`) VALUES
 -- Estructura de tabla para la tabla `promocion_industrial`
 --
 
-DROP TABLE IF EXISTS `promocion_industrial`;
-CREATE TABLE IF NOT EXISTS `promocion_industrial` (
-  `id_promocion_industrial` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `promocion_industrial` (
+  `id_promocion_industrial` int(11) NOT NULL,
   `promocion_industrial` varchar(150) COLLATE utf8_spanish_ci NOT NULL,
-  `activo` char(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'S',
-  PRIMARY KEY (`id_promocion_industrial`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+  `activo` char(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'S'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `promocion_industrial`
@@ -10594,15 +10625,12 @@ INSERT INTO `promocion_industrial` (`id_promocion_industrial`, `promocion_indust
 -- Estructura de tabla para la tabla `provincia`
 --
 
-DROP TABLE IF EXISTS `provincia`;
-CREATE TABLE IF NOT EXISTS `provincia` (
-  `id_provincia` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `provincia` (
+  `id_provincia` int(11) NOT NULL,
   `provincia` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
   `id_pais` int(11) NOT NULL,
-  `activo` char(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'S',
-  PRIMARY KEY (`id_provincia`),
-  KEY `FK_provincia_pais` (`id_pais`)
-) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+  `activo` char(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'S'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `provincia`
@@ -10632,7 +10660,13 @@ INSERT INTO `provincia` (`id_provincia`, `provincia`, `id_pais`, `activo`) VALUE
 (48, 'MENDOZA', 1, 'S'),
 (49, 'FORMOSA', 1, 'S'),
 (50, 'SANTA FE', 1, 'S'),
-(51, 'CAPITAL FEDERAL', 1, 'S');
+(51, 'CAPITAL FEDERAL', 1, 'S'),
+(52, 'PROVINCIA POLONIA', 16, 'S'),
+(53, 'POLONIESA', 16, 'S'),
+(54, 'PROVINCIA CANADA', 17, 'S'),
+(55, 'PROVINCIA ANGOLA', 18, 'S'),
+(56, 'LONDRES', 19, 'S'),
+(57, 'LONDRES', 20, 'S');
 
 -- --------------------------------------------------------
 
@@ -10640,12 +10674,10 @@ INSERT INTO `provincia` (`id_provincia`, `provincia`, `id_pais`, `activo`) VALUE
 -- Estructura de tabla para la tabla `punto_cardinal`
 --
 
-DROP TABLE IF EXISTS `punto_cardinal`;
-CREATE TABLE IF NOT EXISTS `punto_cardinal` (
-  `id_punto_cardinal` int(11) NOT NULL AUTO_INCREMENT,
-  `punto_cardinal` char(10) COLLATE utf8_spanish_ci NOT NULL,
-  PRIMARY KEY (`id_punto_cardinal`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+CREATE TABLE `punto_cardinal` (
+  `id_punto_cardinal` int(11) NOT NULL,
+  `punto_cardinal` char(10) COLLATE utf8_spanish_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `punto_cardinal`
@@ -10663,13 +10695,11 @@ INSERT INTO `punto_cardinal` (`id_punto_cardinal`, `punto_cardinal`) VALUES
 -- Estructura de tabla para la tabla `regimen_ib`
 --
 
-DROP TABLE IF EXISTS `regimen_ib`;
-CREATE TABLE IF NOT EXISTS `regimen_ib` (
+CREATE TABLE `regimen_ib` (
   `id_regimen_ib` int(11) NOT NULL,
   `regimen_ib` char(30) COLLATE utf8_spanish_ci NOT NULL,
   `mnemo` char(1) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `activo` char(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'S',
-  PRIMARY KEY (`id_regimen_ib`)
+  `activo` char(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'S'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
@@ -10687,9 +10717,8 @@ INSERT INTO `regimen_ib` (`id_regimen_ib`, `regimen_ib`, `mnemo`, `activo`) VALU
 -- Estructura de tabla para la tabla `rel_actividad_materia_prima`
 --
 
-DROP TABLE IF EXISTS `rel_actividad_materia_prima`;
-CREATE TABLE IF NOT EXISTS `rel_actividad_materia_prima` (
-  `id_rel_actividad_materia_prima` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `rel_actividad_materia_prima` (
+  `id_rel_actividad_materia_prima` int(11) NOT NULL,
   `id_rel_industria_actividad` int(11) NOT NULL,
   `id_materia_prima` int(11) NOT NULL,
   `id_unidad_de_medida` int(11) NOT NULL,
@@ -10701,13 +10730,16 @@ CREATE TABLE IF NOT EXISTS `rel_actividad_materia_prima` (
   `detalles` varchar(200) COLLATE utf8_spanish_ci DEFAULT NULL,
   `anio` smallint(6) NOT NULL,
   `fecha_de_actualizacion` datetime NOT NULL,
-  `activo` char(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'S',
-  PRIMARY KEY (`id_rel_actividad_materia_prima`),
-  KEY `FK_rel_actividad_materia_prima_materia_prima` (`id_materia_prima`),
-  KEY `FK_rel_actividad_materia_prima_rel_industria_actividad` (`id_rel_industria_actividad`),
-  KEY `FK_rel_actividad_producto_materia_prima_motivo_importacion` (`id_motivo_importacion`),
-  KEY `FK_rel_actividad_producto_materia_prima_unidad_de_medida` (`id_unidad_de_medida`)
+  `activo` char(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'S'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `rel_actividad_materia_prima`
+--
+
+INSERT INTO `rel_actividad_materia_prima` (`id_rel_actividad_materia_prima`, `id_rel_industria_actividad`, `id_materia_prima`, `id_unidad_de_medida`, `cantidad`, `es_propio`, `id_localidad`, `id_pais`, `id_motivo_importacion`, `detalles`, `anio`, `fecha_de_actualizacion`, `activo`) VALUES
+(1, 4, 1, 1, 12, 'P', 134, 1, NULL, '', 2021, '2021-10-06 16:39:08', 'S'),
+(2, 4, 3, 2, 1, 'A', 727, 16, 4, 'asd', 2021, '2021-10-12 14:04:40', 'S');
 
 -- --------------------------------------------------------
 
@@ -10715,9 +10747,8 @@ CREATE TABLE IF NOT EXISTS `rel_actividad_materia_prima` (
 -- Estructura de tabla para la tabla `rel_actividad_producto`
 --
 
-DROP TABLE IF EXISTS `rel_actividad_producto`;
-CREATE TABLE IF NOT EXISTS `rel_actividad_producto` (
-  `id_rel_actividad_producto` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `rel_actividad_producto` (
+  `id_rel_actividad_producto` int(11) NOT NULL,
   `id_rel_industria_actividad` int(11) NOT NULL,
   `id_producto` int(11) NOT NULL,
   `id_unidad_de_medida` int(11) NOT NULL,
@@ -10728,12 +10759,8 @@ CREATE TABLE IF NOT EXISTS `rel_actividad_producto` (
   `ventas_internacionales` int(11) DEFAULT NULL,
   `anio` smallint(6) NOT NULL,
   `fecha_de_actualizacion` datetime DEFAULT NULL,
-  `activo` char(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'S',
-  PRIMARY KEY (`id_rel_actividad_producto`),
-  KEY `FK_rel_actividad_producto_producto` (`id_producto`),
-  KEY `FK_rel_actividad_producto_rel_industria_actividad` (`id_rel_industria_actividad`),
-  KEY `FK_rel_actividad_producto_unidad_de_medida` (`id_unidad_de_medida`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+  `activo` char(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'S'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `rel_actividad_producto`
@@ -10749,15 +10776,11 @@ INSERT INTO `rel_actividad_producto` (`id_rel_actividad_producto`, `id_rel_indus
 -- Estructura de tabla para la tabla `rel_destino_ventas_pais`
 --
 
-DROP TABLE IF EXISTS `rel_destino_ventas_pais`;
-CREATE TABLE IF NOT EXISTS `rel_destino_ventas_pais` (
-  `id_rel_destino_ventas_pais` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `rel_destino_ventas_pais` (
+  `id_rel_destino_ventas_pais` int(11) NOT NULL,
   `id_destino_ventas` int(11) NOT NULL,
-  `id_pais` int(11) NOT NULL,
-  PRIMARY KEY (`id_rel_destino_ventas_pais`),
-  KEY `FK_rel_destino_ventas_pais_destino_ventas` (`id_destino_ventas`),
-  KEY `FK_rel_destino_ventas_pais_pais` (`id_pais`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+  `id_pais` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `rel_destino_ventas_pais`
@@ -10765,11 +10788,11 @@ CREATE TABLE IF NOT EXISTS `rel_destino_ventas_pais` (
 
 INSERT INTO `rel_destino_ventas_pais` (`id_rel_destino_ventas_pais`, `id_destino_ventas`, `id_pais`) VALUES
 (6, 7, 4),
-(7, 6, 5),
-(8, 8, 3),
-(9, 8, 4),
-(10, 8, 6),
-(14, 9, 4);
+(14, 9, 4),
+(15, 6, 5),
+(16, 8, 3),
+(17, 8, 4),
+(18, 8, 6);
 
 -- --------------------------------------------------------
 
@@ -10777,15 +10800,11 @@ INSERT INTO `rel_destino_ventas_pais` (`id_rel_destino_ventas_pais`, `id_destino
 -- Estructura de tabla para la tabla `rel_destino_ventas_provincia`
 --
 
-DROP TABLE IF EXISTS `rel_destino_ventas_provincia`;
-CREATE TABLE IF NOT EXISTS `rel_destino_ventas_provincia` (
-  `id_rel_destino_ventas_provincia` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `rel_destino_ventas_provincia` (
+  `id_rel_destino_ventas_provincia` int(11) NOT NULL,
   `id_destino_ventas` int(11) NOT NULL,
-  `id_provincia` int(11) NOT NULL,
-  PRIMARY KEY (`id_rel_destino_ventas_provincia`),
-  KEY `FK_rel_destino_ventas_provincia_destino_ventas` (`id_destino_ventas`),
-  KEY `FK_rel_destino_ventas_provincia_provincia` (`id_provincia`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+  `id_provincia` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `rel_destino_ventas_provincia`
@@ -10793,11 +10812,12 @@ CREATE TABLE IF NOT EXISTS `rel_destino_ventas_provincia` (
 
 INSERT INTO `rel_destino_ventas_provincia` (`id_rel_destino_ventas_provincia`, `id_destino_ventas`, `id_provincia`) VALUES
 (13, 7, 2),
-(14, 6, 1),
-(15, 8, 1),
-(16, 8, 3),
-(17, 8, 5),
-(21, 9, 3);
+(21, 9, 3),
+(22, 6, 5),
+(23, 8, 1),
+(24, 8, 3),
+(25, 8, 4),
+(26, 8, 5);
 
 -- --------------------------------------------------------
 
@@ -10805,9 +10825,8 @@ INSERT INTO `rel_destino_ventas_provincia` (`id_rel_destino_ventas_provincia`, `
 -- Estructura de tabla para la tabla `rel_industria_actividad`
 --
 
-DROP TABLE IF EXISTS `rel_industria_actividad`;
-CREATE TABLE IF NOT EXISTS `rel_industria_actividad` (
-  `id_rel_industria_actividad` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `rel_industria_actividad` (
+  `id_rel_industria_actividad` int(11) NOT NULL,
   `id_industria` int(11) NOT NULL,
   `id_actividad` int(11) NOT NULL,
   `es_actividad_principal` char(1) COLLATE utf8_spanish_ci NOT NULL,
@@ -10815,11 +10834,8 @@ CREATE TABLE IF NOT EXISTS `rel_industria_actividad` (
   `fecha_fin` date DEFAULT NULL,
   `observacion` varchar(250) COLLATE utf8_spanish_ci DEFAULT NULL,
   `anio` char(10) CHARACTER SET utf8 DEFAULT NULL,
-  `fecha_de_actualizacion` datetime NOT NULL,
-  PRIMARY KEY (`id_rel_industria_actividad`),
-  KEY `FK_rel_industria_actividad_industria` (`id_industria`),
-  KEY `FK_rel_industria_actividad_tb_actividad` (`id_actividad`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+  `fecha_de_actualizacion` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `rel_industria_actividad`
@@ -10836,9 +10852,8 @@ INSERT INTO `rel_industria_actividad` (`id_rel_industria_actividad`, `id_industr
 -- Estructura de tabla para la tabla `rel_industria_certificado`
 --
 
-DROP TABLE IF EXISTS `rel_industria_certificado`;
-CREATE TABLE IF NOT EXISTS `rel_industria_certificado` (
-  `id_rel_industria_certificado` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `rel_industria_certificado` (
+  `id_rel_industria_certificado` int(11) NOT NULL,
   `id_industria` int(11) NOT NULL,
   `id_certificado` int(11) NOT NULL,
   `id_estado_documentacion` int(11) DEFAULT NULL,
@@ -10846,19 +10861,15 @@ CREATE TABLE IF NOT EXISTS `rel_industria_certificado` (
   `fecha_fin` date DEFAULT NULL,
   `anio` int(11) NOT NULL,
   `fecha_de_actualizacion` datetime NOT NULL,
-  `numero_de_certificado` varchar(255) COLLATE utf8_spanish_ci DEFAULT 'NULL',
-  PRIMARY KEY (`id_rel_industria_certificado`),
-  KEY `FK_rel_industria_certificado_certificado` (`id_certificado`),
-  KEY `FK_rel_industria_certificado_estado_documentacion` (`id_estado_documentacion`),
-  KEY `FKrel_industria_certificado_industria` (`id_industria`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+  `numero_de_certificado` varchar(255) COLLATE utf8_spanish_ci DEFAULT 'NULL'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `rel_industria_certificado`
 --
 
 INSERT INTO `rel_industria_certificado` (`id_rel_industria_certificado`, `id_industria`, `id_certificado`, `id_estado_documentacion`, `fecha_inicio`, `fecha_fin`, `anio`, `fecha_de_actualizacion`, `numero_de_certificado`) VALUES
-(1, 1, 1, 2, NULL, NULL, 2021, '2021-08-11 23:49:13', 'NULL');
+(5, 1, 1, 2, NULL, NULL, 2021, '2021-10-18 21:39:33', 'NULL');
 
 -- --------------------------------------------------------
 
@@ -10866,24 +10877,20 @@ INSERT INTO `rel_industria_certificado` (`id_rel_industria_certificado`, `id_ind
 -- Estructura de tabla para la tabla `rel_industria_economia_del_conocimiento_perfil`
 --
 
-DROP TABLE IF EXISTS `rel_industria_economia_del_conocimiento_perfil`;
-CREATE TABLE IF NOT EXISTS `rel_industria_economia_del_conocimiento_perfil` (
-  `id_rel_economia_del_conocimiento_perfil` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `rel_industria_economia_del_conocimiento_perfil` (
+  `id_rel_economia_del_conocimiento_perfil` int(11) NOT NULL,
   `id_economia_del_conocimiento_perfil` int(11) NOT NULL,
   `id_industria` int(11) NOT NULL,
   `anio` int(11) NOT NULL,
-  `fecha_de_actualizacion` datetime NOT NULL,
-  PRIMARY KEY (`id_rel_economia_del_conocimiento_perfil`),
-  KEY `FK_rel_economia_del_conocimiento_perfil_economia_del_conocimient` (`id_economia_del_conocimiento_perfil`),
-  KEY `FK_rel_economia_del_conocimiento_perfil_industria` (`id_industria`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+  `fecha_de_actualizacion` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `rel_industria_economia_del_conocimiento_perfil`
 --
 
 INSERT INTO `rel_industria_economia_del_conocimiento_perfil` (`id_rel_economia_del_conocimiento_perfil`, `id_economia_del_conocimiento_perfil`, `id_industria`, `anio`, `fecha_de_actualizacion`) VALUES
-(2, 11, 1, 2021, '2021-08-11 23:28:43');
+(10, 4, 1, 2021, '2021-11-02 15:57:17');
 
 -- --------------------------------------------------------
 
@@ -10891,17 +10898,13 @@ INSERT INTO `rel_industria_economia_del_conocimiento_perfil` (`id_rel_economia_d
 -- Estructura de tabla para la tabla `rel_industria_economia_del_conocimiento_sector`
 --
 
-DROP TABLE IF EXISTS `rel_industria_economia_del_conocimiento_sector`;
-CREATE TABLE IF NOT EXISTS `rel_industria_economia_del_conocimiento_sector` (
-  `id_rel_economia_del_conocimiento_sector` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `rel_industria_economia_del_conocimiento_sector` (
+  `id_rel_economia_del_conocimiento_sector` int(11) NOT NULL,
   `id_economia_del_conocimiento_sector` int(11) NOT NULL,
   `id_industria` int(11) NOT NULL,
   `anio` int(11) NOT NULL,
-  `fecha_de_actualizacion` datetime NOT NULL,
-  PRIMARY KEY (`id_rel_economia_del_conocimiento_sector`),
-  KEY `FK_rel_economia_del_conocimiento_sector_economia_del_conocimient` (`id_economia_del_conocimiento_sector`),
-  KEY `FK_rel_economia_del_conocimiento_sector_industria` (`id_industria`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+  `fecha_de_actualizacion` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `rel_industria_economia_del_conocimiento_sector`
@@ -10911,7 +10914,11 @@ INSERT INTO `rel_industria_economia_del_conocimiento_sector` (`id_rel_economia_d
 (2, 7, 1, 2021, '2021-08-11 21:58:15'),
 (3, 8, 1, 2021, '2021-08-11 22:52:31'),
 (4, 9, 1, 2021, '2021-08-11 22:54:51'),
-(5, 1, 1, 2021, '2021-08-11 23:07:18');
+(5, 1, 1, 2021, '2021-08-11 23:07:18'),
+(6, 2, 1, 2021, '2021-10-14 14:02:49'),
+(7, 3, 1, 2021, '2021-10-14 14:02:49'),
+(8, 4, 1, 2021, '2021-10-14 14:02:49'),
+(9, 5, 1, 2021, '2021-10-14 14:02:49');
 
 -- --------------------------------------------------------
 
@@ -10919,26 +10926,22 @@ INSERT INTO `rel_industria_economia_del_conocimiento_sector` (`id_rel_economia_d
 -- Estructura de tabla para la tabla `rel_industria_efluente`
 --
 
-DROP TABLE IF EXISTS `rel_industria_efluente`;
-CREATE TABLE IF NOT EXISTS `rel_industria_efluente` (
-  `id_rel_industria_efluente` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `rel_industria_efluente` (
+  `id_rel_industria_efluente` int(11) NOT NULL,
   `id_industria` int(11) NOT NULL,
   `id_efluente` int(11) NOT NULL,
   `tratamiento` varchar(500) COLLATE utf8_spanish_ci NOT NULL,
   `destino` varchar(200) COLLATE utf8_spanish_ci NOT NULL,
   `anio` int(11) NOT NULL,
-  `fecha_de_actualizacion` datetime NOT NULL,
-  PRIMARY KEY (`id_rel_industria_efluente`),
-  KEY `FK_rel_industria_efluente_efluente` (`id_efluente`),
-  KEY `FK_rel_industria_efluente_industria` (`id_industria`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+  `fecha_de_actualizacion` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `rel_industria_efluente`
 --
 
 INSERT INTO `rel_industria_efluente` (`id_rel_industria_efluente`, `id_industria`, `id_efluente`, `tratamiento`, `destino`, `anio`, `fecha_de_actualizacion`) VALUES
-(6, 1, 6, 'tratamiento', 'destino', 2021, '2021-08-06 16:48:47');
+(2, 1, 3, 'asdasd', 'asdasd', 2021, '2021-10-18 21:39:14');
 
 -- --------------------------------------------------------
 
@@ -10946,18 +10949,14 @@ INSERT INTO `rel_industria_efluente` (`id_rel_industria_efluente`, `id_industria
 -- Estructura de tabla para la tabla `rel_industria_egreso`
 --
 
-DROP TABLE IF EXISTS `rel_industria_egreso`;
-CREATE TABLE IF NOT EXISTS `rel_industria_egreso` (
-  `id_rel_industria_egreso` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `rel_industria_egreso` (
+  `id_rel_industria_egreso` int(11) NOT NULL,
   `id_industria` int(11) NOT NULL,
   `id_egreso` int(11) NOT NULL,
   `importe` decimal(13,2) NOT NULL,
   `anio` int(11) NOT NULL,
-  `fecha_de_actualizacion` datetime NOT NULL,
-  KEY `ix_rel_industria_egreso_autoinc` (`id_rel_industria_egreso`),
-  KEY `FK_rel_industria_egreso_egreso` (`id_egreso`),
-  KEY `FK_rel_industria_egreso_industria` (`id_industria`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+  `fecha_de_actualizacion` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `rel_industria_egreso`
@@ -10976,9 +10975,8 @@ INSERT INTO `rel_industria_egreso` (`id_rel_industria_egreso`, `id_industria`, `
 -- Estructura de tabla para la tabla `rel_industria_insumo`
 --
 
-DROP TABLE IF EXISTS `rel_industria_insumo`;
-CREATE TABLE IF NOT EXISTS `rel_industria_insumo` (
-  `id_rel_industria_insumo` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `rel_industria_insumo` (
+  `id_rel_industria_insumo` int(11) NOT NULL,
   `id_industria` int(11) NOT NULL,
   `id_insumo` int(11) NOT NULL,
   `id_unidad_de_medida` int(11) NOT NULL,
@@ -10989,22 +10987,19 @@ CREATE TABLE IF NOT EXISTS `rel_industria_insumo` (
   `id_motivo_importacion` int(11) DEFAULT NULL,
   `detalles` varchar(200) COLLATE utf8_spanish_ci DEFAULT NULL,
   `anio` int(11) NOT NULL,
-  `fecha_de_actualizacion` datetime NOT NULL,
-  PRIMARY KEY (`id_rel_industria_insumo`),
-  KEY `FK_rel_industria_insumo_industria` (`id_industria`),
-  KEY `FK_rel_industria_insumo_insumo` (`id_insumo`),
-  KEY `FK_rel_industria_insumo_motivo_importacion` (`id_motivo_importacion`),
-  KEY `FK_rel_industria_insumo_unidad_de_medida` (`id_unidad_de_medida`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+  `fecha_de_actualizacion` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `rel_industria_insumo`
 --
 
 INSERT INTO `rel_industria_insumo` (`id_rel_industria_insumo`, `id_industria`, `id_insumo`, `id_unidad_de_medida`, `cantidad`, `es_propio`, `id_localidad`, `id_pais`, `id_motivo_importacion`, `detalles`, `anio`, `fecha_de_actualizacion`) VALUES
-(2, 1, 13, 1, 1, 'P', 134, 1, NULL, '', 2021, '2021-08-30 14:15:51'),
 (3, 1, 2, 1, 1, 'P', 134, 1, NULL, '', 2021, '2021-08-30 14:17:31'),
-(4, 1, 3, 2, 1, 'A', 681, 1, 1, '', 2021, '2021-08-30 14:18:19');
+(4, 1, 3, 2, 1, 'A', 681, 1, 1, '', 2021, '2021-08-30 14:18:19'),
+(5, 1, 1, 3, 1, 'A', 671, 1, 1, '', 2021, '2021-10-12 14:06:34'),
+(6, 1, 8, 1, 1, 'A', 728, 17, 1, '', 2021, '2021-10-12 18:49:31'),
+(7, 1, 13, 1, 1, 'A', 729, 18, 4, 'Detalle prueba', 2021, '2021-10-12 19:05:39');
 
 -- --------------------------------------------------------
 
@@ -11012,17 +11007,13 @@ INSERT INTO `rel_industria_insumo` (`id_rel_industria_insumo`, `id_industria`, `
 -- Estructura de tabla para la tabla `rel_industria_mejora_proyectada`
 --
 
-DROP TABLE IF EXISTS `rel_industria_mejora_proyectada`;
-CREATE TABLE IF NOT EXISTS `rel_industria_mejora_proyectada` (
-  `rel_industria_mejoras_proyectadas` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `rel_industria_mejora_proyectada` (
+  `rel_industria_mejoras_proyectadas` int(11) NOT NULL,
   `id_industria` int(11) NOT NULL,
   `id_mejora_proyectada` int(11) NOT NULL,
   `detalle` varchar(150) COLLATE utf8_spanish_ci DEFAULT NULL,
   `anio` int(11) NOT NULL,
-  `fecha_de_actualizacion` datetime NOT NULL,
-  PRIMARY KEY (`rel_industria_mejoras_proyectadas`),
-  KEY `FK_rel_industria_mejora_proyectada_industria` (`id_industria`),
-  KEY `FK_rel_industria_mejora_proyectada_mejora_proyectada` (`id_mejora_proyectada`)
+  `fecha_de_actualizacion` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- --------------------------------------------------------
@@ -11031,17 +11022,13 @@ CREATE TABLE IF NOT EXISTS `rel_industria_mejora_proyectada` (
 -- Estructura de tabla para la tabla `rel_industria_motivo_no_mejora`
 --
 
-DROP TABLE IF EXISTS `rel_industria_motivo_no_mejora`;
-CREATE TABLE IF NOT EXISTS `rel_industria_motivo_no_mejora` (
-  `id_rel_industria_motivo_no_mejora` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `rel_industria_motivo_no_mejora` (
+  `id_rel_industria_motivo_no_mejora` int(11) NOT NULL,
   `id_industria` int(11) NOT NULL,
   `id_motivo_no_mejora` int(11) NOT NULL,
   `detalle` varchar(200) COLLATE utf8_spanish_ci DEFAULT NULL,
   `anio` int(11) NOT NULL,
-  `fecha_de_actualizacion` datetime NOT NULL,
-  PRIMARY KEY (`id_rel_industria_motivo_no_mejora`),
-  KEY `FK_rel_industria_motivo_no_mejora_industria` (`id_industria`),
-  KEY `FK_rel_industria_motivo_no_mejora_motivo_no_mejora` (`id_motivo_no_mejora`)
+  `fecha_de_actualizacion` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- --------------------------------------------------------
@@ -11050,17 +11037,13 @@ CREATE TABLE IF NOT EXISTS `rel_industria_motivo_no_mejora` (
 -- Estructura de tabla para la tabla `rel_industria_motivo_ociosidad`
 --
 
-DROP TABLE IF EXISTS `rel_industria_motivo_ociosidad`;
-CREATE TABLE IF NOT EXISTS `rel_industria_motivo_ociosidad` (
-  `id_rel_industria_motivo_ociosidad` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `rel_industria_motivo_ociosidad` (
+  `id_rel_industria_motivo_ociosidad` int(11) NOT NULL,
   `id_industria` int(11) NOT NULL,
   `id_motivo_ociosidad` int(11) NOT NULL,
   `anio` int(11) NOT NULL,
-  `fecha_de_actualizacion` datetime NOT NULL,
-  PRIMARY KEY (`id_rel_industria_motivo_ociosidad`),
-  KEY `FK_rel_industria_motivo_ociosidad_industria` (`id_industria`),
-  KEY `FK_rel_industria_motivo_ociosidad_motivos_ociosidad` (`id_motivo_ociosidad`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+  `fecha_de_actualizacion` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `rel_industria_motivo_ociosidad`
@@ -11076,9 +11059,8 @@ INSERT INTO `rel_industria_motivo_ociosidad` (`id_rel_industria_motivo_ociosidad
 -- Estructura de tabla para la tabla `rel_industria_movimiento_comercial`
 --
 
-DROP TABLE IF EXISTS `rel_industria_movimiento_comercial`;
-CREATE TABLE IF NOT EXISTS `rel_industria_movimiento_comercial` (
-  `id_rel_actividad_movimiento_comercial` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `rel_industria_movimiento_comercial` (
+  `id_rel_actividad_movimiento_comercial` int(11) NOT NULL,
   `id_movimiento_comercial` int(11) NOT NULL,
   `id_registro_relacionado` int(11) NOT NULL,
   `id_industria` int(11) NOT NULL,
@@ -11090,12 +11072,7 @@ CREATE TABLE IF NOT EXISTS `rel_industria_movimiento_comercial` (
   `id_motivo_importacion` int(11) DEFAULT NULL,
   `detalles` varchar(200) COLLATE utf8_spanish_ci DEFAULT NULL,
   `anio` int(11) NOT NULL,
-  `fecha_de_actualizacion` datetime NOT NULL,
-  PRIMARY KEY (`id_rel_actividad_movimiento_comercial`),
-  KEY `FK_rel_industria_movimiento_comercial_industria` (`id_industria`),
-  KEY `FK_rel_industria_movimiento_comercial_localidad` (`id_localidad`),
-  KEY `FK_rel_industria_movimiento_comercial_movimiento_comercial` (`id_movimiento_comercial`),
-  KEY `FK_rel_industria_movimiento_comercial_pais` (`id_pais`)
+  `fecha_de_actualizacion` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- --------------------------------------------------------
@@ -11104,28 +11081,23 @@ CREATE TABLE IF NOT EXISTS `rel_industria_movimiento_comercial` (
 -- Estructura de tabla para la tabla `rel_industria_promocion_industrial`
 --
 
-DROP TABLE IF EXISTS `rel_industria_promocion_industrial`;
-CREATE TABLE IF NOT EXISTS `rel_industria_promocion_industrial` (
-  `id_rel_industria_promocion_industrial` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `rel_industria_promocion_industrial` (
+  `id_rel_industria_promocion_industrial` int(11) NOT NULL,
   `id_industria` int(11) NOT NULL,
   `id_promocion_industrial` int(11) NOT NULL,
   `id_estado_documentacion` int(11) NOT NULL,
   `fecha_inicio` date DEFAULT NULL,
   `fecha_fin` date DEFAULT NULL,
   `anio` smallint(6) NOT NULL,
-  `fecha_de_actualizacion` datetime NOT NULL,
-  PRIMARY KEY (`id_rel_industria_promocion_industrial`),
-  KEY `FK_rel_industria_promocion_industrial_estado_documentacion` (`id_estado_documentacion`),
-  KEY `FK_rel_industria_promocion_industrial_industria` (`id_industria`),
-  KEY `FK_rel_industria_promocion_industrial_promocion_indutrial` (`id_promocion_industrial`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+  `fecha_de_actualizacion` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `rel_industria_promocion_industrial`
 --
 
 INSERT INTO `rel_industria_promocion_industrial` (`id_rel_industria_promocion_industrial`, `id_industria`, `id_promocion_industrial`, `id_estado_documentacion`, `fecha_inicio`, `fecha_fin`, `anio`, `fecha_de_actualizacion`) VALUES
-(1, 1, 1, 1, '2021-08-24', '2021-08-31', 2021, '2021-08-24 21:55:23');
+(3, 1, 1, 1, '2021-10-01', '2021-10-23', 2021, '2021-10-18 21:38:56');
 
 -- --------------------------------------------------------
 
@@ -11133,9 +11105,8 @@ INSERT INTO `rel_industria_promocion_industrial` (`id_rel_industria_promocion_in
 -- Estructura de tabla para la tabla `rel_industria_servicio`
 --
 
-DROP TABLE IF EXISTS `rel_industria_servicio`;
-CREATE TABLE IF NOT EXISTS `rel_industria_servicio` (
-  `id_rel_industria_servicio` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `rel_industria_servicio` (
+  `id_rel_industria_servicio` int(11) NOT NULL,
   `id_industria` int(11) NOT NULL,
   `id_servicio` int(11) NOT NULL,
   `id_frecuencia_de_contratacion` int(11) NOT NULL,
@@ -11147,15 +11118,23 @@ CREATE TABLE IF NOT EXISTS `rel_industria_servicio` (
   `id_motivo_importacion` int(11) DEFAULT NULL,
   `detalles` varchar(200) COLLATE utf8_spanish_ci DEFAULT NULL,
   `anio` int(11) NOT NULL,
-  `fecha_de_actualizacion` datetime NOT NULL,
-  PRIMARY KEY (`id_rel_industria_servicio`),
-  KEY `FK_rel_industria_servicio_fecuencia_de_contratacion` (`id_frecuencia_de_contratacion`),
-  KEY `FK_rel_industria_servicio_industria` (`id_industria`),
-  KEY `FK_rel_industria_servicio_localidad` (`id_localidad`),
-  KEY `FK_rel_industria_servicio_pais` (`id_pais`),
-  KEY `FK_rel_industria_servicio_servicio` (`id_servicio`),
-  KEY `FK_rel_industria_servicio_unidad_de_medida` (`id_unidad_de_medida`)
+  `fecha_de_actualizacion` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `rel_industria_servicio`
+--
+
+INSERT INTO `rel_industria_servicio` (`id_rel_industria_servicio`, `id_industria`, `id_servicio`, `id_frecuencia_de_contratacion`, `id_unidad_de_medida`, `cantidad_consumida`, `costo`, `id_localidad`, `id_pais`, `id_motivo_importacion`, `detalles`, `anio`, `fecha_de_actualizacion`) VALUES
+(1, 1, 1, 1, NULL, '12.00', NULL, 134, 1, NULL, NULL, 2021, '2021-10-06 16:39:36'),
+(2, 1, 2, 1, NULL, '12.00', NULL, 134, 1, NULL, NULL, 2021, '2021-10-06 16:39:36'),
+(3, 1, 4, 1, NULL, '12.00', NULL, 134, 1, NULL, NULL, 2021, '2021-10-06 16:39:36'),
+(4, 1, 5, 1, NULL, '12.00', NULL, 134, 1, NULL, NULL, 2021, '2021-10-06 16:39:36'),
+(5, 1, 6, 1, NULL, '1.00', NULL, 134, 1, NULL, NULL, 2021, '2021-10-06 16:39:36'),
+(6, 1, 7, 1, NULL, '12.00', NULL, 134, 1, NULL, NULL, 2021, '2021-10-06 16:39:36'),
+(7, 1, 8, 1, 1, '0.00', '12.00', 2, 1, 1, '', 2021, '2021-10-06 16:39:53'),
+(8, 1, 18, 1, NULL, '12.00', '12.00', 2, 1, 1, '', 2021, '2021-10-06 16:40:12'),
+(10, 1, 12, 1, 2, '0.00', '12.00', 731, 20, 3, '', 2021, '2021-10-12 19:27:46');
 
 -- --------------------------------------------------------
 
@@ -11163,28 +11142,28 @@ CREATE TABLE IF NOT EXISTS `rel_industria_servicio` (
 -- Estructura de tabla para la tabla `rel_industria_sistema`
 --
 
-DROP TABLE IF EXISTS `rel_industria_sistema`;
-CREATE TABLE IF NOT EXISTS `rel_industria_sistema` (
-  `id_rel_industria_sistema` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `rel_industria_sistema` (
+  `id_rel_industria_sistema` int(11) NOT NULL,
   `id_industria` int(11) NOT NULL,
   `id_sistema_de_calidad` int(11) NOT NULL,
   `id_estado_documentacion` int(11) NOT NULL,
   `fecha_inicio` date DEFAULT NULL,
   `fecha_fin` date DEFAULT NULL,
   `anio` int(11) NOT NULL,
-  `fecha_de_actualizacion` datetime NOT NULL,
-  PRIMARY KEY (`id_rel_industria_sistema`),
-  KEY `FK_rel_industria_sistema_estado_documentacion` (`id_estado_documentacion`),
-  KEY `FK_rel_industria_sistema_sistema_de_calidad` (`id_sistema_de_calidad`),
-  KEY `FK_rel_industria_sistema_industria` (`id_industria`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+  `fecha_de_actualizacion` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `rel_industria_sistema`
 --
 
 INSERT INTO `rel_industria_sistema` (`id_rel_industria_sistema`, `id_industria`, `id_sistema_de_calidad`, `id_estado_documentacion`, `fecha_inicio`, `fecha_fin`, `anio`, `fecha_de_actualizacion`) VALUES
-(2, 1, 2, 2, NULL, NULL, 2021, '2021-08-11 05:58:42');
+(1, 1, 1, 3, NULL, NULL, 2021, '2021-10-06 16:41:13'),
+(2, 1, 3, 3, NULL, NULL, 2021, '2021-10-06 16:41:13'),
+(3, 1, 4, 1, '2021-10-08', '2021-10-20', 2021, '2021-10-06 16:41:13'),
+(4, 1, 23, 1, '2021-10-07', '2021-10-23', 2021, '2021-10-14 14:03:16'),
+(5, 1, 2, 1, '2021-10-01', '2021-10-08', 2021, '2021-10-18 21:37:50'),
+(6, 1, 7, 2, NULL, NULL, 2021, '2021-10-18 21:38:38');
 
 -- --------------------------------------------------------
 
@@ -11192,28 +11171,23 @@ INSERT INTO `rel_industria_sistema` (`id_rel_industria_sistema`, `id_industria`,
 -- Estructura de tabla para la tabla `rel_industria_trabajador`
 --
 
-DROP TABLE IF EXISTS `rel_industria_trabajador`;
-CREATE TABLE IF NOT EXISTS `rel_industria_trabajador` (
-  `id_rel_industria_trabajadores` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `rel_industria_trabajador` (
+  `id_rel_industria_trabajadores` int(11) NOT NULL,
   `id_industria` int(11) NOT NULL,
   `id_rol_trabajador` int(11) NOT NULL,
   `id_condicion_laboral` int(11) NOT NULL,
   `sexo` char(1) COLLATE utf8_spanish_ci NOT NULL,
   `numero_de_trabajadores` int(11) NOT NULL,
   `anio` int(11) NOT NULL,
-  `fecha_de_actualizacion` datetime NOT NULL,
-  PRIMARY KEY (`id_rel_industria_trabajadores`),
-  KEY `FK_rel_industria_trabajador_condicion_laboral` (`id_condicion_laboral`),
-  KEY `FK_rel_industria_trabajador_industria` (`id_industria`),
-  KEY `FK_rel_industria_trabajador_rol_trabajador` (`id_rol_trabajador`)
-) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+  `fecha_de_actualizacion` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `rel_industria_trabajador`
 --
 
 INSERT INTO `rel_industria_trabajador` (`id_rel_industria_trabajadores`, `id_industria`, `id_rol_trabajador`, `id_condicion_laboral`, `sexo`, `numero_de_trabajadores`, `anio`, `fecha_de_actualizacion`) VALUES
-(33, 1, 3, 1, 'M', 1, 2021, '2021-06-17 14:22:32'),
+(33, 1, 3, 1, 'M', 2, 2021, '2021-09-01 00:40:56'),
 (34, 1, 3, 1, 'F', 2, 2021, '2021-06-16 17:40:49'),
 (35, 1, 3, 2, 'M', 10, 2021, '2021-06-17 14:22:42'),
 (36, 1, 3, 2, 'F', 1, 2021, '2021-06-16 17:40:49'),
@@ -11244,9 +11218,8 @@ INSERT INTO `rel_industria_trabajador` (`id_rel_industria_trabajadores`, `id_ind
 -- Estructura de tabla para la tabla `rel_persona_contribuyente`
 --
 
-DROP TABLE IF EXISTS `rel_persona_contribuyente`;
-CREATE TABLE IF NOT EXISTS `rel_persona_contribuyente` (
-  `id_rel_persona_contribuyente` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `rel_persona_contribuyente` (
+  `id_rel_persona_contribuyente` int(11) NOT NULL,
   `id_persona` int(11) DEFAULT NULL,
   `id_contribuyente` int(11) DEFAULT NULL,
   `id_tipo_de_afectacion` int(11) DEFAULT NULL,
@@ -11255,12 +11228,8 @@ CREATE TABLE IF NOT EXISTS `rel_persona_contribuyente` (
   `documento_vinculante` varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL,
   `documento_poder` varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL,
   `autorizado` char(1) COLLATE utf8_spanish_ci NOT NULL,
-  `fecha_de_actualizacion` datetime NOT NULL,
-  PRIMARY KEY (`id_rel_persona_contribuyente`),
-  KEY `FK_rel_persona_contribuyente_contribuyente` (`id_contribuyente`),
-  KEY `FK_rel_persona_contribuyente_persona` (`id_persona`),
-  KEY `FK_rel_persona_contribuyente_tipo_de_afectacion` (`id_tipo_de_afectacion`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+  `fecha_de_actualizacion` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `rel_persona_contribuyente`
@@ -11269,7 +11238,10 @@ CREATE TABLE IF NOT EXISTS `rel_persona_contribuyente` (
 INSERT INTO `rel_persona_contribuyente` (`id_rel_persona_contribuyente`, `id_persona`, `id_contribuyente`, `id_tipo_de_afectacion`, `fecha_inicio`, `fecha_fin`, `documento_vinculante`, `documento_poder`, `autorizado`, `fecha_de_actualizacion`) VALUES
 (1, 1, 1, 1, NULL, NULL, NULL, NULL, 'P', '2021-06-08 03:10:04'),
 (2, 2, 2, 1, NULL, NULL, NULL, NULL, 'P', '2021-08-11 23:53:39'),
-(3, 3, 3, 1, NULL, NULL, NULL, NULL, 'P', '2021-08-13 13:01:28');
+(3, 3, 3, 1, NULL, NULL, NULL, NULL, 'P', '2021-08-13 13:01:28'),
+(4, 4, 4, 3, NULL, NULL, NULL, NULL, 'P', '2021-09-17 02:43:38'),
+(5, 5, 5, 1, NULL, NULL, NULL, NULL, 'P', '2021-09-17 03:31:53'),
+(6, 6, 6, 1, NULL, NULL, NULL, NULL, 'P', '2021-10-15 12:17:18');
 
 -- --------------------------------------------------------
 
@@ -11277,16 +11249,12 @@ INSERT INTO `rel_persona_contribuyente` (`id_rel_persona_contribuyente`, `id_per
 -- Estructura de tabla para la tabla `rel_usuario_notificacion`
 --
 
-DROP TABLE IF EXISTS `rel_usuario_notificacion`;
-CREATE TABLE IF NOT EXISTS `rel_usuario_notificacion` (
-  `id_rel_usuario_notificacion` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `rel_usuario_notificacion` (
+  `id_rel_usuario_notificacion` int(11) NOT NULL,
   `id_usuario` int(11) NOT NULL,
   `id_notificacion` int(11) NOT NULL,
   `fecha_notificacion` datetime NOT NULL,
-  `estado` varchar(50) COLLATE utf8_spanish_ci DEFAULT NULL,
-  PRIMARY KEY (`id_rel_usuario_notificacion`),
-  KEY `FK_rel_usuario_notificacion_notificacion` (`id_notificacion`),
-  KEY `FK_rel_usuario_notificacion_usuario` (`id_usuario`)
+  `estado` varchar(50) COLLATE utf8_spanish_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- --------------------------------------------------------
@@ -11295,12 +11263,50 @@ CREATE TABLE IF NOT EXISTS `rel_usuario_notificacion` (
 -- Estructura de tabla para la tabla `rol`
 --
 
-DROP TABLE IF EXISTS `rol`;
-CREATE TABLE IF NOT EXISTS `rol` (
-  `id_rol` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `rol` (
+  `id_rol` int(11) NOT NULL,
   `rol` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
-  PRIMARY KEY (`id_rol`)
+  `description` varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `rol`
+--
+
+INSERT INTO `rol` (`id_rol`, `rol`, `description`) VALUES
+(1, 'SuperAdmin', 'Control Total');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `roles`
+--
+
+CREATE TABLE `roles` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `guard_name` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `roles`
+--
+
+INSERT INTO `roles` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VALUES
+(1, 'SuperAdmin', 'web', '2021-11-12 00:43:42', '2021-11-12 00:43:42');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `role_has_permissions`
+--
+
+CREATE TABLE `role_has_permissions` (
+  `permission_id` bigint(20) UNSIGNED NOT NULL,
+  `role_id` bigint(20) UNSIGNED NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -11308,13 +11314,11 @@ CREATE TABLE IF NOT EXISTS `rol` (
 -- Estructura de tabla para la tabla `rol_trabajador`
 --
 
-DROP TABLE IF EXISTS `rol_trabajador`;
-CREATE TABLE IF NOT EXISTS `rol_trabajador` (
-  `id_rol_trabajador` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `rol_trabajador` (
+  `id_rol_trabajador` int(11) NOT NULL,
   `rol_trabajador` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
-  `activo` char(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'S',
-  PRIMARY KEY (`id_rol_trabajador`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+  `activo` char(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'S'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `rol_trabajador`
@@ -11336,12 +11340,10 @@ INSERT INTO `rol_trabajador` (`id_rol_trabajador`, `rol_trabajador`, `activo`) V
 -- Estructura de tabla para la tabla `rubro_actividad`
 --
 
-DROP TABLE IF EXISTS `rubro_actividad`;
-CREATE TABLE IF NOT EXISTS `rubro_actividad` (
+CREATE TABLE `rubro_actividad` (
   `id_rubro_actividad` int(11) NOT NULL,
   `rubro` varchar(200) CHARACTER SET utf8 DEFAULT NULL,
-  `activo` char(1) COLLATE utf8_spanish_ci DEFAULT 'S',
-  PRIMARY KEY (`id_rubro_actividad`)
+  `activo` char(1) COLLATE utf8_spanish_ci DEFAULT 'S'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
@@ -11390,13 +11392,11 @@ INSERT INTO `rubro_actividad` (`id_rubro_actividad`, `rubro`, `activo`) VALUES
 -- Estructura de tabla para la tabla `sector_industrial`
 --
 
-DROP TABLE IF EXISTS `sector_industrial`;
-CREATE TABLE IF NOT EXISTS `sector_industrial` (
-  `id_sector_industrial` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `sector_industrial` (
+  `id_sector_industrial` int(11) NOT NULL,
   `sector_industrial` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
-  `activo` char(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'S',
-  PRIMARY KEY (`id_sector_industrial`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+  `activo` char(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'S'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `sector_industrial`
@@ -11413,15 +11413,12 @@ INSERT INTO `sector_industrial` (`id_sector_industrial`, `sector_industrial`, `a
 -- Estructura de tabla para la tabla `servicio`
 --
 
-DROP TABLE IF EXISTS `servicio`;
-CREATE TABLE IF NOT EXISTS `servicio` (
-  `id_servicio` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `servicio` (
+  `id_servicio` int(11) NOT NULL,
   `servicio` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
-  `id_clasificacion_servicio` int(11) NOT NULL DEFAULT '4',
-  `activo` char(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'S',
-  PRIMARY KEY (`id_servicio`),
-  KEY `FK_servicio_clasificacion_servicio` (`id_clasificacion_servicio`)
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+  `id_clasificacion_servicio` int(11) NOT NULL DEFAULT 4,
+  `activo` char(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'S'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `servicio`
@@ -11463,12 +11460,10 @@ INSERT INTO `servicio` (`id_servicio`, `servicio`, `id_clasificacion_servicio`, 
 -- Estructura de tabla para la tabla `sexo`
 --
 
-DROP TABLE IF EXISTS `sexo`;
-CREATE TABLE IF NOT EXISTS `sexo` (
+CREATE TABLE `sexo` (
   `id_sexo` int(11) NOT NULL,
   `sexo` varchar(10) COLLATE utf8_spanish_ci NOT NULL,
-  `activo` char(1) COLLATE utf8_spanish_ci DEFAULT 'S',
-  PRIMARY KEY (`id_sexo`)
+  `activo` char(1) COLLATE utf8_spanish_ci DEFAULT 'S'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
@@ -11486,13 +11481,11 @@ INSERT INTO `sexo` (`id_sexo`, `sexo`, `activo`) VALUES
 -- Estructura de tabla para la tabla `sistema_de_calidad`
 --
 
-DROP TABLE IF EXISTS `sistema_de_calidad`;
-CREATE TABLE IF NOT EXISTS `sistema_de_calidad` (
-  `id_sistema_de_calidad` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `sistema_de_calidad` (
+  `id_sistema_de_calidad` int(11) NOT NULL,
   `sistema_de_calidad` varchar(120) COLLATE utf8_spanish_ci NOT NULL,
-  `activo` char(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'S',
-  PRIMARY KEY (`id_sistema_de_calidad`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+  `activo` char(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'S'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `sistema_de_calidad`
@@ -11529,9 +11522,8 @@ INSERT INTO `sistema_de_calidad` (`id_sistema_de_calidad`, `sistema_de_calidad`,
 -- Estructura de tabla para la tabla `situacion_de_planta`
 --
 
-DROP TABLE IF EXISTS `situacion_de_planta`;
-CREATE TABLE IF NOT EXISTS `situacion_de_planta` (
-  `id_situacion_de_planta` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `situacion_de_planta` (
+  `id_situacion_de_planta` int(11) NOT NULL,
   `id_industria` int(11) NOT NULL,
   `produccion_sobre_capacidad` decimal(5,2) DEFAULT NULL,
   `superficie_lote` float DEFAULT NULL,
@@ -11542,10 +11534,8 @@ CREATE TABLE IF NOT EXISTS `situacion_de_planta` (
   `capacidad_instalada` decimal(5,2) DEFAULT NULL,
   `capacidad_ociosa` decimal(5,2) DEFAULT NULL,
   `anio` int(11) DEFAULT NULL,
-  `fecha_actualizacion` datetime NOT NULL,
-  PRIMARY KEY (`id_situacion_de_planta`),
-  KEY `FK_situacion_de_planta_industria` (`id_industria`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+  `fecha_actualizacion` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `situacion_de_planta`
@@ -11561,16 +11551,13 @@ INSERT INTO `situacion_de_planta` (`id_situacion_de_planta`, `id_industria`, `pr
 -- Estructura de tabla para la tabla `sysdiagrams`
 --
 
-DROP TABLE IF EXISTS `sysdiagrams`;
-CREATE TABLE IF NOT EXISTS `sysdiagrams` (
-  `diagram_id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `sysdiagrams` (
+  `diagram_id` int(11) NOT NULL,
   `name` varchar(128) CHARACTER SET utf8 NOT NULL,
   `principal_id` int(11) NOT NULL,
   `version` int(11) DEFAULT NULL,
-  `definition` longblob,
-  PRIMARY KEY (`diagram_id`),
-  UNIQUE KEY `UK_principal_name` (`principal_id`,`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+  `definition` longblob DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `sysdiagrams`
@@ -11585,13 +11572,11 @@ INSERT INTO `sysdiagrams` (`diagram_id`, `name`, `principal_id`, `version`, `def
 -- Estructura de tabla para la tabla `tipo_de_afectacion`
 --
 
-DROP TABLE IF EXISTS `tipo_de_afectacion`;
-CREATE TABLE IF NOT EXISTS `tipo_de_afectacion` (
-  `id_tipo_de_afectacion` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tipo_de_afectacion` (
+  `id_tipo_de_afectacion` int(11) NOT NULL,
   `tipo_de_afectacion` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
-  `activo` char(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'S',
-  PRIMARY KEY (`id_tipo_de_afectacion`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+  `activo` char(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'S'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `tipo_de_afectacion`
@@ -11610,12 +11595,10 @@ INSERT INTO `tipo_de_afectacion` (`id_tipo_de_afectacion`, `tipo_de_afectacion`,
 -- Estructura de tabla para la tabla `tipo_de_documento`
 --
 
-DROP TABLE IF EXISTS `tipo_de_documento`;
-CREATE TABLE IF NOT EXISTS `tipo_de_documento` (
+CREATE TABLE `tipo_de_documento` (
   `id_tipo_de_documento` int(11) NOT NULL,
   `tipo_de_documento` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
-  `activo` char(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'S',
-  PRIMARY KEY (`id_tipo_de_documento`)
+  `activo` char(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'S'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
@@ -11641,11 +11624,9 @@ INSERT INTO `tipo_de_documento` (`id_tipo_de_documento`, `tipo_de_documento`, `a
 -- Estructura de tabla para la tabla `tipo_de_notificacion`
 --
 
-DROP TABLE IF EXISTS `tipo_de_notificacion`;
-CREATE TABLE IF NOT EXISTS `tipo_de_notificacion` (
-  `id_tipo_de_notificacion` int(11) NOT NULL AUTO_INCREMENT,
-  `tipo_de_notificacion` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
-  PRIMARY KEY (`id_tipo_de_notificacion`)
+CREATE TABLE `tipo_de_notificacion` (
+  `id_tipo_de_notificacion` int(11) NOT NULL,
+  `tipo_de_notificacion` varchar(50) COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- --------------------------------------------------------
@@ -11654,13 +11635,11 @@ CREATE TABLE IF NOT EXISTS `tipo_de_notificacion` (
 -- Estructura de tabla para la tabla `unidad_de_medida`
 --
 
-DROP TABLE IF EXISTS `unidad_de_medida`;
-CREATE TABLE IF NOT EXISTS `unidad_de_medida` (
-  `id_unidad_de_medida` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `unidad_de_medida` (
+  `id_unidad_de_medida` int(11) NOT NULL,
   `unidad_de_medida` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
-  `activo` char(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'S',
-  PRIMARY KEY (`id_unidad_de_medida`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+  `activo` char(1) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'S'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `unidad_de_medida`
@@ -11679,12 +11658,30 @@ INSERT INTO `unidad_de_medida` (`id_unidad_de_medida`, `unidad_de_medida`, `acti
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `user_role`
+--
+
+CREATE TABLE `user_role` (
+  `id` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL,
+  `id_role` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `user_role`
+--
+
+INSERT INTO `user_role` (`id`, `id_user`, `id_role`) VALUES
+(1, 7, 1);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `usuario`
 --
 
-DROP TABLE IF EXISTS `usuario`;
-CREATE TABLE IF NOT EXISTS `usuario` (
-  `id_usuario` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `usuario` (
+  `id_usuario` int(11) NOT NULL,
   `id_rel_persona_contribuyente` int(11) DEFAULT NULL,
   `usuario` varchar(40) CHARACTER SET utf8 NOT NULL,
   `email` char(50) CHARACTER SET utf8 NOT NULL,
@@ -11695,18 +11692,20 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   `fecha_baja` date DEFAULT NULL,
   `activo` char(1) COLLATE utf8_spanish_ci NOT NULL,
   `fecha_de_actualizacion` datetime NOT NULL,
-  PRIMARY KEY (`id_usuario`),
-  KEY `FK_usuario_rel_persona_contribuyente` (`id_rel_persona_contribuyente`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+  `remember_token` char(255) COLLATE utf8_spanish_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`id_usuario`, `id_rel_persona_contribuyente`, `usuario`, `email`, `password`, `id_rol_usuario`, `autorizado`, `fecha_alta`, `fecha_baja`, `activo`, `fecha_de_actualizacion`) VALUES
-(1, 1, 'Mauricio German Toloza', 'mauriciogtoloza@gmail.com', '$2y$10$ApIbr6NXzP7gMEXP/m.KzuQ4ioGSQWSJ6/FS.3CZpuoGxMueHJUwS', NULL, 'P', '2021-06-08', NULL, 'P', '2021-06-08 03:10:04'),
-(2, 2, 'Julio Campana', 'minios@minios.com', '$2y$10$KBN6tqA5OcY4E/hih8N59Obl91xCc0CfhjIg6DcRwqwgf4MeD6x16', NULL, 'P', '2021-08-11', NULL, 'P', '2021-08-11 23:53:39'),
-(3, 3, 'Mauricio German', 'germany@germany.com', '$2y$10$2ofUU.ntZpJW7FloGLoX0evkGt13m.yNwCG6mCsu9g6bqXo5riE4i', NULL, 'P', '2021-08-13', NULL, 'P', '2021-08-13 13:01:28');
+INSERT INTO `usuario` (`id_usuario`, `id_rel_persona_contribuyente`, `usuario`, `email`, `password`, `id_rol_usuario`, `autorizado`, `fecha_alta`, `fecha_baja`, `activo`, `fecha_de_actualizacion`, `remember_token`) VALUES
+(1, 1, 'Mauricio German Toloza', 'mauriciogtoloza@gmail.com', '$2y$10$hcralHHNJ/97kmCwWrC2ieg6FDPZXq.FV1JkbQTmlxSoADrzorQGW', NULL, 'P', '2021-06-08', NULL, 'P', '2021-06-08 03:10:04', 'ozAuTpkymgTAawFl8o1o8BzgWhCFMjAGG8UeakmRD2RIqLu4D4ibiPBFb1PW'),
+(2, 2, 'Julio Campana', 'minios@minios.com', '$2y$10$KBN6tqA5OcY4E/hih8N59Obl91xCc0CfhjIg6DcRwqwgf4MeD6x16', NULL, 'P', '2021-08-11', NULL, 'P', '2021-08-11 23:53:39', NULL),
+(3, 3, 'Mauricio German', 'germany@germany.com', '$2y$10$2ofUU.ntZpJW7FloGLoX0evkGt13m.yNwCG6mCsu9g6bqXo5riE4i', NULL, 'P', '2021-08-13', NULL, 'P', '2021-08-13 13:01:28', NULL),
+(5, 5, 'toloza mauricio', 'mauriciotoloza@gmail.com', '$2y$10$Ll5V3Fh1UZup41QQFAGpxu1k8v15N43HpHBz7gVBmQOMlqeCn5knC', NULL, 'P', '2021-09-17', NULL, 'P', '2021-09-17 03:31:53', NULL),
+(6, 6, 'mauri toloza', 'german@mauri.com', '$2y$10$pTZXylJV1/8AzSmaXbwXpe/tzEJzIyqRtRQiwC4NWmidFhKFiHaH2', NULL, 'P', '2021-10-15', NULL, 'P', '2021-10-15 12:17:18', NULL),
+(7, NULL, 'SuperAdmin', 'admin@admin.com', '$2y$10$hcralHHNJ/97kmCwWrC2ieg6FDPZXq.FV1JkbQTmlxSoADrzorQGW', NULL, 'S', '2021-11-11', NULL, 'S', '2021-11-11 21:48:24', NULL);
 
 -- --------------------------------------------------------
 
@@ -11714,15 +11713,14 @@ INSERT INTO `usuario` (`id_usuario`, `id_rel_persona_contribuyente`, `usuario`, 
 -- Estructura Stand-in para la vista `vw_info_actividad_materia_prima`
 -- (Véase abajo para la vista actual)
 --
-DROP VIEW IF EXISTS `vw_info_actividad_materia_prima`;
-CREATE TABLE IF NOT EXISTS `vw_info_actividad_materia_prima` (
+CREATE TABLE `vw_info_actividad_materia_prima` (
 `id_industria` int(11)
 ,`id_Actividad` int(11)
 ,`actividad` varchar(200)
 ,`es_actividad_principal` char(1)
 ,`observacion` varchar(250)
 ,`fecha_inicio` date
-,`IFNULL(ria.fecha_fin, '')` varchar(10)
+,`fecha_fin` varchar(10)
 ,`Materia_Prima_Utilizada` varchar(150)
 ,`Cantidad_MP_Anual_Utilizada` varchar(112)
 ,`Es_MP_propia` char(1)
@@ -11739,8 +11737,7 @@ CREATE TABLE IF NOT EXISTS `vw_info_actividad_materia_prima` (
 -- Estructura Stand-in para la vista `vw_info_actividad_producto`
 -- (Véase abajo para la vista actual)
 --
-DROP VIEW IF EXISTS `vw_info_actividad_producto`;
-CREATE TABLE IF NOT EXISTS `vw_info_actividad_producto` (
+CREATE TABLE `vw_info_actividad_producto` (
 `id_industria` int(11)
 ,`id_Actividad` int(11)
 ,`actividad` varchar(200)
@@ -11763,8 +11760,7 @@ CREATE TABLE IF NOT EXISTS `vw_info_actividad_producto` (
 -- Estructura Stand-in para la vista `vw_info_certificado`
 -- (Véase abajo para la vista actual)
 --
-DROP VIEW IF EXISTS `vw_info_certificado`;
-CREATE TABLE IF NOT EXISTS `vw_info_certificado` (
+CREATE TABLE `vw_info_certificado` (
 `id_industria` int(11)
 ,`certificado` varchar(50)
 ,`Estado_Certificado` varchar(50)
@@ -11779,8 +11775,7 @@ CREATE TABLE IF NOT EXISTS `vw_info_certificado` (
 -- Estructura Stand-in para la vista `vw_info_contribuyente_industria`
 -- (Véase abajo para la vista actual)
 --
-DROP VIEW IF EXISTS `vw_info_contribuyente_industria`;
-CREATE TABLE IF NOT EXISTS `vw_info_contribuyente_industria` (
+CREATE TABLE `vw_info_contribuyente_industria` (
 `id_industria` int(11)
 ,`cuit` bigint(20)
 ,`numero_de_ib` char(12)
@@ -11818,8 +11813,7 @@ CREATE TABLE IF NOT EXISTS `vw_info_contribuyente_industria` (
 -- Estructura Stand-in para la vista `vw_info_economia_del_conocimiento_perfil`
 -- (Véase abajo para la vista actual)
 --
-DROP VIEW IF EXISTS `vw_info_economia_del_conocimiento_perfil`;
-CREATE TABLE IF NOT EXISTS `vw_info_economia_del_conocimiento_perfil` (
+CREATE TABLE `vw_info_economia_del_conocimiento_perfil` (
 `id_industria` int(11)
 ,`perfil` varchar(60)
 ,`Anio_Economia_del_conocimiento_perfil` int(11)
@@ -11831,8 +11825,7 @@ CREATE TABLE IF NOT EXISTS `vw_info_economia_del_conocimiento_perfil` (
 -- Estructura Stand-in para la vista `vw_info_economia_del_conocimiento_sector`
 -- (Véase abajo para la vista actual)
 --
-DROP VIEW IF EXISTS `vw_info_economia_del_conocimiento_sector`;
-CREATE TABLE IF NOT EXISTS `vw_info_economia_del_conocimiento_sector` (
+CREATE TABLE `vw_info_economia_del_conocimiento_sector` (
 `id_industria` int(11)
 ,`sector` varchar(60)
 ,`Anio_Economia_del_conocimiento_sector` int(11)
@@ -11844,8 +11837,7 @@ CREATE TABLE IF NOT EXISTS `vw_info_economia_del_conocimiento_sector` (
 -- Estructura Stand-in para la vista `vw_info_efluente`
 -- (Véase abajo para la vista actual)
 --
-DROP VIEW IF EXISTS `vw_info_efluente`;
-CREATE TABLE IF NOT EXISTS `vw_info_efluente` (
+CREATE TABLE `vw_info_efluente` (
 `id_industria` int(11)
 ,`efluente` varchar(100)
 ,`Tratamiento_del_Efluente` varchar(500)
@@ -11859,8 +11851,7 @@ CREATE TABLE IF NOT EXISTS `vw_info_efluente` (
 -- Estructura Stand-in para la vista `vw_info_egreso`
 -- (Véase abajo para la vista actual)
 --
-DROP VIEW IF EXISTS `vw_info_egreso`;
-CREATE TABLE IF NOT EXISTS `vw_info_egreso` (
+CREATE TABLE `vw_info_egreso` (
 `id_industria` int(11)
 ,`Concepto_de_egreso` varchar(150)
 ,`importe` decimal(13,2)
@@ -11873,8 +11864,7 @@ CREATE TABLE IF NOT EXISTS `vw_info_egreso` (
 -- Estructura Stand-in para la vista `vw_info_facturacion`
 -- (Véase abajo para la vista actual)
 --
-DROP VIEW IF EXISTS `vw_info_facturacion`;
-CREATE TABLE IF NOT EXISTS `vw_info_facturacion` (
+CREATE TABLE `vw_info_facturacion` (
 `id_industria` int(11)
 ,`monto_facturacion_anual` decimal(13,2)
 ,`porcentaje_mayorista` decimal(5,2)
@@ -11897,8 +11887,7 @@ CREATE TABLE IF NOT EXISTS `vw_info_facturacion` (
 -- Estructura Stand-in para la vista `vw_info_industria_personal_ocupado`
 -- (Véase abajo para la vista actual)
 --
-DROP VIEW IF EXISTS `vw_info_industria_personal_ocupado`;
-CREATE TABLE IF NOT EXISTS `vw_info_industria_personal_ocupado` (
+CREATE TABLE `vw_info_industria_personal_ocupado` (
 `id_industria` int(11)
 ,`rol_trabajador` varchar(50)
 ,`condicion_laboral` varchar(70)
@@ -11913,8 +11902,7 @@ CREATE TABLE IF NOT EXISTS `vw_info_industria_personal_ocupado` (
 -- Estructura Stand-in para la vista `vw_info_insumo`
 -- (Véase abajo para la vista actual)
 --
-DROP VIEW IF EXISTS `vw_info_insumo`;
-CREATE TABLE IF NOT EXISTS `vw_info_insumo` (
+CREATE TABLE `vw_info_insumo` (
 `id_industria` int(11)
 ,`Insumos_utilizados` varchar(50)
 ,`Es_insumo_propio` char(10)
@@ -11931,8 +11919,7 @@ CREATE TABLE IF NOT EXISTS `vw_info_insumo` (
 -- Estructura Stand-in para la vista `vw_info_motivo_ociosidad`
 -- (Véase abajo para la vista actual)
 --
-DROP VIEW IF EXISTS `vw_info_motivo_ociosidad`;
-CREATE TABLE IF NOT EXISTS `vw_info_motivo_ociosidad` (
+CREATE TABLE `vw_info_motivo_ociosidad` (
 `id_industria` int(11)
 ,`motivo_ociosidad` varchar(100)
 ,`anio_ociosidad` int(11)
@@ -11944,8 +11931,7 @@ CREATE TABLE IF NOT EXISTS `vw_info_motivo_ociosidad` (
 -- Estructura Stand-in para la vista `vw_info_promocion_industrial`
 -- (Véase abajo para la vista actual)
 --
-DROP VIEW IF EXISTS `vw_info_promocion_industrial`;
-CREATE TABLE IF NOT EXISTS `vw_info_promocion_industrial` (
+CREATE TABLE `vw_info_promocion_industrial` (
 `id_industria` int(11)
 ,`promocion_industrial` varchar(150)
 ,`Estado_Promocion_industrial` varchar(50)
@@ -11959,8 +11945,7 @@ CREATE TABLE IF NOT EXISTS `vw_info_promocion_industrial` (
 -- Estructura Stand-in para la vista `vw_info_servicio`
 -- (Véase abajo para la vista actual)
 --
-DROP VIEW IF EXISTS `vw_info_servicio`;
-CREATE TABLE IF NOT EXISTS `vw_info_servicio` (
+CREATE TABLE `vw_info_servicio` (
 `id_industria` int(11)
 ,`Servicio` varchar(50)
 ,`cantidad_consumida` decimal(13,2)
@@ -11979,8 +11964,7 @@ CREATE TABLE IF NOT EXISTS `vw_info_servicio` (
 -- Estructura Stand-in para la vista `vw_info_sistema_de_calidad`
 -- (Véase abajo para la vista actual)
 --
-DROP VIEW IF EXISTS `vw_info_sistema_de_calidad`;
-CREATE TABLE IF NOT EXISTS `vw_info_sistema_de_calidad` (
+CREATE TABLE `vw_info_sistema_de_calidad` (
 `id_industria` int(11)
 ,`sistema_de_calidad` varchar(120)
 ,`Estado_Sistema_de_calidad` varchar(50)
@@ -11994,8 +11978,7 @@ CREATE TABLE IF NOT EXISTS `vw_info_sistema_de_calidad` (
 -- Estructura Stand-in para la vista `vw_info_situacion_de_planta`
 -- (Véase abajo para la vista actual)
 --
-DROP VIEW IF EXISTS `vw_info_situacion_de_planta`;
-CREATE TABLE IF NOT EXISTS `vw_info_situacion_de_planta` (
+CREATE TABLE `vw_info_situacion_de_planta` (
 `id_industria` int(11)
 ,`produccion_sobre_capacidad` decimal(5,2)
 ,`superficie_lote` float
@@ -12014,8 +11997,7 @@ CREATE TABLE IF NOT EXISTS `vw_info_situacion_de_planta` (
 -- Estructura Stand-in para la vista `vw_info_ventas_exterior`
 -- (Véase abajo para la vista actual)
 --
-DROP VIEW IF EXISTS `vw_info_ventas_exterior`;
-CREATE TABLE IF NOT EXISTS `vw_info_ventas_exterior` (
+CREATE TABLE `vw_info_ventas_exterior` (
 `id_industria` int(11)
 ,`Tipo_de_Venta` varchar(50)
 ,`Pais_Destino_ventas` varchar(50)
@@ -12028,8 +12010,7 @@ CREATE TABLE IF NOT EXISTS `vw_info_ventas_exterior` (
 -- Estructura Stand-in para la vista `vw_info_ventas_nacionales`
 -- (Véase abajo para la vista actual)
 --
-DROP VIEW IF EXISTS `vw_info_ventas_nacionales`;
-CREATE TABLE IF NOT EXISTS `vw_info_ventas_nacionales` (
+CREATE TABLE `vw_info_ventas_nacionales` (
 `id_industria` int(11)
 ,`Tipo_de_Venta` varchar(50)
 ,`Provincia_Destino_ventas` varchar(50)
@@ -12043,8 +12024,7 @@ CREATE TABLE IF NOT EXISTS `vw_info_ventas_nacionales` (
 --
 DROP TABLE IF EXISTS `vw_info_actividad_materia_prima`;
 
-DROP VIEW IF EXISTS `vw_info_actividad_materia_prima`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_info_actividad_materia_prima`  AS  select `i`.`id_industria` AS `id_industria`,`a`.`id_Actividad` AS `id_Actividad`,`a`.`actividad` AS `actividad`,`ria`.`es_actividad_principal` AS `es_actividad_principal`,`ria`.`observacion` AS `observacion`,`ria`.`fecha_inicio` AS `fecha_inicio`,ifnull(`ria`.`fecha_fin`,'') AS `IFNULL(ria.fecha_fin, '')`,`mp`.`materia_prima` AS `Materia_Prima_Utilizada`,concat_ws(' ',`ramp`.`cantidad`,`ummp`.`unidad_de_medida`) AS `Cantidad_MP_Anual_Utilizada`,`ramp`.`es_propio` AS `Es_MP_propia`,(select rtrim(`lmp`.`localidad`) from `localidad` `lmp` where (`lmp`.`id_localidad` = `ramp`.`id_localidad`)) AS `Localidad_Origen_MP`,(select rtrim(`pmp`.`pais`) from `pais` `pmp` where (`pmp`.`id_pais` = `ramp`.`id_pais`)) AS `Pais_Origen_MP`,(select `mi`.`motivo_importacion` from `motivo_importacion` `mi` where (`mi`.`id_motivo_importacion` = `ramp`.`id_motivo_importacion`)) AS `motivo_importacion_MP`,`ramp`.`detalles` AS `Detalle_de_motivo_de_importacion_MP`,`ramp`.`anio` AS `anio_MP` from ((((((`industria` `i` join `contribuyente` `c` on((`c`.`id_contribuyente` = `i`.`id_contribuyente`))) join `rel_industria_actividad` `ria` on((`ria`.`id_industria` = `i`.`id_industria`))) join `actividad` `a` on((`a`.`id_Actividad` = `ria`.`id_actividad`))) join `rel_actividad_materia_prima` `ramp` on((`ramp`.`id_rel_industria_actividad` = `ria`.`id_rel_industria_actividad`))) join `materia_prima` `mp` on((`mp`.`id_materia_prima` = `ramp`.`id_materia_prima`))) join `unidad_de_medida` `ummp` on((`ummp`.`id_unidad_de_medida` = `ramp`.`id_unidad_de_medida`))) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`mauri`@`localhost` SQL SECURITY DEFINER VIEW `vw_info_actividad_materia_prima`  AS  select `i`.`id_industria` AS `id_industria`,`a`.`id_Actividad` AS `id_Actividad`,`a`.`actividad` AS `actividad`,`ria`.`es_actividad_principal` AS `es_actividad_principal`,`ria`.`observacion` AS `observacion`,`ria`.`fecha_inicio` AS `fecha_inicio`,ifnull(`ria`.`fecha_fin`,'') AS `fecha_fin`,`mp`.`materia_prima` AS `Materia_Prima_Utilizada`,concat_ws(' ',`ramp`.`cantidad`,`ummp`.`unidad_de_medida`) AS `Cantidad_MP_Anual_Utilizada`,`ramp`.`es_propio` AS `Es_MP_propia`,(select rtrim(`lmp`.`localidad`) from `localidad` `lmp` where `lmp`.`id_localidad` = `ramp`.`id_localidad`) AS `Localidad_Origen_MP`,(select rtrim(`pmp`.`pais`) from `pais` `pmp` where `pmp`.`id_pais` = `ramp`.`id_pais`) AS `Pais_Origen_MP`,(select `mi`.`motivo_importacion` from `motivo_importacion` `mi` where `mi`.`id_motivo_importacion` = `ramp`.`id_motivo_importacion`) AS `motivo_importacion_MP`,`ramp`.`detalles` AS `Detalle_de_motivo_de_importacion_MP`,`ramp`.`anio` AS `anio_MP` from ((((((`industria` `i` join `contribuyente` `c` on(`c`.`id_contribuyente` = `i`.`id_contribuyente`)) join `rel_industria_actividad` `ria` on(`ria`.`id_industria` = `i`.`id_industria`)) join `actividad` `a` on(`a`.`id_Actividad` = `ria`.`id_actividad`)) join `rel_actividad_materia_prima` `ramp` on(`ramp`.`id_rel_industria_actividad` = `ria`.`id_rel_industria_actividad`)) join `materia_prima` `mp` on(`mp`.`id_materia_prima` = `ramp`.`id_materia_prima`)) join `unidad_de_medida` `ummp` on(`ummp`.`id_unidad_de_medida` = `ramp`.`id_unidad_de_medida`)) ;
 
 -- --------------------------------------------------------
 
@@ -12053,8 +12033,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `vw_info_actividad_producto`;
 
-DROP VIEW IF EXISTS `vw_info_actividad_producto`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_info_actividad_producto`  AS  select `i`.`id_industria` AS `id_industria`,`a`.`id_Actividad` AS `id_Actividad`,`a`.`actividad` AS `actividad`,`ria`.`es_actividad_principal` AS `es_actividad_principal`,`ria`.`observacion` AS `observacion`,`ria`.`fecha_inicio` AS `fecha_inicio`,ifnull(`ria`.`fecha_fin`,'') AS `fecha_fin`,`prod`.`producto` AS `Productos_Elaborados`,concat(cast(`rap`.`cantidad_producida` as char charset utf8mb4),' ',convert(`um`.`unidad_de_medida` using utf8mb4)) AS `Cantidad_producida`,concat(cast(`rap`.`porcentaje_sobre_produccion` as char charset utf8mb4),'%') AS `porcentaje_sobre_produccion`,`rap`.`ventas_en_provincia` AS `ventas_en_provincia`,`rap`.`ventas_en_otras_provincias` AS `ventas_en_otras_provincias`,`rap`.`ventas_internacionales` AS `ventas_en_el_exterior`,`rap`.`anio` AS `anio_productos` from ((((((`industria` `i` join `contribuyente` `c` on((`c`.`id_contribuyente` = `i`.`id_contribuyente`))) join `rel_industria_actividad` `ria` on((`ria`.`id_industria` = `i`.`id_industria`))) join `actividad` `a` on((`a`.`id_Actividad` = `ria`.`id_actividad`))) join `rel_actividad_producto` `rap` on((`rap`.`id_rel_industria_actividad` = `ria`.`id_rel_industria_actividad`))) join `producto` `prod` on((`prod`.`id_producto` = `rap`.`id_producto`))) join `unidad_de_medida` `um` on((`um`.`id_unidad_de_medida` = `rap`.`id_unidad_de_medida`))) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`mauri`@`localhost` SQL SECURITY DEFINER VIEW `vw_info_actividad_producto`  AS  select `i`.`id_industria` AS `id_industria`,`a`.`id_Actividad` AS `id_Actividad`,`a`.`actividad` AS `actividad`,`ria`.`es_actividad_principal` AS `es_actividad_principal`,`ria`.`observacion` AS `observacion`,`ria`.`fecha_inicio` AS `fecha_inicio`,ifnull(`ria`.`fecha_fin`,'') AS `fecha_fin`,`prod`.`producto` AS `Productos_Elaborados`,concat(cast(`rap`.`cantidad_producida` as char charset utf8mb4),' ',convert(`um`.`unidad_de_medida` using utf8mb4)) AS `Cantidad_producida`,concat(cast(`rap`.`porcentaje_sobre_produccion` as char charset utf8mb4),'%') AS `porcentaje_sobre_produccion`,`rap`.`ventas_en_provincia` AS `ventas_en_provincia`,`rap`.`ventas_en_otras_provincias` AS `ventas_en_otras_provincias`,`rap`.`ventas_internacionales` AS `ventas_en_el_exterior`,`rap`.`anio` AS `anio_productos` from ((((((`industria` `i` join `contribuyente` `c` on(`c`.`id_contribuyente` = `i`.`id_contribuyente`)) join `rel_industria_actividad` `ria` on(`ria`.`id_industria` = `i`.`id_industria`)) join `actividad` `a` on(`a`.`id_Actividad` = `ria`.`id_actividad`)) join `rel_actividad_producto` `rap` on(`rap`.`id_rel_industria_actividad` = `ria`.`id_rel_industria_actividad`)) join `producto` `prod` on(`prod`.`id_producto` = `rap`.`id_producto`)) join `unidad_de_medida` `um` on(`um`.`id_unidad_de_medida` = `rap`.`id_unidad_de_medida`)) ;
 
 -- --------------------------------------------------------
 
@@ -12063,8 +12042,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `vw_info_certificado`;
 
-DROP VIEW IF EXISTS `vw_info_certificado`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_info_certificado`  AS  select distinct `i`.`id_industria` AS `id_industria`,`cer`.`certificado` AS `certificado`,`ed`.`estado` AS `Estado_Certificado`,`ric`.`numero_de_certificado` AS `numero_de_certificado`,concat_ws(' ','Desde:',`ric`.`fecha_inicio`,'Hasta:',`ric`.`fecha_fin`) AS `Vigencia_Certificado`,`ric`.`anio` AS `anio_certificado` from (((`industria` `i` join `rel_industria_certificado` `ric` on((`ric`.`id_industria` = `i`.`id_industria`))) join `certificado` `cer` on((`cer`.`id_certificado` = `ric`.`id_certificado`))) join `estado_documentacion` `ed` on((`ed`.`id_estado_documentacion` = `ric`.`id_estado_documentacion`))) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`mauri`@`localhost` SQL SECURITY DEFINER VIEW `vw_info_certificado`  AS  select distinct `i`.`id_industria` AS `id_industria`,`cer`.`certificado` AS `certificado`,`ed`.`estado` AS `Estado_Certificado`,`ric`.`numero_de_certificado` AS `numero_de_certificado`,concat_ws(' ','Desde:',`ric`.`fecha_inicio`,'Hasta:',`ric`.`fecha_fin`) AS `Vigencia_Certificado`,`ric`.`anio` AS `anio_certificado` from (((`industria` `i` join `rel_industria_certificado` `ric` on(`ric`.`id_industria` = `i`.`id_industria`)) join `certificado` `cer` on(`cer`.`id_certificado` = `ric`.`id_certificado`)) join `estado_documentacion` `ed` on(`ed`.`id_estado_documentacion` = `ric`.`id_estado_documentacion`)) ;
 
 -- --------------------------------------------------------
 
@@ -12073,8 +12051,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `vw_info_contribuyente_industria`;
 
-DROP VIEW IF EXISTS `vw_info_contribuyente_industria`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_info_contribuyente_industria`  AS  select `i`.`id_industria` AS `id_industria`,`c`.`cuit` AS `cuit`,`c`.`numero_de_ib` AS `numero_de_ib`,`ri`.`regimen_ib` AS `regimen_ib`,`c`.`razon_social` AS `razon_social`,`civa`.`condicion_iva` AS `condicion_iva`,`nj`.`naturaleza_juridica` AS `naturaleza_juridica`,(select `pac`.`fecha_inicio` from `periodo_de_actividad_de_contribuyente` `pac` where (`pac`.`id_periodo_de_actividad_de_contribuyente` = (select max(`pacaux`.`id_periodo_de_actividad_de_contribuyente`) from `periodo_de_actividad_de_contribuyente` `pacaux` where (`pacaux`.`id_contribuyente` = `c`.`id_contribuyente`)))) AS `Inicio_de_Actividades_Contribuyente`,`c`.`email_fiscal` AS `email_fiscal`,`c`.`fecha_inicio_de_actividades` AS `Inicio_de_actividad_Contribuyente`,`p`.`nombre` AS `persona_declarante`,`p`.`documento` AS `documento`,`ta`.`tipo_de_afectacion` AS `En_calidad_de`,(case `c`.`id_localidad` when NULL then '' else (select rtrim(`l1`.`localidad`) from `localidad` `l1` where (`l1`.`id_localidad` = `c`.`id_localidad`)) end) AS `Localidad_Legal`,`c`.`cod_postal` AS `CP_Legal`,`i`.`nombre_de_fantasia` AS `nombre_de_fantasia`,`i`.`fecha_inicio` AS `Fecha_inicio_industria`,`i`.`fecha_fin` AS `Fecha_fin_industria`,`i`.`email` AS `mail_industria`,`i`.`pagina_web` AS `pagina_web`,`i`.`tel_fijo` AS `tel_fijo`,`i`.`tel_celular` AS `tel_celular`,(case `i`.`id_localidad` when NULL then '' else (select rtrim(`l1`.`localidad`) from `localidad` `l1` where (`l1`.`id_localidad` = `i`.`id_localidad`)) end) AS `Localidad_Industria`,`i`.`cod_postal` AS `CP_Industria`,`i`.`es_zona_industrial` AS `es_zona_industrial`,`i`.`es_casa_central` AS `es_casa_central`,`i`.`direccion_gps` AS `direccion_gps`,`i`.`latitud` AS `latitud`,`i`.`longitud` AS `longitud` from ((((((((`industria` `i` join `contribuyente` `c` on((`c`.`id_contribuyente` = `i`.`id_contribuyente`))) left join `rel_persona_contribuyente` `rpc` on((`rpc`.`id_contribuyente` = `c`.`id_contribuyente`))) left join `persona` `p` on((`p`.`id_persona` = `rpc`.`id_contribuyente`))) left join `tipo_de_documento` `td` on((`td`.`id_tipo_de_documento` = `p`.`documento`))) left join `tipo_de_afectacion` `ta` on((`ta`.`id_tipo_de_afectacion` = `rpc`.`id_tipo_de_afectacion`))) left join `condicion_iva` `civa` on((`civa`.`id_condicion_iva` = `c`.`id_condicion_iva`))) left join `naturaleza_juridica` `nj` on((`nj`.`id_naturaleza_juridica` = `c`.`id_naturaleza_juridica`))) left join `regimen_ib` `ri` on((`ri`.`id_regimen_ib` = `c`.`id_regimen_ib`))) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`mauri`@`localhost` SQL SECURITY DEFINER VIEW `vw_info_contribuyente_industria`  AS  select `i`.`id_industria` AS `id_industria`,`c`.`cuit` AS `cuit`,`c`.`numero_de_ib` AS `numero_de_ib`,`ri`.`regimen_ib` AS `regimen_ib`,`c`.`razon_social` AS `razon_social`,`civa`.`condicion_iva` AS `condicion_iva`,`nj`.`naturaleza_juridica` AS `naturaleza_juridica`,(select `pac`.`fecha_inicio` from `periodo_de_actividad_de_contribuyente` `pac` where `pac`.`id_periodo_de_actividad_de_contribuyente` = (select max(`pacaux`.`id_periodo_de_actividad_de_contribuyente`) from `periodo_de_actividad_de_contribuyente` `pacaux` where `pacaux`.`id_contribuyente` = `c`.`id_contribuyente`)) AS `Inicio_de_Actividades_Contribuyente`,`c`.`email_fiscal` AS `email_fiscal`,`c`.`fecha_inicio_de_actividades` AS `Inicio_de_actividad_Contribuyente`,`p`.`nombre` AS `persona_declarante`,`p`.`documento` AS `documento`,`ta`.`tipo_de_afectacion` AS `En_calidad_de`,case `c`.`id_localidad` when NULL then '' else (select rtrim(`l1`.`localidad`) from `localidad` `l1` where `l1`.`id_localidad` = `c`.`id_localidad`) end AS `Localidad_Legal`,`c`.`cod_postal` AS `CP_Legal`,`i`.`nombre_de_fantasia` AS `nombre_de_fantasia`,`i`.`fecha_inicio` AS `Fecha_inicio_industria`,`i`.`fecha_fin` AS `Fecha_fin_industria`,`i`.`email` AS `mail_industria`,`i`.`pagina_web` AS `pagina_web`,`i`.`tel_fijo` AS `tel_fijo`,`i`.`tel_celular` AS `tel_celular`,case `i`.`id_localidad` when NULL then '' else (select rtrim(`l1`.`localidad`) from `localidad` `l1` where `l1`.`id_localidad` = `i`.`id_localidad`) end AS `Localidad_Industria`,`i`.`cod_postal` AS `CP_Industria`,`i`.`es_zona_industrial` AS `es_zona_industrial`,`i`.`es_casa_central` AS `es_casa_central`,`i`.`direccion_gps` AS `direccion_gps`,`i`.`latitud` AS `latitud`,`i`.`longitud` AS `longitud` from ((((((((`industria` `i` join `contribuyente` `c` on(`c`.`id_contribuyente` = `i`.`id_contribuyente`)) left join `rel_persona_contribuyente` `rpc` on(`rpc`.`id_contribuyente` = `c`.`id_contribuyente`)) left join `persona` `p` on(`p`.`id_persona` = `rpc`.`id_contribuyente`)) left join `tipo_de_documento` `td` on(`td`.`id_tipo_de_documento` = `p`.`documento`)) left join `tipo_de_afectacion` `ta` on(`ta`.`id_tipo_de_afectacion` = `rpc`.`id_tipo_de_afectacion`)) left join `condicion_iva` `civa` on(`civa`.`id_condicion_iva` = `c`.`id_condicion_iva`)) left join `naturaleza_juridica` `nj` on(`nj`.`id_naturaleza_juridica` = `c`.`id_naturaleza_juridica`)) left join `regimen_ib` `ri` on(`ri`.`id_regimen_ib` = `c`.`id_regimen_ib`)) ;
 
 -- --------------------------------------------------------
 
@@ -12083,8 +12060,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `vw_info_economia_del_conocimiento_perfil`;
 
-DROP VIEW IF EXISTS `vw_info_economia_del_conocimiento_perfil`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_info_economia_del_conocimiento_perfil`  AS  select distinct `i`.`id_industria` AS `id_industria`,`ecp`.`perfil` AS `perfil`,`riep`.`anio` AS `Anio_Economia_del_conocimiento_perfil` from ((`industria` `i` join `rel_industria_economia_del_conocimiento_perfil` `riep` on((`riep`.`id_industria` = `i`.`id_industria`))) join `economia_del_conocimiento_perfil` `ecp` on((`ecp`.`id_economia_del_conocimiento_perfil` = `riep`.`id_economia_del_conocimiento_perfil`))) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`mauri`@`localhost` SQL SECURITY DEFINER VIEW `vw_info_economia_del_conocimiento_perfil`  AS  select distinct `i`.`id_industria` AS `id_industria`,`ecp`.`perfil` AS `perfil`,`riep`.`anio` AS `Anio_Economia_del_conocimiento_perfil` from ((`industria` `i` join `rel_industria_economia_del_conocimiento_perfil` `riep` on(`riep`.`id_industria` = `i`.`id_industria`)) join `economia_del_conocimiento_perfil` `ecp` on(`ecp`.`id_economia_del_conocimiento_perfil` = `riep`.`id_economia_del_conocimiento_perfil`)) ;
 
 -- --------------------------------------------------------
 
@@ -12093,8 +12069,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `vw_info_economia_del_conocimiento_sector`;
 
-DROP VIEW IF EXISTS `vw_info_economia_del_conocimiento_sector`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_info_economia_del_conocimiento_sector`  AS  select distinct `i`.`id_industria` AS `id_industria`,`ecs`.`sector` AS `sector`,`ries`.`anio` AS `Anio_Economia_del_conocimiento_sector` from ((`industria` `i` join `rel_industria_economia_del_conocimiento_sector` `ries` on((`ries`.`id_industria` = `i`.`id_industria`))) join `economia_del_conocimiento_sector` `ecs` on((`ecs`.`id_economia_del_conocimiento_sector` = `ries`.`id_economia_del_conocimiento_sector`))) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`mauri`@`localhost` SQL SECURITY DEFINER VIEW `vw_info_economia_del_conocimiento_sector`  AS  select distinct `i`.`id_industria` AS `id_industria`,`ecs`.`sector` AS `sector`,`ries`.`anio` AS `Anio_Economia_del_conocimiento_sector` from ((`industria` `i` join `rel_industria_economia_del_conocimiento_sector` `ries` on(`ries`.`id_industria` = `i`.`id_industria`)) join `economia_del_conocimiento_sector` `ecs` on(`ecs`.`id_economia_del_conocimiento_sector` = `ries`.`id_economia_del_conocimiento_sector`)) ;
 
 -- --------------------------------------------------------
 
@@ -12103,8 +12078,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `vw_info_efluente`;
 
-DROP VIEW IF EXISTS `vw_info_efluente`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_info_efluente`  AS  select distinct `i`.`id_industria` AS `id_industria`,`ef`.`efluente` AS `efluente`,`rief`.`tratamiento` AS `Tratamiento_del_Efluente`,`rief`.`destino` AS `Destino_Efluente`,`rief`.`anio` AS `anio_efluente` from ((`industria` `i` join `rel_industria_efluente` `rief` on((`rief`.`id_industria` = `i`.`id_industria`))) join `efluente` `ef` on((`ef`.`id_efluente` = `rief`.`id_efluente`))) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`mauri`@`localhost` SQL SECURITY DEFINER VIEW `vw_info_efluente`  AS  select distinct `i`.`id_industria` AS `id_industria`,`ef`.`efluente` AS `efluente`,`rief`.`tratamiento` AS `Tratamiento_del_Efluente`,`rief`.`destino` AS `Destino_Efluente`,`rief`.`anio` AS `anio_efluente` from ((`industria` `i` join `rel_industria_efluente` `rief` on(`rief`.`id_industria` = `i`.`id_industria`)) join `efluente` `ef` on(`ef`.`id_efluente` = `rief`.`id_efluente`)) ;
 
 -- --------------------------------------------------------
 
@@ -12113,8 +12087,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `vw_info_egreso`;
 
-DROP VIEW IF EXISTS `vw_info_egreso`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_info_egreso`  AS  select distinct `i`.`id_industria` AS `id_industria`,`eg`.`egreso` AS `Concepto_de_egreso`,`rieg`.`importe` AS `importe`,`rieg`.`anio` AS `anio_egresos` from ((`industria` `i` join `rel_industria_egreso` `rieg` on((`rieg`.`id_industria` = `i`.`id_industria`))) join `egreso` `eg` on((`eg`.`id_egreso` = `rieg`.`id_egreso`))) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`mauri`@`localhost` SQL SECURITY DEFINER VIEW `vw_info_egreso`  AS  select distinct `i`.`id_industria` AS `id_industria`,`eg`.`egreso` AS `Concepto_de_egreso`,`rieg`.`importe` AS `importe`,`rieg`.`anio` AS `anio_egresos` from ((`industria` `i` join `rel_industria_egreso` `rieg` on(`rieg`.`id_industria` = `i`.`id_industria`)) join `egreso` `eg` on(`eg`.`id_egreso` = `rieg`.`id_egreso`)) ;
 
 -- --------------------------------------------------------
 
@@ -12123,8 +12096,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `vw_info_facturacion`;
 
-DROP VIEW IF EXISTS `vw_info_facturacion`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_info_facturacion`  AS  select distinct `i`.`id_industria` AS `id_industria`,`fact`.`monto_facturacion_anual` AS `monto_facturacion_anual`,`fact`.`porcentaje_mayorista` AS `porcentaje_mayorista`,`fact`.`porcentaje_minorista` AS `porcentaje_minorista`,`fact`.`porcentaje_provincia` AS `porcentaje_provincia`,`fact`.`porcentaje_otras_provincias` AS `porcentaje_otras_provincias`,`fact`.`porcentaje_exterior` AS `porcentaje_exterior`,`fact`.`facturacion_dolares` AS `facturacion_dolares`,`fact`.`prevision_ingresos_anio_corriente` AS `prevision_ingresos_anio_corriente`,`fact`.`prevision_ingresos_anio_corriente_dolares` AS `prevision_ingresos_anio_corriente_dolares`,`fact`.`porcentaje_prevision_mercado_interno` AS `porcentaje_prevision_mercado_interno`,`fact`.`porcentaje_prevision_mercado_externo` AS `porcentaje_prevision_mercado_externo`,concat_ws(' ',`cati`.`categoria`,'-','Entre $',`cati`.`monto_minimo`,'y $',`cati`.`monto_maximo`) AS `categoria_pyme`,`fact`.`anio` AS `Anio_Facturacion` from ((`industria` `i` join `facturacion` `fact` on((`fact`.`id_industria` = `i`.`id_industria`))) left join `categoria_ingresos` `cati` on((`cati`.`id_categoria_ingreso` = `fact`.`id_categoria_ingresos`))) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`mauri`@`localhost` SQL SECURITY DEFINER VIEW `vw_info_facturacion`  AS  select distinct `i`.`id_industria` AS `id_industria`,`fact`.`monto_facturacion_anual` AS `monto_facturacion_anual`,`fact`.`porcentaje_mayorista` AS `porcentaje_mayorista`,`fact`.`porcentaje_minorista` AS `porcentaje_minorista`,`fact`.`porcentaje_provincia` AS `porcentaje_provincia`,`fact`.`porcentaje_otras_provincias` AS `porcentaje_otras_provincias`,`fact`.`porcentaje_exterior` AS `porcentaje_exterior`,`fact`.`facturacion_dolares` AS `facturacion_dolares`,`fact`.`prevision_ingresos_anio_corriente` AS `prevision_ingresos_anio_corriente`,`fact`.`prevision_ingresos_anio_corriente_dolares` AS `prevision_ingresos_anio_corriente_dolares`,`fact`.`porcentaje_prevision_mercado_interno` AS `porcentaje_prevision_mercado_interno`,`fact`.`porcentaje_prevision_mercado_externo` AS `porcentaje_prevision_mercado_externo`,concat_ws(' ',`cati`.`categoria`,'-','Entre $',`cati`.`monto_minimo`,'y $',`cati`.`monto_maximo`) AS `categoria_pyme`,`fact`.`anio` AS `Anio_Facturacion` from ((`industria` `i` join `facturacion` `fact` on(`fact`.`id_industria` = `i`.`id_industria`)) left join `categoria_ingresos` `cati` on(`cati`.`id_categoria_ingreso` = `fact`.`id_categoria_ingresos`)) ;
 
 -- --------------------------------------------------------
 
@@ -12133,8 +12105,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `vw_info_industria_personal_ocupado`;
 
-DROP VIEW IF EXISTS `vw_info_industria_personal_ocupado`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_info_industria_personal_ocupado`  AS  select distinct `i`.`id_industria` AS `id_industria`,`rt`.`rol_trabajador` AS `rol_trabajador`,`cl`.`condicion_laboral` AS `condicion_laboral`,`rit`.`sexo` AS `sexo`,`rit`.`numero_de_trabajadores` AS `numero_de_trabajadores`,`rit`.`anio` AS `anio_rol_trabajadores` from (((`industria` `i` join `rel_industria_trabajador` `rit` on((`rit`.`id_industria` = `i`.`id_industria`))) join `condicion_laboral` `cl` on((`cl`.`id_condicion_laboral` = `rit`.`id_condicion_laboral`))) join `rol_trabajador` `rt` on((`rt`.`id_rol_trabajador` = `rit`.`id_rol_trabajador`))) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`mauri`@`localhost` SQL SECURITY DEFINER VIEW `vw_info_industria_personal_ocupado`  AS  select distinct `i`.`id_industria` AS `id_industria`,`rt`.`rol_trabajador` AS `rol_trabajador`,`cl`.`condicion_laboral` AS `condicion_laboral`,`rit`.`sexo` AS `sexo`,`rit`.`numero_de_trabajadores` AS `numero_de_trabajadores`,`rit`.`anio` AS `anio_rol_trabajadores` from (((`industria` `i` join `rel_industria_trabajador` `rit` on(`rit`.`id_industria` = `i`.`id_industria`)) join `condicion_laboral` `cl` on(`cl`.`id_condicion_laboral` = `rit`.`id_condicion_laboral`)) join `rol_trabajador` `rt` on(`rt`.`id_rol_trabajador` = `rit`.`id_rol_trabajador`)) ;
 
 -- --------------------------------------------------------
 
@@ -12143,8 +12114,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `vw_info_insumo`;
 
-DROP VIEW IF EXISTS `vw_info_insumo`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_info_insumo`  AS  select distinct `i`.`id_industria` AS `id_industria`,`ins`.`insumo` AS `Insumos_utilizados`,`rii`.`es_propio` AS `Es_insumo_propio`,(select rtrim(`lins`.`localidad`) from `localidad` `lins` where (`lins`.`id_localidad` = `rii`.`id_localidad`)) AS `Localidad_Origen_Insumo`,(select rtrim(`pins`.`pais`) from `pais` `pins` where (`pins`.`id_pais` = `rii`.`id_pais`)) AS `Pais_Origen_Insumo`,(select `miins`.`motivo_importacion` from `motivo_importacion` `miins` where (`miins`.`id_motivo_importacion` = `rii`.`id_motivo_importacion`)) AS `motivo_importacion_Insumo`,`rii`.`detalles` AS `Detalle_de_motivo_de_importacion_Insumo`,`rii`.`anio` AS `anio_insumos` from (((`industria` `i` join `rel_industria_insumo` `rii` on((`rii`.`id_industria` = `i`.`id_industria`))) join `insumo` `ins` on((`ins`.`id_insumo` = `rii`.`id_insumo`))) join `unidad_de_medida` `umins` on((`umins`.`id_unidad_de_medida` = `rii`.`id_unidad_de_medida`))) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`mauri`@`localhost` SQL SECURITY DEFINER VIEW `vw_info_insumo`  AS  select distinct `i`.`id_industria` AS `id_industria`,`ins`.`insumo` AS `Insumos_utilizados`,`rii`.`es_propio` AS `Es_insumo_propio`,(select rtrim(`lins`.`localidad`) from `localidad` `lins` where `lins`.`id_localidad` = `rii`.`id_localidad`) AS `Localidad_Origen_Insumo`,(select rtrim(`pins`.`pais`) from `pais` `pins` where `pins`.`id_pais` = `rii`.`id_pais`) AS `Pais_Origen_Insumo`,(select `miins`.`motivo_importacion` from `motivo_importacion` `miins` where `miins`.`id_motivo_importacion` = `rii`.`id_motivo_importacion`) AS `motivo_importacion_Insumo`,`rii`.`detalles` AS `Detalle_de_motivo_de_importacion_Insumo`,`rii`.`anio` AS `anio_insumos` from (((`industria` `i` join `rel_industria_insumo` `rii` on(`rii`.`id_industria` = `i`.`id_industria`)) join `insumo` `ins` on(`ins`.`id_insumo` = `rii`.`id_insumo`)) join `unidad_de_medida` `umins` on(`umins`.`id_unidad_de_medida` = `rii`.`id_unidad_de_medida`)) ;
 
 -- --------------------------------------------------------
 
@@ -12153,8 +12123,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `vw_info_motivo_ociosidad`;
 
-DROP VIEW IF EXISTS `vw_info_motivo_ociosidad`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_info_motivo_ociosidad`  AS  select distinct `i`.`id_industria` AS `id_industria`,`mo`.`motivo_ociosidad` AS `motivo_ociosidad`,`rimo`.`anio` AS `anio_ociosidad` from ((`industria` `i` join `rel_industria_motivo_ociosidad` `rimo` on((`rimo`.`id_industria` = `i`.`id_industria`))) join `motivo_ociosidad` `mo` on((`mo`.`id_motivo_ociosidad` = `rimo`.`id_motivo_ociosidad`))) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`mauri`@`localhost` SQL SECURITY DEFINER VIEW `vw_info_motivo_ociosidad`  AS  select distinct `i`.`id_industria` AS `id_industria`,`mo`.`motivo_ociosidad` AS `motivo_ociosidad`,`rimo`.`anio` AS `anio_ociosidad` from ((`industria` `i` join `rel_industria_motivo_ociosidad` `rimo` on(`rimo`.`id_industria` = `i`.`id_industria`)) join `motivo_ociosidad` `mo` on(`mo`.`id_motivo_ociosidad` = `rimo`.`id_motivo_ociosidad`)) ;
 
 -- --------------------------------------------------------
 
@@ -12163,8 +12132,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `vw_info_promocion_industrial`;
 
-DROP VIEW IF EXISTS `vw_info_promocion_industrial`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_info_promocion_industrial`  AS  select distinct `i`.`id_industria` AS `id_industria`,`pi`.`promocion_industrial` AS `promocion_industrial`,`ed`.`estado` AS `Estado_Promocion_industrial`,concat('Desde:',`ripi`.`fecha_inicio`,' ','Hasta:',`ripi`.`fecha_fin`) AS `Vigencia_Promocion_industrial`,`ripi`.`anio` AS `Anio_Promocion_industrial` from (((`industria` `i` join `rel_industria_promocion_industrial` `ripi` on((`ripi`.`id_industria` = `i`.`id_industria`))) join `promocion_industrial` `pi` on((`pi`.`id_promocion_industrial` = `ripi`.`id_promocion_industrial`))) join `estado_documentacion` `ed` on((`ed`.`id_estado_documentacion` = `ripi`.`id_estado_documentacion`))) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`mauri`@`localhost` SQL SECURITY DEFINER VIEW `vw_info_promocion_industrial`  AS  select distinct `i`.`id_industria` AS `id_industria`,`pi`.`promocion_industrial` AS `promocion_industrial`,`ed`.`estado` AS `Estado_Promocion_industrial`,concat('Desde:',`ripi`.`fecha_inicio`,' ','Hasta:',`ripi`.`fecha_fin`) AS `Vigencia_Promocion_industrial`,`ripi`.`anio` AS `Anio_Promocion_industrial` from (((`industria` `i` join `rel_industria_promocion_industrial` `ripi` on(`ripi`.`id_industria` = `i`.`id_industria`)) join `promocion_industrial` `pi` on(`pi`.`id_promocion_industrial` = `ripi`.`id_promocion_industrial`)) join `estado_documentacion` `ed` on(`ed`.`id_estado_documentacion` = `ripi`.`id_estado_documentacion`)) ;
 
 -- --------------------------------------------------------
 
@@ -12173,8 +12141,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `vw_info_servicio`;
 
-DROP VIEW IF EXISTS `vw_info_servicio`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_info_servicio`  AS  select distinct `i`.`id_industria` AS `id_industria`,`serv`.`servicio` AS `Servicio`,`ris`.`cantidad_consumida` AS `cantidad_consumida`,`ris`.`costo` AS `Costo_del_Servicio`,(select `fcs`.`frecuencia_de_contratacion` from `frecuencia_de_contratacion` `fcs` where (`fcs`.`id_frecuencia_de_contratacion` = `ris`.`id_frecuencia_de_contratacion`)) AS `frecuencia_de_contratacion_Servicio`,(select rtrim(`lserv`.`localidad`) from `localidad` `lserv` where (`lserv`.`id_localidad` = `ris`.`id_localidad`)) AS `Localidad_Origen_Servicio`,(select rtrim(`pserv`.`pais`) from `pais` `pserv` where (`pserv`.`id_pais` = `ris`.`id_pais`)) AS `Pais_Origen_Servicio`,(select `miserv`.`motivo_importacion` from `motivo_importacion` `miserv` where (`miserv`.`id_motivo_importacion` = `ris`.`id_motivo_importacion`)) AS `motivo_importacion_Servicio`,`ris`.`detalles` AS `Detalle_de_motivo_de_importacion_Servicio`,`ris`.`anio` AS `anio_Servicios` from ((`industria` `i` join `rel_industria_servicio` `ris` on((`ris`.`id_industria` = `i`.`id_industria`))) join `servicio` `serv` on((`serv`.`id_servicio` = `ris`.`id_servicio`))) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`mauri`@`localhost` SQL SECURITY DEFINER VIEW `vw_info_servicio`  AS  select distinct `i`.`id_industria` AS `id_industria`,`serv`.`servicio` AS `Servicio`,`ris`.`cantidad_consumida` AS `cantidad_consumida`,`ris`.`costo` AS `Costo_del_Servicio`,(select `fcs`.`frecuencia_de_contratacion` from `frecuencia_de_contratacion` `fcs` where `fcs`.`id_frecuencia_de_contratacion` = `ris`.`id_frecuencia_de_contratacion`) AS `frecuencia_de_contratacion_Servicio`,(select rtrim(`lserv`.`localidad`) from `localidad` `lserv` where `lserv`.`id_localidad` = `ris`.`id_localidad`) AS `Localidad_Origen_Servicio`,(select rtrim(`pserv`.`pais`) from `pais` `pserv` where `pserv`.`id_pais` = `ris`.`id_pais`) AS `Pais_Origen_Servicio`,(select `miserv`.`motivo_importacion` from `motivo_importacion` `miserv` where `miserv`.`id_motivo_importacion` = `ris`.`id_motivo_importacion`) AS `motivo_importacion_Servicio`,`ris`.`detalles` AS `Detalle_de_motivo_de_importacion_Servicio`,`ris`.`anio` AS `anio_Servicios` from ((`industria` `i` join `rel_industria_servicio` `ris` on(`ris`.`id_industria` = `i`.`id_industria`)) join `servicio` `serv` on(`serv`.`id_servicio` = `ris`.`id_servicio`)) ;
 
 -- --------------------------------------------------------
 
@@ -12183,8 +12150,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `vw_info_sistema_de_calidad`;
 
-DROP VIEW IF EXISTS `vw_info_sistema_de_calidad`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_info_sistema_de_calidad`  AS  select distinct `i`.`id_industria` AS `id_industria`,`sc`.`sistema_de_calidad` AS `sistema_de_calidad`,`ed`.`estado` AS `Estado_Sistema_de_calidad`,concat_ws(' ','Desde:',`ris`.`fecha_inicio`,'Hasta:',`ris`.`fecha_fin`) AS `Vigencia_Sistema_de_calidad`,`ris`.`anio` AS `Anio_Sistema_de_calidad` from (((`industria` `i` join `rel_industria_sistema` `ris` on((`ris`.`id_industria` = `i`.`id_industria`))) join `sistema_de_calidad` `sc` on((`sc`.`id_sistema_de_calidad` = `ris`.`id_sistema_de_calidad`))) join `estado_documentacion` `ed` on((`ed`.`id_estado_documentacion` = `ris`.`id_estado_documentacion`))) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`mauri`@`localhost` SQL SECURITY DEFINER VIEW `vw_info_sistema_de_calidad`  AS  select distinct `i`.`id_industria` AS `id_industria`,`sc`.`sistema_de_calidad` AS `sistema_de_calidad`,`ed`.`estado` AS `Estado_Sistema_de_calidad`,concat_ws(' ','Desde:',`ris`.`fecha_inicio`,'Hasta:',`ris`.`fecha_fin`) AS `Vigencia_Sistema_de_calidad`,`ris`.`anio` AS `Anio_Sistema_de_calidad` from (((`industria` `i` join `rel_industria_sistema` `ris` on(`ris`.`id_industria` = `i`.`id_industria`)) join `sistema_de_calidad` `sc` on(`sc`.`id_sistema_de_calidad` = `ris`.`id_sistema_de_calidad`)) join `estado_documentacion` `ed` on(`ed`.`id_estado_documentacion` = `ris`.`id_estado_documentacion`)) ;
 
 -- --------------------------------------------------------
 
@@ -12193,8 +12159,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `vw_info_situacion_de_planta`;
 
-DROP VIEW IF EXISTS `vw_info_situacion_de_planta`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_info_situacion_de_planta`  AS  select distinct `i`.`id_industria` AS `id_industria`,`sp`.`produccion_sobre_capacidad` AS `produccion_sobre_capacidad`,`sp`.`superficie_lote` AS `superficie_lote`,`sp`.`superficie_planta` AS `superficie_planta`,`sp`.`es_zona_industrial` AS `Establecida_en_zona_industrial`,`sp`.`inversion_anual` AS `inversion_anual`,`sp`.`inversion_activo_fijo` AS `inversion_activo_fijo`,`sp`.`capacidad_instalada` AS `capacidad_instalada`,`sp`.`capacidad_ociosa` AS `capacidad_ociosa`,`sp`.`anio` AS `anio_situacion_De_planta` from (`industria` `i` join `situacion_de_planta` `sp` on((`sp`.`id_industria` = `i`.`id_industria`))) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`mauri`@`localhost` SQL SECURITY DEFINER VIEW `vw_info_situacion_de_planta`  AS  select distinct `i`.`id_industria` AS `id_industria`,`sp`.`produccion_sobre_capacidad` AS `produccion_sobre_capacidad`,`sp`.`superficie_lote` AS `superficie_lote`,`sp`.`superficie_planta` AS `superficie_planta`,`sp`.`es_zona_industrial` AS `Establecida_en_zona_industrial`,`sp`.`inversion_anual` AS `inversion_anual`,`sp`.`inversion_activo_fijo` AS `inversion_activo_fijo`,`sp`.`capacidad_instalada` AS `capacidad_instalada`,`sp`.`capacidad_ociosa` AS `capacidad_ociosa`,`sp`.`anio` AS `anio_situacion_De_planta` from (`industria` `i` join `situacion_de_planta` `sp` on(`sp`.`id_industria` = `i`.`id_industria`)) ;
 
 -- --------------------------------------------------------
 
@@ -12203,8 +12168,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `vw_info_ventas_exterior`;
 
-DROP VIEW IF EXISTS `vw_info_ventas_exterior`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_info_ventas_exterior`  AS  select distinct `i`.`id_industria` AS `id_industria`,`cv`.`clasificacion_ventas` AS `Tipo_de_Venta`,(select ltrim(rtrim(`pdv`.`pais`)) from `pais` `pdv` where (`pdv`.`id_pais` = `rdvpa`.`id_pais`)) AS `Pais_Destino_ventas`,`dv`.`anio` AS `anio_destino_ventas` from (((`industria` `i` join `destino_ventas` `dv` on((`dv`.`id_industria` = `i`.`id_industria`))) join `rel_destino_ventas_pais` `rdvpa` on((`rdvpa`.`id_destino_ventas` = `dv`.`id_destino_ventas`))) join `clasificacion_ventas` `cv` on((`cv`.`id_clasificacion_ventas` = `dv`.`id_clasificacion_ventas`))) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`mauri`@`localhost` SQL SECURITY DEFINER VIEW `vw_info_ventas_exterior`  AS  select distinct `i`.`id_industria` AS `id_industria`,`cv`.`clasificacion_ventas` AS `Tipo_de_Venta`,(select ltrim(rtrim(`pdv`.`pais`)) from `pais` `pdv` where `pdv`.`id_pais` = `rdvpa`.`id_pais`) AS `Pais_Destino_ventas`,`dv`.`anio` AS `anio_destino_ventas` from (((`industria` `i` join `destino_ventas` `dv` on(`dv`.`id_industria` = `i`.`id_industria`)) join `rel_destino_ventas_pais` `rdvpa` on(`rdvpa`.`id_destino_ventas` = `dv`.`id_destino_ventas`)) join `clasificacion_ventas` `cv` on(`cv`.`id_clasificacion_ventas` = `dv`.`id_clasificacion_ventas`)) ;
 
 -- --------------------------------------------------------
 
@@ -12213,8 +12177,1207 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `vw_info_ventas_nacionales`;
 
-DROP VIEW IF EXISTS `vw_info_ventas_nacionales`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_info_ventas_nacionales`  AS  select `i`.`id_industria` AS `id_industria`,`cv`.`clasificacion_ventas` AS `Tipo_de_Venta`,ltrim(rtrim(`p`.`provincia`)) AS `Provincia_Destino_ventas`,`dv`.`anio` AS `anio_destino_ventas` from ((((`industria` `i` join `destino_ventas` `dv` on((`dv`.`id_industria` = `i`.`id_industria`))) join `rel_destino_ventas_provincia` `rdvpr` on((`rdvpr`.`id_destino_ventas` = `dv`.`id_destino_ventas`))) join `provincia` `p` on((`p`.`id_provincia` = `rdvpr`.`id_provincia`))) join `clasificacion_ventas` `cv` on((`cv`.`id_clasificacion_ventas` = `dv`.`id_clasificacion_ventas`))) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`mauri`@`localhost` SQL SECURITY DEFINER VIEW `vw_info_ventas_nacionales`  AS  select `i`.`id_industria` AS `id_industria`,`cv`.`clasificacion_ventas` AS `Tipo_de_Venta`,ltrim(rtrim(`p`.`provincia`)) AS `Provincia_Destino_ventas`,`dv`.`anio` AS `anio_destino_ventas` from ((((`industria` `i` join `destino_ventas` `dv` on(`dv`.`id_industria` = `i`.`id_industria`)) join `rel_destino_ventas_provincia` `rdvpr` on(`rdvpr`.`id_destino_ventas` = `dv`.`id_destino_ventas`)) join `provincia` `p` on(`p`.`id_provincia` = `rdvpr`.`id_provincia`)) join `clasificacion_ventas` `cv` on(`cv`.`id_clasificacion_ventas` = `dv`.`id_clasificacion_ventas`)) ;
+
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `actividad`
+--
+ALTER TABLE `actividad`
+  ADD PRIMARY KEY (`id_Actividad`),
+  ADD KEY `FK_actividad_rubro_actIvidad` (`id_rubro`);
+
+--
+-- Indices de la tabla `barrio`
+--
+ALTER TABLE `barrio`
+  ADD PRIMARY KEY (`id_barrio`),
+  ADD KEY `FK_barrio_localidad` (`id_localidad`);
+
+--
+-- Indices de la tabla `calle`
+--
+ALTER TABLE `calle`
+  ADD PRIMARY KEY (`id_calle`),
+  ADD KEY `FK_calle_localidad` (`id_localidad`);
+
+--
+-- Indices de la tabla `categoria_ingresos`
+--
+ALTER TABLE `categoria_ingresos`
+  ADD PRIMARY KEY (`id_categoria_ingreso`);
+
+--
+-- Indices de la tabla `certificado`
+--
+ALTER TABLE `certificado`
+  ADD PRIMARY KEY (`id_certificado`);
+
+--
+-- Indices de la tabla `clasificacion_destino_venta`
+--
+ALTER TABLE `clasificacion_destino_venta`
+  ADD PRIMARY KEY (`id_clasificacion_destino_venta`);
+
+--
+-- Indices de la tabla `clasificacion_servicio`
+--
+ALTER TABLE `clasificacion_servicio`
+  ADD PRIMARY KEY (`id_clasificacion_servicio`);
+
+--
+-- Indices de la tabla `clasificacion_ventas`
+--
+ALTER TABLE `clasificacion_ventas`
+  ADD PRIMARY KEY (`id_clasificacion_ventas`);
+
+--
+-- Indices de la tabla `condicion_iva`
+--
+ALTER TABLE `condicion_iva`
+  ADD PRIMARY KEY (`id_condicion_iva`);
+
+--
+-- Indices de la tabla `condicion_laboral`
+--
+ALTER TABLE `condicion_laboral`
+  ADD PRIMARY KEY (`id_condicion_laboral`);
+
+--
+-- Indices de la tabla `contribuyente`
+--
+ALTER TABLE `contribuyente`
+  ADD PRIMARY KEY (`id_contribuyente`),
+  ADD KEY `FK_contribuyente_barrio` (`id_barrio`),
+  ADD KEY `FK_contribuyente_calle` (`id_calle`),
+  ADD KEY `FK_contribuyente_codigo_de_regimen` (`id_regimen_ib`),
+  ADD KEY `FK_contribuyente_condicion_iva` (`id_condicion_iva`),
+  ADD KEY `FK_contribuyente_localidad` (`id_localidad`),
+  ADD KEY `FK_contribuyente_naturaleza_juridica` (`id_naturaleza_juridica`),
+  ADD KEY `FK_contribuyente_persona_juridica` (`id_persona_juridica`),
+  ADD KEY `FK_contribuyente_punto_cardinal` (`id_punto_cardinal`);
+
+--
+-- Indices de la tabla `departamento`
+--
+ALTER TABLE `departamento`
+  ADD PRIMARY KEY (`id_departamento`),
+  ADD KEY `FK_departamento_provincia` (`id_provincia`);
+
+--
+-- Indices de la tabla `destino_ventas`
+--
+ALTER TABLE `destino_ventas`
+  ADD PRIMARY KEY (`id_destino_ventas`),
+  ADD KEY `FK_destino_ventas_clasificacion_venta` (`id_clasificacion_ventas`),
+  ADD KEY `FK_destino_ventas_industria` (`id_industria`);
+
+--
+-- Indices de la tabla `dj_logs`
+--
+ALTER TABLE `dj_logs`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_industria` (`id_industria`);
+
+--
+-- Indices de la tabla `economia_del_conocimiento_clasificacion`
+--
+ALTER TABLE `economia_del_conocimiento_clasificacion`
+  ADD PRIMARY KEY (`id_economia_del_conocimiento_clasificacion`);
+
+--
+-- Indices de la tabla `economia_del_conocimiento_perfil`
+--
+ALTER TABLE `economia_del_conocimiento_perfil`
+  ADD PRIMARY KEY (`id_economia_del_conocimiento_perfil`),
+  ADD KEY `FK_economia_del_conocimiento_perfil_economia_del_conocimiento_cl` (`id_economia_del_conocimiento_clasificacion`);
+
+--
+-- Indices de la tabla `economia_del_conocimiento_sector`
+--
+ALTER TABLE `economia_del_conocimiento_sector`
+  ADD PRIMARY KEY (`id_economia_del_conocimiento_sector`),
+  ADD KEY `FK_economia_del_conocimiento_sector_economia_del_conocimiento_cl` (`id_economia_del_conocimiento_clasificacion`);
+
+--
+-- Indices de la tabla `efluente`
+--
+ALTER TABLE `efluente`
+  ADD PRIMARY KEY (`id_efluente`);
+
+--
+-- Indices de la tabla `egreso`
+--
+ALTER TABLE `egreso`
+  ADD PRIMARY KEY (`id_egreso`);
+
+--
+-- Indices de la tabla `estado_documentacion`
+--
+ALTER TABLE `estado_documentacion`
+  ADD PRIMARY KEY (`id_estado_documentacion`);
+
+--
+-- Indices de la tabla `facturacion`
+--
+ALTER TABLE `facturacion`
+  ADD PRIMARY KEY (`id_facturacion`),
+  ADD KEY `FK_facturacion_categoria_ingresos` (`id_categoria_ingresos`),
+  ADD KEY `FK_facturacion_industria` (`id_industria`);
+
+--
+-- Indices de la tabla `failed_jobs`
+--
+ALTER TABLE `failed_jobs`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
+
+--
+-- Indices de la tabla `frecuencia_de_contratacion`
+--
+ALTER TABLE `frecuencia_de_contratacion`
+  ADD PRIMARY KEY (`id_frecuencia_de_contratacion`);
+
+--
+-- Indices de la tabla `industria`
+--
+ALTER TABLE `industria`
+  ADD PRIMARY KEY (`id_industria`),
+  ADD KEY `FK_industria_barrio` (`id_barrio`),
+  ADD KEY `FK_industria_calle` (`id_calle`),
+  ADD KEY `FK_industria_contribuyente` (`id_contribuyente`),
+  ADD KEY `FK_industria_localidad` (`id_localidad`),
+  ADD KEY `FK_industria_punto_cardinal` (`id_punto_cardinal`);
+
+--
+-- Indices de la tabla `insumo`
+--
+ALTER TABLE `insumo`
+  ADD PRIMARY KEY (`id_insumo`);
+
+--
+-- Indices de la tabla `localidad`
+--
+ALTER TABLE `localidad`
+  ADD PRIMARY KEY (`id_localidad`),
+  ADD KEY `FK_localidad_departamento` (`id_departamento`),
+  ADD KEY `FK_localidad_provincia` (`id_provincia`);
+
+--
+-- Indices de la tabla `log`
+--
+ALTER TABLE `log`
+  ADD PRIMARY KEY (`id_log`),
+  ADD KEY `FK_log_login` (`id_login`),
+  ADD KEY `FK_log_opcion` (`id_opcion`);
+
+--
+-- Indices de la tabla `login`
+--
+ALTER TABLE `login`
+  ADD PRIMARY KEY (`id_login`),
+  ADD KEY `FK_login_usuario` (`id_usuario`);
+
+--
+-- Indices de la tabla `materia_prima`
+--
+ALTER TABLE `materia_prima`
+  ADD PRIMARY KEY (`id_materia_prima`);
+
+--
+-- Indices de la tabla `mejora_proyectada`
+--
+ALTER TABLE `mejora_proyectada`
+  ADD PRIMARY KEY (`id_mejora_proyectada`);
+
+--
+-- Indices de la tabla `migrations`
+--
+ALTER TABLE `migrations`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `model_has_permissions`
+--
+ALTER TABLE `model_has_permissions`
+  ADD PRIMARY KEY (`permission_id`,`model_id`,`model_type`),
+  ADD KEY `model_has_permissions_model_id_model_type_index` (`model_id`,`model_type`);
+
+--
+-- Indices de la tabla `model_has_roles`
+--
+ALTER TABLE `model_has_roles`
+  ADD PRIMARY KEY (`role_id`,`model_id`,`model_type`),
+  ADD KEY `model_has_roles_model_id_model_type_index` (`model_id`,`model_type`);
+
+--
+-- Indices de la tabla `modulo`
+--
+ALTER TABLE `modulo`
+  ADD PRIMARY KEY (`id_modulo`);
+
+--
+-- Indices de la tabla `motivo_importacion`
+--
+ALTER TABLE `motivo_importacion`
+  ADD PRIMARY KEY (`id_motivo_importacion`);
+
+--
+-- Indices de la tabla `motivo_no_mejora`
+--
+ALTER TABLE `motivo_no_mejora`
+  ADD PRIMARY KEY (`id_motivo_no_mejora`);
+
+--
+-- Indices de la tabla `motivo_ociosidad`
+--
+ALTER TABLE `motivo_ociosidad`
+  ADD PRIMARY KEY (`id_motivo_ociosidad`);
+
+--
+-- Indices de la tabla `movimiento_comercial`
+--
+ALTER TABLE `movimiento_comercial`
+  ADD PRIMARY KEY (`id_movimiento_comercial`);
+
+--
+-- Indices de la tabla `naturaleza_juridica`
+--
+ALTER TABLE `naturaleza_juridica`
+  ADD PRIMARY KEY (`id_naturaleza_juridica`);
+
+--
+-- Indices de la tabla `notificacion`
+--
+ALTER TABLE `notificacion`
+  ADD PRIMARY KEY (`id_notificacion`),
+  ADD KEY `FK_notificacion_tipo_de_notificacion` (`id_tipo_de_notificacion`);
+
+--
+-- Indices de la tabla `opcion`
+--
+ALTER TABLE `opcion`
+  ADD PRIMARY KEY (`id_opcion`),
+  ADD KEY `FK_opcion_modulo` (`id_modulo`);
+
+--
+-- Indices de la tabla `pais`
+--
+ALTER TABLE `pais`
+  ADD PRIMARY KEY (`id_pais`);
+
+--
+-- Indices de la tabla `parametro`
+--
+ALTER TABLE `parametro`
+  ADD PRIMARY KEY (`id_parametro`);
+
+--
+-- Indices de la tabla `password_resets`
+--
+ALTER TABLE `password_resets`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `periodo_de_actividad_de_contribuyente`
+--
+ALTER TABLE `periodo_de_actividad_de_contribuyente`
+  ADD PRIMARY KEY (`id_periodo_de_actividad_de_contribuyente`),
+  ADD KEY `FK_periodo_de_actividad_de_contribuyente_contribuyente` (`id_contribuyente`),
+  ADD KEY `FK_periodo_de_actividad_de_contribuyente_regimen_ib` (`id_regimen_ib`);
+
+--
+-- Indices de la tabla `periodo_de_actividad_de_industria`
+--
+ALTER TABLE `periodo_de_actividad_de_industria`
+  ADD PRIMARY KEY (`id_periodo_de_actividad_de_industria`),
+  ADD KEY `FK_periodo_de_actividad_de_industria_industria` (`id_industria`);
+
+--
+-- Indices de la tabla `periodo_fiscal`
+--
+ALTER TABLE `periodo_fiscal`
+  ADD PRIMARY KEY (`id_periodo_fiscal`);
+
+--
+-- Indices de la tabla `permiso`
+--
+ALTER TABLE `permiso`
+  ADD PRIMARY KEY (`id_permiso`),
+  ADD KEY `FK_permiso_opcion` (`seccion`),
+  ADD KEY `FK_permiso_rol` (`id_rol`);
+
+--
+-- Indices de la tabla `permissions`
+--
+ALTER TABLE `permissions`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `persona`
+--
+ALTER TABLE `persona`
+  ADD PRIMARY KEY (`id_persona`),
+  ADD KEY `FK_persona_barrio` (`id_barrio`),
+  ADD KEY `FK_persona_calle` (`id_calle`),
+  ADD KEY `FK_persona_localidad` (`id_localidad`),
+  ADD KEY `FK_persona_pais` (`id_pais`),
+  ADD KEY `FK_persona_punto_cardinal` (`id_punto_cardinal`),
+  ADD KEY `FK_persona_sexo` (`id_sexo`),
+  ADD KEY `FK_persona_tipo_de_documento` (`id_tipo_de_documento`);
+
+--
+-- Indices de la tabla `persona_juridica`
+--
+ALTER TABLE `persona_juridica`
+  ADD PRIMARY KEY (`id_persona_juridica`);
+
+--
+-- Indices de la tabla `producto`
+--
+ALTER TABLE `producto`
+  ADD PRIMARY KEY (`id_producto`);
+
+--
+-- Indices de la tabla `promocion_industrial`
+--
+ALTER TABLE `promocion_industrial`
+  ADD PRIMARY KEY (`id_promocion_industrial`);
+
+--
+-- Indices de la tabla `provincia`
+--
+ALTER TABLE `provincia`
+  ADD PRIMARY KEY (`id_provincia`),
+  ADD KEY `FK_provincia_pais` (`id_pais`);
+
+--
+-- Indices de la tabla `punto_cardinal`
+--
+ALTER TABLE `punto_cardinal`
+  ADD PRIMARY KEY (`id_punto_cardinal`);
+
+--
+-- Indices de la tabla `regimen_ib`
+--
+ALTER TABLE `regimen_ib`
+  ADD PRIMARY KEY (`id_regimen_ib`);
+
+--
+-- Indices de la tabla `rel_actividad_materia_prima`
+--
+ALTER TABLE `rel_actividad_materia_prima`
+  ADD PRIMARY KEY (`id_rel_actividad_materia_prima`),
+  ADD KEY `FK_rel_actividad_materia_prima_materia_prima` (`id_materia_prima`),
+  ADD KEY `FK_rel_actividad_materia_prima_rel_industria_actividad` (`id_rel_industria_actividad`),
+  ADD KEY `FK_rel_actividad_producto_materia_prima_motivo_importacion` (`id_motivo_importacion`),
+  ADD KEY `FK_rel_actividad_producto_materia_prima_unidad_de_medida` (`id_unidad_de_medida`);
+
+--
+-- Indices de la tabla `rel_actividad_producto`
+--
+ALTER TABLE `rel_actividad_producto`
+  ADD PRIMARY KEY (`id_rel_actividad_producto`),
+  ADD KEY `FK_rel_actividad_producto_producto` (`id_producto`),
+  ADD KEY `FK_rel_actividad_producto_rel_industria_actividad` (`id_rel_industria_actividad`),
+  ADD KEY `FK_rel_actividad_producto_unidad_de_medida` (`id_unidad_de_medida`);
+
+--
+-- Indices de la tabla `rel_destino_ventas_pais`
+--
+ALTER TABLE `rel_destino_ventas_pais`
+  ADD PRIMARY KEY (`id_rel_destino_ventas_pais`),
+  ADD KEY `FK_rel_destino_ventas_pais_destino_ventas` (`id_destino_ventas`),
+  ADD KEY `FK_rel_destino_ventas_pais_pais` (`id_pais`);
+
+--
+-- Indices de la tabla `rel_destino_ventas_provincia`
+--
+ALTER TABLE `rel_destino_ventas_provincia`
+  ADD PRIMARY KEY (`id_rel_destino_ventas_provincia`),
+  ADD KEY `FK_rel_destino_ventas_provincia_destino_ventas` (`id_destino_ventas`),
+  ADD KEY `FK_rel_destino_ventas_provincia_provincia` (`id_provincia`);
+
+--
+-- Indices de la tabla `rel_industria_actividad`
+--
+ALTER TABLE `rel_industria_actividad`
+  ADD PRIMARY KEY (`id_rel_industria_actividad`),
+  ADD KEY `FK_rel_industria_actividad_industria` (`id_industria`),
+  ADD KEY `FK_rel_industria_actividad_tb_actividad` (`id_actividad`);
+
+--
+-- Indices de la tabla `rel_industria_certificado`
+--
+ALTER TABLE `rel_industria_certificado`
+  ADD PRIMARY KEY (`id_rel_industria_certificado`),
+  ADD KEY `FK_rel_industria_certificado_certificado` (`id_certificado`),
+  ADD KEY `FK_rel_industria_certificado_estado_documentacion` (`id_estado_documentacion`),
+  ADD KEY `FKrel_industria_certificado_industria` (`id_industria`);
+
+--
+-- Indices de la tabla `rel_industria_economia_del_conocimiento_perfil`
+--
+ALTER TABLE `rel_industria_economia_del_conocimiento_perfil`
+  ADD PRIMARY KEY (`id_rel_economia_del_conocimiento_perfil`),
+  ADD KEY `FK_rel_economia_del_conocimiento_perfil_economia_del_conocimient` (`id_economia_del_conocimiento_perfil`),
+  ADD KEY `FK_rel_economia_del_conocimiento_perfil_industria` (`id_industria`);
+
+--
+-- Indices de la tabla `rel_industria_economia_del_conocimiento_sector`
+--
+ALTER TABLE `rel_industria_economia_del_conocimiento_sector`
+  ADD PRIMARY KEY (`id_rel_economia_del_conocimiento_sector`),
+  ADD KEY `FK_rel_economia_del_conocimiento_sector_economia_del_conocimient` (`id_economia_del_conocimiento_sector`),
+  ADD KEY `FK_rel_economia_del_conocimiento_sector_industria` (`id_industria`);
+
+--
+-- Indices de la tabla `rel_industria_efluente`
+--
+ALTER TABLE `rel_industria_efluente`
+  ADD PRIMARY KEY (`id_rel_industria_efluente`),
+  ADD KEY `FK_rel_industria_efluente_efluente` (`id_efluente`),
+  ADD KEY `FK_rel_industria_efluente_industria` (`id_industria`);
+
+--
+-- Indices de la tabla `rel_industria_egreso`
+--
+ALTER TABLE `rel_industria_egreso`
+  ADD KEY `ix_rel_industria_egreso_autoinc` (`id_rel_industria_egreso`),
+  ADD KEY `FK_rel_industria_egreso_egreso` (`id_egreso`),
+  ADD KEY `FK_rel_industria_egreso_industria` (`id_industria`);
+
+--
+-- Indices de la tabla `rel_industria_insumo`
+--
+ALTER TABLE `rel_industria_insumo`
+  ADD PRIMARY KEY (`id_rel_industria_insumo`),
+  ADD KEY `FK_rel_industria_insumo_industria` (`id_industria`),
+  ADD KEY `FK_rel_industria_insumo_insumo` (`id_insumo`),
+  ADD KEY `FK_rel_industria_insumo_motivo_importacion` (`id_motivo_importacion`),
+  ADD KEY `FK_rel_industria_insumo_unidad_de_medida` (`id_unidad_de_medida`);
+
+--
+-- Indices de la tabla `rel_industria_mejora_proyectada`
+--
+ALTER TABLE `rel_industria_mejora_proyectada`
+  ADD PRIMARY KEY (`rel_industria_mejoras_proyectadas`),
+  ADD KEY `FK_rel_industria_mejora_proyectada_industria` (`id_industria`),
+  ADD KEY `FK_rel_industria_mejora_proyectada_mejora_proyectada` (`id_mejora_proyectada`);
+
+--
+-- Indices de la tabla `rel_industria_motivo_no_mejora`
+--
+ALTER TABLE `rel_industria_motivo_no_mejora`
+  ADD PRIMARY KEY (`id_rel_industria_motivo_no_mejora`),
+  ADD KEY `FK_rel_industria_motivo_no_mejora_industria` (`id_industria`),
+  ADD KEY `FK_rel_industria_motivo_no_mejora_motivo_no_mejora` (`id_motivo_no_mejora`);
+
+--
+-- Indices de la tabla `rel_industria_motivo_ociosidad`
+--
+ALTER TABLE `rel_industria_motivo_ociosidad`
+  ADD PRIMARY KEY (`id_rel_industria_motivo_ociosidad`),
+  ADD KEY `FK_rel_industria_motivo_ociosidad_industria` (`id_industria`),
+  ADD KEY `FK_rel_industria_motivo_ociosidad_motivos_ociosidad` (`id_motivo_ociosidad`);
+
+--
+-- Indices de la tabla `rel_industria_movimiento_comercial`
+--
+ALTER TABLE `rel_industria_movimiento_comercial`
+  ADD PRIMARY KEY (`id_rel_actividad_movimiento_comercial`),
+  ADD KEY `FK_rel_industria_movimiento_comercial_industria` (`id_industria`),
+  ADD KEY `FK_rel_industria_movimiento_comercial_localidad` (`id_localidad`),
+  ADD KEY `FK_rel_industria_movimiento_comercial_movimiento_comercial` (`id_movimiento_comercial`),
+  ADD KEY `FK_rel_industria_movimiento_comercial_pais` (`id_pais`);
+
+--
+-- Indices de la tabla `rel_industria_promocion_industrial`
+--
+ALTER TABLE `rel_industria_promocion_industrial`
+  ADD PRIMARY KEY (`id_rel_industria_promocion_industrial`),
+  ADD KEY `FK_rel_industria_promocion_industrial_estado_documentacion` (`id_estado_documentacion`),
+  ADD KEY `FK_rel_industria_promocion_industrial_industria` (`id_industria`),
+  ADD KEY `FK_rel_industria_promocion_industrial_promocion_indutrial` (`id_promocion_industrial`);
+
+--
+-- Indices de la tabla `rel_industria_servicio`
+--
+ALTER TABLE `rel_industria_servicio`
+  ADD PRIMARY KEY (`id_rel_industria_servicio`),
+  ADD KEY `FK_rel_industria_servicio_fecuencia_de_contratacion` (`id_frecuencia_de_contratacion`),
+  ADD KEY `FK_rel_industria_servicio_industria` (`id_industria`),
+  ADD KEY `FK_rel_industria_servicio_localidad` (`id_localidad`),
+  ADD KEY `FK_rel_industria_servicio_pais` (`id_pais`),
+  ADD KEY `FK_rel_industria_servicio_servicio` (`id_servicio`),
+  ADD KEY `FK_rel_industria_servicio_unidad_de_medida` (`id_unidad_de_medida`);
+
+--
+-- Indices de la tabla `rel_industria_sistema`
+--
+ALTER TABLE `rel_industria_sistema`
+  ADD PRIMARY KEY (`id_rel_industria_sistema`),
+  ADD KEY `FK_rel_industria_sistema_estado_documentacion` (`id_estado_documentacion`),
+  ADD KEY `FK_rel_industria_sistema_sistema_de_calidad` (`id_sistema_de_calidad`),
+  ADD KEY `FK_rel_industria_sistema_industria` (`id_industria`);
+
+--
+-- Indices de la tabla `rel_industria_trabajador`
+--
+ALTER TABLE `rel_industria_trabajador`
+  ADD PRIMARY KEY (`id_rel_industria_trabajadores`),
+  ADD KEY `FK_rel_industria_trabajador_condicion_laboral` (`id_condicion_laboral`),
+  ADD KEY `FK_rel_industria_trabajador_industria` (`id_industria`),
+  ADD KEY `FK_rel_industria_trabajador_rol_trabajador` (`id_rol_trabajador`);
+
+--
+-- Indices de la tabla `rel_persona_contribuyente`
+--
+ALTER TABLE `rel_persona_contribuyente`
+  ADD PRIMARY KEY (`id_rel_persona_contribuyente`),
+  ADD KEY `FK_rel_persona_contribuyente_contribuyente` (`id_contribuyente`),
+  ADD KEY `FK_rel_persona_contribuyente_persona` (`id_persona`),
+  ADD KEY `FK_rel_persona_contribuyente_tipo_de_afectacion` (`id_tipo_de_afectacion`);
+
+--
+-- Indices de la tabla `rel_usuario_notificacion`
+--
+ALTER TABLE `rel_usuario_notificacion`
+  ADD PRIMARY KEY (`id_rel_usuario_notificacion`),
+  ADD KEY `FK_rel_usuario_notificacion_notificacion` (`id_notificacion`),
+  ADD KEY `FK_rel_usuario_notificacion_usuario` (`id_usuario`);
+
+--
+-- Indices de la tabla `rol`
+--
+ALTER TABLE `rol`
+  ADD PRIMARY KEY (`id_rol`);
+
+--
+-- Indices de la tabla `roles`
+--
+ALTER TABLE `roles`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `role_has_permissions`
+--
+ALTER TABLE `role_has_permissions`
+  ADD PRIMARY KEY (`permission_id`,`role_id`),
+  ADD KEY `role_has_permissions_role_id_foreign` (`role_id`);
+
+--
+-- Indices de la tabla `rol_trabajador`
+--
+ALTER TABLE `rol_trabajador`
+  ADD PRIMARY KEY (`id_rol_trabajador`);
+
+--
+-- Indices de la tabla `rubro_actividad`
+--
+ALTER TABLE `rubro_actividad`
+  ADD PRIMARY KEY (`id_rubro_actividad`);
+
+--
+-- Indices de la tabla `sector_industrial`
+--
+ALTER TABLE `sector_industrial`
+  ADD PRIMARY KEY (`id_sector_industrial`);
+
+--
+-- Indices de la tabla `servicio`
+--
+ALTER TABLE `servicio`
+  ADD PRIMARY KEY (`id_servicio`),
+  ADD KEY `FK_servicio_clasificacion_servicio` (`id_clasificacion_servicio`);
+
+--
+-- Indices de la tabla `sexo`
+--
+ALTER TABLE `sexo`
+  ADD PRIMARY KEY (`id_sexo`);
+
+--
+-- Indices de la tabla `sistema_de_calidad`
+--
+ALTER TABLE `sistema_de_calidad`
+  ADD PRIMARY KEY (`id_sistema_de_calidad`);
+
+--
+-- Indices de la tabla `situacion_de_planta`
+--
+ALTER TABLE `situacion_de_planta`
+  ADD PRIMARY KEY (`id_situacion_de_planta`),
+  ADD KEY `FK_situacion_de_planta_industria` (`id_industria`);
+
+--
+-- Indices de la tabla `sysdiagrams`
+--
+ALTER TABLE `sysdiagrams`
+  ADD PRIMARY KEY (`diagram_id`),
+  ADD UNIQUE KEY `UK_principal_name` (`principal_id`,`name`);
+
+--
+-- Indices de la tabla `tipo_de_afectacion`
+--
+ALTER TABLE `tipo_de_afectacion`
+  ADD PRIMARY KEY (`id_tipo_de_afectacion`);
+
+--
+-- Indices de la tabla `tipo_de_documento`
+--
+ALTER TABLE `tipo_de_documento`
+  ADD PRIMARY KEY (`id_tipo_de_documento`);
+
+--
+-- Indices de la tabla `tipo_de_notificacion`
+--
+ALTER TABLE `tipo_de_notificacion`
+  ADD PRIMARY KEY (`id_tipo_de_notificacion`);
+
+--
+-- Indices de la tabla `unidad_de_medida`
+--
+ALTER TABLE `unidad_de_medida`
+  ADD PRIMARY KEY (`id_unidad_de_medida`);
+
+--
+-- Indices de la tabla `user_role`
+--
+ALTER TABLE `user_role`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_role_FK` (`id_user`),
+  ADD KEY `user_role_FK_1` (`id_role`);
+
+--
+-- Indices de la tabla `usuario`
+--
+ALTER TABLE `usuario`
+  ADD PRIMARY KEY (`id_usuario`),
+  ADD KEY `FK_usuario_rel_persona_contribuyente` (`id_rel_persona_contribuyente`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `actividad`
+--
+ALTER TABLE `actividad`
+  MODIFY `id_Actividad` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4154;
+
+--
+-- AUTO_INCREMENT de la tabla `barrio`
+--
+ALTER TABLE `barrio`
+  MODIFY `id_barrio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1152;
+
+--
+-- AUTO_INCREMENT de la tabla `calle`
+--
+ALTER TABLE `calle`
+  MODIFY `id_calle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2851;
+
+--
+-- AUTO_INCREMENT de la tabla `categoria_ingresos`
+--
+ALTER TABLE `categoria_ingresos`
+  MODIFY `id_categoria_ingreso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT de la tabla `certificado`
+--
+ALTER TABLE `certificado`
+  MODIFY `id_certificado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT de la tabla `clasificacion_destino_venta`
+--
+ALTER TABLE `clasificacion_destino_venta`
+  MODIFY `id_clasificacion_destino_venta` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `clasificacion_servicio`
+--
+ALTER TABLE `clasificacion_servicio`
+  MODIFY `id_clasificacion_servicio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT de la tabla `clasificacion_ventas`
+--
+ALTER TABLE `clasificacion_ventas`
+  MODIFY `id_clasificacion_ventas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de la tabla `condicion_iva`
+--
+ALTER TABLE `condicion_iva`
+  MODIFY `id_condicion_iva` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT de la tabla `condicion_laboral`
+--
+ALTER TABLE `condicion_laboral`
+  MODIFY `id_condicion_laboral` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de la tabla `contribuyente`
+--
+ALTER TABLE `contribuyente`
+  MODIFY `id_contribuyente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT de la tabla `departamento`
+--
+ALTER TABLE `departamento`
+  MODIFY `id_departamento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=566;
+
+--
+-- AUTO_INCREMENT de la tabla `destino_ventas`
+--
+ALTER TABLE `destino_ventas`
+  MODIFY `id_destino_ventas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT de la tabla `dj_logs`
+--
+ALTER TABLE `dj_logs`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT de la tabla `economia_del_conocimiento_clasificacion`
+--
+ALTER TABLE `economia_del_conocimiento_clasificacion`
+  MODIFY `id_economia_del_conocimiento_clasificacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de la tabla `economia_del_conocimiento_perfil`
+--
+ALTER TABLE `economia_del_conocimiento_perfil`
+  MODIFY `id_economia_del_conocimiento_perfil` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT de la tabla `economia_del_conocimiento_sector`
+--
+ALTER TABLE `economia_del_conocimiento_sector`
+  MODIFY `id_economia_del_conocimiento_sector` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT de la tabla `efluente`
+--
+ALTER TABLE `efluente`
+  MODIFY `id_efluente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT de la tabla `egreso`
+--
+ALTER TABLE `egreso`
+  MODIFY `id_egreso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT de la tabla `estado_documentacion`
+--
+ALTER TABLE `estado_documentacion`
+  MODIFY `id_estado_documentacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de la tabla `facturacion`
+--
+ALTER TABLE `facturacion`
+  MODIFY `id_facturacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT de la tabla `failed_jobs`
+--
+ALTER TABLE `failed_jobs`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `frecuencia_de_contratacion`
+--
+ALTER TABLE `frecuencia_de_contratacion`
+  MODIFY `id_frecuencia_de_contratacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT de la tabla `industria`
+--
+ALTER TABLE `industria`
+  MODIFY `id_industria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT de la tabla `insumo`
+--
+ALTER TABLE `insumo`
+  MODIFY `id_insumo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
+-- AUTO_INCREMENT de la tabla `localidad`
+--
+ALTER TABLE `localidad`
+  MODIFY `id_localidad` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=732;
+
+--
+-- AUTO_INCREMENT de la tabla `log`
+--
+ALTER TABLE `log`
+  MODIFY `id_log` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `login`
+--
+ALTER TABLE `login`
+  MODIFY `id_login` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `materia_prima`
+--
+ALTER TABLE `materia_prima`
+  MODIFY `id_materia_prima` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de la tabla `mejora_proyectada`
+--
+ALTER TABLE `mejora_proyectada`
+  MODIFY `id_mejora_proyectada` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `migrations`
+--
+ALTER TABLE `migrations`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de la tabla `modulo`
+--
+ALTER TABLE `modulo`
+  MODIFY `id_modulo` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `motivo_importacion`
+--
+ALTER TABLE `motivo_importacion`
+  MODIFY `id_motivo_importacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT de la tabla `motivo_no_mejora`
+--
+ALTER TABLE `motivo_no_mejora`
+  MODIFY `id_motivo_no_mejora` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `motivo_ociosidad`
+--
+ALTER TABLE `motivo_ociosidad`
+  MODIFY `id_motivo_ociosidad` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT de la tabla `movimiento_comercial`
+--
+ALTER TABLE `movimiento_comercial`
+  MODIFY `id_movimiento_comercial` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT de la tabla `notificacion`
+--
+ALTER TABLE `notificacion`
+  MODIFY `id_notificacion` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `opcion`
+--
+ALTER TABLE `opcion`
+  MODIFY `id_opcion` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `pais`
+--
+ALTER TABLE `pais`
+  MODIFY `id_pais` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+
+--
+-- AUTO_INCREMENT de la tabla `parametro`
+--
+ALTER TABLE `parametro`
+  MODIFY `id_parametro` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `password_resets`
+--
+ALTER TABLE `password_resets`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT de la tabla `periodo_de_actividad_de_contribuyente`
+--
+ALTER TABLE `periodo_de_actividad_de_contribuyente`
+  MODIFY `id_periodo_de_actividad_de_contribuyente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de la tabla `periodo_de_actividad_de_industria`
+--
+ALTER TABLE `periodo_de_actividad_de_industria`
+  MODIFY `id_periodo_de_actividad_de_industria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT de la tabla `periodo_fiscal`
+--
+ALTER TABLE `periodo_fiscal`
+  MODIFY `id_periodo_fiscal` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de la tabla `permiso`
+--
+ALTER TABLE `permiso`
+  MODIFY `id_permiso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de la tabla `permissions`
+--
+ALTER TABLE `permissions`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT de la tabla `persona`
+--
+ALTER TABLE `persona`
+  MODIFY `id_persona` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT de la tabla `persona_juridica`
+--
+ALTER TABLE `persona_juridica`
+  MODIFY `id_persona_juridica` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de la tabla `producto`
+--
+ALTER TABLE `producto`
+  MODIFY `id_producto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de la tabla `promocion_industrial`
+--
+ALTER TABLE `promocion_industrial`
+  MODIFY `id_promocion_industrial` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT de la tabla `provincia`
+--
+ALTER TABLE `provincia`
+  MODIFY `id_provincia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
+
+--
+-- AUTO_INCREMENT de la tabla `punto_cardinal`
+--
+ALTER TABLE `punto_cardinal`
+  MODIFY `id_punto_cardinal` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT de la tabla `rel_actividad_materia_prima`
+--
+ALTER TABLE `rel_actividad_materia_prima`
+  MODIFY `id_rel_actividad_materia_prima` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de la tabla `rel_actividad_producto`
+--
+ALTER TABLE `rel_actividad_producto`
+  MODIFY `id_rel_actividad_producto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de la tabla `rel_destino_ventas_pais`
+--
+ALTER TABLE `rel_destino_ventas_pais`
+  MODIFY `id_rel_destino_ventas_pais` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+
+--
+-- AUTO_INCREMENT de la tabla `rel_destino_ventas_provincia`
+--
+ALTER TABLE `rel_destino_ventas_provincia`
+  MODIFY `id_rel_destino_ventas_provincia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+
+--
+-- AUTO_INCREMENT de la tabla `rel_industria_actividad`
+--
+ALTER TABLE `rel_industria_actividad`
+  MODIFY `id_rel_industria_actividad` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT de la tabla `rel_industria_certificado`
+--
+ALTER TABLE `rel_industria_certificado`
+  MODIFY `id_rel_industria_certificado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT de la tabla `rel_industria_economia_del_conocimiento_perfil`
+--
+ALTER TABLE `rel_industria_economia_del_conocimiento_perfil`
+  MODIFY `id_rel_economia_del_conocimiento_perfil` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT de la tabla `rel_industria_economia_del_conocimiento_sector`
+--
+ALTER TABLE `rel_industria_economia_del_conocimiento_sector`
+  MODIFY `id_rel_economia_del_conocimiento_sector` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT de la tabla `rel_industria_efluente`
+--
+ALTER TABLE `rel_industria_efluente`
+  MODIFY `id_rel_industria_efluente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de la tabla `rel_industria_egreso`
+--
+ALTER TABLE `rel_industria_egreso`
+  MODIFY `id_rel_industria_egreso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
+-- AUTO_INCREMENT de la tabla `rel_industria_insumo`
+--
+ALTER TABLE `rel_industria_insumo`
+  MODIFY `id_rel_industria_insumo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT de la tabla `rel_industria_mejora_proyectada`
+--
+ALTER TABLE `rel_industria_mejora_proyectada`
+  MODIFY `rel_industria_mejoras_proyectadas` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `rel_industria_motivo_no_mejora`
+--
+ALTER TABLE `rel_industria_motivo_no_mejora`
+  MODIFY `id_rel_industria_motivo_no_mejora` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `rel_industria_motivo_ociosidad`
+--
+ALTER TABLE `rel_industria_motivo_ociosidad`
+  MODIFY `id_rel_industria_motivo_ociosidad` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT de la tabla `rel_industria_movimiento_comercial`
+--
+ALTER TABLE `rel_industria_movimiento_comercial`
+  MODIFY `id_rel_actividad_movimiento_comercial` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `rel_industria_promocion_industrial`
+--
+ALTER TABLE `rel_industria_promocion_industrial`
+  MODIFY `id_rel_industria_promocion_industrial` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de la tabla `rel_industria_servicio`
+--
+ALTER TABLE `rel_industria_servicio`
+  MODIFY `id_rel_industria_servicio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT de la tabla `rel_industria_sistema`
+--
+ALTER TABLE `rel_industria_sistema`
+  MODIFY `id_rel_industria_sistema` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT de la tabla `rel_industria_trabajador`
+--
+ALTER TABLE `rel_industria_trabajador`
+  MODIFY `id_rel_industria_trabajadores` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
+
+--
+-- AUTO_INCREMENT de la tabla `rel_persona_contribuyente`
+--
+ALTER TABLE `rel_persona_contribuyente`
+  MODIFY `id_rel_persona_contribuyente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT de la tabla `rel_usuario_notificacion`
+--
+ALTER TABLE `rel_usuario_notificacion`
+  MODIFY `id_rel_usuario_notificacion` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `rol`
+--
+ALTER TABLE `rol`
+  MODIFY `id_rol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT de la tabla `roles`
+--
+ALTER TABLE `roles`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT de la tabla `rol_trabajador`
+--
+ALTER TABLE `rol_trabajador`
+  MODIFY `id_rol_trabajador` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT de la tabla `sector_industrial`
+--
+ALTER TABLE `sector_industrial`
+  MODIFY `id_sector_industrial` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de la tabla `servicio`
+--
+ALTER TABLE `servicio`
+  MODIFY `id_servicio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+
+--
+-- AUTO_INCREMENT de la tabla `sistema_de_calidad`
+--
+ALTER TABLE `sistema_de_calidad`
+  MODIFY `id_sistema_de_calidad` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+
+--
+-- AUTO_INCREMENT de la tabla `situacion_de_planta`
+--
+ALTER TABLE `situacion_de_planta`
+  MODIFY `id_situacion_de_planta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT de la tabla `sysdiagrams`
+--
+ALTER TABLE `sysdiagrams`
+  MODIFY `diagram_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT de la tabla `tipo_de_afectacion`
+--
+ALTER TABLE `tipo_de_afectacion`
+  MODIFY `id_tipo_de_afectacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT de la tabla `tipo_de_notificacion`
+--
+ALTER TABLE `tipo_de_notificacion`
+  MODIFY `id_tipo_de_notificacion` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `unidad_de_medida`
+--
+ALTER TABLE `unidad_de_medida`
+  MODIFY `id_unidad_de_medida` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT de la tabla `user_role`
+--
+ALTER TABLE `user_role`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT de la tabla `usuario`
+--
+ALTER TABLE `usuario`
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Restricciones para tablas volcadas
@@ -12342,7 +13505,6 @@ ALTER TABLE `periodo_de_actividad_de_industria`
 -- Filtros para la tabla `permiso`
 --
 ALTER TABLE `permiso`
-  ADD CONSTRAINT `FK_permiso_opcion` FOREIGN KEY (`id_opcion`) REFERENCES `opcion` (`id_opcion`),
   ADD CONSTRAINT `FK_permiso_rol` FOREIGN KEY (`id_rol`) REFERENCES `rol` (`id_rol`);
 
 --
@@ -12537,6 +13699,13 @@ ALTER TABLE `servicio`
 --
 ALTER TABLE `situacion_de_planta`
   ADD CONSTRAINT `FK_situacion_de_planta_industria` FOREIGN KEY (`id_industria`) REFERENCES `industria` (`id_industria`);
+
+--
+-- Filtros para la tabla `user_role`
+--
+ALTER TABLE `user_role`
+  ADD CONSTRAINT `user_role_FK` FOREIGN KEY (`id_user`) REFERENCES `usuario` (`id_usuario`),
+  ADD CONSTRAINT `user_role_FK_1` FOREIGN KEY (`id_role`) REFERENCES `rol` (`id_rol`);
 
 --
 -- Filtros para la tabla `usuario`

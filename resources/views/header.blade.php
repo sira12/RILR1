@@ -81,8 +81,8 @@
 
 
                         <span class="ml-2 d-lg-block">
-                            <h5 class="text-dark mb-0">{{$contribuyente->razon_social}}</h5>
-                            <small class="text-info mb-0">{{$contribuyente->cuit}}</small>
+                            <h5 class="text-dark mb-0">{{-- {{$contribuyente->razon_social}} --}}</h5>
+                            <small class="text-info mb-0">{{-- {{$contribuyente->cuit}} --}}</small>
                         </span>
                     </a>
 
@@ -96,8 +96,8 @@
 
 
                             <div class="ml-2">
-                                <h5 class="mb-0"><abbr title="Nombres/Razón Social">{{$contribuyente->razon_social}}</abbr></h5>
-                                <p class="mb-0 text-muted"><abbr title="Correo Electrónico">{{$contribuyente->email_fiscal}}</abbr></p>
+                                <h5 class="mb-0"><abbr title="Nombres/Razón Social">{{-- {{$contribuyente->razon_social}} --}}</abbr></h5>
+                                <p class="mb-0 text-muted"><abbr title="Correo Electrónico">{{-- {{$contribuyente->email_fiscal}} --}}</abbr></p>
                                
                             </div>
                         </div>
