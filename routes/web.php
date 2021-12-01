@@ -27,6 +27,8 @@ use App\Http\Controllers\SistemasCalidadController;
 use App\Mail\RegistroMailable;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Mail;
+use App\Http\Controllers\SolicitudesController;
+use App\Http\Controllers\ContribuyentesAdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -301,3 +303,20 @@ Route::get('/reset-password/{token}', [NewPasswordController::class, 'create'])
 Route::post('/reset-password', [NewPasswordController::class, 'store'])
                 ->middleware('guest')
                 ->name('password.update'); */
+
+
+
+
+
+//#######################MODULO ADMINISTRADOR###########################
+
+
+
+Route::post('/getSolicitudes',[IndexController::class,'getSolicitudes'])->middleware(['auth']);
+
+
+Route::post('/s_aprove',[SolicitudesController::class,'aprobarSolicitud'])->middleware(['auth']);
+Route::get('/contribuyentes',[ContribuyentesAdminController::class,'index'])->middleware(['auth']);
+
+Route::post('/getinds',[ContribuyentesAdminController::class,'getIndustrias'])->middleware(['auth']);
+Route::post('/ver_ind',[ContribuyentesAdminController::class,'verInd'])->middleware(['auth']);

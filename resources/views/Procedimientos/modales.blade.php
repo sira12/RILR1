@@ -1,3 +1,6 @@
+
+
+
 <!-- Moodal Ver Detalle Actividad -->
 <div id="MyModalDetalleActividad" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">

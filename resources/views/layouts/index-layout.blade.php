@@ -50,6 +50,8 @@
 
     <script src="{{ asset('js/functions.js')}}"></script>
 
+    <script src="{{ asset('js/PanelAdmin.js')}}"></script>
+
     <link rel="stylesheet" href="{{asset('assets/venobox/venobox/venobox.min.css')}}" />
     <script src="{{asset('assets/venobox/venobox/venobox.min.js')}}"></script>
 

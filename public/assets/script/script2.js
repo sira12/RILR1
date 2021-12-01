@@ -1093,61 +1093,10 @@ function Refrescar() {
 }
 
 
-// FUNCION PARA MOSTRAR SOLICITUD EN VENTANA MODAL
-function VerSolicitud(id_rel_persona_contribuyente) {
-
-  $('#muestrasolicitudmodal').html('<center><i class="fa fa-spin fa-spinner"></i> Cargando información, por favor espere....</center>');
-
-  var dataString = 'BuscaDetalleContribuyenteModal=si&id_rel_persona_contribuyente=' + id_rel_persona_contribuyente;
-
-  $.ajax({
-    type: "GET",
-    url: "funciones.php",
-    data: dataString,
-    success: function (response) {
-      $('#muestrasolicitudmodal').empty();
-      $('#muestrasolicitudmodal').append('' + response + '').fadeIn("slow");
-
-    }
-  });
-}
 
 
-// FUNCION PARA VERIFICAR SOLICITUD
-function VerificarSolicitud(id_rel_persona_contribuyente, persona, contribuyente, cuit, razon_social, documento, nombre, tel_celular, email_fiscal) {
-  // aqui asigno cada valor a los campos correspondientes
-  $("#verificasolicitud #id_rel_persona_contribuyente").val(id_rel_persona_contribuyente);
-  $("#verificasolicitud #persona").val(persona);
-  $("#verificasolicitud #contribuyente").val(contribuyente);
-  $("#verificasolicitud #empresa").val(razon_social);
-  $("#verificasolicitud #email").val(email_fiscal);
-  $("#verificasolicitud #cuit").val(cuit);
-  $("#verificasolicitud #razon_social").val(razon_social);
-  $("#verificasolicitud #documento").val(documento);
-  $("#verificasolicitud #nombre").val(nombre);
-  $("#verificasolicitud #tel_celular").val(tel_celular);
-  $("#verificasolicitud #email_fiscal").val(email_fiscal);
-}
 
 
-//FUNCIONES PARA MOSTRAR OBSERVACIONES DE SOLICITUD
-function MuestraObservacion() {
-
-  var status = $('input:radio[name=status]:checked').val();
-  var valor = $("#observaciones_status").val();
-
-  if (status == 1 || status == true) {
-
-    //deshabilitamos
-    $("#observaciones_status").val('SU SOLICITUD FUE APROBADA EXITOSAMENTE, DEBE INGRESAR AL SISTEMA CON SU Nº DE CUIT Y PASSWORD INGRESADO EN EL REGISTRO INICIAL');
-
-  } else {
-
-    // habilitamos
-    $("#observaciones_status").val('SU SOLICITUD HA SIDO RECHAZADA, POR FAVOR COMUNIQUESE CON INDUSTRIA O DIRIJASE A NUESTRAS INSTALACIONES PARA MAYOR INFORMACIÓN');
-
-  }
-}
 
 /////FUNCION PARA ENVIO DE EMAIL PENDEINTES
 function EnvioEmail(id_rel_persona_contribuyente, razon_social, email_fiscal, observaciones_status, status_solicitud, tipo) {

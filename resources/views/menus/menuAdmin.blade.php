@@ -49,7 +49,7 @@
             <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-account-multiple"></i><span class="hide-menu">Contribuyentes</span></a>
                 <ul aria-expanded="false" class="collapse first-level">
     
-                    <li class="sidebar-item"><a href="contribuyentes" class="sidebar-link"><i class="mdi mdi-rounded-corner"></i><span class="hide-menu"> Contribuyentes</span></a></li>
+                    <li class="sidebar-item"><a href="{{url('contribuyentes')}}" class="sidebar-link"><i class="mdi mdi-rounded-corner"></i><span class="hide-menu"> Contribuyentes</span></a></li>
     
                     <li class="sidebar-item"><a href="email_pendientes" class="sidebar-link"><i class="mdi mdi-cart-plus"></i><span class="hide-menu"> Email no Enviados</span></a></li>
                                                                     

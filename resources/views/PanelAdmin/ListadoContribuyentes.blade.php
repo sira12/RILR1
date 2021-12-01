@@ -38,7 +38,7 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header bg-dark">
-                        <h4 class="card-title text-white"><i class="fa fa-tasks"></i> Solicitudes <a href="javascript:void(0)" class="pull-right text-white" onClick="getSolicitudes();"><i class="mdi mdi-refresh"></i> Refrescar</a></h4>
+                        <h4 class="card-title text-white"><i class="fa fa-tasks"></i> Listado de Contribuyentes <a href="javascript:void(0)" class="pull-right text-white" onClick="getSolicitudes();"><i class="mdi mdi-refresh"></i> Refrescar</a></h4>
                     </div>
 
                     <div class="form-body">
@@ -46,38 +46,39 @@
                         <div class="card-body">
 
                             <div class="row">
+                                
 
                                 <div class="col-md-7">
-
-                                    <div class="btn-group m-b-20">
-                                        <a class="btn waves-effect waves-light btn-light" href="reportepdf?tipo=<?php echo encrypt("SOLICITUDES") ?>" target="_blank" rel="noopener noreferrer" data-toggle="tooltip" data-placement="bottom" title="Exportar Pdf"><span class="fa fa-file-pdf-o text-dark"></span> Pdf</a>
-
-                                        <a class="btn waves-effect waves-light btn-light" href="reporteexcel?documento=<?php echo encrypt("EXCEL") ?>&tipo=<?php echo encrypt("SOLICITUDES") ?>" data-toggle="tooltip" data-placement="bottom" title="Exportar Excel"><span class="fa fa-file-excel-o text-dark"></span> Excel</a>
-
-                                        <a class="btn waves-effect waves-light btn-light" href="reporteexcel?documento=<?php echo encrypt("WORD") ?>&tipo=<?php echo encrypt("SOLICITUDES") ?>" data-toggle="tooltip" data-placement="bottom" title="Exportar Word"><span class="fa fa-file-word-o text-dark"></span> Word</a>
-                                    </div>
+                                    
                                 </div>
                             </div>
 
                             <div >
-
                                 <div class="table-responsive">
-                                    <table style="width:100%;overflow-x: auto" class="table table-striped table-bordered border display solicitudes_Paneladmin">
+                                    <table style="width:100%;overflow-x: auto" class="table table-striped table-bordered border display ">
 
                                         <thead>
                                         <tr role="row">
                                         <th>N°</th>
-                                       
                                         <th>Cuit</th>
                                         <th>Razón Social</th>
-                                        <th>N° de Documento</th>
                                         <th>Nombres y Apellidos</th>
-                                        <th>Nº de Teléfono</th>
-                                        <th>Fecha</th>
+                                        <th>DNI</th>
                                         <th>Acciones</th>
                                         </tr>
                                         </thead>
                                         <tbody >
+
+                                            @foreach ($contribuyentes as $index=>$cbt )
+                                                <tr>
+                                                    <td>{{$index+1}}</td>
+                                                    <td>{{$cbt->cuit}}</td>
+                                                    <td>{{$cbt->razon_social}}</td>
+                                                    <td>{{$cbt->nombrePersona}}</td>
+                                                    <td>{{$cbt->dniPersona}}</td>
+                                                    <td><span style="cursor: pointer;" data-placement="left" title="Ver Industrias" data-original-title="" data-href="#" data-toggle="modal" data-target="#myModalVerCbt" data-backdrop="static" data-keyboard="false" onclick="VerCbt({{$cbt->id_contribuyente}})"><i class="mdi mdi-eye font-22 text-danger"></i></span></td>
+                                                </tr>
+                                            @endforeach
 
                                                                                         
                                         </tbody>

@@ -2434,6 +2434,11 @@ function getTramite() {
 
 function lanzador() {
 
+    if(window.location.pathname == "/dash"){
+        getSolicitudes();
+    }
+
+
     //si se encuentra seteado el id de la industria es por que se está editando
     if (
         $("#id_industria_modal").val() != undefined &&
