@@ -21,6 +21,7 @@ use App\Http\Controllers\LocalidadController;
 use App\Mail\RegistroMailable;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
+use PhpParser\Node\Stmt\TryCatch;
 
 class RegisteredUserController extends Controller
 {
@@ -35,10 +36,10 @@ class RegisteredUserController extends Controller
         $personaJuridica = PersonaJuridica::all();
         $afectacion = Afectacion::where('activo', "S")->get();
         $tipo_documento = Documento::all();
-        $provincias=DB::table('provincia')->where('id_pais',1)->get();
+        $provincias = DB::table('provincia')->where('id_pais', 1)->get();
 
         return view('auth.reggister', [
-            'provincias'=> $provincias,
+            'provincias' => $provincias,
             'afectacion' => $afectacion,
             'tipo_doc' => $tipo_documento,
             'personaJuridica' => $personaJuridica
@@ -57,130 +58,119 @@ class RegisteredUserController extends Controller
     public function store(Request $request)
     {
 
+        try {
+            $contribuyente = DB::table('contribuyente')->where('cuit', $request->cuit)->get();
+            if (count($contribuyente) > 0) {
+                return response()->json(array('status' => 1, 'msg' => "El cuit ingresado ya existe"), 200);
+            }
 
-        if ($request->id_localidad == null) {
-            $localidad = new LocalidadController();
-            $id_localidad = $localidad->Store($request->search_localidad, $request->id_provincia);
-        } else {
-            $id_localidad = $request->id_localidad;
-        }
-        //si el barrio no fue encontrado, guardamos nuevo barrio
-        if ($request->id_barrio == null) {
-            $barrio = new BarrioController();
-            $id_barrio = $barrio->Store($request, $id_localidad);
-        } else {
-            $id_barrio = $request->id_barrio;
-        }
-
-        //si la calle no fue encontrada, Guardar nueva calle
-        if ($request->id_calle == null) {
-            $calle = new CalleController();
-            $id_calle = $calle->Store($request, $id_localidad);
-        } else {
-            $id_calle = $request->id_calle;
-        }
-
-        //persona
-
-        $persona = new PersonaController();
-        //le paso los datos a guardar, y obtengo el id del registro que se acaba de cargar
-        $id_persona = $persona->Store($request, $id_localidad, $id_barrio, $id_calle);
+            $mail = DB::table('usuario')->where('email', $request->email_fiscal)->get();
+            if (count($mail) > 0) {
+                return response()->json(array('status' => 1, 'msg' => "El mail ingresado ya existe"), 200);
+            }
 
 
 
-        //contribuyente
+            if ($request->id_localidad == null) {
+                $localidad = new LocalidadController();
+                $id_localidad = $localidad->Store($request->search_localidad, $request->id_provincia);
+            } else {
+                $id_localidad = $request->id_localidad;
+            }
+            //si el barrio no fue encontrado, guardamos nuevo barrio
+            if ($request->id_barrio == null) {
+                $barrio = new BarrioController();
+                $id_barrio = $barrio->Store($request, $id_localidad);
+            } else {
+                $id_barrio = $request->id_barrio;
+            }
 
-        $contribuyente = new ContribuyenteController();
-        //le paso los datos a guardar, y obtengo el id del registro que se acaba de cargar
-        $id_contribuyente = $contribuyente->Store($request);
+            //si la calle no fue encontrada, Guardar nueva calle
+            if ($request->id_calle == null) {
+                $calle = new CalleController();
+                $id_calle = $calle->Store($request, $id_localidad);
+            } else {
+                $id_calle = $request->id_calle;
+            }
+
+            //persona
+
+            $persona = new PersonaController();
+            //le paso los datos a guardar, y obtengo el id del registro que se acaba de cargar
+            $id_persona = $persona->Store($request, $id_localidad, $id_barrio, $id_calle);
 
 
-        //rel persona contribuyente
-        //compruebo mimes
-        $findme0   = '.jpg';
-        $findme   = '.png';
-        $findme2 = '.pdf';
-        $fecha = \Carbon\Carbon::now()->format('d-m-Y');
+            //contribuyente
 
-        if ($request->tipo_personeria == 2) {
+            $contribuyente = new ContribuyenteController();
+            //le paso los datos a guardar, y obtengo el id del registro que se acaba de cargar
+            $id_contribuyente = $contribuyente->Store($request);
 
 
+            //rel persona contribuyente      
+            $fecha = \Carbon\Carbon::now()->format('d-m-Y');
 
-            //para vinculacion
-            $vinculacion = $request->file('vinculacion');
-            $nombre_vinculacion = strtolower($vinculacion->getClientOriginalName());
-            $pos0 = strpos($nombre_vinculacion, $findme0);
-            $pos1 = strpos($nombre_vinculacion, $findme);
-            $pos2 = strpos($nombre_vinculacion, $findme2);
-            //guardar imagen
-            //detectar mime, para mandar a un disco u otro
-            if ($pos1 !== false || $pos0 !== false) {
-                //es una imagen,guardo en disco para imagenes
-                $path1 = $vinculacion->storeAs("/images/vinculacion", ($request->documento . "_" . $fecha . '.' . $vinculacion->extension()));
-            } else if ($pos2 !== false) {
+            if ($request->tipo_personeria == 2) {
+                //para vinculacion
+                $vinculacion = $request->file('vinculacion');
                 //guardo en disco para pdfs
                 $path1 = $vinculacion->storeAs("/documents/vinculacion", ($request->documento . "_" . $fecha . '.' . $vinculacion->extension()));
+            } else {
+                $path1 = NULL; //se le pasa nulo, ya que no solicita el doc vinculante
             }
-        } else {
-            $path1 = NULL; //se le pasa nulo, ya que no solicita el doc vinculante
-        }
 
-        //para apoderado
-        if ($request->id_tipo_de_afectacion == 5) {
-            $apoderado = $request->file('apoderado');
-            $nombre_apoderado = strtolower($apoderado->getClientOriginalName());
-
-            $pos3 = strpos($nombre_apoderado, $findme0);
-            $pos4 = strpos($nombre_apoderado, $findme);
-            $pos5 = strpos($nombre_apoderado, $findme2);
-
-            //guardar imagen
-            //detectar mime, para mandar a un disco u otro
-            if ($pos3 !== false || $pos4 !== false) {
-
-                $path2 = $apoderado->storeAs("/images/apoderado", ($request->documento . "_" . $fecha . '.' . $apoderado->extension()));
-            } else if ($pos5 !== false) {
+            //para apoderado
+            if ($request->id_tipo_de_afectacion == 5) {
+                $apoderado = $request->file('apoderado');
                 //guardo en disco para pdfs
                 $path2 = $apoderado->storeAs("/documents/apoderado", ($request->documento . "_" . $fecha . '.' . $apoderado->extension()));
+            } else {
+                $path2 = NULL;
             }
-        } else {
-            $path2 = NULL;
+
+            $fecha_time = \Carbon\Carbon::now();
+
+            $id = DB::table('rel_persona_contribuyente')->insertGetId([
+                'id_persona' => $id_persona,
+                'id_contribuyente' => $id_contribuyente,
+                'id_tipo_de_afectacion' => $request->id_tipo_de_afectacion,
+                'autorizado' => "P",
+                'fecha_de_actualizacion' => $fecha_time,
+                'documento_vinculante' => $path1,
+                'documento_poder' => $path2
+            ]);
+
+            //registro usuario
+            $user = User::create([
+                'id_rel_persona_contribuyente' => $id,
+                'usuario' => $request->nombre,
+                'email' => $request->email_fiscal,
+                'password' => Hash::make($request->password),
+                'autorizado' => "P",
+                'fecha_alta' => $fecha_time,
+                'activo' => "P",
+                'fecha_de_actualizacion' => $fecha_time
+            ]);
+
+            //event(new Registered($user));
+
+            $correo = new RegistroMailable;
+            Mail::to($request->email_fiscal)->send($correo);
+
+            return response()->json(array('status' => 200, 'msg' => "Guardado Correctamente"), 200);
+        } catch (\Throwable $th) {
+
+            return response()->json([
+                'status' => 400,
+                'msg' => 'Ha ocurrido un error',
+                'errors'  => $th->getMessage(),
+            ], 400);
         }
-
-        $fecha_time = \Carbon\Carbon::now();
-
-        $id = DB::table('rel_persona_contribuyente')->insertGetId([
-            'id_persona' => $id_persona,
-            'id_contribuyente' => $id_contribuyente,
-            'id_tipo_de_afectacion' => $request->id_tipo_de_afectacion,
-            'autorizado' => "P",
-            'fecha_de_actualizacion' => $fecha_time,
-            'documento_vinculante' => $path1,
-            'documento_poder' => $path2
-        ]);
-
-        //registro usuario
-        $user = User::create([
-            'id_rel_persona_contribuyente' => $id,
-            'usuario' => $request->nombre,
-            'email' => $request->email_fiscal,
-            'password' => Hash::make($request->password),
-            'autorizado' => "P",
-            'fecha_alta' => $fecha_time,
-            'activo' => "P",
-            'fecha_de_actualizacion' => $fecha_time
-        ]);
-
-        //event(new Registered($user));
-
-        $correo = new RegistroMailable;
-        Mail::to($request->email_fiscal)->send($correo);
-
-        return response()->json(array('status' => 200, 'msg' => "Guardado Correctamente"), 200);
     }
 
 
-    public function RegisterUser(Request $request){
+    public function RegisterUser(Request $request)
+    {
 
         $fecha_time = \Carbon\Carbon::now();
 

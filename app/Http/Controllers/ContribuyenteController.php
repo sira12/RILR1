@@ -16,9 +16,10 @@ use Illuminate\Support\Facades\DB;
 class ContribuyenteController extends Controller
 {
 
-    public function getContribuyente(Request $request){
+    public function getContribuyente(Request $request)
+    {
 
-        $contribuyente=DB::table('contribuyente')->where('id_contribuyente',intval($request->id_contribuyente))->get();
+        $contribuyente = DB::table('contribuyente')->where('id_contribuyente', intval($request->id_contribuyente))->get();
         return response()->json($contribuyente);
     }
     /**
@@ -63,34 +64,18 @@ class ContribuyenteController extends Controller
 
 
         $afip = $request->file('afip');
-        $nombre_afip = strtolower($afip->getClientOriginalName());
 
-        //compruebo mimes
-        $findme0 = '.jpg';
-        $findme = '.png';
-        $findme2 = '.pdf';
 
-        $pos0 = strpos($nombre_afip, $findme0);
-        $pos1 = strpos($nombre_afip, $findme);
-        $pos2 = strpos($nombre_afip, $findme2);
+
         $fecha = \Carbon\Carbon::now()->format('d-m-Y');
 
         //guardar imagen
-        //detectar mime, para mandar a un disco u otro
-        if ($pos1 !== false || $pos0 !== false) {
-            //es una imagen,guardo en disco para imagenes
 
-            $path = $afip->storeAs("/images/contribuyentes", ($request->cuit . "_" . $fecha . '.' . $afip->extension()));
+        //guardo en disco para pdfs
+        $path = $afip->storeAs("/documents/contribuyentes", ($request->cuit . "_" . $fecha . '.' . $afip->extension()));
 
-            $contribuyente->constancia_afip = $path;
+        $contribuyente->constancia_afip = $path;
 
-        } else if ($pos2 !== false) {
-
-            //guardo en disco para pdfs
-            $path = $afip->storeAs("/documents/contribuyentes", ($request->cuit . "_" . $fecha . '.' . $afip->extension()));
-
-            $contribuyente->constancia_afip = $path;
-        }
         $contribuyente->save();
         //id del registro que se acaba de cargar
         $id = $contribuyente->id_contribuyente;
@@ -156,7 +141,7 @@ class ContribuyenteController extends Controller
 
         $zona = PuntoCardinal::all();
 
-      
+
 
         return view('Contribuyente.edit', [
             'id_contribuyente' => $id,
@@ -195,8 +180,8 @@ class ContribuyenteController extends Controller
 
         $fecha = Carbon::createFromFormat('d-m-Y', $params['fecha_actividad_contribuyente'])->toDateTimeString();
 
-        $email_duplicado = Contribuyente::where('id_contribuyente','!=',$params['id_contribuyente'],'and')
-                                        ->where('email_fiscal', '=', $params['email_fiscal'])->get();
+        $email_duplicado = Contribuyente::where('id_contribuyente', '!=', $params['id_contribuyente'], 'and')
+            ->where('email_fiscal', '=', $params['email_fiscal'])->get();
 
         if (count($email_duplicado) > 0) {
             // si el mail está duplicado
@@ -242,10 +227,7 @@ class ContribuyenteController extends Controller
 
             $msg = "¡Datos Actualizados exitosamente!";
             return response()->json(array('status' => 200, 'msg' => $msg), 200);
-
         }
-
-
     }
 
     /**

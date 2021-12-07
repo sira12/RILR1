@@ -10,6 +10,6 @@
 
 <h3>Gracias por registrarte en el Sistema de Registro de Establecimiento industrial</h3>
 
-<span>Podes iniciar Sesion</span><a href="http://127.0.0.1:8000/">Aqui</a>
+<span>Podes iniciar Sesion </span><a href="https://registroindustrial.larioja.gob.ar">Aqui</a>
 </body>
 </html>

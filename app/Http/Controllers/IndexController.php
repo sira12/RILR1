@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Industria;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use Yajra\DataTables\DataTables;
-
+use App\Http\Controllers\User;
 class IndexController extends Controller
 {
     /**
@@ -49,10 +49,8 @@ class IndexController extends Controller
     public function getSolicitudes(Request $request){
 
 
-        $AuthController = new AuthenticatedSessionController();
-        $user = auth()->user();
-        $user->roles=$AuthController->getRoleUser($user->id_usuario);
-        $user->roleNames=$AuthController->roleNames($user->id_usuario);
+        $AuthController = new User();
+        $user=$AuthController->GetinfoUser();
 
         if ($request->ajax()) {
             $data =DB::table('rel_persona_contribuyente')

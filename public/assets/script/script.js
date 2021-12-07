@@ -1708,7 +1708,6 @@ $('document').ready(function() {
                 minlength: 11,
                 maxlength: 11,
                 digits: true,
-                checkCuit:true
             },
             razonsocial: {
                 required: true,
@@ -1756,7 +1755,6 @@ $('document').ready(function() {
             email_fiscal: {
                 required: true,
                 email: true,
-                checkmail:true
             },
             celular: {
                 required: true,
@@ -1833,7 +1831,6 @@ $('document').ready(function() {
             cuit: {
                 required: "Ingrese N&deg; de CUIT/CUIL",
                 digits: "Ingrese solo digitos",
-                checkCuit:"Este cuit/cuil ya se encuentra registrado, por favor intente con otro.",
                 minlength: "Ingrese 11 d&iacute;gitos como minimo",
                 maxlength: "Ingrese 11 d&iacute;gitos como m&aacute;ximo"
             },
@@ -1883,7 +1880,6 @@ $('document').ready(function() {
             email_fiscal: {
                 required: "Ingrese Email de Usuario",
                 email: "Ingrese un Email V&aacute;lido",
-                checkmail:"El mail ya esta en uso, por favor intente con otro"
             },
             celular: {
                 required: "Ingrese N&deg; de Celular"
@@ -1923,7 +1919,7 @@ $('document').ready(function() {
                     if (data.status == 1) {
                         $("#save").fadeIn(1000, function() {
                             var n = noty({
-                                text: "<span class='fa fa-warning'></span> POR FAVOR DEBE DE COMPLETAR LOS CAMPOS REQUERIDOS, VERIFIQUE NUEVAMENTE POR FAVOR...!",
+                                text: "<span class='fa fa-warning'></span>"+data.msg,
                                 theme: 'defaultTheme',
                                 layout: 'center',
                                 type: 'warning',
@@ -1932,7 +1928,7 @@ $('document').ready(function() {
                             //document.getElementById('siimage').src = 'assets/captcha/securimage_show.php?sid=' + Math.random();
                             //this.blur();
                             //$('#captcha1').val("");
-                            //$("#btn-submit").html('<span class="fa fa-save"></span> Guardar');
+                            $("#btn-submit").html('<span class="fa fa-save"></span> Crear Cuenta');
                         });
                     } else if(data.status== 200) {
                         $("#save").fadeIn(1000, function() {
@@ -1949,6 +1945,19 @@ $('document').ready(function() {
                             //this.blur();
                             //$("#btn-submit").html('<span class="fa fa-save"></span> Guardar');
                         });
+                    }else if(data.status== 400){
+
+                        $("#save").fadeIn(1000, function() {
+                            var n = noty({
+                                text: "<span class='fa fa-warning'></span>"+data.msg,
+                                theme: 'defaultTheme',
+                                layout: 'center',
+                                type: 'warning',
+                                timeout: 6000,
+                            });
+                            $("#btn-submit").html('<span class="fa fa-save"></span> Crear Cuenta');
+                        });
+
                     }
                 }
             });
