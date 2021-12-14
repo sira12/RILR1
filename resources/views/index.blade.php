@@ -56,43 +56,6 @@
         </div>
 
 
-        {{-- <!-- Row --> tabla admin usuarios
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="card">
-                                        <div class="card-header bg-dark">
-                                            <h4 class="card-title text-white"><i class="fa fa-tasks"></i> Solicitudes <a href="javascript:void(0)" class="pull-right text-white" onClick="Refrescar();"><i class="mdi mdi-refresh"></i> Refrescar</a></h4>
-                                        </div>
-
-                                        <div class="form-body">
-
-                                            <div class="card-body">
-
-                                                <div class="row">
-
-                                                    <div class="col-md-7">
-
-                                                        <div class="btn-group m-b-20">
-                                                            <a class="btn waves-effect waves-light btn-light" href="reportepdf?tipo=<?php echo encrypt("SOLICITUDES") ?>" target="_blank" rel="noopener noreferrer" data-toggle="tooltip" data-placement="bottom" title="Exportar Pdf"><span class="fa fa-file-pdf-o text-dark"></span> Pdf</a>
-
-                                                            <a class="btn waves-effect waves-light btn-light" href="reporteexcel?documento=<?php echo encrypt("EXCEL") ?>&tipo=<?php echo encrypt("SOLICITUDES") ?>" data-toggle="tooltip" data-placement="bottom" title="Exportar Excel"><span class="fa fa-file-excel-o text-dark"></span> Excel</a>
-
-                                                            <a class="btn waves-effect waves-light btn-light" href="reporteexcel?documento=<?php echo encrypt("WORD") ?>&tipo=<?php echo encrypt("SOLICITUDES") ?>" data-toggle="tooltip" data-placement="bottom" title="Exportar Word"><span class="fa fa-file-word-o text-dark"></span> Word</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div id="solicitudes"></div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End Row -->
-                           --}}
-
-
         <!-- Row -->
         <div class="row">
             <div class="col-lg-9">

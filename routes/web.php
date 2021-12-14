@@ -312,10 +312,10 @@ Route::post('/reset-password', [NewPasswordController::class, 'store'])
 
 
 Route::get('/dash', [IndexController::class,'indexOperador'])->middleware(['admin']);
-
+Route::get('/contribuyentes',[ContribuyentesAdminController::class,'index'])->middleware(['admin']);
+Route::post('/getContribuyentesAdmin',[ContribuyentesAdminController::class,'getContribuyentesAdmin'])->middleware(['admin']);
 
 Route::post('/getSolicitudes',[IndexController::class,'getSolicitudes'])->middleware(['auth']);
 Route::post('/s_aprove',[SolicitudesController::class,'aprobarSolicitud'])->middleware(['auth']);
-Route::get('/contribuyentes',[ContribuyentesAdminController::class,'index'])->middleware(['auth']);  
 Route::post('/getinds',[ContribuyentesAdminController::class,'getIndustrias'])->middleware(['auth']);
 Route::post('/ver_ind',[ContribuyentesAdminController::class,'verInd'])->middleware(['auth']);

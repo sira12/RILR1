@@ -12,7 +12,7 @@
     
             <li class="sidebar-item waves-effect"><a href="dash" class="sidebar-link"><i class="mdi mdi-home"></i><span class="hide-menu"> Inicio</span></a></li>
     
-            <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-settings"></i><span class="hide-menu">Administración</span></a>
+           {{--  <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-settings"></i><span class="hide-menu">Administración</span></a>
                 <ul aria-expanded="false" class="collapse first-level">
     
                     <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark" href="configuracion" aria-expanded="false"><i class="mdi mdi-clipboard-text"></i>Configuración</a></li>
@@ -44,26 +44,26 @@
                     <li class="sidebar-item"><a href="logs" class="sidebar-link"><i class="mdi mdi-rounded-corner"></i><span class="hide-menu"> Historial de Acceso</span></a></li>
     
                 </ul>
-            </li>
+            </li> --}}
     
             <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-account-multiple"></i><span class="hide-menu">Contribuyentes</span></a>
                 <ul aria-expanded="false" class="collapse first-level">
     
                     <li class="sidebar-item"><a href="{{url('contribuyentes')}}" class="sidebar-link"><i class="mdi mdi-rounded-corner"></i><span class="hide-menu"> Contribuyentes</span></a></li>
     
-                    <li class="sidebar-item"><a href="email_pendientes" class="sidebar-link"><i class="mdi mdi-cart-plus"></i><span class="hide-menu"> Email no Enviados</span></a></li>
+                   {{--  <li class="sidebar-item"><a href="email_pendientes" class="sidebar-link"><i class="mdi mdi-cart-plus"></i><span class="hide-menu"> Email no Enviados</span></a></li> --}}
                                                                     
                 </ul>
             </li>
     
-            <li class="sidebar-item waves-effect"><a href="#" class="sidebar-link"><i class="mdi mdi-folder-multiple"></i><span class="hide-menu"> Encuentas</span></a></li>
+            {{-- <li class="sidebar-item waves-effect"><a href="#" class="sidebar-link"><i class="mdi mdi-folder-multiple"></i><span class="hide-menu"> Encuentas</span></a></li>
     
             <li class="sidebar-item waves-effect"><a href="#" class="sidebar-link"><i class="mdi mdi-calendar-multiple-check"></i><span class="hide-menu"> Eventos</span></a></li>
     
-            <li class="sidebar-item waves-effect"><a href="#" class="sidebar-link"><i class="mdi mdi-file-multiple"></i><span class="hide-menu"> Trámites</span></a></li>
+            <li class="sidebar-item waves-effect"><a href="#" class="sidebar-link"><i class="mdi mdi-file-multiple"></i><span class="hide-menu"> Trámites</span></a></li> --}}
     
-            <li class="sidebar-item waves-effect"><a href="logout" class="sidebar-link"><i class="mdi mdi-power"></i><span class="hide-menu"> Cerrar Sesión</span></a></li>
-    
+            {{-- <li class="sidebar-item waves-effect"><a href="logout" class="sidebar-link"><i class="mdi mdi-power"></i><span class="hide-menu"> Cerrar Sesión</span></a></li>
+     --}}
             </ul>
         </nav>
         <!-- End Sidebar navigation -->

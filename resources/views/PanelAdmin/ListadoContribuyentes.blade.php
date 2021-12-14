@@ -7,7 +7,7 @@
 
 <meta name="csrf-token" content="{{ csrf_token() }}" />
 
-<div class="page-wrapper">
+<div class="page-wrapper" >
    
     <div class="page-breadcrumb border-bottom">
         <div class="row">
@@ -38,7 +38,7 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header bg-dark">
-                        <h4 class="card-title text-white"><i class="fa fa-tasks"></i> Listado de Contribuyentes <a href="javascript:void(0)" class="pull-right text-white" onClick="getSolicitudes();"><i class="mdi mdi-refresh"></i> Refrescar</a></h4>
+                        <h4 class="card-title text-white"><i class="fa fa-tasks"></i> Listado de Contribuyentes <a href="javascript:void(0)" class="pull-right text-white" onClick="getContribuyentesTable();"><i class="mdi mdi-refresh"></i> Refrescar</a></h4>
                     </div>
 
                     <div class="form-body">
@@ -55,21 +55,21 @@
 
                             <div >
                                 <div class="table-responsive">
-                                    <table style="width:100%;overflow-x: auto" class="table table-striped table-bordered border display ">
+                                    <table style="width:100%;overflow-x: auto" class="table table-striped table-bordered border display tablecbtAdmin">
 
                                         <thead>
                                         <tr role="row">
                                         <th>N°</th>
                                         <th>Cuit</th>
                                         <th>Razón Social</th>
-                                        <th>Nombres y Apellidos</th>
+                                        <th>Industrias Registradas</th>
                                         <th>DNI</th>
                                         <th>Acciones</th>
                                         </tr>
                                         </thead>
                                         <tbody >
 
-                                            @foreach ($contribuyentes as $index=>$cbt )
+                                            {{-- @foreach ($contribuyentes as $index=>$cbt )
                                                 <tr>
                                                     <td>{{$index+1}}</td>
                                                     <td>{{$cbt->cuit}}</td>
@@ -78,7 +78,7 @@
                                                     <td>{{$cbt->dniPersona}}</td>
                                                     <td><span style="cursor: pointer;" data-placement="left" title="Ver Industrias" data-original-title="" data-href="#" data-toggle="modal" data-target="#myModalVerCbt" data-backdrop="static" data-keyboard="false" onclick="VerCbt({{$cbt->id_contribuyente}})"><i class="mdi mdi-eye font-22 text-danger"></i></span></td>
                                                 </tr>
-                                            @endforeach
+                                            @endforeach --}}
 
                                                                                         
                                         </tbody>

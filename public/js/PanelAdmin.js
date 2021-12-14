@@ -1,7 +1,58 @@
 $(document).ready(function () {
 
-
+   
 })
+
+function getContribuyentesTable(){
+
+
+    var table = $(".tablecbtAdmin").DataTable();
+    table.destroy();    
+    table = $(".tablecbtAdmin").DataTable({
+        processing: true,
+        serverSide: true,
+        searching: true,
+        responsive: true,
+        ajax: {
+            url: "/getContribuyentesAdmin",
+            type: "POST",
+            data: {
+                _token: $('meta[name="csrf-token"]').attr("content")
+            },
+        },
+        columns: [
+            {
+                data: "DT_RowIndex",
+                name: "DT_RowIndex",
+            },
+            {
+                data: "cuit",
+                name: "cuit",
+            }, 
+            {
+                data: "razon_social",
+                name: "razon_social",
+            },           
+            {
+                data: "industrias",
+                name: "industrias",
+            },           
+            {
+                data: "dniPersona",
+                name: "dniPersona",
+            },           
+            {
+                data: "action",
+                name: "action",
+                orderable: true,
+                searchable: true,
+            },
+        ],
+        columnDefs: [],
+    });
+
+
+}
 
 
 function getSolicitudes(){
@@ -78,9 +129,9 @@ function VerCbt(id){
     var table = $(".industrias-cbt").DataTable();
     table.destroy();    
     table = $(".industrias-cbt").DataTable({
-        processing: false,
+        processing: true,
         serverSide: true,
-        searching: false,
+        searching: true,
         responsive: true,
         ajax: {
             url: "/getinds",
@@ -886,3 +937,5 @@ function MuestraObservacion() {
         /* form submit */
     });
 });
+
+

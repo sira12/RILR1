@@ -2436,6 +2436,10 @@ function lanzador() {
         getSolicitudes();
     }
 
+    if(window.location.pathname == "/contribuyentes"){
+        getContribuyentesTable();
+    }
+
 
     //si se encuentra seteado el id de la industria es por que se está editando
     if (
