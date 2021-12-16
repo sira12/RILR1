@@ -12,7 +12,7 @@
     <div class="page-breadcrumb border-bottom">
         <div class="row">
             <div class="col-lg-3 col-md-4 col-xs-12 align-self-center">
-                <h5 class="font-medium text-uppercase mb-0"><i class="fa fa-tasks"></i> Inicio</h5>
+                <h5 class="font-medium text-uppercase mb-0"><i class="fa fa-tasks"></i> Usuarios</h5>
             </div>
             <div class="col-lg-6 col-md-6 col-xs-12 align-self-justify">
                 
@@ -38,7 +38,7 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header bg-dark">
-                        <h4 class="card-title text-white"><i class="fa fa-tasks"></i> Listado de Contribuyentes <a href="javascript:void(0)" class="pull-right text-white" onClick="getContribuyentesTable();"><i class="mdi mdi-refresh"></i> Refrescar</a></h4>
+                        <h4 class="card-title text-white"><i class="fa fa-tasks"></i> Usuarios <a href="javascript:void(0)" class="pull-right text-white" onClick="getContribuyentesTable();"><i class="mdi mdi-refresh"></i> Refrescar</a></h4>
                     </div>
 
                     <div class="form-body">
@@ -59,11 +59,13 @@
 
                                         <thead>
                                         <tr role="row">
-                                        <th>N°</th>
-                                        <th>Cuit</th>
-                                        <th>Razón Social</th>
-                                        <th>Industrias Registradas</th>
-                                        <th>DNI</th>
+                                        <th class="sorting">N°</th>
+                                        <th>N° de Documento</th>
+                                        <th>Nombres y Apellidos</th>
+                                        <th>N° de Teléfono</th>
+                                        <th>Email</th>
+                                        <th>Rol</th>
+                                        <th>Estado</th>
                                         <th>Acciones</th>
                                         </tr>
                                         </thead>

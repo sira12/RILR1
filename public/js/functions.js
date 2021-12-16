@@ -2439,6 +2439,9 @@ function lanzador() {
     if(window.location.pathname == "/contribuyentes"){
         getContribuyentesTable();
     }
+    if(window.location.pathname == "/usuarios"){
+        getContribuyentesTable();
+    }
 
 
     //si se encuentra seteado el id de la industria es por que se está editando

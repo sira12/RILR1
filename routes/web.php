@@ -29,7 +29,7 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\SolicitudesController;
 use App\Http\Controllers\ContribuyentesAdminController;
-
+use App\Http\Controllers\UsuariosAdminController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -150,27 +150,27 @@ Route::get('/procedimientos',[ProcedimientosController::class,'index'] )->middle
 
       Route::post('/listRelotros', [ServicioController::class, 'listRelotros'])->middleware(['auth']);
 
-      //gastos 
+      //gastos
 
     Route::post('/getGastos', [GastosController::class, 'getGastos'])->middleware(['auth']);
     Route::post('/saveDevengados', [GastosController::class, 'saveDevengados'])->middleware(['auth']);
     Route::post('/listRelGastos', [GastosController::class, 'listRelGastos'])->middleware(['auth']);
     Route::post('/getDevengados', [GastosController::class, 'getDevengados'])->middleware(['auth']);
     Route::post('/updateDevengados', [GastosController::class, 'updateDevengados'])->middleware(['auth']);
-    
-    //situacion de planta 
-    
+
+    //situacion de planta
+
     Route::post('/savesituacion', [SituacionPlantaController::class, 'savesituacion'])->middleware(['auth']);
     Route::post('/listRelPlanta', [SituacionPlantaController::class, 'listRelPlanta'])->middleware(['auth']);
-    Route::post('/getSituacion', [SituacionPlantaController::class, 'getSituacion'])->middleware(['auth']); 
+    Route::post('/getSituacion', [SituacionPlantaController::class, 'getSituacion'])->middleware(['auth']);
     Route::post('/updatesituacion', [SituacionPlantaController::class, 'updatesituacion'])->middleware(['auth']);
     Route::post('/deleteSituacion', [SituacionPlantaController::class, 'deleteSituacion'])->middleware(['auth']);
-    
+
     //motivo osiocidad
     Route::post('/traeMotivos_ociosidad', [SituacionPlantaController::class, 'traeMotivos'])->middleware(['auth']);
-    Route::post('/saveMotivo', [SituacionPlantaController::class, 'saveMotivo'])->middleware(['auth']); 
+    Route::post('/saveMotivo', [SituacionPlantaController::class, 'saveMotivo'])->middleware(['auth']);
     Route::post('/listRelMO', [SituacionPlantaController::class, 'listRelMotivo'])->middleware(['auth']);
-    Route::post('/getMotivo', [SituacionPlantaController::class, 'getMotivo'])->middleware(['auth']); 
+    Route::post('/getMotivo', [SituacionPlantaController::class, 'getMotivo'])->middleware(['auth']);
     Route::post('/updateMotivo', [SituacionPlantaController::class, 'updateMotivo'])->middleware(['auth']);
     Route::post('/deleteRelMotivo', [SituacionPlantaController::class, 'deleteRelMotivo'])->middleware(['auth']);
 
@@ -185,7 +185,7 @@ Route::get('/procedimientos',[ProcedimientosController::class,'index'] )->middle
 
     Route::post('/updateRelPersonal', [SituacionPlantaController::class, 'updateRelPersonal'])->middleware(['auth']);
 
-    //Ventas y Facturacion 
+    //Ventas y Facturacion
 
     Route::post('/getCVentas', [VentasyFacturacionController::class, 'getCVentas'])->middleware(['auth']);
     Route::post('/getPVentas', [VentasyFacturacionController::class, 'getProvinciasVentas'])->middleware(['auth']);
@@ -195,7 +195,7 @@ Route::get('/procedimientos',[ProcedimientosController::class,'index'] )->middle
     Route::post('/ClasifIngresos', [VentasyFacturacionController::class, 'ClasifIngresos'])->middleware(['auth']);
     Route::post('/getVenta', [VentasyFacturacionController::class, 'getVenta'])->middleware(['auth']);
     Route::post('/updateVenta', [VentasyFacturacionController::class, 'updateVenta'])->middleware(['auth']);
-    
+
     //facturacion
     Route::post('/saveFacturacion', [VentasyFacturacionController::class, 'saveFacturacion'])->middleware(['auth']);
     Route::post('/listFact', [VentasyFacturacionController::class, 'listFact'])->middleware(['auth']);
@@ -209,16 +209,16 @@ Route::get('/procedimientos',[ProcedimientosController::class,'index'] )->middle
 
     Route::post('/search_efluente_e', [PrevencionCAController::class, 'search_efluente'])->middleware(['auth']);
     Route::post('/saveRelEfluenteIndustria', [PrevencionCAController::class, 'saveRelEfluente'])->middleware(['auth']);
-    
+
     Route::post('/listRelEfluentes', [PrevencionCAController::class, 'listef'])->middleware(['auth']);
-    
+
     Route::post('/getEfluente', [PrevencionCAController::class, 'getEfluente'])->middleware(['auth']);
     Route::post('/updateRelEfluenteIndustria', [PrevencionCAController::class, 'updateRelEfluenteIndustria'])->middleware(['auth']);
     Route::post('/deleteRelEfluente', [PrevencionCAController::class, 'deleteRelEfluente'])->middleware(['auth']);
-    
 
 
-    //certificados 
+
+    //certificados
 
     Route::post('/getCertificados', [PrevencionCAController::class, 'getCertificados'])->middleware(['auth']);
     Route::post('/saveRelCert', [PrevencionCAController::class, 'saveRelCert'])->middleware(['auth']);
@@ -235,9 +235,9 @@ Route::get('/procedimientos',[ProcedimientosController::class,'index'] )->middle
     Route::post('/getRelSc', [SistemasCalidadController::class, 'getRelSc'])->middleware(['auth']);
     Route::post('/updateSc', [SistemasCalidadController::class, 'updateSc'])->middleware(['auth']);
     Route::post('/deleteRelSc', [SistemasCalidadController::class, 'deleteRelSc'])->middleware(['auth']);
-   
-   
-   
+
+
+
    //promocion
     Route::post('/getPromo', [SistemasCalidadController::class, 'getPromo'])->middleware(['auth']);
     Route::post('/savePromo', [SistemasCalidadController::class, 'savePromo'])->middleware(['auth']);
@@ -245,8 +245,8 @@ Route::get('/procedimientos',[ProcedimientosController::class,'index'] )->middle
     Route::post('/getRelPromo', [SistemasCalidadController::class, 'getRelPromo'])->middleware(['auth']);
     Route::post('/updateRelPromo', [SistemasCalidadController::class, 'updateRelPromo'])->middleware(['auth']);
     Route::post('/deleteRelPromo', [SistemasCalidadController::class, 'deleteRelPromo'])->middleware(['auth']);
-    
-    
+
+
     //economia
     Route::post('/getSP', [EconomiaController::class, 'getSP'])->middleware(['auth']);
     Route::post('/saveEc', [EconomiaController::class, 'saveEc'])->middleware(['auth']);
@@ -281,9 +281,9 @@ Route::post('/getIndustria',[IndustriaController::class,'getIndustria'])->middle
 
 Route::get('/mail',function(){
   $correo=new RegistroMailable;
-  Mail::to('siradlv@gmail.com')->send($correo); 
-  Mail::to('mauriciogtoloza@gmail.com')->send($correo); 
-   return "mensaje Enviado"; 
+  Mail::to('siradlv@gmail.com')->send($correo);
+  Mail::to('mauriciogtoloza@gmail.com')->send($correo);
+   return "mensaje Enviado";
 });
 
 //reset password
@@ -314,6 +314,7 @@ Route::post('/reset-password', [NewPasswordController::class, 'store'])
 Route::get('/dash', [IndexController::class,'indexOperador'])->middleware(['admin']);
 Route::get('/contribuyentes',[ContribuyentesAdminController::class,'index'])->middleware(['admin']);
 Route::post('/getContribuyentesAdmin',[ContribuyentesAdminController::class,'getContribuyentesAdmin'])->middleware(['admin']);
+Route::get('/usuarios', [UsuariosAdminController::class,'index'])->middleware(['admin']);
 
 Route::post('/getSolicitudes',[IndexController::class,'getSolicitudes'])->middleware(['auth']);
 Route::post('/s_aprove',[SolicitudesController::class,'aprobarSolicitud'])->middleware(['auth']);

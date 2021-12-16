@@ -36,15 +36,16 @@
                 </ul>
             </li>
     
+            --}}
             <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-folder-multiple"></i><span class="hide-menu">Usuarios</span></a>
                 <ul aria-expanded="false" class="collapse first-level">
     
-                    <li class="sidebar-item"><a href="usuarios" class="sidebar-link"><i class="mdi mdi-priority-low"></i><span class="hide-menu"> Gestión de Usuarios</span></a></li>
+                    <li class="sidebar-item"><a href="{{url('usuarios')}}" class="sidebar-link"><i class="mdi mdi-priority-low"></i><span class="hide-menu"> Gestión de Usuarios</span></a></li>
     
                     <li class="sidebar-item"><a href="logs" class="sidebar-link"><i class="mdi mdi-rounded-corner"></i><span class="hide-menu"> Historial de Acceso</span></a></li>
     
                 </ul>
-            </li> --}}
+            </li>
     
             <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-account-multiple"></i><span class="hide-menu">Contribuyentes</span></a>
                 <ul aria-expanded="false" class="collapse first-level">
