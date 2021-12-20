@@ -2440,7 +2440,7 @@ function lanzador() {
         getContribuyentesTable();
     }
     if(window.location.pathname == "/usuarios"){
-        getContribuyentesTable();
+        getUsuariosAdminTable();
     }
 
 

@@ -55,7 +55,7 @@
 
                             <div >
                                 <div class="table-responsive">
-                                    <table style="width:100%;overflow-x: auto" class="table table-striped table-bordered border display tablecbtAdmin">
+                                    <table style="width:100%;overflow-x: auto" class="table table-striped table-bordered border display tableUsuariosAdmin">
 
                                         <thead>
                                         <tr role="row">

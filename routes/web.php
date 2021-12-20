@@ -316,6 +316,8 @@ Route::get('/contribuyentes',[ContribuyentesAdminController::class,'index'])->mi
 Route::post('/getContribuyentesAdmin',[ContribuyentesAdminController::class,'getContribuyentesAdmin'])->middleware(['admin']);
 Route::get('/usuarios', [UsuariosAdminController::class,'index'])->middleware(['admin']);
 
+Route::post('/getUsuarios', [UsuariosAdminController::class,'getUsuarios'])->middleware(['admin']);
+
 Route::post('/getSolicitudes',[IndexController::class,'getSolicitudes'])->middleware(['auth']);
 Route::post('/s_aprove',[SolicitudesController::class,'aprobarSolicitud'])->middleware(['auth']);
 Route::post('/getinds',[ContribuyentesAdminController::class,'getIndustrias'])->middleware(['auth']);

@@ -3,6 +3,56 @@ $(document).ready(function () {
    
 })
 
+function getUsuariosAdminTable(){
+
+    var table = $(".tableUsuariosAdmin").DataTable();
+    table.destroy();    
+    table = $(".tableUsuariosAdmin").DataTable({
+        processing: true,
+        serverSide: true,
+        searching: true,
+        responsive: true,
+        ajax: {
+            url: "/getUsuarios",
+            type: "POST",
+            data: {
+                _token: $('meta[name="csrf-token"]').attr("content")
+            },
+        },
+        columns: [
+            {
+                data: "DT_RowIndex",
+                name: "DT_RowIndex",
+            },
+            {
+                data: "email",
+                name: "email",
+            }, 
+            {
+                data: "nombre",
+                name: "nombre",
+            },           
+            {
+                data: "tel_celular",
+                name: "tel_celular",
+            },           
+            {
+                data: "email",
+                name: "email",
+            },           
+            {
+                data: "action",
+                name: "action",
+                orderable: true,
+                searchable: true,
+            },
+        ],
+        columnDefs: [],
+    });
+
+
+}
+
 function getContribuyentesTable(){
 
 
