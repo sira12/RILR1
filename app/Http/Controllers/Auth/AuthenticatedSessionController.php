@@ -31,23 +31,60 @@ class AuthenticatedSessionController extends Controller
     public function store(LoginRequest $request)
     {
 
+
         $request->authenticate();
+        $user = Auth::user();
 
-        $request->session()->regenerate();
+       if($user->activo != "N" && $user->activo != "P"){
 
-
-        $UserData=New User();
-        $user=$UserData->GetinfoUser();
-
-
-        if(str_contains($user->roleNames, 'ADMINISTRADOR')){
-
-            return redirect('/dash');
-        }else{
-            return redirect('/panel');
-        }
+           $request->session()->regenerate();
 
 
+           $UserData=New User();
+           $user=$UserData->GetinfoUser();
+
+
+           if(str_contains($user->roleNames, 'ADMINISTRADOR') || str_contains($user->roleNames, 'SUPERADMIN')){
+               return redirect('/dash');
+           }else{
+               return redirect('/panel');
+           }
+
+       }else{
+
+           if($user->activo=="N")
+               $msg="Su cuenta encuantra deshabilitada, por favor comuniquese con un administrador.";
+
+           if($user->activo=="P")
+               $msg="Su cuenta esta en estado de verificación, se le notificará por mail cuando pueda ingresar.";
+
+           Auth::guard('web')->logout();
+
+           return view('auth.loggin',[
+               'userInactivo'=>$msg
+           ]);
+       }
+
+    }
+
+
+    public function destroyAux(Request $request,$status)
+    {
+        if($status=="N")
+            $msg="Su cuenta encuantra deshabilitada, por favor comuniquese con un administrador.";
+
+        if($status=="P")
+            $msg="Su cuenta esta en estado de verificación, se le notificará por mail cuando pueda ingresar.";
+
+         Auth::guard('web')->logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect('/',[
+        'userInactivo'=>$msg
+        ]);
     }
 
 

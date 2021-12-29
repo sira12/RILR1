@@ -45,7 +45,7 @@
 
                         <div class="card-body">
 
-                            <div class="row">
+                            <!-- <div class="row">
 
                                 <div class="col-md-7">
 
@@ -57,7 +57,7 @@
                                         <a class="btn waves-effect waves-light btn-light" href="reporteexcel?documento=<?php echo encrypt("WORD") ?>&tipo=<?php echo encrypt("SOLICITUDES") ?>" data-toggle="tooltip" data-placement="bottom" title="Exportar Word"><span class="fa fa-file-word-o text-dark"></span> Word</a>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
 
                             <div >
 

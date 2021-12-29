@@ -17,6 +17,8 @@ class ContribuyenteMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
+
+
         $authUser=New User();
         $user=$authUser->GetinfoUser();
 

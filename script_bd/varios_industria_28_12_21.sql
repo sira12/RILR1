@@ -11986,7 +11986,7 @@ CREATE TABLE IF NOT EXISTS `user_role` (
   PRIMARY KEY (`id`),
   KEY `user_role_FK` (`id_user`),
   KEY `user_role_FK_1` (`id_role`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `user_role`

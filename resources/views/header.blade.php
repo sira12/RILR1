@@ -79,11 +79,19 @@
 
                         <img src="{{ asset('fotos/avatar.png')}}" width="40" height="40" class="rounded-circle">
 
-
+                        @if(isset($contribuyente))
                         <span class="ml-2 d-lg-block">
-                            <h5 class="text-dark mb-0">{{-- {{$contribuyente->razon_social}} --}}</h5>
-                            <small class="text-info mb-0">{{-- {{$contribuyente->cuit}} --}}</small>
+                            <h5 class="text-dark mb-0"> {{$contribuyente->razon_social}}</h5>
+                            <small class="text-info mb-0"> {{$contribuyente->cuit}}</small>
                         </span>
+                        @endif
+
+                        @if(isset($persona))
+                        <span class="ml-2 d-lg-block">
+                            <h5 class="text-dark mb-0"> {{$persona[0]->nombre}}</h5>
+                            <small class="text-info mb-0"> {{$usuario->roleNames}}</small>
+                        </span>
+                        @endif
                     </a>
 
                     <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY">
@@ -94,12 +102,22 @@
 
 
 
+                            @if(isset($contribuyente))
+                                <div class="ml-2">
+                                    <h5 class="mb-0"><abbr title="Nombres/Razón Social"> {{$contribuyente->razon_social}}</abbr></h5>
+                                    <p class="mb-0 text-muted"><abbr title="Correo Electrónico"> {{$contribuyente->email_fiscal}}</abbr></p>
+                                </div>
+                            @endif
 
-                            <div class="ml-2">
-                                <h5 class="mb-0"><abbr title="Nombres/Razón Social">{{-- {{$contribuyente->razon_social}} --}}</abbr></h5>
-                                <p class="mb-0 text-muted"><abbr title="Correo Electrónico">{{-- {{$contribuyente->email_fiscal}} --}}</abbr></p>
-                               
-                            </div>
+
+                            @if(isset($persona))
+                                <div class="ml-2">
+                                    <h5 class="mb-0"><abbr title="Nombres/Razón Social"> {{$persona[0]->nombre}}</abbr></h5>
+                                    <p class="mb-0 text-muted"><abbr title="Correo Electrónico"> {{$usuario->email}}</abbr></p>
+                                </div>
+                            @endif
+
+
                         </div>
 
                         <!-- <a class="dropdown-item" href="perfil"><i class="fa fa-user"></i> Ver Perfil</a>
@@ -108,16 +126,16 @@
                         <div class="dropdown-divider"></div>
 
                         <form method="POST" action="{{ route('logout') }}" style="margin: 0px !important;">
-                        @csrf
+                            @csrf
 
-                        <a class="dropdown-item" href="route('logout')" onclick="event.preventDefault();
+                            <a class="dropdown-item" href="route('logout')" onclick="event.preventDefault();
                                                 this.closest('form').submit();" class="sidebar-link"><i class="mdi mdi-power">
-                            </i><span > Cerrar Sesión</span>
-                        </a>
+                                </i><span> Cerrar Sesión</span>
+                            </a>
 
 
-                    </form>
-                       <!--  <a class="dropdown-item" href="logout"><i class="fa fa-power-off"></i> Cerrar Sesión</a> -->
+                        </form>
+                        <!--  <a class="dropdown-item" href="logout"><i class="fa fa-power-off"></i> Cerrar Sesión</a> -->
                     </div>
                 </li>
 

@@ -10,6 +10,11 @@ use Yajra\DataTables\DataTables;
 use App\Http\Controllers\User;
 class IndexController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -18,8 +23,8 @@ class IndexController extends Controller
     public function index()
     {
         $user = auth()->user();
-        
-      
+
+
         $pers_contrib = DB::table('rel_persona_contribuyente')->where('id_rel_persona_contribuyente', $user->id_rel_persona_contribuyente)->first();
         $contribuyente=DB::table('contribuyente')->where('id_contribuyente',$pers_contrib->id_contribuyente)->get();
 
@@ -29,7 +34,7 @@ class IndexController extends Controller
             $industria['actividad'] = $act;
         }
 
-        
+
         return view('index', [
             'industrias' => $industrias,
             'id_contribuyente' => $pers_contrib->id_contribuyente,
@@ -39,10 +44,21 @@ class IndexController extends Controller
 
     public function indexOperador(){
 
+        $user = auth()->user();
+
+        $persona=DB::table('rel_persona_contribuyente')
+            ->where('id_rel_persona_contribuyente',$user['id_rel_persona_contribuyente'])
+            ->join('persona','rel_persona_contribuyente.id_persona','persona.id_persona')
+            ->select([
+                'persona.*'
+            ])
+            ->get();
 
 
-        return view('index-admin');
-
+        return view('index-admin',[
+            'usuario'=>$user,
+            'persona'=>$persona
+        ]);
     }
 
 
@@ -66,7 +82,7 @@ class IndexController extends Controller
                 'rel_persona_contribuyente.documento_poder as documento_poder_rpc',
                 'rel_persona_contribuyente.autorizado as autorizado_rpc',
                 'rel_persona_contribuyente.fecha_de_actualizacion as fecha_de_actualizacion_rpc',
-               
+
 
                 'contribuyente.id_contribuyente as id_cbt',
                 'contribuyente.cuit as cuit_cbt',
@@ -89,7 +105,7 @@ class IndexController extends Controller
                 'contribuyente.constancia_afip as constancia_afip_cbt',
                 'contribuyente.activo as activo_cbt',
                 'contribuyente.email_fiscal as email_fiscal_cbt',
-    
+
                 'persona.id_persona as id_persona',
                 'persona.documento as documento_psna',
                 'persona.id_tipo_de_documento as id_tipo_de_documento_psna',
@@ -112,15 +128,15 @@ class IndexController extends Controller
                 'persona.vive as vive_psna',
                 'persona.fecha_de_alta as fecha_de_alta_psna',
                 'persona.activo as activo_psna',
-                
+
                 'usuario.id_usuario as id_usuario_usr'
             )
             ->where('rel_persona_contribuyente.autorizado','P')->get();
-                
+
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
-  
+
                     $actionBtn = '<span style="cursor: pointer;" data-placement="left" title="Verificar Solicitud" data-original-title="" data-href="#" data-toggle="modal" data-target="#myModalSolicitud" data-backdrop="static" data-keyboard="false" onclick="VerificarSolicitud(\''.$row->id_rel_persona_contribuyente_rpc.'\',\''.$row->cuit_cbt.'\',\''.$row->razon_social_cbt.'\',\''.$row->documento_psna.'\',\''.$row->email_fiscal_cbt.'\',\''.$row->fecha_de_actualizacion_rpc.'\',\''.$row->tel_celular_psna.'\',\''.$row->nombre_psna.'\',\''.$row->id_persona.'\',\''.$row->id_usuario_usr.'\',\''.$row->id_cbt.'\',\''.$row->frente_dni_psna.'\',\''.$row->dorso_dni_psna.'\',\''.$row->constancia_afip_cbt.'\',\''.$row->documento_vinculante_rpc.'\',\''.$row->documento_poder_rpc.'\')"><i class="mdi mdi-recycle font-22 text-danger"></i></span>';
                     return $actionBtn;
                 })
@@ -135,5 +151,5 @@ class IndexController extends Controller
     }
 
 
-    
+
 }

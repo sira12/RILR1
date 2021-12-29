@@ -141,7 +141,7 @@ class RegisteredUserController extends Controller
             ]);
 
             //registro usuario
-            $user = User::create([
+            $user = DB::table('usuario')->insertGetId([
                 'id_rel_persona_contribuyente' => $id,
                 'usuario' => $request->nombre,
                 'email' => $request->email_fiscal,
@@ -150,6 +150,12 @@ class RegisteredUserController extends Controller
                 'fecha_alta' => $fecha_time,
                 'activo' => "P",
                 'fecha_de_actualizacion' => $fecha_time
+            ]);
+
+            //se le asigna el rol de contribuyente
+            DB::table('user_role')->insertGetId([
+                'id_user'=>$user,
+                'id_role'=>2
             ]);
 
             //event(new Registered($user));

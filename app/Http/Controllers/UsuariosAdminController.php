@@ -52,8 +52,7 @@ class UsuariosAdminController extends Controller
                 ->addColumn('action', function ($row) {
 
                     $actionBtn = '<span data-toggle="modal" data-target="#myModalUserUpdate" style="cursor: pointer;" data-placement="left" title="Actualizar Usuario" onclick="UpdateUser(\''.$row->documento.'\',\''.$row->nombre.'\',\''.$row->tel_fijo.'\',\''.$row->tel_celular.'\',\''.$row->email.'\',\''.$row->activo.'\',\''.$row->rolenames.'\',\''.$row->id_usuario.'\',\''.$row->id_persona.'\',\''.$row->id_rel_persona_contribuyente.'\');"><i class="mdi mdi-table-edit font-22 text-danger"></i></span>
-                                     <span  data-toggle="modal" data-target="#myModalUserUpdatePassword" style="cursor: pointer;" onclick="ChangePassword('.$row->id_usuario.')" title="Cambiar Contraseña"><i class="mdi mdi-key font-24 text-danger"></i></span>
-                                    <span style="cursor: pointer;" onclick="DeleteUser()" title="Eliminar Usuario"><i class="mdi mdi-delete font-24 text-danger"></i></span>';
+                                  <span  data-toggle="modal" data-target="#myModalUserUpdatePassword" style="cursor: pointer;" onclick="ChangePassword('.$row->id_usuario.')" title="Cambiar Contraseña"><i class="mdi mdi-key font-24 text-danger"></i></span>';
                     return $actionBtn;
                 })
                 ->rawColumns(['action'])
