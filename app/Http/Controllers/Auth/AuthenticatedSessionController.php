@@ -30,24 +30,24 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request)
     {
-       
+
         $request->authenticate();
 
         $request->session()->regenerate();
 
-        
+
         $UserData=New User();
         $user=$UserData->GetinfoUser();
 
 
-        if(str_contains($user->roleNames, 'SuperAdmin')){
-           
+        if(str_contains($user->roleNames, 'ADMINISTRADOR')){
+
             return redirect('/dash');
         }else{
             return redirect('/panel');
         }
 
-       
+
     }
 
 

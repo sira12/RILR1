@@ -316,9 +316,16 @@ Route::get('/contribuyentes',[ContribuyentesAdminController::class,'index'])->mi
 Route::post('/getContribuyentesAdmin',[ContribuyentesAdminController::class,'getContribuyentesAdmin'])->middleware(['admin']);
 Route::get('/usuarios', [UsuariosAdminController::class,'index'])->middleware(['admin']);
 
+//usuarios
 Route::post('/getUsuarios', [UsuariosAdminController::class,'getUsuarios'])->middleware(['admin']);
+Route::post('/saveUser', [UsuariosAdminController::class,'storeUser'])->middleware(['auth']);
+Route::post('/UpdateUser', [UsuariosAdminController::class,'update'])->middleware(['auth']);
+Route::post('/UpdatePassword', [UsuariosAdminController::class,'UpdatePassword'])->middleware(['auth']);
 
+//solicitudes
 Route::post('/getSolicitudes',[IndexController::class,'getSolicitudes'])->middleware(['auth']);
 Route::post('/s_aprove',[SolicitudesController::class,'aprobarSolicitud'])->middleware(['auth']);
+
+//contribuyentes
 Route::post('/getinds',[ContribuyentesAdminController::class,'getIndustrias'])->middleware(['auth']);
 Route::post('/ver_ind',[ContribuyentesAdminController::class,'verInd'])->middleware(['auth']);

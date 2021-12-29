@@ -178,6 +178,7 @@ class ContribuyenteController extends Controller
         parse_str($request->data, $params);
 
 
+
         $fecha = Carbon::createFromFormat('d-m-Y', $params['fecha_actividad_contribuyente'])->toDateTimeString();
 
         $email_duplicado = Contribuyente::where('id_contribuyente', '!=', $params['id_contribuyente'], 'and')

@@ -850,3 +850,494 @@
     
     </div>
 </div>
+
+
+
+<!--############################## MODAL PARA REGISTRO DE NUEVO USUARIO ######################################-->
+<!-- sample modal content -->
+<div id="myModalUser" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-dark">
+                <h4 class="modal-title text-white" id="myModalLabel"><i class="fa fa-save"></i> Gestión de Usuario</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><img src="assets/images/close.png"/></button>
+            </div>
+            
+        <form class="form form-material" name="saveusuario" id="saveusuario">
+                
+               <div class="modal-body">
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group has-feedback">
+                            <label class="control-label">Nº de Documento: <span class="symbol required"></span></label>
+                            <input type="hidden" name="proceso" id="proceso" value="save"/>
+                            <input type="hidden" name="codigo" id="codigo">
+                            <input type="text" class="form-control" name="dni" id="dni" placeholder="Ingrese Nº de Documento" autocomplete="off" required="" aria-required="true"/> 
+                            <i class="fa fa-bolt form-control-feedback"></i> 
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group has-feedback">
+                            <label class="control-label">Nombres y Apellidos: <span class="symbol required"></span></label>
+                            <input type="text" class="form-control" name="nombres" id="nombres" placeholder="Ingrese Nombres y apellidos" autocomplete="off" required="" aria-required="true"/>  
+                            <i class="fa fa-pencil form-control-feedback"></i> 
+                        </div>
+                    </div>
+
+                    {{-- <div class="col-md-3">
+                        <div class="form-group has-feedback">
+                            <label class="control-label">Sexo de Usuario: <span class="symbol required"></span></label>
+                            <i class="fa fa-bars form-control-feedback"></i>
+                            <select class="form-control" id="id_sexo" name="id_sexo" required="" aria-required="true">
+                            <option value=""> -- SELECCIONE -- </option>
+                            
+                            </select>  
+                        </div>
+                    </div> --}}
+                    
+                   {{--  <div class="col-md-3">
+                        <div class="form-group has-feedback">
+                            <label class="control-label">Nombre de Provincia: <span class="symbol required"></span></label>
+                            <input type="hidden" name="id_provincia" id="id_provincia"/>
+                            <input type="text" class="form-control" name="search_provincia" id="search_provincia" placeholder="Ingrese Nombre de Provincia" autocomplete="off" required="" aria-required="true"/>  
+                            <i class="fa fa-search form-control-feedback"></i> 
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group has-feedback">
+                            <label class="control-label">Nombre de Localidad: <span class="symbol required"></span></label>
+                            <input type="hidden" name="id_localidad" id="id_localidad" />
+                            <input type="text" class="form-control" name="search_localidad" id="search_localidad" placeholder="Ingrese Nombre de Localidad" autocomplete="off" required="" aria-required="true"/>  
+                            <i class="fa fa-search form-control-feedback"></i> 
+                        </div>
+                    </div>  --}}
+
+                    <div class="col-md-3">
+                        <div class="form-group has-feedback">
+                            <label class="control-label">Nº de Teléfono: <span class="symbol required"></span></label>
+                            <input type="text" class="form-control" name="telefono" id="telefono" placeholder="Ingrese Nº de Teléfono" autocomplete="off" required="" aria-required="true"/>  
+                            <i class="fa fa-phone form-control-feedback"></i> 
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group has-feedback">
+                            <label class="control-label">Nº de Celular: <span class="symbol required"></span></label>
+                            <input type="text" class="form-control" name="celular" id="celular" placeholder="Ingrese Nº de Celular" autocomplete="off" required="" aria-required="true"/>  
+                            <i class="fa fa-mobile form-control-feedback"></i> 
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    
+
+                    {{-- <div class="col-md-3">
+                        <div class="form-group has-feedback">
+                            <label class="control-label">Dirección Domiciliaria: <span class="symbol required"></span></label>
+                            <input type="text" class="form-control" name="direccion" id="direccion" placeholder="Ingrese Dirección Domiciliaria" autocomplete="off" required="" aria-required="true"/> 
+                            <i class="fa fa-map-marker form-control-feedback"></i>
+                        </div>
+                    </div> --}}
+
+                    
+
+                    <div class="col-md-6">
+                        <div class="form-group has-feedback">
+                            <label class="control-label">Email: <span class="symbol required"></span></label>
+                            <input type="text" class="form-control" name="email" id="email" placeholder="Ingrese Correo Electronico" autocomplete="off" required="" aria-required="true"/> 
+                            <i class="fa fa-envelope-o form-control-feedback"></i>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                   
+
+                    {{-- <div class="col-md-3">
+                        <div class="form-group has-feedback">
+                            <label class="control-label">Cargo de Usuario: <span class="symbol required"></span></label>
+                            <input type="text" class="form-control" name="cargo" id="cargo" placeholder="Ingrese Cargo de Usuario" autocomplete="off" required="" aria-required="true"/>  
+                            <i class="fa fa-pencil form-control-feedback"></i> 
+                        </div>
+                    </div> --}}
+
+                    {{-- <div class="col-md-3">
+                        <div class="form-group has-feedback">
+                            <label class="control-label">Usuario de Acceso: <span class="symbol required"></span></label>
+                            <input type="text" class="form-control" name="usuario" id="usuario" placeholder="Ingrese Usuario de Acceso" autocomplete="off" required="" aria-required="true"/>  
+                            <i class="fa fa-user form-control-feedback"></i> 
+                        </div>
+                    </div>  --}}
+
+                    <div class="col-md-3">
+                        <div class="form-group has-feedback">
+                            <label class="control-label">Password de Acceso: <span class="symbol required"></span></label>
+                            <input type="text" class="form-control" name="password" id="password" placeholder="Ingrese Password de Acceso" autocomplete="off" required="" aria-required="true"/> 
+                            <i class="fa fa-key form-control-feedback"></i>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3">
+                        <div class="form-group has-feedback">
+                            <label class="control-label">Repita su Password: <a class="symbol required"></a></label>
+                            <input type="password" class="form-control" name="password2" id="password2" placeholder="Repita su Password" autocomplete="off" required="" aria-required="true"/>
+                            <i class="fa fa-key form-control-feedback"></i> 
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group has-feedback">
+                            <label class="control-label">Nivel de Acceso: <span class="symbol required"></span></label>
+                            <i class="fa fa-bars form-control-feedback"></i>
+                        <select name="nivel" id="nivel" class="form-control" required="" aria-required="true">
+                                <option value=""> -- SELECCIONE -- </option>
+                                <option value="ADMINISTRADOR(A)">ADMINISTRADOR(A)</option>
+                                {{-- <option value="OPERADOR(A)">OPERADOR(A)</option> --}}
+                            </select>         
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group has-feedback">
+                            <label class="control-label">Status de Acceso: <span class="symbol required"></span></label>
+                            <i class="fa fa-bars form-control-feedback"></i>
+                            <select name="status" id="status" class="form-control" required="" aria-required="true">
+                                <option value=""> -- SELECCIONE -- </option>
+                                <option value="1">ACTIVO</option>
+                                <option value="0">INACTIVO</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    
+
+                    
+
+
+                   {{--  <div class="col-md-3">
+                        <div class="fileinput fileinput-new" data-provides="fileinput">
+                          <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 60px; height: 60px;"><?php echo "<img src='fotos/avatar.png' class='img-rounded' border='1' width='60' height='60' title='SIN FOTO' data-rel='tooltip'>"; ?>
+                        </div>
+                        <div>
+                          <span class="btn btn-success btn-file">
+                              <span class="fileinput-new"><i class="fa fa-file-image-o"></i> Foto</span>
+                              <span class="fileinput-exists"><i class="fa fa-paint-brush"></i> Foto</span>
+                              <input type="file" size="10" data-original-title="Subir Fotografia" data-rel="tooltip" placeholder="Suba su Fotografia" name="imagen" id="imagen"  />
+                          </span>
+                          <a href="#" class="btn btn-dark fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times-circle"></i> Remover</a><small><p>Para Subir la Foto debe saber:<br> * La Fotografia debe ser extension.jpg<br> * No debe ser mayor de 50 KB</p></small>                             
+                        </div>
+                        </div>
+                    </div> --}}
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="submit" name="btn-submit" id="btn-submit-usuario" class="btn btn-danger"><span class="fa fa-save"></span> Guardar</button>
+                <button class="btn btn-dark" type="button" onclick="
+                document.getElementById('proceso').value = 'save',
+                document.getElementById('codigo').value = '',
+                document.getElementById('dni').value = '',
+                document.getElementById('nombres').value = '',
+                document.getElementById('sexo').value = '',
+                document.getElementById('direccion').value = '',
+                document.getElementById('telefono').value = '',
+                document.getElementById('email').value = '',
+                document.getElementById('usuario').value = '',
+                document.getElementById('password').value = '',
+                document.getElementById('nivel').value = '',
+                document.getElementById('status').value = '',
+                document.getElementById('imagen').value = ''
+                " data-dismiss="modal" aria-hidden="true"><span class="fa fa-trash-o"></span> Cerrar</button>
+            </div>
+        </form>
+
+    </div>
+    <!-- /.modal-content -->
+</div>
+<!-- /.modal-dialog -->
+</div>
+<!-- /.modal --> 
+<!--############################## MODAL PARA REGISTRO DE NUEVO USUARIO ######################################-->
+
+
+
+<!--############################## MODAL PARA update DE NUEVO USUARIO ######################################-->
+<!-- sample modal content -->
+<div id="myModalUserUpdate" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-dark">
+                <h4 class="modal-title text-white" id="myModalLabel"><i class="fa fa-save"></i> Gestión de Usuario</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><img src="assets/images/close.png"/></button>
+            </div>
+            
+        <form class="form form-material" name="updateusuario" id="updateusuario">
+                
+               <div class="modal-body">
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group has-feedback">
+                            <label class="control-label">Nº de Documento: <span class="symbol required"></span></label>
+                            <input type="hidden" name="procesoUpdate" id="procesoUpdate" value="save"/>
+                            <input type="hidden" name="id_usuario" id="id_usuario">
+                            <input type="hidden" name="id_persona" id="id_persona">
+                            <input type="hidden" name="id_pc" id="id_pc">
+                            <input type="text" class="form-control" name="dniUpdate" id="dniUpdate" placeholder="Ingrese Nº de Documento" autocomplete="off" required="" aria-required="true"/> 
+                            <i class="fa fa-bolt form-control-feedback"></i> 
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group has-feedback">
+                            <label class="control-label">Nombres y Apellidos: <span class="symbol required"></span></label>
+                            <input type="text" class="form-control" name="nombresUpdate" id="nombresUpdate" placeholder="Ingrese Nombres y apellidos" autocomplete="off" required="" aria-required="true"/>  
+                            <i class="fa fa-pencil form-control-feedback"></i> 
+                        </div>
+                    </div>
+
+                    {{-- <div class="col-md-3">
+                        <div class="form-group has-feedback">
+                            <label class="control-label">Sexo de Usuario: <span class="symbol required"></span></label>
+                            <i class="fa fa-bars form-control-feedback"></i>
+                            <select class="form-control" id="id_sexo" name="id_sexo" required="" aria-required="true">
+                            <option value=""> -- SELECCIONE -- </option>
+                            
+                            </select>  
+                        </div>
+                    </div> --}}
+                    
+                   {{--  <div class="col-md-3">
+                        <div class="form-group has-feedback">
+                            <label class="control-label">Nombre de Provincia: <span class="symbol required"></span></label>
+                            <input type="hidden" name="id_provincia" id="id_provincia"/>
+                            <input type="text" class="form-control" name="search_provincia" id="search_provincia" placeholder="Ingrese Nombre de Provincia" autocomplete="off" required="" aria-required="true"/>  
+                            <i class="fa fa-search form-control-feedback"></i> 
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group has-feedback">
+                            <label class="control-label">Nombre de Localidad: <span class="symbol required"></span></label>
+                            <input type="hidden" name="id_localidad" id="id_localidad" />
+                            <input type="text" class="form-control" name="search_localidad" id="search_localidad" placeholder="Ingrese Nombre de Localidad" autocomplete="off" required="" aria-required="true"/>  
+                            <i class="fa fa-search form-control-feedback"></i> 
+                        </div>
+                    </div>  --}}
+
+                    <div class="col-md-3">
+                        <div class="form-group has-feedback">
+                            <label class="control-label">Nº de Teléfono: <span class="symbol required"></span></label>
+                            <input type="text" class="form-control" name="telefonoUpdate" id="telefonoUpdate" placeholder="Ingrese Nº de Teléfono" autocomplete="off" required="" aria-required="true"/>  
+                            <i class="fa fa-phone form-control-feedback"></i> 
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group has-feedback">
+                            <label class="control-label">Nº de Celular: <span class="symbol required"></span></label>
+                            <input type="text" class="form-control" name="celularUpdate" id="celularUpdate" placeholder="Ingrese Nº de Celular" autocomplete="off" required="" aria-required="true"/>  
+                            <i class="fa fa-mobile form-control-feedback"></i> 
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    
+
+                    {{-- <div class="col-md-3">
+                        <div class="form-group has-feedback">
+                            <label class="control-label">Dirección Domiciliaria: <span class="symbol required"></span></label>
+                            <input type="text" class="form-control" name="direccion" id="direccion" placeholder="Ingrese Dirección Domiciliaria" autocomplete="off" required="" aria-required="true"/> 
+                            <i class="fa fa-map-marker form-control-feedback"></i>
+                        </div>
+                    </div> --}}
+
+                    
+
+                    <div class="col-md-6">
+                        <div class="form-group has-feedback">
+                            <label class="control-label">Email: <span class="symbol required"></span></label>
+                            <input type="text" class="form-control" name="emailUpdate" id="emailUpdate" placeholder="Ingrese Correo Electronico" autocomplete="off" required="" aria-required="true"/> 
+                            <i class="fa fa-envelope-o form-control-feedback"></i>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                   
+
+                    {{-- <div class="col-md-3">
+                        <div class="form-group has-feedback">
+                            <label class="control-label">Cargo de Usuario: <span class="symbol required"></span></label>
+                            <input type="text" class="form-control" name="cargo" id="cargo" placeholder="Ingrese Cargo de Usuario" autocomplete="off" required="" aria-required="true"/>  
+                            <i class="fa fa-pencil form-control-feedback"></i> 
+                        </div>
+                    </div> --}}
+
+                    {{-- <div class="col-md-3">
+                        <div class="form-group has-feedback">
+                            <label class="control-label">Usuario de Acceso: <span class="symbol required"></span></label>
+                            <input type="text" class="form-control" name="usuario" id="usuario" placeholder="Ingrese Usuario de Acceso" autocomplete="off" required="" aria-required="true"/>  
+                            <i class="fa fa-user form-control-feedback"></i> 
+                        </div>
+                    </div>  --}}
+
+                    {{-- <div class="col-md-3">
+                        <div class="form-group has-feedback">
+                            <label class="control-label">Password de Acceso: <span class="symbol required"></span></label>
+                            <input type="text" class="form-control" name="password" id="password" placeholder="Ingrese Password de Acceso" autocomplete="off" required="" aria-required="true"/> 
+                            <i class="fa fa-key form-control-feedback"></i>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3">
+                        <div class="form-group has-feedback">
+                            <label class="control-label">Repita su Password: <a class="symbol required"></a></label>
+                            <input type="password" class="form-control" name="password2" id="password2" placeholder="Repita su Password" autocomplete="off" required="" aria-required="true"/>
+                            <i class="fa fa-key form-control-feedback"></i> 
+                        </div>
+                    </div> --}}
+
+                    <div class="col-md-6">
+                        <div class="form-group has-feedback">
+                            <label class="control-label">Nivel de Acceso: <span class="symbol required"></span></label>
+                            <i class="fa fa-bars form-control-feedback"></i>
+                        <select name="nivelUpdate" id="nivelUpdate" class="form-control" required="" aria-required="true">
+                                <option value=""> -- SELECCIONE -- </option>
+                                <option value="ADMINISTRADOR(A)">ADMINISTRADOR(A)</option>
+                                {{-- <option value="OPERADOR(A)">OPERADOR(A)</option> --}}
+                            </select>         
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group has-feedback">
+                            <label class="control-label">Status de Acceso: <span class="symbol required"></span></label>
+                            <i class="fa fa-bars form-control-feedback"></i>
+                            <select name="statusUpdate" id="statusUpdate" class="form-control" required="" aria-required="true">
+                                <option value=""> -- SELECCIONE -- </option>
+                                <option value="1">ACTIVO</option>
+                                <option value="0">INACTIVO</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    
+
+                    
+
+
+                   {{--  <div class="col-md-3">
+                        <div class="fileinput fileinput-new" data-provides="fileinput">
+                          <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 60px; height: 60px;"><?php echo "<img src='fotos/avatar.png' class='img-rounded' border='1' width='60' height='60' title='SIN FOTO' data-rel='tooltip'>"; ?>
+                        </div>
+                        <div>
+                          <span class="btn btn-success btn-file">
+                              <span class="fileinput-new"><i class="fa fa-file-image-o"></i> Foto</span>
+                              <span class="fileinput-exists"><i class="fa fa-paint-brush"></i> Foto</span>
+                              <input type="file" size="10" data-original-title="Subir Fotografia" data-rel="tooltip" placeholder="Suba su Fotografia" name="imagen" id="imagen"  />
+                          </span>
+                          <a href="#" class="btn btn-dark fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times-circle"></i> Remover</a><small><p>Para Subir la Foto debe saber:<br> * La Fotografia debe ser extension.jpg<br> * No debe ser mayor de 50 KB</p></small>                             
+                        </div>
+                        </div>
+                    </div> --}}
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="submit" name="btn-update-usuario" id="btn-update-usuario" class="btn btn-danger"><span class="fa fa-save"></span> Guardar</button>
+                <button class="btn btn-dark" type="button" onclick="
+                document.getElementById('proceso').value = 'save',
+                document.getElementById('codigo').value = '',
+                document.getElementById('dni').value = '',
+                document.getElementById('nombres').value = '',
+                document.getElementById('telefono').value = '',
+                document.getElementById('email').value = '',
+                document.getElementById('usuario').value = '',
+                document.getElementById('password').value = '',
+                document.getElementById('nivel').value = '',
+                document.getElementById('status').value = ''
+                " data-dismiss="modal" aria-hidden="true"><span class="fa fa-trash-o"></span> Cerrar</button>
+            </div>
+        </form>
+
+    </div>
+    <!-- /.modal-content -->
+</div>
+<!-- /.modal-dialog -->
+</div>
+<!-- /.modal --> 
+<!--############################## MODAL PARA update DE NUEVO USUARIO ######################################-->
+
+
+<!--############################## MODAL PARA update DE NUEVO USUARIO ######################################-->
+<!-- sample modal content -->
+<div id="myModalUserUpdatePassword" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-dark">
+                <h4 class="modal-title text-white" id="myModalLabel"><i class="fa fa-save"></i> Gestión de Usuario</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><img src="assets/images/close.png"/></button>
+            </div>
+            
+        <form class="form form-material" name="UpdatePassword" id="UpdatePassword">
+                
+               <div class="modal-body">
+
+                
+
+
+                <div class="row">
+                   
+
+                    <div class="col-md-6">
+                        <div class="form-group has-feedback">
+                            <label class="control-label">Password de Acceso: <span class="symbol required"></span></label>
+                            <input type="hidden" name="id_usuarioP" id="id_usuarioP">
+                            <input type="text" class="form-control" name="passwordUpdate" id="passwordUpdate" placeholder="Ingrese Password de Acceso" autocomplete="off" required="" aria-required="true"/> 
+                            <i class="fa fa-key form-control-feedback"></i>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="form-group has-feedback">
+                            <label class="control-label">Repita su Password: <a class="symbol required"></a></label>
+                            <input type="password" class="form-control" name="password2Update" id="password2Update" placeholder="Repita su Password" autocomplete="off" required="" aria-required="true"/>
+                            <i class="fa fa-key form-control-feedback"></i> 
+                        </div>
+                    </div>
+
+                    
+
+
+            
+                </div>
+
+               </div>
+
+            <div class="modal-footer">
+                <button type="submit" name="btn-updatePW-usuario" id="btn-updatePW-usuario" class="btn btn-danger"><span class="fa fa-save"></span> Guardar</button>
+                <button class="btn btn-dark" type="button" data-dismiss="modal" aria-hidden="true"><span class="fa fa-trash-o"></span> Cerrar</button>
+            </div>
+        </form>
+
+    </div>
+    <!-- /.modal-content -->
+</div>
+<!-- /.modal-dialog -->
+</div>
+<!-- /.modal --> 
+<!--############################## MODAL PARA update DE NUEVO USUARIO ######################################-->

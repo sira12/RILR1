@@ -107,7 +107,7 @@ class RegisteredUserController extends Controller
             $id_contribuyente = $contribuyente->Store($request);
 
 
-            //rel persona contribuyente      
+            //rel persona contribuyente
             $fecha = \Carbon\Carbon::now()->format('d-m-Y');
 
             if ($request->tipo_personeria == 2) {
@@ -166,26 +166,6 @@ class RegisteredUserController extends Controller
                 'errors'  => $th->getMessage(),
             ], 400);
         }
-    }
-
-
-    public function RegisterUser(Request $request)
-    {
-
-        $fecha_time = \Carbon\Carbon::now();
-
-        $user = User::create([
-
-            'usuario' => $request->nombre,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'autorizado' => "P",
-            'fecha_alta' => $fecha_time,
-            'activo' => "P",
-            'fecha_de_actualizacion' => $fecha_time
-        ]);
-
-        return response()->json(array('status' => 200, 'msg' => "ok"), 200);
     }
 
 

@@ -38,7 +38,7 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header bg-dark">
-                        <h4 class="card-title text-white"><i class="fa fa-tasks"></i> Usuarios <a href="javascript:void(0)" class="pull-right text-white" onClick="getContribuyentesTable();"><i class="mdi mdi-refresh"></i> Refrescar</a></h4>
+                        <h4 class="card-title text-white"><i class="fa fa-tasks"></i> Usuarios <a href="javascript:void(0)" class="pull-right text-white" onClick="getUsuariosAdminTable();"><i class="mdi mdi-refresh"></i> Refrescar</a></h4>
                     </div>
 
                     <div class="form-body">
@@ -49,7 +49,9 @@
                                 
 
                                 <div class="col-md-7">
-                                    
+                                    <div class="btn-group m-b-20">
+                                        <button type="button" class="btn btn-success btn-light" data-placement="left" title="Nuevo Usuario" data-original-title="" data-href="#" data-toggle="modal" data-target="#myModalUser" data-backdrop="static" data-keyboard="false"><i class="fa fa-plus"></i> Nuevo</button>
+                                    </div>    
                                 </div>
                             </div>
 

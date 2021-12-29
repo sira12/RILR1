@@ -20,13 +20,13 @@ class AdminMiddleware
 
         $authUser=New User();
         $user=$authUser->GetinfoUser();
-      
-        if (auth()->check() && str_contains($user->roleNames, 'SuperAdmin')){
+
+        if (auth()->check() && str_contains($user->roleNames, 'ADMINISTRADOR')){
 
             return $next($request);
         }
 
         return redirect('/panel');
-       
+
     }
 }

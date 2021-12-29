@@ -2,11 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9430eff2-964d-4ff0-ac9b-ba6a105919cd" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/RILR.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/RILR.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/PanelAdmin/ListadoContribuyentes.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/PanelAdmin/ListadoContribuyentes.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/menus/menuAdmin.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/menus/menuAdmin.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auth/AuthenticatedSessionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auth/AuthenticatedSessionController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auth/RegisteredUserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auth/RegisteredUserController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ContribuyenteController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ContribuyenteController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/UsuariosAdminController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/UsuariosAdminController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Middleware/AdminMiddleware.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Middleware/AdminMiddleware.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Middleware/ContribuyenteMiddleware.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Middleware/ContribuyenteMiddleware.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/script/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/script/script.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/PanelAdmin.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/PanelAdmin.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/PanelAdmin/Usuarios.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/PanelAdmin/Usuarios.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/PanelAdmin/modales.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/PanelAdmin/modales.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -165,7 +171,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../LMV/skiverse_frontend.git" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Color Scheme Font" />
     <property name="vue.rearranger.settings.migration" value="true" />
@@ -201,6 +207,15 @@
       <workItem from="1630942812607" duration="187000" />
       <workItem from="1636675783979" duration="1111000" />
       <workItem from="1639506009933" duration="2424000" />
+      <workItem from="1639854657382" duration="90000" />
+      <workItem from="1639854915502" duration="24000" />
+      <workItem from="1640038082691" duration="4063000" />
+      <workItem from="1640081693710" duration="5000" />
+      <workItem from="1640102028245" duration="5609000" />
+      <workItem from="1640129679786" duration="2061000" />
+      <workItem from="1640168470027" duration="2118000" />
+      <workItem from="1640214902354" duration="2957000" />
+      <workItem from="1640258003352" duration="144000" />
     </task>
     <servers />
   </component>

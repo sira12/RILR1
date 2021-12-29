@@ -41,6 +41,14 @@ function getUsuariosAdminTable(){
                 name: "email",
             },           
             {
+                data: "rolenames",
+                name: "rolenames",
+            },           
+            {
+                data: "activo",
+                name: "activo",
+            },           
+            {
                 data: "action",
                 name: "action",
                 orderable: true,
@@ -987,5 +995,452 @@ function MuestraObservacion() {
         /* form submit */
     });
 });
+
+
+
+
+/* FUNCION JQUERY PARA VALIDAR REGISTRO DE USUARIOS */
+$('document').ready(function() {
+    jQuery.validator.addMethod("lettersonly", function(value, element) {
+        return this.optional(element) || /^[a-zA-ZñÑáéíóúÁÉÍÓÚ,. ]+$/i.test(value);
+    });
+    /* validation */
+    $("#saveusuario").validate({
+        rules: {
+            dni: {
+                required: true,
+                digits: true,
+                minlength: 7
+            },
+            nombres: {
+                required: true,
+                lettersonly: true
+            },
+            id_sexo: {
+                required: true
+            },
+            search_provincia: {
+                required: true
+            },
+            search_localidad: {
+                required: true
+            },
+            direccion: {
+                required: true
+            },
+            telefono: {
+                required: true
+            },
+            celular: {
+                required: true
+            },
+            email: {
+                required: true,
+                email: true
+            },
+            cargo: {
+                required: true
+            },
+            usuario: {
+                required: true
+            },
+            password: {
+                required: true,
+                minlength: 8
+            },
+            password2: {
+                required: true,
+                minlength: 8,
+                equalTo: "#password"
+            },
+            nivel: {
+                required: true
+            },
+            status: {
+                required: true
+            },
+        },
+        messages: {
+            dni: {
+                required: "Ingrese N&deg; de Documento",
+                digits: "Ingrese solo d&iacute;gitos para N&deg; de Documento",
+                minlength: "Ingrese 7 d&iacute;gitos como m&iacute;nimo"
+            },
+            nombres: {
+                required: "Ingrese Nombres y Apellidos",
+                lettersonly: "Ingrese solo letras para Nombres"
+            },
+            id_sexo: {
+                required: "Seleccione Sexo de Usuario"
+            },
+            search_provincia: {
+                required: "Ingrese Provincia"
+            },
+            search_localidad: {
+                required: "Ingrese Localidad"
+            },
+            direccion: {
+                required: "Ingrese Direcci&oacute;n Domiciliaria"
+            },
+            telefono: {
+                required: "Ingrese N&deg; de Tel&eacute;fono"
+            },
+            celular: {
+                required: "Ingrese N&deg; de Celular"
+            },
+            email: {
+                required: "Ingrese Email de Usuario",
+                email: "Ingrese un Email V&aacute;lido"
+            },
+            cargo: {
+                required: "Ingrese Cargo de Usuario"
+            },
+            usuario: {
+                required: "Ingrese Usuario de Acceso"
+            },
+            password: {
+                required: "Ingrese Password de Acceso",
+                minlength: "Ingrese 8 caracteres como m&iacute;nimo"
+            },
+            password2: {
+                required: "Repita Password de Acceso",
+                minlength: "Ingrese 8 caracteres como m&iacute;nimo",
+                equalTo: "Este Password no coincide"
+            },
+            nivel: {
+                required: "Seleccione Nivel de Acceso"
+            },
+            status: {
+                required: "Seleccione Status de Acceso"
+            },
+        },
+        submitHandler: function(form) {
+            var data = $("#saveusuario").serialize();
+            var formData = new FormData($("#saveuser")[0]);
+            $.ajax({
+                type: 'POST',
+                url: '/saveUser',
+                async: false,
+                data: {
+                    _token: $('meta[name="csrf-token"]').attr('content'),
+                    data:data
+                },
+                beforeSend: function() {
+                    $("#save").fadeOut();
+                    $("#btn-submit").html('<i class="fa fa-refresh"></i> Verificando...');
+                },
+                success: function(data) {
+                    if (data.status == 1) {
+                        $("#save").fadeIn(1000, function() {
+                            var n = noty({
+                                text: "<span class='fa fa-warning'></span>"+data.msg,
+                                theme: 'defaultTheme',
+                                layout: 'center',
+                                type: 'warning',
+                                timeout: 5000,
+                            });
+                            $("#btn-submit").html('<span class="fa fa-save"></span> Guardar');
+                        });
+                    } else if(data.status == 200) {
+                        $("#save").fadeIn(1000, function() {
+                            var n = noty({
+                                text: '<center> ' + data.msg + ' </center>',
+                                theme: 'defaultTheme',
+                                layout: 'center',
+                                type: 'information',
+                                timeout: 5000,
+                            });
+                            getUsuariosAdminTable()
+                            $('#myModalUser').modal('hide');
+                            $("#saveusuario")[0].reset();
+                            $("#proceso").val("save");
+                            $("#codigo").val("");
+                            $('#usuarios').html("");
+                            $("#btn-submit").html('<span class="fa fa-save"></span> Guardar');
+                            
+                        });
+                    }
+                }
+            });
+            return false;
+        }
+        /* form submit */
+    });
+});
+/*  FIN DE FUNCION PARA VALIDAR REGISTRO DE USUARIOS */
+
+
+function UpdateUser(documento,nombre,fijo, celular,email,activo,rolename,id,p,pc){
+    $("#dniUpdate").val(documento);
+    $("#nombresUpdate").val(nombre);
+    $("#telefonoUpdate").val(fijo);
+    $("#celularUpdate").val(celular);
+    $("#emailUpdate").val(email);
+    $("#id_usuario").val(id);
+    $("#id_persona").val(p);
+    $("#id_pc").val(pc);
+
+    activo =="S"?   $("#statusUpdate").val(1) :$("#statusUpdate").val(0)
+    rolename.includes('ADMINISTRADOR')?  $("#nivelUpdate").val("ADMINISTRADOR(A)") : $("#nivelUpdate").val("") 
+
+}
+
+
+$('document').ready(function() {
+    jQuery.validator.addMethod("lettersonly", function(value, element) {
+        return this.optional(element) || /^[a-zA-ZñÑáéíóúÁÉÍÓÚ,. ]+$/i.test(value);
+    });
+    /* validation */
+    $("#updateusuario").validate({
+        rules: {
+            dniUpdate: {
+                required: true,
+                digits: true,
+                minlength: 7
+            },
+            nombresUpdate: {
+                required: true,
+                lettersonly: true
+            },
+            id_sexo: {
+                required: true
+            },
+            search_provincia: {
+                required: true
+            },
+            search_localidad: {
+                required: true
+            },
+            direccion: {
+                required: true
+            },
+            telefonoUpdate: {
+                required: true
+            },
+            celularUpdate: {
+                required: true
+            },
+            emailUpdate: {
+                required: true,
+                email: true
+            },
+            cargo: {
+                required: true
+            },
+            usuario: {
+                required: true
+            },
+            password: {
+                required: true,
+                minlength: 8
+            },
+            password2: {
+                required: true,
+                minlength: 8,
+                equalTo: "#password"
+            },
+            nivelUpdate: {
+                required: true
+            },
+            statusUpdate: {
+                required: true
+            },
+        },
+        messages: {
+            dniUpdate: {
+                required: "Ingrese N&deg; de Documento",
+                digits: "Ingrese solo d&iacute;gitos para N&deg; de Documento",
+                minlength: "Ingrese 7 d&iacute;gitos como m&iacute;nimo"
+            },
+            nombresUpdate: {
+                required: "Ingrese Nombres y Apellidos",
+                lettersonly: "Ingrese solo letras para Nombres"
+            },
+            id_sexo: {
+                required: "Seleccione Sexo de Usuario"
+            },
+            search_provincia: {
+                required: "Ingrese Provincia"
+            },
+            search_localidad: {
+                required: "Ingrese Localidad"
+            },
+            direccion: {
+                required: "Ingrese Direcci&oacute;n Domiciliaria"
+            },
+            telefonoUpdate: {
+                required: "Ingrese N&deg; de Tel&eacute;fono"
+            },
+            celularUpdate: {
+                required: "Ingrese N&deg; de Celular"
+            },
+            emailUpdate: {
+                required: "Ingrese Email de Usuario",
+                email: "Ingrese un Email V&aacute;lido"
+            },
+            cargo: {
+                required: "Ingrese Cargo de Usuario"
+            },
+            usuario: {
+                required: "Ingrese Usuario de Acceso"
+            },
+            password: {
+                required: "Ingrese Password de Acceso",
+                minlength: "Ingrese 8 caracteres como m&iacute;nimo"
+            },
+            password2: {
+                required: "Repita Password de Acceso",
+                minlength: "Ingrese 8 caracteres como m&iacute;nimo",
+                equalTo: "Este Password no coincide"
+            },
+            nivelUpdate: {
+                required: "Seleccione Nivel de Acceso"
+            },
+            statusUpdate: {
+                required: "Seleccione Status de Acceso"
+            },
+        },
+        submitHandler: function(form) {
+            var data = $("#updateusuario").serialize();
+            //var formData = new FormData($("#saveuser")[0]);
+            $.ajax({
+                type: 'POST',
+                url: '/UpdateUser',
+                async: false,
+                data: {
+                    _token: $('meta[name="csrf-token"]').attr('content'),
+                    data:data
+                },
+                beforeSend: function() {
+                    $("#save").fadeOut();
+                    $("#btn-submit").html('<i class="fa fa-refresh"></i> Verificando...');
+                },
+                success: function(data) {
+                    if (data.status == 1) {
+                        $("#save").fadeIn(1000, function() {
+                            var n = noty({
+                                text: "<span class='fa fa-warning'></span>"+data.msg,
+                                theme: 'defaultTheme',
+                                layout: 'center',
+                                type: 'warning',
+                                timeout: 5000,
+                            });
+                            $("#btn-submit").html('<span class="fa fa-save"></span> Guardar');
+                        });
+                    } else if(data.status == 200) {
+                        $("#save").fadeIn(1000, function() {
+                            var n = noty({
+                                text: '<center> ' + data.msg + ' </center>',
+                                theme: 'defaultTheme',
+                                layout: 'center',
+                                type: 'information',
+                                timeout: 5000,
+                            });
+                            getUsuariosAdminTable();
+                            $('#myModalUserUpdate').modal('hide');
+                            $("#saveusuario")[0].reset();
+                            $("#proceso").val("save");
+                            $("#codigo").val("");
+                            $('#usuarios').html("");
+                            $("#btn-submit").html('<span class="fa fa-save"></span> Guardar');
+                            
+                        });
+                    }
+                }
+            });
+            return false;
+        }
+        /* form submit */
+    });
+});
+
+function ChangePassword(id){
+    $("#id_usuarioP").val(id);
+}
+
+$('document').ready(function() {
+    jQuery.validator.addMethod("lettersonly", function(value, element) {
+        return this.optional(element) || /^[a-zA-ZñÑáéíóúÁÉÍÓÚ,. ]+$/i.test(value);
+    });
+    /* validation */
+    $("#UpdatePassword").validate({
+        rules: {
+            passwordUpdate: {
+                required: true,
+                minlength: 8
+            },
+            password2Update: {
+                required: true,
+                minlength: 8,
+                equalTo: "#passwordUpdate"
+            },           
+        },
+        messages: {
+            
+            passwordUpdate: {
+                required: "Ingrese Password de Acceso",
+                minlength: "Ingrese 8 caracteres como m&iacute;nimo"
+            },
+            password2Update: {
+                required: "Repita Password de Acceso",
+                minlength: "Ingrese 8 caracteres como m&iacute;nimo",
+                equalTo: "Este Password no coincide"
+            },
+           
+        },
+        submitHandler: function(form) {
+            var data = $("#UpdatePassword").serialize();
+            //var formData = new FormData($("#saveuser")[0]);
+            $.ajax({
+                type: 'POST',
+                url: '/UpdatePassword',
+                async: false,
+                data: {
+                    _token: $('meta[name="csrf-token"]').attr('content'),
+                    data:data
+                },
+                beforeSend: function() {
+                    $("#save").fadeOut();
+                    $("#btn-submit").html('<i class="fa fa-refresh"></i> Verificando...');
+                },
+                success: function(data) {
+                    if (data.status == 1) {
+                        $("#save").fadeIn(1000, function() {
+                            var n = noty({
+                                text: "<span class='fa fa-warning'></span>"+data.msg,
+                                theme: 'defaultTheme',
+                                layout: 'center',
+                                type: 'warning',
+                                timeout: 5000,
+                            });
+                            $("#btn-submit").html('<span class="fa fa-save"></span> Guardar');
+                        });
+                    } else if(data.status == 200) {
+                        $("#save").fadeIn(1000, function() {
+                            var n = noty({
+                                text: '<center> ' + data.msg + ' </center>',
+                                theme: 'defaultTheme',
+                                layout: 'center',
+                                type: 'information',
+                                timeout: 5000,
+                            });
+                            getUsuariosAdminTable();
+                            $('#myModalUserUpdatePassword').modal('hide');
+                            $("#saveusuario")[0].reset();
+                            $("#proceso").val("save");
+                            $("#codigo").val("");
+                            $('#usuarios').html("");
+                            $("#btn-submit").html('<span class="fa fa-save"></span> Guardar');
+                            
+                        });
+                    }
+                }
+            });
+            return false;
+        }
+        /* form submit */
+    });
+});
+
 
 

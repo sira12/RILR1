@@ -19,12 +19,12 @@ class ContribuyenteMiddleware
     {
         $authUser=New User();
         $user=$authUser->GetinfoUser();
-      
-        if (auth()->check() && str_contains($user->roleNames, 'Contribuyente')){
+
+        if (auth()->check() && str_contains($user->roleNames, 'USUARIO_INDUSTRIA')){
 
             return $next($request);
         }
-        
+
         return redirect('/dash');
     }
 }
