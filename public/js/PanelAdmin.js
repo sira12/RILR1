@@ -55,7 +55,28 @@ function getUsuariosAdminTable(){
                 searchable: true,
             },
         ],
-        columnDefs: [],
+        columnDefs: [
+            {
+                targets: 6,
+                data: "activo",
+                render: function (data, type, row, meta) {
+                    /* DEFINICION DE LAS VARIABLES:
+                     * data: es el origen de dato... lo que segun el columns obtiene.
+                     * type: display (no se para que es).
+                     * row: todo el object con los valores de toda la fila
+                     * meta: el id de fila y columna en DT más las settings de DT */
+                    var status = "";
+                    if (row.activo == "N") {
+                        status = "INACTIVO";
+                    } else  if (row.activo == "S") {
+                        status = "ACTIVO";
+                    }else  if (row.activo == "P") {
+                        status = "PENDIENTE";
+                    }
+                    return status;
+                },
+            }
+        ],
     });
 
 
@@ -115,16 +136,7 @@ function getContribuyentesTable(){
 
 function getSolicitudes(){
     
-    $("#save").fadeIn(1000, function() {
-        var n = noty({
-            text: "<span class='fa fa-spinner'></span> Cargando..!",
-            theme: 'defaultTheme',
-            layout: 'center',
-            type: 'information',
-            timeout: 2000,
-        });
-       
-    });                        
+                           
     var table = $(".solicitudes_Paneladmin").DataTable();
     table.destroy();
     //$('.yajra-datatable').empty();
@@ -177,7 +189,7 @@ function getSolicitudes(){
                 searchable: true,
             },
         ],
-        columnDefs: [],
+        
     });
 }
 

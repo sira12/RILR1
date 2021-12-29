@@ -25,7 +25,7 @@
                 <span class="logo-text">
                     <!-- dark Logo text -->
                     <img src="" alt="" class="dark-logo">
-                    <!-- Light Logo text     
+                    <!-- Light Logo text
                              <img src="assets/images/logo-icon.png" class="light-logo" alt="homepage">-->
                 </span>
             </a>
@@ -87,7 +87,9 @@
                         @endif
 
                         @if(isset($persona))
-                        <span class="ml-2 d-lg-block">
+
+
+                            <span class="ml-2 d-lg-block">
                             <h5 class="text-dark mb-0"> {{$persona[0]->nombre}}</h5>
                             <small class="text-info mb-0"> {{$usuario->roleNames}}</small>
                         </span>

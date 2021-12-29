@@ -55,6 +55,7 @@ class IndexController extends Controller
             ->get();
 
 
+
         return view('index-admin',[
             'usuario'=>$user,
             'persona'=>$persona

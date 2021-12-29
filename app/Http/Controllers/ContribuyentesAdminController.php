@@ -9,6 +9,11 @@ use Yajra\DataTables\Facades\DataTables;
 
 class ContribuyentesAdminController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -16,6 +21,18 @@ class ContribuyentesAdminController extends Controller
      */
     public function index()
     {
+
+        $user = auth()->user();
+
+        $persona=DB::table('rel_persona_contribuyente')
+            ->where('id_rel_persona_contribuyente',$user['id_rel_persona_contribuyente'])
+            ->join('persona','rel_persona_contribuyente.id_persona','persona.id_persona')
+            ->select([
+                'persona.*'
+            ])
+            ->get();
+
+
 
         $contribuyentes = DB::table('contribuyente')
             ->join('rel_persona_contribuyente', 'contribuyente.id_contribuyente', 'rel_persona_contribuyente.id_contribuyente')
@@ -27,7 +44,10 @@ class ContribuyentesAdminController extends Controller
             )
             ->get();
 
-        return view('PanelAdmin.ListadoContribuyentes');
+        return view('PanelAdmin.ListadoContribuyentes', [
+            'usuario' => $user,
+            'persona' => $persona
+        ]);
     }
 
 
@@ -50,7 +70,7 @@ class ContribuyentesAdminController extends Controller
                     $inds=DB::table('industria')->where('id_contribuyente',$cbt->id_contribuyente)->select('industria.nombre_de_fantasia')->get();
                     $name="";
                     $length=count($inds);
-                   
+
                     foreach($inds as $index=>$ind){
                         $name.=$ind->nombre_de_fantasia;
 
@@ -61,12 +81,12 @@ class ContribuyentesAdminController extends Controller
 
                     }
 
-               
+
 
                 $cbt->industrias= $name;
               }
 
-           
+
         return DataTables::of($contribuyentes)
             ->addIndexColumn()
             ->addColumn('action', function ($row) {
