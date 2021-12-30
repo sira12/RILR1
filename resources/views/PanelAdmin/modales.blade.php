@@ -995,8 +995,6 @@
                             <label class="control-label">Nivel de Acceso: <span class="symbol required"></span></label>
                             <i class="fa fa-bars form-control-feedback"></i>
                         <select name="nivel" id="nivel" class="form-control" required="" aria-required="true">
-                                <option value=""> -- SELECCIONE -- </option>
-                                <option value="ADMINISTRADOR(A)">ADMINISTRADOR(A)</option>
                                 {{-- <option value="OPERADOR(A)">OPERADOR(A)</option> --}}
                             </select>         
                         </div>
@@ -1213,8 +1211,6 @@
                             <label class="control-label">Nivel de Acceso: <span class="symbol required"></span></label>
                             <i class="fa fa-bars form-control-feedback"></i>
                         <select name="nivelUpdate" id="nivelUpdate" class="form-control" required="" aria-required="true">
-                                <option value=""> -- SELECCIONE -- </option>
-                                <option value="ADMINISTRADOR(A)">ADMINISTRADOR(A)</option>
                                 {{-- <option value="OPERADOR(A)">OPERADOR(A)</option> --}}
                             </select>         
                         </div>

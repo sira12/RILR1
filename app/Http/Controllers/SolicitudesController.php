@@ -18,8 +18,7 @@ class SolicitudesController extends Controller
 
 
       try {
-         
-         
+
          if($params['status'] == "1"){
 
             //activo usuario
@@ -27,16 +26,16 @@ class SolicitudesController extends Controller
                'autorizado'=>'S',
                'activo'=>'S',
                'fecha_de_actualizacion'=>Carbon::now()
-            ]); 
+            ]);
 
             DB::table('rel_persona_contribuyente')->where('id_rel_persona_contribuyente',intval($params['id_rel_persona_contribuyente']))->update([
                'autorizado'=>'S',
                'fecha_de_actualizacion'=>Carbon::now()
-            ]); 
+            ]);
             DB::table('contribuyente')->where('id_contribuyente',intval($params['contribuyente']))->update([
                'activo'=>'S',
                'fecha_de_actualizacion'=>Carbon::now()
-            ]); 
+            ]);
 
             //enviar mail
 
@@ -51,22 +50,22 @@ class SolicitudesController extends Controller
                'autorizado'=>'R',
                'activo'=>'N',
                'fecha_de_actualizacion'=>Carbon::now()
-            ]); 
+            ]);
 
             DB::table('rel_persona_contribuyente')->where('id_rel_persona_contribuyente',intval($params['id_rel_persona_contribuyente']))->update([
                'autorizado'=>'R',
                'fecha_de_actualizacion'=>Carbon::now()
-            ]); 
+            ]);
             DB::table('contribuyente')->where('id_contribuyente',intval($params['contribuyente']))->update([
                'activo'=>'N',
                'fecha_de_actualizacion'=>Carbon::now()
-            ]); 
+            ]);
 
             //enviar mail
 
             return response()->json(array('status' =>200, 'msg' => 'Rechazado Correctamente, se le informará al contribuyente'), 200);
          }
-      
+
 
       } catch (\Throwable $th) {
          return response()->json(array('status' =>400), 200);

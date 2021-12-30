@@ -21,7 +21,7 @@ class AdminMiddleware
         $authUser=New User();
         $user=$authUser->GetinfoUser();
 
-        if (auth()->check() && str_contains($user->roleNames, 'ADMINISTRADOR')){
+        if (auth()->check() && str_contains($user->roleNames, 'ADMINISTRADOR') || auth()->check() && str_contains($user->roleNames, 'SUPERADMIN')){
 
             return $next($request);
         }

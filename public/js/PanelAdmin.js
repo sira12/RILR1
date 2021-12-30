@@ -810,7 +810,47 @@ function VerDatosInd(id){
             }
         }
     });
-}   
+}
+
+function getRoles() {
+    //la funcion lanzador lo llama
+    
+    $.ajax({
+        type: "post",
+        url: "/getRoles",
+        data: {
+            _token: $('meta[name="csrf-token"]').attr("content"),
+        },
+        success: function (response) {
+            $("#nivel").find("option").remove();
+            $("#nivelUpdate").find("option").remove();
+            $("#nivel").append(
+                '<option value="">-- SELECCIONE --</option>'
+            );
+            $("#nivelUpdate").append(
+                '<option value="">-- SELECCIONE --</option>'
+            );
+            $(response).each(function (i, v) {
+                $("#nivel").append(
+                    '<option value="' +
+                        v.id_rol +
+                        '">' +
+                        v.rol +
+                        "</option>"
+                );
+            });
+            $(response).each(function (i, v) {
+                $("#nivelUpdate").append(
+                    '<option value="' +
+                        v.id_rol +
+                        '">' +
+                        v.rol +
+                        "</option>"
+                );
+            });
+        },
+    });
+}
 
 
 
@@ -1182,7 +1222,7 @@ $('document').ready(function() {
 /*  FIN DE FUNCION PARA VALIDAR REGISTRO DE USUARIOS */
 
 
-function UpdateUser(documento,nombre,fijo, celular,email,activo,rolename,id,p,pc){
+function UpdateUser(documento,nombre,fijo, celular,email,activo,idRol,id,p,pc){
     $("#dniUpdate").val(documento);
     $("#nombresUpdate").val(nombre);
     $("#telefonoUpdate").val(fijo);
@@ -1191,9 +1231,9 @@ function UpdateUser(documento,nombre,fijo, celular,email,activo,rolename,id,p,pc
     $("#id_usuario").val(id);
     $("#id_persona").val(p);
     $("#id_pc").val(pc);
+    $("#nivelUpdate").val(idRol);
 
     activo =="S"?   $("#statusUpdate").val(1) :$("#statusUpdate").val(0)
-    rolename.includes('ADMINISTRADOR')?  $("#nivelUpdate").val("ADMINISTRADOR(A)") : $("#nivelUpdate").val("") 
 
 }
 

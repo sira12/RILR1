@@ -57,9 +57,15 @@ class UsuariosAdminController extends Controller
             foreach ($data as $user) {
                 $us = new \App\Http\Controllers\User();
                 $rolename = $us->roleNames($user->id_usuario);
+                $roles= $us->getRoleUser($user->id_usuario);
                 $user->rolenames = $rolename;
 
-                if (str_contains($rolename, 'ADMINISTRADOR')) {
+
+                if(count($roles) >0){
+                    $user->rol=$roles[0]->id_rol;
+                }
+
+                if (str_contains($rolename, 'ADMINISTRADOR') || str_contains($rolename, 'SUPERADMIN') ) {
                     array_push($datatmp, $user);
                 }
             }
@@ -69,7 +75,7 @@ class UsuariosAdminController extends Controller
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
 
-                    $actionBtn = '<span data-toggle="modal" data-target="#myModalUserUpdate" style="cursor: pointer;" data-placement="left" title="Actualizar Usuario" onclick="UpdateUser(\'' . $row->documento . '\',\'' . $row->nombre . '\',\'' . $row->tel_fijo . '\',\'' . $row->tel_celular . '\',\'' . $row->email . '\',\'' . $row->activo . '\',\'' . $row->rolenames . '\',\'' . $row->id_usuario . '\',\'' . $row->id_persona . '\',\'' . $row->id_rel_persona_contribuyente . '\');"><i class="mdi mdi-table-edit font-22 text-danger"></i></span>
+                    $actionBtn = '<span data-toggle="modal" data-target="#myModalUserUpdate" style="cursor: pointer;" data-placement="left" title="Actualizar Usuario" onclick="UpdateUser(\'' . $row->documento . '\',\'' . $row->nombre . '\',\'' . $row->tel_fijo . '\',\'' . $row->tel_celular . '\',\'' . $row->email . '\',\'' . $row->activo . '\',\'' . $row->rol . '\',\'' . $row->id_usuario . '\',\'' . $row->id_persona . '\',\'' . $row->id_rel_persona_contribuyente . '\');"><i class="mdi mdi-table-edit font-22 text-danger"></i></span>
                                   <span  data-toggle="modal" data-target="#myModalUserUpdatePassword" style="cursor: pointer;" onclick="ChangePassword(' . $row->id_usuario . ')" title="Cambiar Contraseña"><i class="mdi mdi-key font-24 text-danger"></i></span>';
                     return $actionBtn;
                 })
@@ -85,9 +91,14 @@ class UsuariosAdminController extends Controller
         $DateTime = \Carbon\Carbon::now();
 
         $userDuplicado = DB::table('usuario')->where('email', $params['email'])->get();
-
+        $dniDuplicado = DB::table('persona')->where('documento', $params['dni'])->get();
+        dd($params);
         if (count($userDuplicado) > 0) {
             return response()->json(array('status' => 1, 'msg' => "Ya existe un usuario con este mail, por favor ingrese uno distinto."), 200);
+        }
+
+        if (count($dniDuplicado) > 0) {
+            return response()->json(array('status' => 1, 'msg' => "Ya existe un usuario con este N° de documento, por favor ingrese uno distinto."), 200);
         }
 
         $activo = $params['status'] == "1" ? "S" : "N";
@@ -122,7 +133,7 @@ class UsuariosAdminController extends Controller
 
         DB::table('user_role')->insertGetId([
             'id_user' => $user,
-            'id_role' => 1
+            'id_role' =>intval($params['nivel'])
         ]);
 
         return response()->json(array('status' => 200, 'msg' => "Usuario Creado Correctamente"), 200);
@@ -169,6 +180,17 @@ class UsuariosAdminController extends Controller
             'fecha_de_actualizacion' => $DateTime
         ]);
 
+        $rolesUsuario=DB::table('user_role')->where('id_user',intval($params['id_usuario']))->get();
+
+        if(count($rolesUsuario)>0){
+            DB::table('user_role')->where('id_user',intval($params['id_usuario']))->delete();
+        }
+
+        DB::table('user_role')->insertGetId([
+            'id_user' => intval($params['id_usuario']),
+            'id_role' =>intval($params['nivelUpdate'])
+        ]);
+
 
         return response()->json(array('status' => 200, 'msg' => "Usuario Actualizado Correctamente"), 200);
     }
@@ -190,14 +212,11 @@ class UsuariosAdminController extends Controller
 
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
+   public function getRoles(){
+      $roles=DB::table('rol')->where('rol','ADMINISTRADOR')
+          ->orWhere('rol','SUPERADMIN')
+          ->get();
+
+      return response()->json($roles,200);
+   }
 }

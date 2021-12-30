@@ -317,7 +317,7 @@ Route::post('/getContribuyentesAdmin',[ContribuyentesAdminController::class,'get
 Route::get('/usuarios', [UsuariosAdminController::class,'index'])->middleware(['admin']);
 
 //usuarios
-Route::post('/getUsuarios', [UsuariosAdminController::class,'getUsuarios'])->middleware(['admin']);
+Route::post('/getUsuarios', [UsuariosAdminController::class,'getUsuarios'])->middleware(['auth']);
 Route::post('/saveUser', [UsuariosAdminController::class,'storeUser'])->middleware(['auth']);
 Route::post('/UpdateUser', [UsuariosAdminController::class,'update'])->middleware(['auth']);
 Route::post('/UpdatePassword', [UsuariosAdminController::class,'UpdatePassword'])->middleware(['auth']);
@@ -329,3 +329,7 @@ Route::post('/s_aprove',[SolicitudesController::class,'aprobarSolicitud'])->midd
 //contribuyentes
 Route::post('/getinds',[ContribuyentesAdminController::class,'getIndustrias'])->middleware(['auth']);
 Route::post('/ver_ind',[ContribuyentesAdminController::class,'verInd'])->middleware(['auth']);
+
+//get roles
+
+Route::post('/getRoles',[UsuariosAdminController::class,'getRoles'])->middleware(['auth']);;

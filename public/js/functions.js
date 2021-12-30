@@ -2441,6 +2441,7 @@ function lanzador() {
     }
     if(window.location.pathname == "/usuarios"){
         getUsuariosAdminTable();
+        getRoles();
     }
 
 
