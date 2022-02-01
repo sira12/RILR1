@@ -8,8 +8,7 @@
 </head>
 <body>
 
-<h3>Gracias por registrarte en el Sistema de Registro de Establecimiento industrial</h3>
+<h3>Gracias por registrarte en el Sistema de Registro de Establecimiento industrial, estamos verificando tu solicitud. Te avisaremos en cuanto terminemos, para que puedas iniciar Sesion, Gracias.</h3>
 
-<span>Podes iniciar Sesion </span><a href="https://registroindustrial.larioja.gob.ar">Aqui</a>
 </body>
 </html>

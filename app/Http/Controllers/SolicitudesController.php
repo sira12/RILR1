@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\RegistroMailable;
+use App\Mail\SolicitudesMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
+use phpDocumentor\Reflection\Types\Object_;
 use PhpParser\Node\Stmt\TryCatch;
 use Carbon\Carbon;
 
@@ -39,6 +43,11 @@ class SolicitudesController extends Controller
 
             //enviar mail
 
+             $correo = new Object_();
+             $correo->status=1;
+
+             Mail::to($params['email'])->send(new SolicitudesMail($correo));
+
 
             return response()->json(array('status' =>200, 'msg' => 'Aprobado Correctamente'), 200);
 
@@ -62,6 +71,11 @@ class SolicitudesController extends Controller
             ]);
 
             //enviar mail
+
+             $correo = new Object_();
+             $correo->status=0;
+
+             Mail::to($params['email'])->send(new SolicitudesMail($correo));
 
             return response()->json(array('status' =>200, 'msg' => 'Rechazado Correctamente, se le informará al contribuyente'), 200);
          }
