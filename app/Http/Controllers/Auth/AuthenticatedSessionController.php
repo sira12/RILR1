@@ -35,6 +35,7 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
         $user = Auth::user();
 
+        //en caso de requerir la automatizacion de autorizacion comentar el if y el else
        if($user->activo != "N" && $user->activo != "P"){
 
            $request->session()->regenerate();
