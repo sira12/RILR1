@@ -71,40 +71,45 @@ class RegisteredUserController extends Controller
 
 
 
-            if ($request->id_localidad == null) {
+            if ($request->id_localidad == null || $request->id_localidad == '') {
                 $localidad = new LocalidadController();
                 $id_localidad = $localidad->Store($request->search_localidad, $request->id_provincia);
             } else {
-                $id_localidad = $request->id_localidad;
+                $id_localidad = (int)$request->id_localidad;
             }
             //si el barrio no fue encontrado, guardamos nuevo barrio
-            if ($request->id_barrio == null) {
+            if ($request->id_barrio == null || $request->id_barrio == '') {
                 $barrio = new BarrioController();
                 $id_barrio = $barrio->Store($request, $id_localidad);
             } else {
-                $id_barrio = $request->id_barrio;
+                $id_barrio = (int)$request->id_barrio;
             }
 
             //si la calle no fue encontrada, Guardar nueva calle
-            if ($request->id_calle == null) {
+            if ($request->id_calle == null || $request->id_calle == '') {
                 $calle = new CalleController();
                 $id_calle = $calle->Store($request, $id_localidad);
             } else {
-                $id_calle = $request->id_calle;
+                $id_calle = (int)$request->id_calle;
             }
 
             //persona
-
             $persona = new PersonaController();
-            //le paso los datos a guardar, y obtengo el id del registro que se acaba de cargar
             $id_persona = $persona->Store($request, $id_localidad, $id_barrio, $id_calle);
 
+            if ($id_persona == "error") {
+
+                //TODO crear funcion rollback
+            }
 
             //contribuyente
-
             $contribuyente = new ContribuyenteController();
-            //le paso los datos a guardar, y obtengo el id del registro que se acaba de cargar
-            $id_contribuyente = $contribuyente->Store($request);
+            $id_contribuyente = $contribuyente->store($request);
+
+            if ($id_contribuyente == "error") {
+
+                //TODO crear funcion rollback
+            }
 
 
             //rel persona contribuyente
@@ -140,30 +145,42 @@ class RegisteredUserController extends Controller
                 'documento_poder' => $path2
             ]);
 
-            //registro usuario
-            $user = DB::table('usuario')->insertGetId([
-                'id_rel_persona_contribuyente' => $id,
-                'usuario' => $request->nombre,
-                'email' => $request->email_fiscal,
-                'password' => Hash::make($request->password),
-                'autorizado' => "P",
-                'fecha_alta' => $fecha_time,
-                'activo' => "P",
-                'fecha_de_actualizacion' => $fecha_time
-            ]);
+            if (!is_int($id)) {
 
-            //se le asigna el rol de contribuyente
-            DB::table('user_role')->insertGetId([
-                'id_user'=>$user,
-                'id_role'=>2
-            ]);
+                //TODO: funcion rollback
+
+                return "error";
+
+            } else {
+
+                //registro usuario
+                $user = DB::table('usuario')->insertGetId([
+                    'id_rel_persona_contribuyente' => $id,
+                    'usuario' => $request->nombre,
+                    'email' => $request->email_fiscal,
+                    'password' => Hash::make($request->password),
+                    'autorizado' => "P",
+                    'fecha_alta' => $fecha_time,
+                    'activo' => "P",
+                    'fecha_de_actualizacion' => $fecha_time
+                ]);
+
+                //se le asigna el rol de contribuyente
+                DB::table('user_role')->insertGetId([
+                    'id_user' => $user,
+                    'id_role' => 2
+                ]);
+
+
+                $correo = new RegistroMailable;
+                Mail::to($request->email_fiscal)->send($correo);
+
+                return response()->json(array('status' => 200, 'msg' => "Guardado Correctamente"), 200);
+            }
+
 
             //event(new Registered($user));
 
-            $correo = new RegistroMailable;
-            Mail::to($request->email_fiscal)->send($correo);
-
-            return response()->json(array('status' => 200, 'msg' => "Guardado Correctamente"), 200);
         } catch (\Throwable $th) {
 
             return response()->json([

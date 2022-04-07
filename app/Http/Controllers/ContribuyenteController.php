@@ -22,25 +22,7 @@ class ContribuyenteController extends Controller
         $contribuyente = DB::table('contribuyente')->where('id_contribuyente', intval($request->id_contribuyente))->get();
         return response()->json($contribuyente);
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+ 
 
     /**
      * Store a newly created resource in storage.
@@ -76,23 +58,21 @@ class ContribuyenteController extends Controller
 
         $contribuyente->constancia_afip = $path;
 
-        $contribuyente->save();
-        //id del registro que se acaba de cargar
-        $id = $contribuyente->id_contribuyente;
+        
 
-        return $id;
+        if($contribuyente->save()){
+
+             //id del registro que se acaba de cargar
+             return
+             $contribuyente->id_contribuyente;
+
+        }else{
+            return "error";
+        }
+       
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -154,17 +134,7 @@ class ContribuyenteController extends Controller
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+    
 
     /**
      * Update the specified resource in storage.
@@ -231,14 +201,4 @@ class ContribuyenteController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }
