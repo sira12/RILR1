@@ -2631,7 +2631,7 @@ $('document').ready(function() {
                             var n = noty({
                                 text: '<center> ' + data.msg + ' </center>',
                                 theme: 'defaultTheme',
-                                layout: 'center',
+                                layout: 'topCenter',
                                 type: 'information',
                                 timeout: 5000,
                             });
@@ -2761,10 +2761,7 @@ $("#btn-actividad").on('click', function() {
                                 timeout: 5000,
                             });
                             $('#MyModalActividad').modal('hide');
-                            //$('#secciones').load("formularios.php?BuscaFormularioProcedimiento=si&seccion=" + seccion + "&in=" + industria);
-                            //$("#saveactividad")[0].reset();
-                            //$("#saveactividad #actividad").val("saveactividades");
-                            //$("#saveactividad #id_industria").val("");
+                            $("#saveactividad")[0].reset();
                             $("#saveactividad #id_actividad").val("");
                             $("#btn-actividad").html('<span class="fa fa-save"></span> Agregar y Guardar');
                             cargar_tabla_actividades();
