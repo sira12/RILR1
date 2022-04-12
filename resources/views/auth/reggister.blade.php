@@ -343,7 +343,7 @@
                                                 <div class="form-group has-feedback">
                                                     <label class="control-label">N° Calle: <span style="cursor: pointer;" class="mdi mdi-alert-circle text-danger" data-container="body"></label>
 
-                                                    <input type="number" class="form-control" name="nro_calle" id="nro_calle" placeholder="Ingrese Numero de Calle" autocomplete="off" aria-required="true" />
+                                                    <input maxlength="50" type="number" class="form-control" name="nro_calle" id="nro_calle" placeholder="Ingrese Numero de Calle" autocomplete="off" aria-required="true" />
                                                     <i class="fa fa-pencil form-control-feedback"></i>
                                                 </div>
                                             </div>
@@ -352,7 +352,7 @@
                                                 <div class="form-group has-feedback">
                                                     <label class="control-label">N° Piso: <span style="cursor: pointer;" class="mdi mdi-alert-circle text-danger" data-container="body"></label>
 
-                                                    <input type="number" class="form-control" name="nro_piso" id="nro_piso" placeholder="Ingrese Numero de Piso" autocomplete="off" aria-required="true" />
+                                                    <input maxlength="3" type="number" class="form-control" name="nro_piso" id="nro_piso" placeholder="Ingrese Numero de Piso" autocomplete="off" aria-required="true" />
                                                     <i class="fa fa-pencil form-control-feedback"></i>
                                                 </div>
                                             </div>
@@ -361,7 +361,7 @@
                                                 <div class="form-group has-feedback">
                                                     <label class="control-label">N° de Departamento: <span style="cursor: pointer;" class="mdi mdi-alert-circle text-danger" data-container="body"></label>
 
-                                                    <input type="number" class="form-control" name="nro_departamento" id="nro_departamento" placeholder="Ingrese Numero de Departamento" autocomplete="off" aria-required="true" />
+                                                    <input maxlength="15" type="number" class="form-control" name="nro_departamento" id="nro_departamento" placeholder="Ingrese Numero de Departamento" autocomplete="off" aria-required="true" />
                                                     <i class="fa fa-pencil form-control-feedback"></i>
                                                 </div>
                                             </div>
@@ -369,7 +369,7 @@
                                             <div class="col-md-3">
                                                 <div class="form-group has-feedback">
                                                     <label class="control-label">Referencia: <span style="cursor: pointer;" class="mdi mdi-alert-circle text-danger" data-container="body"></label>
-                                                    <input type="text" class="form-control" name="referencia" id="referencia" placeholder="Ingrese una referencia" autocomplete="off" aria-required="true" />
+                                                    <input maxlength="100"type="text" class="form-control" name="referencia" id="referencia" placeholder="Ingrese una referencia" autocomplete="off" aria-required="true" />
                                                     <i class="fa fa-pencil form-control-feedback"></i>
                                                 </div>
                                             </div>
@@ -408,7 +408,7 @@
                                             <div class="col-md-3">
                                                 <div class="form-group has-feedback">
                                                     <label class="control-label">Nº de Documento: <span class="symbol required"></span></label>
-                                                    <input type="text" class="form-control" class="@error('documento') is-invalid @enderror" name="documento" id="documento" placeholder="Ingrese Nº Documento" autocomplete="off" required="" aria-required="true" />
+                                                    <input maxlength="12" type="text" class="form-control" class="@error('documento') is-invalid @enderror" name="documento" id="documento" placeholder="Ingrese Nº Documento" autocomplete="off" required="" aria-required="true" />
                                                     <i class="fa fa-bolt form-control-feedback"></i>
 
 
@@ -426,7 +426,7 @@
                                             <div class="col-md-3">
                                                 <div class="form-group has-feedback">
                                                     <label class="control-label">Nº de Celular: <span class="symbol required"></span></label>
-                                                    <input type="text" class="form-control" class="@error('celular') is-invalid @enderror" name="celular" id="celular" placeholder="Ingrese Nº de Celular" autocomplete="off" required="" aria-required="true" />
+                                                    <input maxlength="30" type="text" class="form-control" class="@error('celular') is-invalid @enderror" name="celular" id="celular" placeholder="Ingrese Nº de Celular" autocomplete="off" required="" aria-required="true" />
                                                     <i class="fa fa-phone form-control-feedback"></i>
 
                                                     @error('celular')
