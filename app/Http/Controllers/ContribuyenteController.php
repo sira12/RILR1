@@ -33,35 +33,32 @@ class ContribuyenteController extends Controller
     public function store(Request $request)
     {
 
+        $bigInt_cuit = gmp_init($request->cuit);
+        $bigIntVal_cuit = gmp_intval($bigInt_cuit);
 
         $contribuyente = new Contribuyente();
 
-        $contribuyente->cuit = intval($request->cuit);
+        $contribuyente->cuit =$bigIntVal_cuit;
         $contribuyente->razon_social = $request->razonsocial;
 
         $contribuyente->email_fiscal = $request->email_fiscal;
         $contribuyente->fecha_de_actualizacion = Carbon::now();
         $contribuyente->activo = "P";
-        $contribuyente->id_persona_juridica = $request->tipo_personeria;
+        $contribuyente->id_persona_juridica = (int)$request->tipo_personeria;
 
 
         $afip = $request->file('afip');
 
-
-
         $fecha = \Carbon\Carbon::now()->format('d-m-Y');
 
         //guardar imagen
-
         //guardo en disco para pdfs
         $path = $afip->storeAs("/documents/contribuyentes", ($request->cuit . "_" . $fecha . '.' . $afip->extension()));
-
         $contribuyente->constancia_afip = $path;
 
         
 
         if($contribuyente->save()){
-
              //id del registro que se acaba de cargar
              return
              $contribuyente->id_contribuyente;
