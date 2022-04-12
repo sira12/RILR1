@@ -311,15 +311,15 @@ class VentasyFacturacionController extends Controller
             $msg = "La industria ya tiene cargada una clasificacion ";
             $status = 1;
         } else {
-
+            
 
             DB::table('facturacion')->insertGetId([
                 'id_industria' => $id_industria,
                 'id_categoria_ingresos' => intval($params['categoria_ingresos']),
-                'prevision_ingresos_anio_corriente' => intval($params['prevision_ingresos_anio_corriente']),
-                'prevision_ingresos_anio_corriente_dolares' => intval($params['prevision_ingresos_anio_corriente_dolares']),
-                'porcentaje_prevision_mercado_interno' => intval($params['porcentaje_prevision_mercado_interno']),
-                'porcentaje_prevision_mercado_externo' => intval($params['porcentaje_prevision_mercado_externo']),
+                'prevision_ingresos_anio_corriente' => $params['prevision_ingresos_anio_corriente'],
+                'prevision_ingresos_anio_corriente_dolares' => $params['prevision_ingresos_anio_corriente_dolares'],
+                'porcentaje_prevision_mercado_interno' => $params['porcentaje_prevision_mercado_interno'],
+                'porcentaje_prevision_mercado_externo' => $params['porcentaje_prevision_mercado_externo'],
                 'anio' => $periodo_fiscal,
                 'fecha_de_actualizacion' => Carbon::now(),
 
@@ -348,10 +348,10 @@ class VentasyFacturacionController extends Controller
        if( DB::table('facturacion')->where('id_facturacion', intval($params['id_facturacion']))->Update([
             'id_industria' => $id_industria,
             'id_categoria_ingresos' => intval($params['categoria_ingresos']),
-            'prevision_ingresos_anio_corriente' => intval($params['prevision_ingresos_anio_corriente']),
-            'prevision_ingresos_anio_corriente_dolares' => intval($params['prevision_ingresos_anio_corriente_dolares']),
-            'porcentaje_prevision_mercado_interno' => intval($params['porcentaje_prevision_mercado_interno']),
-            'porcentaje_prevision_mercado_externo' => intval($params['porcentaje_prevision_mercado_externo']),
+            'prevision_ingresos_anio_corriente' => $params['prevision_ingresos_anio_corriente'],
+            'prevision_ingresos_anio_corriente_dolares' =>$params['prevision_ingresos_anio_corriente_dolares'],
+            'porcentaje_prevision_mercado_interno' => $params['porcentaje_prevision_mercado_interno'],
+            'porcentaje_prevision_mercado_externo' => $params['porcentaje_prevision_mercado_externo'],
             /* 'anio'=>$date, */
             'fecha_de_actualizacion' => Carbon::now(),
 
