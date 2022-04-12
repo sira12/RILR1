@@ -207,6 +207,7 @@ class MateriaPrimaController extends Controller
             ->get();
 
 
+
         $materia_nombre_iguales = DB::table('materia_prima')->where('materia_prima', $params['search_materia'])
             ->where('id_materia_prima', '!=',  intval($params['id_materia_prima']))
             ->get();
@@ -232,8 +233,12 @@ class MateriaPrimaController extends Controller
 
             if (count($mat_utilizado) < 1) {
                 //si el materia no est'a siendo utilizado lo edito
+                
+               
                 $materia = new MateriaPrimaController();
                 $id_materia = $materia->update($request, intval($params['id_materia_prima']));
+
+                
             } else {
                 //tengo que cargar uno nuevo
                 $materia = new MateriaPrimaController();
@@ -242,6 +247,8 @@ class MateriaPrimaController extends Controller
 
 
             if ($params['es_propio_materia'] == "P") {
+
+
 
                 $pais_localidad = DB::table('rel_industria_actividad')
                     ->where('id_rel_industria_actividad', intval($params['id_rel_industria_actividad_materia_prima']))
@@ -261,6 +268,8 @@ class MateriaPrimaController extends Controller
                 $motivo = null;
                 $detalles = "";
             } else {
+
+                
 
                 //si no vienen ids de paises localidad y provincia: cargarlos
 
@@ -377,13 +386,16 @@ class MateriaPrimaController extends Controller
     {
         $params = [];
         parse_str($request->data, $params);
+        
 
         //comprobar si la materia existe; si existe se devuelve id de la materia
         $result = DB::table('materia_prima')->where('materia_prima', $params['search_materia'])->get();
 
         if (count($result) >= 1) {
+            
             //devulvo id
-            $response = $result[0]['id_materia_prima'];
+            $response = $result[0]->id_materia_prima;
+            
         } else {
             //si no existe guardarla
             $id = DB::table('materia_prima')->insertGetId([
