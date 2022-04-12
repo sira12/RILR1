@@ -22,6 +22,7 @@ use App\Mail\RegistroMailable;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use PhpParser\Node\Stmt\TryCatch;
+use Symfony\Component\HttpKernel\Event\RequestEvent;
 
 class RegisteredUserController extends Controller
 {
@@ -59,7 +60,23 @@ class RegisteredUserController extends Controller
     {
 
         try {
-            $contribuyente = DB::table('contribuyente')->where('cuit', $request->cuit)->get();
+
+            //convert strin to bigInt
+            $bigInt_cuit = gmp_init($request->cuit);
+            $bigIntVal_cuit = gmp_intval($bigInt_cuit);            
+            $fecha_time = \Carbon\Carbon::now();            
+            $fecha = \Carbon\Carbon::now()->format('d-m-Y');
+
+
+            $arrayRollBack=[];
+            $arrayRollBack['cuitContribuyente']=$bigIntVal_cuit;
+            $arrayRollBack['emailUser']= $request->email_fiscal;
+            $arrayRollBack['dni']=$request->documento;
+            
+            $dataCountries=$this->saveDataCountries($request); 
+
+
+            $contribuyente = DB::table('contribuyente')->where('cuit', $bigIntVal_cuit)->get();           
             if (count($contribuyente) > 0) {
                 return response()->json(array('status' => 1, 'msg' => "El cuit ingresado ya existe"), 200);
             }
@@ -67,54 +84,25 @@ class RegisteredUserController extends Controller
             $mail = DB::table('usuario')->where('email', $request->email_fiscal)->get();
             if (count($mail) > 0) {
                 return response()->json(array('status' => 1, 'msg' => "El mail ingresado ya existe"), 200);
-            }
-
-
-
-            if ($request->id_localidad == null || $request->id_localidad == '') {
-                $localidad = new LocalidadController();
-                $id_localidad = $localidad->Store($request->search_localidad, $request->id_provincia);
-            } else {
-                $id_localidad = (int)$request->id_localidad;
-            }
-            //si el barrio no fue encontrado, guardamos nuevo barrio
-            if ($request->id_barrio == null || $request->id_barrio == '') {
-                $barrio = new BarrioController();
-                $id_barrio = $barrio->Store($request, $id_localidad);
-            } else {
-                $id_barrio = (int)$request->id_barrio;
-            }
-
-            //si la calle no fue encontrada, Guardar nueva calle
-            if ($request->id_calle == null || $request->id_calle == '') {
-                $calle = new CalleController();
-                $id_calle = $calle->Store($request, $id_localidad);
-            } else {
-                $id_calle = (int)$request->id_calle;
-            }
+            }                    
 
             //persona
             $persona = new PersonaController();
-            $id_persona = $persona->Store($request, $id_localidad, $id_barrio, $id_calle);
-
-            if ($id_persona == "error") {
-
-                //TODO crear funcion rollback
-            }
+            $id_persona = $persona->Store($request, $dataCountries['id_localidad'], $dataCountries['id_barrio'], $dataCountries['id_calle']);
 
             //contribuyente
             $contribuyente = new ContribuyenteController();
             $id_contribuyente = $contribuyente->store($request);
 
-            if ($id_contribuyente == "error") {
-
+            if ($id_persona == "error" || $id_contribuyente == "error") {
                 //TODO crear funcion rollback
+                //SI HAY UN ERROR EN PERSONA O CONTRIBUYENTE
+                $this->rollBack($arrayRollBack);
+                return response()->json(array('status' => 1, 'msg' => "Ha Ocurrido un error"), 200);
             }
 
 
             //rel persona contribuyente
-            $fecha = \Carbon\Carbon::now()->format('d-m-Y');
-
             if ($request->tipo_personeria == 2) {
                 //para vinculacion
                 $vinculacion = $request->file('vinculacion');
@@ -133,7 +121,6 @@ class RegisteredUserController extends Controller
                 $path2 = NULL;
             }
 
-            $fecha_time = \Carbon\Carbon::now();
 
             $id = DB::table('rel_persona_contribuyente')->insertGetId([
                 'id_persona' => $id_persona,
@@ -147,10 +134,9 @@ class RegisteredUserController extends Controller
 
             if (!is_int($id)) {
 
-                //TODO: funcion rollback
-
-                return "error";
-
+                //TODO: funcion rollback                
+                $this->rollBack($arrayRollBack);
+                return response()->json(array('status' => 1, 'msg' => "Ha Ocurrido un error"), 200);
             } else {
 
                 //registro usuario
@@ -166,9 +152,9 @@ class RegisteredUserController extends Controller
                 ]);
 
                 //se le asigna el rol de contribuyente
-                DB::table('user_role')->insertGetId([
+                DB::table('user_role')->insert([
                     'id_user' => $user,
-                    'id_role' => 2
+                    'id_role' => 2 //rol contribuyente
                 ]);
 
 
@@ -178,9 +164,6 @@ class RegisteredUserController extends Controller
                 return response()->json(array('status' => 200, 'msg' => "Guardado Correctamente"), 200);
             }
 
-
-            //event(new Registered($user));
-
         } catch (\Throwable $th) {
 
             return response()->json([
@@ -189,6 +172,56 @@ class RegisteredUserController extends Controller
                 'errors'  => $th->getMessage(),
             ], 400);
         }
+    }
+
+
+     /*
+        # FUNCION PARA REALIZAR UN ROLLBACK EN CASO DE ERROR
+        ES DECIR: SI HAY UN ERROR AL CREAR LA PERSONA O CONTRIBUYENTE BORRAR DATOS PARA QE NO QUEDEN REGISTROS SOMBIES  
+    */
+    private function rollBack($arrayRollback){
+        $contribuyente = DB::table('contribuyente')->where('cuit', $arrayRollback['cuitContribuyente'])->get();           
+        if (count($contribuyente) > 0) {
+           DB::table('contribuyente')->where('cuit', $arrayRollback['cuitContribuyente'])->delete();           
+        }
+
+        $mail = DB::table('usuario')->where('email', $arrayRollback['emailUser'])->get();
+        if (count($mail) > 0) {
+           DB::table('usuario')->where('email', $arrayRollback['emailUser'])->delete();
+        }
+    }
+
+    /*
+    # FUNCION PARA GUARDAR LOCALIDAD, CALLE O BARRIO SI NO EXISTE  
+    */
+    private function saveDataCountries(Request $request){
+
+        
+        $arrayResponse=[];
+        if ($request->id_localidad == null || $request->id_localidad == '') {
+            $localidad = new LocalidadController();
+            $arrayResponse['id_localidad'] = $localidad->store($request->search_localidad, $request->id_provincia);
+        } else {
+            $arrayResponse['id_localidad'] = (int)$request->id_localidad;
+        }
+        //si el barrio no fue encontrado, guardamos nuevo barrio
+        if ($request->id_barrio == null || $request->id_barrio == '') {
+            $barrio = new BarrioController();
+            $arrayResponse['id_barrio'] = $barrio->store($request, $arrayResponse['id_localidad']);
+        } else {
+            $arrayResponse['id_barrio'] = (int)$request->id_barrio;
+        }
+
+        //si la calle no fue encontrada, Guardar nueva calle
+        if ($request->id_calle == null || $request->id_calle == '') {
+            $calle = new CalleController();
+            $arrayResponse['id_calle'] = $calle->store($request, $arrayResponse['id_localidad']);
+        } else {
+            $arrayResponse['id_calle'] = (int)$request->id_calle;
+        }
+
+        return $arrayResponse;
+
     }
 
 
