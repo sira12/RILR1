@@ -264,7 +264,7 @@ class ServicioController extends Controller
                     'id_pais' => $pais,
                     'id_motivo_importacion' => $motivo,
                     'detalles' => $detalles,
-                    'cantidad_consumida' => intval($params['costo_basico'][$i]), //en servicios basicos se utiliza la cantidad consumida y el parametro es el costo_basico
+                    'cantidad_consumida' => floatval($params['costo_basico'][$i]), //en servicios basicos se utiliza la cantidad consumida y el parametro es el costo_basico
                     'anio' => $periodo_fiscal,
                     'fecha_de_actualizacion' => Carbon::now(),
                     'id_unidad_de_medida' => null
@@ -462,7 +462,7 @@ class ServicioController extends Controller
                         'id_industria' => $id_industria,
                         'id_servicio' => intval($valor),
                         'id_frecuencia_de_contratacion' => 1,
-                        'cantidad_consumida' => intval($params['costo_basico'][$i]), //en servicios basicos se utiliza la cantidad consumida
+                        'cantidad_consumida' => floatval($params['costo_basico'][$i]), //en servicios basicos se utiliza la cantidad consumida
                         'id_localidad' =>  $localidad,
                         'id_pais' => $pais,
                         'id_motivo_importacion' => $motivo,
