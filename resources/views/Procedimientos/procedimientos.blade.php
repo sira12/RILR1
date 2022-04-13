@@ -149,7 +149,7 @@
                                                 <div class="form-group has-feedback">
                                                     <label class="control-label">Fecha de Inicio Actividad en
                                                         Establecimiento: <span class="symbol required"></span></label>
-                                                    <input type="text" class="form-control actividades" name="fecha_actividad_industria" id="fecha_actividad_industria" placeholder="Ingrese Fecha Inicio Actividad de Industria" autocomplete="off" value="" required="" aria-required="true" />
+                                                    <input type="text" class="form-control actividades" name="fecha_actividad_industria" id="fecha_actividad_industria" placeholder="Ingrese Fecha Inicio Actividad de Industria" autocomplete="off"  required="" aria-required="true" />
                                                     <i class="fa fa-calendar form-control-feedback"></i>
                                                 </div>
                                             </div>

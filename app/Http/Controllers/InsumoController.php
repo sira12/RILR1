@@ -124,14 +124,13 @@ class InsumoController extends Controller
              $detalles = isset($params['detalles_insumo']) ?  $params['detalles_insumo'] : "";
          }
 
-         $bigIntCantInsumo = gmp_init($params['cantidad_insumo']);
-        $bigIntValCantInsumo = gmp_intval($bigIntCantInsumo); 
+         
 
          $id_rel_insumo_industria = DB::table('rel_industria_insumo')->insertGetId([
              'id_industria' => $id_industria,
              'id_insumo' => $id_insumo,
              'id_unidad_de_medida' => intval($params['medida_insumo']),
-             'cantidad' => $bigIntValCantInsumo,
+             'cantidad' => (int)$params['cantidad_insumo'],
              'es_propio' => $params['es_propio_insumo'],
              'id_localidad' =>  $localidad ,
              'id_pais' => $pais,

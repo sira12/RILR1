@@ -33,12 +33,9 @@ class ContribuyenteController extends Controller
     public function store(Request $request)
     {
 
-        $bigInt_cuit = gmp_init($request->cuit);
-        $bigIntVal_cuit = gmp_intval($bigInt_cuit);
-
         $contribuyente = new Contribuyente();
 
-        $contribuyente->cuit =$bigIntVal_cuit;
+        $contribuyente->cuit =(int)$request->cuit;
         $contribuyente->razon_social = $request->razonsocial;
 
         $contribuyente->email_fiscal = $request->email_fiscal;

@@ -61,22 +61,20 @@ class RegisteredUserController extends Controller
 
         try {
 
-            //convert strin to bigInt
-            $bigInt_cuit = gmp_init($request->cuit);
-            $bigIntVal_cuit = gmp_intval($bigInt_cuit);            
+                       
             $fecha_time = \Carbon\Carbon::now();            
             $fecha = \Carbon\Carbon::now()->format('d-m-Y');
 
 
             $arrayRollBack=[];
-            $arrayRollBack['cuitContribuyente']=$bigIntVal_cuit;
+            $arrayRollBack['cuitContribuyente']=(int)$request->cuit;
             $arrayRollBack['emailUser']= $request->email_fiscal;
             $arrayRollBack['dni']=$request->documento;
             
             $dataCountries=$this->saveDataCountries($request); 
 
 
-            $contribuyente = DB::table('contribuyente')->where('cuit', $bigIntVal_cuit)->get();           
+            $contribuyente = DB::table('contribuyente')->where('cuit', (int)$request->cuit)->get();           
             if (count($contribuyente) > 0) {
                 return response()->json(array('status' => 1, 'msg' => "El cuit ingresado ya existe"), 200);
             }

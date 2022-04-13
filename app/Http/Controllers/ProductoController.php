@@ -71,20 +71,6 @@ class ProductoController extends Controller
         $params = [];
         parse_str($request->data, $params);
 
-        //convert string to bigint
-        $bigIntCantProducida = gmp_init($params['cantidad_producida']);
-        $bigIntValCantProducida = gmp_intval($bigIntCantProducida);
-
-        $bigIntVentProvincia = gmp_init($params['ventas_en_provincia']);
-        $bigIntValVentProvincia = gmp_intval($bigIntVentProvincia);
-
-        $bigIntVentOtraProvincia = gmp_init($params['ventas_en_otras_provincias']);
-        $bigIntValVentOtraProvincia = gmp_intval($bigIntVentOtraProvincia);
-
-        $bigIntVentInternacionales = gmp_init($params['ventas_internacionales']);
-        $bigIntValVentInternacionales = gmp_intval($bigIntVentInternacionales);
-
-
         $date = Carbon::now()->format('Y');
         $periodo_fiscal = $request->p_f;
 
@@ -113,11 +99,11 @@ class ProductoController extends Controller
                 'id_rel_industria_actividad' => intval($params['id_rel_industria_actividad']),
                 'id_producto' => $id_producto,
                 'id_unidad_de_medida' => intval($params['medida_producto']),
-                'cantidad_producida' => $bigIntValCantProducida,
+                'cantidad_producida' => (int)$params['cantidad_producida'],
                 'porcentaje_sobre_produccion' => intval($params['porcentaje_sobre_produccion']),
-                'ventas_en_provincia' => $bigIntValVentProvincia,
-                'ventas_en_otras_provincias' =>  $bigIntValVentOtraProvincia,
-                'ventas_internacionales' => $bigIntValVentInternacionales,
+                'ventas_en_provincia' => (int)$params['ventas_en_provincia'],
+                'ventas_en_otras_provincias' =>  (int)$params['ventas_en_otras_provincias'],
+                'ventas_internacionales' => (int)$params['ventas_internacionales'],
                 'anio' => $periodo_fiscal,
                 'fecha_de_actualizacion' => Carbon::now(),
             ]);
@@ -137,18 +123,7 @@ class ProductoController extends Controller
         $params = [];
 
         parse_str($request->data, $params);
-        //convert string to bigint
-        $bigIntCantProducida = gmp_init($params['cantidad_producida']);
-        $bigIntValCantProducida = gmp_intval($bigIntCantProducida);
 
-        $bigIntVentProvincia = gmp_init($params['ventas_en_provincia']);
-        $bigIntValVentProvincia = gmp_intval($bigIntVentProvincia);
-
-        $bigIntVentOtraProvincia = gmp_init($params['ventas_en_otras_provincias']);
-        $bigIntValVentOtraProvincia = gmp_intval($bigIntVentOtraProvincia);
-
-        $bigIntVentInternacionales = gmp_init($params['ventas_internacionales']);
-        $bigIntValVentInternacionales = gmp_intval($bigIntVentInternacionales);
 
 
         // $date = Carbon::now()->format('Y');
@@ -211,11 +186,11 @@ class ProductoController extends Controller
                     'id_rel_industria_actividad' => intval($params['id_rel_industria_actividad']),
                     'id_producto' => $id_producto,
                     'id_unidad_de_medida' => intval($params['medida_producto']),
-                    'cantidad_producida' =>  $bigIntValCantProducida,
+                    'cantidad_producida' => (int)$params['cantidad_producida'],
                     'porcentaje_sobre_produccion' => intval($params['porcentaje_sobre_produccion']),
-                    'ventas_en_provincia' =>  $bigIntValVentProvincia,
-                    'ventas_en_otras_provincias' =>  $bigIntValVentOtraProvincia,
-                    'ventas_internacionales' =>  $bigIntValVentInternacionales,
+                    'ventas_en_provincia' => (int)$params['ventas_en_provincia'],
+                    'ventas_en_otras_provincias' =>  (int)$params['ventas_en_otras_provincias'],
+                    'ventas_internacionales' => (int)$params['ventas_internacionales'],
                     //'anio' => intval($params['anio_producto']),
                     'fecha_de_actualizacion' => Carbon::now(),
                 ]);

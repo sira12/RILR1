@@ -342,6 +342,8 @@ $(function () {
     }
   });
 
+
+  var splitFecha=$("#fecha_actividad_contribuyente_c").val().split('-');
 $("#fecha_actividad_industria").datepicker({
      closeText: 'Cerrar',
      prevText: '<Anterior',
@@ -360,6 +362,7 @@ $("#fecha_actividad_industria").datepicker({
      changeMonth: true,
      changeYear: true,
      yearSuffix: '',
+     yearRange: splitFecha[2]+':c',
     minDate: $("#fecha_actividad_contribuyente").val(),
      onClose: function (selectedDate) {
       $("#fecha_actividad_contribuyente").datepicker("option", "maxDate", selectedDate);
